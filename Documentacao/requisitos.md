@@ -63,7 +63,32 @@ Os requisitos foram separados em:
 
 ### Gráfico
 
-* O gráfico de gannt
+* O gráfico de gantt
 * Barras Dinâmicas
 * Relatórios (PDF, imagem, etc..)
-* 
+* Subdividir a tarefa
+* Botão de Salvar Estado (Salva o gráfico no banco de dados)
+* Mostrar o(s) desenvolvedores responsáveis pela tarefa
+* Exibir Filtros
+
+# Priorização
+
+## Funcionais
+
+### Pessoas
+
+* CRUD com os campos (nome, horas);
+
+### Tarefas
+
+* CRUD com os campos (nome, data inicial, data final, prazo);
+
+### Projetos
+
+* CRUD com os campos (nome,prazo);
+
+### Gráfico
+
+* Exibir o gráfico de gantt estático;
+
+
