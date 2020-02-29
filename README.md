@@ -20,3 +20,19 @@ Nós somos um grupo de 5 alunos do 2° Semestre do curso de Banco de Dados da Fa
 - GitLab
 - Whats App
 - Excel
+ 
+
+### Links úteis
+
+[Matriz de habilidades](https://gitlab.com/felipemessibraga/pi-phpython/-/blob/Nathan/Matriz_de_Habilidades.png)
+
+[Requisitos do projeto](https://gitlab.com/felipemessibraga/pi-phpython/-/blob/master/Documentacao/requisitos.md)
+
+
+### Localização e contato
+
+https://github.com/NathanNaressi    
+https://github.com/igorpereira28    
+https://github.com/felipemessi
+
+Fatec - Prof Jessen Vidal - São José dos Campos - SP
