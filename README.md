@@ -20,13 +20,32 @@ Nós somos um grupo de 5 alunos do 2° Semestre do curso de Banco de Dados da Fa
 - GitLab
 - Whats App
 - Excel
- 
+
 
 ### Links úteis
 
 [Matriz de habilidades](https://gitlab.com/felipemessibraga/pi-phpython/-/blob/Nathan/Matriz_de_Habilidades.png)
 
 [Requisitos do projeto](https://gitlab.com/felipemessibraga/pi-phpython/-/blob/master/Documentacao/requisitos.md)
+
+ 
+
+### POC (Proof of Concept)
+
+###### CRUD de Pessoas com:  
+- Nome  
+- Horas disponíveis
+
+###### CRUD de Tarefas com: 
+- Nome   
+- Projeto que pertence   
+- Prazo  
+- Início 
+- Fim    
+
+###### CRUD de Projetos com:    
+- Nome  
+- Prazo
 
 
 ### Localização e contato
