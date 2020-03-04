@@ -78,6 +78,9 @@ obs: Todos os relatórios podem ser filtrados por dia, semana, mês e ano.
 * Usuário pode cadastrar uma pessoa com os seguintes campos:
     1. Nome;
     2. Horas Disponíveis;
+* Usuário pode pesquisar cadastros de pessoas;
+* Usuário pode alterar o cadastro de uma pessoa;
+* Usuário pode deletar o cadastro de uma pessoa;
     
 ### CRUD de TAREFAS
 * Usuário pode cadastrar uma tarefa com os seguintes campos:
@@ -85,11 +88,17 @@ obs: Todos os relatórios podem ser filtrados por dia, semana, mês e ano.
     2.  data inicial;
     3.  data final;
     4.  prazo;
+* Usuário pode pesquisar cadastros de tarefas;
+* Usuário pode alterar o cadastro de uma tarefa;
+* Usuário pode deletar o cadastro de uma tarefa;
 
 ### CRUD de PROJETOS
 * Usuário pode cadastrar uma tarefa com os seguintes campos:
     1.  Nome;
     2.  Prazo;
+* Usuário pode pesquisar cadastros de projetos;
+* Usuário pode alterar o cadastro de um projeto;
+* Usuário pode deletar o cadastro de um projeto;
 
 ### Gráfico
 * Exibir o gráfico de gantt estático;
