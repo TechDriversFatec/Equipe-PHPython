@@ -1,94 +1,97 @@
 # Requisitos do Projeto
 
-Os requisitos foram separados em:
-* Requisitos do Menu Principal;
-* Requisitos de Pessoas;
-* Requisitos de Tarefas;
-* Requisitos de Projetos;
-* Requisitos do Gráfico;
-
 ## Funcionais
+### CRUD de PESSOAS
+* Usuário pode cadastrar uma pessoa com os seguintes campos:
+    1. Nome;
+    2. Horas Disponíveis;
+    3. Salário;
+    4. Férias;
+    5. Horas/Dia;
+    6. Habilidades;
+    7. Faltas;
+* Usuário pode pesquisar cadastros de pessoas;
+* Usuário pode alterar o cadastro de uma pessoa;
+* Usuário pode deletar o cadastro de uma pessoa;
 
-### Menu Principal
+### CRUD de TAREFAS
+* Usuário pode cadastrar uma tarefa com os seguintes campos:
+    1.  Nome;
+    2.  data inicial;
+    3.  data final;
+    4.  prazo;
+    5.  horas de desenvolvimento;
+    6.  pessoas;
+    7.  dependência de outra tarefas;
+* Usuário pode pesquisar cadastros de tarefas;
+* Usuário pode alterar o cadastro de uma tarefa;
+* Usuário pode deletar o cadastro de uma tarefa;
 
-(sem requisitos funcionais)
+### CRUD de PROJETOS
+* Usuário pode cadastrar uma tarefa com os seguintes campos:
+    1.  Nome;
+    2.  data inicial;
+    3.  data final;
+    4.  prazo
+    5.  horas de desenvolvimento;
+    6.  pessoas;
+    7.  tarefas;
+    8.  é entregavel (verifica se a tarefa é uma entrega de produto);
+    9.  custo base;
+* Usuário pode pesquisar cadastros de projetos;
+* Usuário pode alterar o cadastro de um projeto;
+* Usuário pode deletar o cadastro de um projeto;
 
-### Pessoas
+### Menu Principal 
+* O usuário pode acessar a um Menu de Cadastros;
+* O usuário pode acessar a Documentação do projeto;
+* O usuário pode fazer relatório de pessoas x horas livres;
+* O usuário pode verificar a Escala "Nervouser" (horas da pessoa no mesmo projeto);
+* O usuário pode fazer relatório de tarefas dependentes;
+* O usuário pode fazer relatório de projetos x prazo;
+* O usuário pode fazer relatório de projetos x tarefas x horas x prazo x pessoas;
+obs: Todos os relatórios podem ser filtrados por dia, semana, mês e ano.
 
-* CRUD com os campos (nome, horas disponíveis, salário, férias, horas/dia, 
-                      habilidades, faltas);
-* CRUD Days OFF;
-
-### Tarefas
-
-* CRUD com os campos (nome, data inicial, data final, prazo, horas de desenvol-
-                      vimento, pessoas, dependência);
-* Sugerir pessoa(dev)
-
-### Projetos
-
-* CRUD com os campos (nome, data inicial, data final, prazo, horas de desenvol-
-                      vimento, custo base, pessoas);
-
-### Gráfico
-
-* Ampliar barras mostrando a tarefa
-* Quebrar a tarefa 
+### Gráfico de Gantt
+* O gráfico de Gantt deve ter Barras Dinâmicas;
+* O gráfico deve permitir a impressão/cópia;
+* O gráfico deve permitir subdividir uma tarefa;
+* O usuário pode salvar o Estado do gráfico de gantt (Botão de Salvar Estado);
+* O usuário deve ser capaz de identificar o(s) desenvolvedore(s) responsáveis pela tarefa;
+* O usuário deve ser capaz de filtrar a exibição por Pessoa, Tarefas e/ou Projetos;
+* O usuário pode visualizar e modificar o gráfico de Gantt;
 
 ## Não Funcionais
 
-### Menu Principal
+### Portatibilidade
 
-* Menu de Cadastros
-* Acesso a Documentação da API
-* Relatórios
-* Grafico de Horas Livres
-* Relatório de Pessoas
-* Relatório de Tarefas
-* Relatório de Projetos
+### Usabilidade
 
-### Pessoas
+### Personalização
 
-* Salario
-* Relatório de horas livres (por dia/semana/mês/ano)
-* Escala "Nervouser" (horas que a pessoa está no mesmo projeto)
+### Disponibilidade
 
-### Tarefas
-
-* É entregável?
-
-### Projetos
-
-(sem requisitos não funcionais)
-
-### Gráfico
-
-* O gráfico de gantt
-* Barras Dinâmicas
-* Relatórios (PDF, imagem, etc..)
-* Subdividir a tarefa
-* Botão de Salvar Estado (Salva o gráfico no banco de dados)
-* Mostrar o(s) desenvolvedores responsáveis pela tarefa
-* Exibir Filtros
 
 # Priorização
 
-## Funcionais
+### CRUD de PESSOAS
+* Usuário pode cadastrar uma pessoa com os seguintes campos:
+    1. Nome;
+    2. Horas Disponíveis;
+    
+### CRUD de TAREFAS
+* Usuário pode cadastrar uma tarefa com os seguintes campos:
+    1.  Nome;
+    2.  data inicial;
+    3.  data final;
+    4.  prazo;
 
-### Pessoas
-
-* CRUD com os campos (nome, horas);
-
-### Tarefas
-
-* CRUD com os campos (nome, data inicial, data final, prazo);
-
-### Projetos
-
-* CRUD com os campos (nome,prazo);
+### CRUD de PROJETOS
+* Usuário pode cadastrar uma tarefa com os seguintes campos:
+    1.  Nome;
+    2.  Prazo;
 
 ### Gráfico
-
 * Exibir o gráfico de gantt estático;
 
 
