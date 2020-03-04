@@ -64,13 +64,22 @@ obs: Todos os relatórios podem ser filtrados por dia, semana, mês e ano.
 ## Não Funcionais
 
 ### Portatibilidade
+Disponibilidade para o nosso projeto significa que podemos rodar nosso sistema em qualquer lugar. 
+Por isso escolhemos um sistema WEB, assim, basta que a pessoa tenha uma conexão com a internet e
+acesso a um navegador que ela poderá utilizar o sistema.
 
 ### Usabilidade
+O sistema precisa ser útil! E para isso ele precisa ser "usável", então nos preocupamos desde a
+harmonia das cores até a disposição das ferramentas, para que sua utilização seja o mais agradável
+possível, bem como, ter o foco no reconhecimento e não na memorização.
 
 ### Personalização
+As funcões tem o intuito de ser altamente personalizavel, para que ele atenda os problemas e deman-
+das dos mais gerais aos mais específicos.
 
 ### Disponibilidade
-
+O sistema deve estar disponível para ser acessado a todo momento, por isso vamos fazer o deploy 
+em um servidor remoto ( escolhido o da Hostgator), garantindo assim a disponibilidade do serviço.
 
 # Priorização
 
