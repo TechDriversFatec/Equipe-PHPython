@@ -50,6 +50,7 @@
 * O usuário pode fazer relatório de tarefas dependentes;
 * O usuário pode fazer relatório de projetos x prazo;
 * O usuário pode fazer relatório de projetos x tarefas x horas x prazo x pessoas;
+
 obs: Todos os relatórios podem ser filtrados por dia, semana, mês e ano.
 
 ### Gráfico de Gantt
