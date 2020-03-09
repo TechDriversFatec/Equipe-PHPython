@@ -1,0 +1,64 @@
+{% extends 'baseTemplate.html' %}
+{% block title %}Cadrasto de Tarefas{% endblock %}
+{% block content %}
+
+  <!-- para ca vem o grafico criado no javascript acima -->
+<div class="container">
+    <form action="" method="post">
+        <div class="row">
+          <h1 class="bd-title">Cadastro de Projetos</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label>Nome da Tarefa</label>
+                <input class="form-control" name="nameTask">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label>Data Inicio</label>
+                <input type="date" class="form-control" name="dateStart">
+            </div>
+        </div>
+        <div class="row">
+              <div class="col-md-12">
+                  <label>Data Final</label>
+                  <input type="date" class="form-control" name="dateEnd">
+              </div>
+        </div>
+        <div class="row">
+              <div class="col-md-12">
+                  <label>Prazo</label>
+                  <input type="date" class="form-control" name="dateLimit">
+              </div>
+        </div>
+        <div class="row">
+              <div class="col-md-12">
+                  <label>Interdepencia</label>
+                  <input type="" class="form-control" name="denpendece">
+              </div>
+        </div>
+        <div class="row">
+              <div class="col-md-12">
+                  <label>Entregavel</label>
+                  <input type="radio" class="form-control" name="deliverable">
+              </div>
+        </div>
+        <div class="row">
+              <div class="col-md-12">
+                  <label>Projeto</label>
+                  <input type="" class="form-control" name="project">
+              </div>
+        </div>
+        <div class="row">
+                <div class="col-md-12">
+                     <button type="submit" class="btn btn-success">Enviar </button>
+                </div>
+          </div>
+    </form>
+</div>
+
+
+
+
+{% endblock %}

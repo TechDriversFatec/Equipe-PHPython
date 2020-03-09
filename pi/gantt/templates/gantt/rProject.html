@@ -1,0 +1,46 @@
+{% extends 'baseTemplate.html' %}
+{% block title %}Cadastro de Projetos{% endblock %}
+{% block content %}
+
+  <!-- para ca vem o grafico criado no javascript acima -->
+<div class="container">
+    <form action="" method="post" >
+      <div class="row">
+          <h1 class="bd-title">Cadastro de Projetos</h1>
+      </div>
+      <div class="row">
+          <div class="col-md-12">
+              <label>Nome</label>
+              <input class="form-control" name="name">
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-md-12">
+              <label>Escopo</label>
+              <input class="form-control" name="scope">
+          </div>
+      </div>
+      <div class="row">
+            <div class="col-md-12">
+                <label>Data Inicio</label>
+                <input type="date" class="form-control" name="startDate">
+            </div>
+      </div>
+      <div class="row">
+            <div class="col-md-12">
+                <label>Prazo de Entrega</label>
+                <input type="date" class="form-control" name="dateLimite">
+            </div>
+      </div>
+      <div class="row">
+            <div class="col-md-12">
+                 <button type="submit" class="btn btn-success">Enviar </button>
+            </div>
+      </div>
+    </form>
+
+
+</div>
+
+
+{% endblock %}
