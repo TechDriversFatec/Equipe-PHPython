@@ -1,8 +1,6 @@
-{% extends 'baseTemplate.html' %}
-{% block title %}Cadrasto de Tarefas{% endblock %}
-{% block content %}
 
-  <!-- para ca vem o grafico criado no javascript acima -->
-  <div id="chart_div">Task</div>
 
-{% endblock %}
+{% for task in tasks %}
+    {{ task }}
+    <br>
+{% endfor %}
