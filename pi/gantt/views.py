@@ -1,9 +1,33 @@
 from django.shortcuts import render, HttpResponse
+from .models import tb_Tarefa
+from datetime import datetime
 
 
 # Create your views here.
 def index_page(request):
-    return render(request, "gantt/index.html")
+    template_name = "gantt/index.html"
+
+    # Coleção de dicionarios que serão retornados para a view
+    json_collect = []
+
+    # Busca dos registros em banco
+    tasks = tb_Tarefa.objects.all()
+    # Montagem dos dicionarios
+    for task in tasks:
+        gannt_retunr = {
+            'id': task.trf_id,
+            'name': task.trf_name,
+            'start': task.trf_datainicial.strftime('%d/%m/%Y'),
+            'end': task.trf_datafinal.strftime('%d/%m/%Y'),
+            'progress': 100
+        }
+        json_collect.append(gannt_retunr)
+
+    context = {
+        'tasks': json_collect
+    }
+
+    return render(request, template_name, context)
 
 
 def grafic_page(request):
