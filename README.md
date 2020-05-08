@@ -22,10 +22,6 @@ Na wiki você poderá encontrar os requisitos, mais sobre a equipe, casos de uso
 - Jéssica Isri
 - Felipe Braga
 
-
-
-
-
 ## Tecnologias Utilizadas
 
 - Python
@@ -40,10 +36,10 @@ Na wiki você poderá encontrar os requisitos, mais sobre a equipe, casos de uso
 
 ### Localização e contato
 
-https://github.com/NathanNaressi    
-https://github.com/igorpereira28    
-https://github.com/felipemessi
-https://gitlab.com/giovanniguidace
-https://gitlab.com/jeidc
+* https://github.com/NathanNaressi    
+* https://github.com/igorpereira28    
+* https://gitlab.com/felipemessibraga
+* https://gitlab.com/giovanniguidace
+* https://gitlab.com/jeidc
 
 Fatec - Prof Jessen Vidal - São José dos Campos - SP
