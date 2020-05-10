@@ -1,0 +1,117 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    font-family: verdana;
+    font-size: 14px;
+}
+
+
+#topo {
+    
+    height: 110px;
+    background-color: rgb(3, 44, 13);
+}
+
+#topo img {
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
+
+#menu {
+    list-style: none;
+    border: 1px solid gray;
+    float: left;
+    width: 100%;
+    background-color: rgb(3, 44, 13);
+
+}
+
+#menu li {
+    list-style: none;
+    position: relative;
+    float: left;
+    border-right: 2px;
+    width: 300px;
+    border-right-style: double;
+    border-right-width: 2px;
+    border-right-color: white;
+    text-align: center;
+    
+    
+}
+
+#menu li a {
+    text-decoration: none;
+    display: block;
+    padding: 8px 5px;
+    background-color: rgb(3, 44, 13);
+    color: white;
+    border-color: darkcyan;
+    
+    
+}
+
+#menu li a:hover {
+    background-color: yellowgreen;
+    color: black;
+    -moz-box-shadow:0 3px 10px 0 #CCC;
+    -webkit-box-shadow:0 3px 10px 0 #ccc;
+    text-shadow:0px 0px 4px #fff; 
+}
+
+#menu li ul {
+    position: absolute;
+    top: 25px;
+    margin-top: 8px;
+
+    left: 0;
+    display: none;
+}
+
+#menu li:hover ul, #menu li.over ul {
+    display:block; 
+    
+}
+
+
+
+
+#menu li ul li{
+    background-color: yellowgreen;
+    color: black;
+    -moz-box-shadow:0 3px 10px 0 #CCC;
+    -webkit-box-shadow:0 3px 10px 0 #ccc;
+    text-shadow:0px 0px 4px #fff; 
+}
+
+
+#divCenter {
+    margin-bottom: 10px;
+    padding-bottom: 3px;
+    height: 500px;
+    width: 100%;
+    background-image: url(../images/img_fundo.png);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#divCenter iframe{
+    width: 100%;
+    height: 100%;
+    
+}
+
+
+footer {
+    text-align: center;
+    background-color: rgb(3, 44, 13);
+    font-weight: bold;
+    color: white;
+}
+
+
+
