@@ -17,8 +17,8 @@ def index_page(request):
         gannt_retunr = {
             'id': task.trf_id,
             'name': task.trf_name,
-            'start': task.trf_datainicial.strftime('%d/%m/%Y'),
-            'end': task.trf_datafinal.strftime('%d/%m/%Y'),
+            'start': task.trf_datainicial.strftime('%Y-%m-%d'),
+            'end': task.trf_datafinal.strftime('%Y-%m-%d'),
             'progress': 100
         }
         json_collect.append(gannt_retunr)
