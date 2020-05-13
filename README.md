@@ -47,7 +47,7 @@ uma melhor distribuição dos recursos financeiros.
 
 ## CASOS DE NEGÓCIO
 
-[Casos de Uso](https://gitlab.com/felipemessibraga/pi-phpython/-/wikis/Casos-de-Neg%C3%B3cio-(Business-Case))
+[Casos de Negócio](https://gitlab.com/felipemessibraga/pi-phpython/-/wikis/Casos-de-Neg%C3%B3cio-(Business-Case))
 
 Visite os casos de uso para entender mais sobre os benefícios e riscos do projeto, justificativa financeira e 
 avaliação de viabilidade.
@@ -122,6 +122,9 @@ em um intervalo de tempo.
 - (REQ-30) Usuário pode acessar aba de HELP para tirar dúvidas;
 - (REQ-31) Usuário pode reportar um erro;
 
+#### Diagrama de Casos de Uso
+
+![DIAGRAMA DE CASOS DE USO](/uploads/80b5f181d03c0cd07e3ba2b719cd2d89/diagrama_casos_casos_de_uso.jpeg)
 
 ### NÃO FUNCIONAIS
 
@@ -129,6 +132,8 @@ em um intervalo de tempo.
 1.  A preocupação com o uso de ícones para as principais tarefas gera uma aproximação com o mundo real, trazendo
 um conforto propiciado pelo natural reconhecimento dos símbolos presentes no dia a dia.
 2.  O mapa centralizado na tela do usuário em referência as televisões que ficam no centro da sala.
+
+![real-virtual](/uploads/3586344651689c3fc8d25e4227eae595/real-virtual.JPG)
 
 **Controle e liberdade para o usuário**
 1.  O usuário pode navegar entre as versões do projeto, podendo voltar a uma versão anterior caso a atual não o agrade;
@@ -143,6 +148,8 @@ um conforto propiciado pelo natural reconhecimento dos símbolos presentes no di
 1.  Existe uma preocupação grande com a prevenção de erros. Todas as decisões que não podem ser desfeitas emitem uma 
 confirmação;
 2.  Os botões respeitam um margem mínima para que não haja cliques "sem querer".
+  
+![botoes](/uploads/c2e675a3dbf8fbcab70ccadc283f9cf2/botoes.JPG)
 
 **Eficiência e flexibilidade de uso**
 1.  O aplicativo foi pensado para que qualquer pessoa consiga utiliza-lo, por isso apresenta botões com objetivos claros,
@@ -154,10 +161,13 @@ drag and drop para facilitar a movimentação das tarefas e contraste visual.
 onde essas informações são idealmente dispostas de forma a não sobrecarregar o visual;
 2.  Sem propagandas ou qualquer informação desnecessária.
 
+![wireframe-minimalista](/uploads/4de17b52b70036620bf3c0c01800b9a9/wireframe-minimalista.JPG)
+
 **Ajuda e documentação**
 1.  Aba de Help com várias dicas de como utilizar;
 2.  Algumas dicas são sugeridas em menus mais complexos;
 
+[WIREFRAME (ATUALIZADO)](https://www.figma.com/proto/lRDoAT9A8U6i1HlY84PNut/PHPython?node-id=1%3A2&scaling=min-zoom)
 
 ## TECNOLOGIAS UTILIZADAS
 
