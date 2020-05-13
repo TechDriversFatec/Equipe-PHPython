@@ -1,6 +1,12 @@
 # Projeto Integrador - 2º semestre de BD - PI-PHPython :elephant: :snake:
 
 # GANTT PLANNER
+
+## Vídeo de apresentação do Projeto (2ª Entrega)
+
+[Apresentação](https://youtu.be/eVWRJgfRgmc)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/eVWRJgfRgmc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 **WIKI:** 
 
 Acesse a Wiki do projeto para ter mais detalhes sobre o projeto organizada em Tópicos:
