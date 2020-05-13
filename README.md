@@ -1,5 +1,6 @@
 # Projeto Integrador - 2º semestre de BD - PI-PHPython :elephant: :snake:
 
+# GANTT PLANNER
 **WIKI:** 
 
 Acesse a Wiki do projeto para ter mais detalhes sobre o projeto organizada em Tópicos:
