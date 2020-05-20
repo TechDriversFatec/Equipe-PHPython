@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="utf-8">
+	<title>PI - PHPYTHON - GANTT</title>	
+	<link rel="stylesheet" type="text/css" href="css/estilos.css">
+    <script type="text/javascript" src="js/javascript.js"></script>
+</head>
+<body>
+	<div id="top" class="boxShadow1">
+		 <img id="imgbtn1" src="images/btn_menu_superior.png">
+         <h1>Gantt Planner - by PHPython</h1>
+         <img id="imgbtn2" src="images/img_mais.png">
+        <img id="imgbtn3" src="images/img_lapis.png">
+        <img id="imgbtn4" src="images/img_play.png">
+        <button id="btn1" class="btn_shadow2">COMPARTILHAR</button>
+	</div>
+    
+    <div id="top_central" class="boxShadow1">
+        <h1>Nome Planejamento</h1>
+        <img id="imgbtn_topcentral" src="images/img_lixeira.png">
+        <img id="imgbtn_topcentral" src="images/img_mais.png">
+        <img id="imgbtn_topcentral" src="images/img_relogio.png">
+        <img id="imgbtn_topcentral" src="images/img_download.png">
+        <button id="btn2" class="btn_shadow2">SALVAR</button>       
+    </div>
+
+	<div  id="central">
+	
+			<div id="left_center" class="box">
+                <button id="btn3" class="btn_shadow1" onclick="expandeTarefas()">PROJETO 1</button>
+                <div id="col_tarefas">
+                    
+                </div>
+
+			</div>
+
+			<div id="center" class="box">
+                
+			</div>
+
+			<div id="right_center" class="box">
+                
+                <div id="pessoas_top">
+                    <button id="btn4" class="btn_shadow2" onclick="expandePessoas()">PESSOAS</button>
+                    <div id="pessoas_list" class="boxShadow1"> 
+                        
+                    </div>
+                </div>
+                
+                <div id="datas">
+                    <button id="btn5" class="btn_shadow2">DATAS</button>
+                    <div id="datas_list" class="boxShadow1"> 
+                        <br>
+                        <label class="styleWord1">PRAZO: </label>
+                        <br><br>
+                        <label class="styleWord1">INICIO:</label>
+                        <br><br>
+                        <label class="styleWord1">FINAL:</label>
+                        
+                    </div>
+                </div>
+                
+			</div>
+	</div>
+    <div id="bottom_central" class="boxShadow1">
+            <button id="btn6" class="btn_shadow4" onclick="carregaGantt()">DIA</button>
+            <button id="btn6" class="btn_shadow4">SEMANA</button>
+            <button id="btn6" class="btn_shadow4">MÊS</button>
+            <button id="btn6" class="btn_shadow4">ANO</button> 
+    </div>
+
+</body>
+
+
+
+
+</html>
