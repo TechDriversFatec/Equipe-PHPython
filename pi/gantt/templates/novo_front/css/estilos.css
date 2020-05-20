@@ -5,6 +5,7 @@
 
 /*DEFININDO A CLASS BORDER BOX-SHADOW*/
 
+/**/
 .boxShadow1{
 	box-shadow: 0px 2px 5px #888888;
 }
@@ -66,8 +67,9 @@
     font-weight: 500;
     font-family: monospace;
 }
+/**/
+/*///////////////////////////////////*/
 
-/*///////////////////////////////////*
 
 /*DEFININDO O ESTILO DA BARRA SUPERIOR*/
 #top {
@@ -83,10 +85,51 @@
     margin-top: 10px;
     margin-left: 10px;
 }
+
+/*MENU 1 DROPDOWN*/
+
+/**/
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  width: 165px;
+  
+  
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  width: 130px;
+    border-style: solid;
+    border-color: #698FEB;
+    border-width: 1px;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+/**/
+
+
+/*////////////////*/
+
 #top h1{
     margin-top: 13px;
     justify-content: flex-start;
-    margin-left: 10px;
+    margin-left: 60px;
     width: 350px;
     font-size: 1.2vw;
     
@@ -96,26 +139,10 @@
 
 #top #imgbtn2{
     justify-content: flex-end;
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
     margin-top: 18px;
-    margin-left: 540px;
-}
-
-#top #imgbtn3{
-    justify-content: flex-end;
-    width: 25px;
-    height: 25px;
-    margin-top: 15px;
-    margin-left: 20px;
-}
-
-#top #imgbtn4{
-    justify-content: flex-end;
-    width: 25px;
-    height: 25px;
-    margin-top: 15px;
-    margin-left: 20px;
+    margin-left: 620px;
 }
 
 #top #btn1{

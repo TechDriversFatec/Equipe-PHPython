@@ -8,19 +8,27 @@
 </head>
 <body>
 	<div id="top" class="boxShadow1">
-		 <img id="imgbtn1" src="images/btn_menu_superior.png">
+       <div class="dropdown">
+          <img id="imgbtn1" src="images/btn_menu_superior.png" onclick="menuDropdown()" class="dropbtn">
+              <div id="myDropdown" class="dropdown-content">
+                <a href="#novo_gantt_planner">Novo Gantt Planner</a>
+                <a href="#abrir_gantt_planner">Abrir Gantt Planner</a>
+                  <a href="#abrir_gantt_planner">Desenvolvedores</a>
+                
+              </div>
+        </div>
+
          <h1>Gantt Planner - by PHPython</h1>
-         <img id="imgbtn2" src="images/img_mais.png">
-        <img id="imgbtn3" src="images/img_lapis.png">
-        <img id="imgbtn4" src="images/img_play.png">
+        <img id="imgbtn2" src="images/img_play.png">
         <button id="btn1" class="btn_shadow2">COMPARTILHAR</button>
 	</div>
     
     <div id="top_central" class="boxShadow1">
         <h1>Nome Planejamento</h1>
-        <img id="imgbtn_topcentral" src="images/img_lixeira.png">
-        <img id="imgbtn_topcentral" src="images/img_mais.png">
-        <img id="imgbtn_topcentral" src="images/img_relogio.png">
+        <img id="imgbtn_topcentral" src="images/img_prj.png">
+        <img id="imgbtn_topcentral" src="images/img_trf.png">
+        <img id="imgbtn_topcentral" src="images/img_dev.png">
+        
         <img id="imgbtn_topcentral" src="images/img_download.png">
         <button id="btn2" class="btn_shadow2">SALVAR</button>       
     </div>

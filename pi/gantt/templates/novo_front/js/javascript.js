@@ -8,6 +8,30 @@ function expandePessoas() {
     pessoas_list.innerHTML = pessoas_list.innerHTML + "<label class='styleWord1'>DEV 1</label>"
 }
 
+/*MENU DROPDOWN BTN1*///////////////////////////////
+
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function menuDropdown() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+     dropdowns = document.getElementsByClassName("dropdown-content");
+     
+    for (i = 0; i < dropdowns.length; i++) {
+         openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+//////////////////////////////////////////////////
+
 
 /*VISUALIZAÇÃO DO GRÁFICO GANTT*/
 
