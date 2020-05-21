@@ -175,6 +175,15 @@
     margin-right: 350px;
     margin-left: 30px;
     margin-top: 15px;
+    height: 40px;
+    
+}
+
+#top_central a {
+    justify-content: flex-end;
+    width: 20px;
+    height: 20px;
+    margin-right: 25px;
     
 }
 

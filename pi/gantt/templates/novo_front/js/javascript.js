@@ -1,4 +1,12 @@
+/*POPUP WINDOW*/
 
+function cadastroProjeto(){
+popupCadastroProjeto = window.open('', 'pagina', "width=250 height=250 left=700 top=280");
+popupCadastroProjeto.document.write ("Aqui você pode por o que quiser");
+}
+
+
+////////////////
 function expandeTarefas() {
     col_tarefas.innerHTML = col_tarefas.innerHTML + "<button type='button' class='btn_shadow3'>TAREFAS 1</button>";
     
