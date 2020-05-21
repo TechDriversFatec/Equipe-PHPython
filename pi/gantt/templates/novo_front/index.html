@@ -8,20 +8,49 @@
 </head>
 <body>
 	<div id="top" class="boxShadow1">
-		 <img id="imgbtn1" src="images/btn_menu_superior.png">
+       <div class="dropdown">
+          <img id="imgbtn1" src="images/btn_menu_superior.png" onclick="menuDropdown()" class="dropbtn">
+              <div id="myDropdown" class="dropdown-content">
+                <a href="#novo_gantt_planner">Novo Gantt Planner</a>
+                <a href="#abrir_gantt_planner">Abrir Gantt Planner</a>
+                  <a href="#abrir_gantt_planner">Desenvolvedores</a>
+                
+              </div>
+        </div>
+
          <h1>Gantt Planner - by PHPython</h1>
-         <img id="imgbtn2" src="images/img_mais.png">
-        <img id="imgbtn3" src="images/img_lapis.png">
-        <img id="imgbtn4" src="images/img_play.png">
+        <img id="imgbtn2" src="images/img_play.png">
         <button id="btn1" class="btn_shadow2">COMPARTILHAR</button>
 	</div>
     
     <div id="top_central" class="boxShadow1">
-        <h1>Nome Planejamento</h1>
-        <img id="imgbtn_topcentral" src="images/img_lixeira.png">
-        <img id="imgbtn_topcentral" src="images/img_mais.png">
-        <img id="imgbtn_topcentral" src="images/img_relogio.png">
-        <img id="imgbtn_topcentral" src="images/img_download.png">
+        <h1 contenteditable="true" id="nomePlanner">Nome Planejamento</h1>
+        
+        <div id="imgbtn_prj" class="dropdown2">
+          <img id="imgbtn_prj" src="images/img_prj.png" onclick="menuDropdown_prj()" class="dropbtn2">
+              <div id="menu_prj" class="dropdown-content2">
+                  <div id="cadastro_projeto">
+                  <br>
+                <label for="nomeProjeto">Nome projeto: <input id="nomeProjeto" type="text"></label>
+                  <br><br>
+                  <label for="escopo">Escopo: <input id="escopo" type="text"></label>
+                  <br><br>
+                  <label for="dt_inicio">Data Início: <input id="dt_inicio" type="date"></label>
+                  <br><br>
+                  <label for="dt_prazo">Prazo Entrega: <input id="dt_prazo" type="date"></label>
+                    <br><br>
+                  <label for="cor">Cor do projeto: <input id="cor" type="color"></label>
+                    <br><br>
+                      <button id="btn7" type="submit" class="btn_shadow2">Gravar</button>
+                      
+                </div>
+              </div>
+        </div>
+        
+        <img id="imgbtn_trf" src="images/img_trf.png">
+        <img id="imgbtn_dev" src="images/img_dev.png">
+        
+        <img id="imgbtn_download" src="images/img_download.png">
         <button id="btn2" class="btn_shadow2">SALVAR</button>       
     </div>
 
@@ -36,6 +65,7 @@
 			</div>
 
 			<div id="center" class="box">
+               <iframe id="iframeCentral" src="gantt.html"></iframe>
                 
 			</div>
 
@@ -60,15 +90,19 @@
                         
                     </div>
                 </div>
-                
+                 
 			</div>
 	</div>
     <div id="bottom_central" class="boxShadow1">
-            <button id="btn6" class="btn_shadow4" onclick="carregaGantt()">DIA</button>
+            <button id="btn6" class="btn_shadow4" >DIA</button>
             <button id="btn6" class="btn_shadow4">SEMANA</button>
             <button id="btn6" class="btn_shadow4">MÊS</button>
             <button id="btn6" class="btn_shadow4">ANO</button> 
     </div>
+    
+    
+                
+                
 
 </body>
 
