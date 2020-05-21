@@ -97,12 +97,12 @@ visualizar por período de dia, semana, mês ou ano, escolher quais projetos e t
 de cada tarefa;
 - (REQ-14) O Gerente e o Usuário podem salvar as alterações feitas no gráfico de gantt;
 - (REQ-15) O Gerente pode compartilhar uma imagem com os usuários através de um botão de compartilhamento;
-- (REQ-16) O Gerente pode criar novos gráficos através de um menu e alternar entre a visualização deles;
-- (REQ-17) O Gerente pode excluir gráficos através de uma lista de gráficos;
 - (REQ-18) O Gerente pode visualizar o histórico de alterações salvas de cada gráfico;
 
 **4ª ENTREGA**
 
+- (REQ-16) O Gerente pode criar novos gráficos através de um menu e alternar entre a visualização deles;
+- (REQ-17) O Gerente pode excluir gráficos através de uma lista de gráficos;
 - (REQ-19) O Gerente pode criar, alterar, visualizar ou excluir um cadastro de projeto. Cada cadastro de projeto deve conter além das informações básicas, 
 as seguintes informações: custo base, horas de desenvolvimento, pessoas(usuários), progresso e data final;
 - (REQ-20) O Gerente pode criar, alterar, visualizar ou excluir um cadastro de tarefas. Cada cadastro de projeto deve conter além das informações básicas, 
