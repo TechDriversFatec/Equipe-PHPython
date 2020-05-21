@@ -187,7 +187,71 @@
     
 }
 
-#top_central #imgbtn_topcentral{
+#top_central #imgbtn_prj{
+    justify-content: flex-end;
+    width: 20px;
+    height: 20px;
+    margin-top: 9px;
+    margin-right: 25px;
+    
+}
+
+/*MENU DROPDOWN CADASTRO DE PROJETO */
+
+/**/
+.dropdown2 {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content2 {
+  display: none;
+  position: absolute;
+  background-color: white;
+  border-style: inset;
+  border-width: 5px;
+  border-color: #698FEB;
+  border-radius:0px 20px 0px 20px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  width: 220px;
+  height: 350px;
+}
+
+
+
+.dropdown-content2 #cadastro_projeto{
+    width: 220px;
+    height: 300px;
+    
+}
+
+.dropdown-content2 #cadastro_projeto input{
+    width: 200px;
+    margin-left: 5px;
+    margin-bottom: 6px;
+    
+}
+
+.dropdown-content2 #cadastro_projeto label{
+    margin-left: 5px;
+    
+}
+
+.dropdown-content2 #cadastro_projeto #btn7{
+   margin-left: 30px;
+    margin-top: -5px;
+}
+
+
+
+.dropdown2 a:hover {background-color: #ddd;}
+
+.show {display: block;}
+/**/
+
+
+#top_central #imgbtn_trf{
     justify-content: flex-end;
     width: 20px;
     height: 20px;
@@ -195,6 +259,23 @@
     margin-right: 25px;
     
 }
+#top_central #imgbtn_dev{
+    justify-content: flex-end;
+    width: 20px;
+    height: 20px;
+    margin-top: 18px;
+    margin-right: 25px;
+    
+}
+#top_central #imgbtn_download{
+    justify-content: flex-end;
+    width: 20px;
+    height: 20px;
+    margin-top: 18px;
+    margin-right: 25px;
+    
+}
+
 
 
 #top_central #btn2{

@@ -25,11 +25,32 @@
     
     <div id="top_central" class="boxShadow1">
         <h1 contenteditable="true" id="nomePlanner">Nome Planejamento</h1>
-        <a href="javascript:cadastroProjeto()"><img  id="imgbtn_topcentral" src="images/img_prj.png"></a>
-        <img id="imgbtn_topcentral" src="images/img_trf.png">
-        <img id="imgbtn_topcentral" src="images/img_dev.png">
         
-        <img id="imgbtn_topcentral" src="images/img_download.png">
+        <div id="imgbtn_prj" class="dropdown2">
+          <img id="imgbtn_prj" src="images/img_prj.png" onclick="menuDropdown_prj()" class="dropbtn2">
+              <div id="menu_prj" class="dropdown-content2">
+                  <div id="cadastro_projeto">
+                  <br>
+                <label for="nomeProjeto">Nome projeto: <input id="nomeProjeto" type="text"></label>
+                  <br><br>
+                  <label for="escopo">Escopo: <input id="escopo" type="text"></label>
+                  <br><br>
+                  <label for="dt_inicio">Data Início: <input id="dt_inicio" type="date"></label>
+                  <br><br>
+                  <label for="dt_prazo">Prazo Entrega: <input id="dt_prazo" type="date"></label>
+                    <br><br>
+                  <label for="cor">Cor do projeto: <input id="cor" type="color"></label>
+                    <br><br>
+                      <button id="btn7" type="submit" class="btn_shadow2">Gravar</button>
+                      
+                </div>
+              </div>
+        </div>
+        
+        <img id="imgbtn_trf" src="images/img_trf.png">
+        <img id="imgbtn_dev" src="images/img_dev.png">
+        
+        <img id="imgbtn_download" src="images/img_download.png">
         <button id="btn2" class="btn_shadow2">SALVAR</button>       
     </div>
 
