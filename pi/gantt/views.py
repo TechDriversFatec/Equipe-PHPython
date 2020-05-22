@@ -1,11 +1,11 @@
 from django.shortcuts import render, HttpResponse
 from .models import tb_Tarefa
 from datetime import datetime
-
+from django.views.decorators.clickjacking import xframe_options_exempt
 
 # Create your views here.
 def index_page(request):
-    template_name = "gantt/index.html"
+    template_name = "novo_front/index.html"
 
     # Coleção de dicionarios que serão retornados para a view
     json_collect = []
@@ -29,21 +29,7 @@ def index_page(request):
 
     return render(request, template_name, context)
 
-
-def grafic_page(request):
-    return render(request, 'gantt/grafic.html')
-
-
-def register_resourse(request):
-    # INdex da pagina de registro de resource
-    return render(request, 'gantt/rResource.html')
-
-
-def register_project(request):
-    # INdex da pagina de registro de projeto
-    return render(request, 'gantt/rProject.html')
-
-
-def register_task(request):
-    # INdex da pagina de registro de tasks
-    return render(request, 'gantt/rTask.html')
+@xframe_options_exempt
+def gantt(request):
+    template_name = "novo_front/gantt.html"
+    return render(request, template_name)

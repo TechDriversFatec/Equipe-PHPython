@@ -1,15 +1,16 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
 	<meta charset="utf-8">
 	<title>PI - PHPYTHON - GANTT</title>	
-	<link rel="stylesheet" type="text/css" href="css/estilos.css">
-    <script type="text/javascript" src="js/javascript.js"></script>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/estilos.css' %}">
+    <script type="text/javascript" src="{% static 'js/javascript.js' %}"></script>
 </head>
 <body>
 	<div id="top" class="boxShadow1">
        <div class="dropdown">
-          <img id="imgbtn1" src="images/btn_menu_superior.png" onclick="menuDropdown()" class="dropbtn">
+          <img id="imgbtn1" src="{% static 'images/btn_menu_superior.png' %}" onclick="menuDropdown()" class="dropbtn">
               <div id="myDropdown" class="dropdown-content">
                 <a href="#novo_gantt_planner">Novo Gantt Planner</a>
                 <a href="#abrir_gantt_planner">Abrir Gantt Planner</a>
@@ -19,7 +20,7 @@
         </div>
 
          <h1>Gantt Planner - by PHPython</h1>
-        <img id="imgbtn2" src="images/img_play.png">
+        <img id="imgbtn2" src="{% static 'images/img_play.png' %}">
         <button id="btn1" class="btn_shadow2">COMPARTILHAR</button>
 	</div>
     
@@ -27,7 +28,7 @@
         <h1 contenteditable="true" id="nomePlanner">Nome Planejamento</h1>
         
         <div id="imgbtn_prj" class="dropdown2">
-          <img id="imgbtn_prj" src="images/img_prj.png" onclick="menuDropdown_prj()" class="dropbtn2">
+          <img id="imgbtn_prj" src="{% static 'images/img_prj.png' %}" onclick="menuDropdown_prj()" class="dropbtn2">
               <div id="menu_prj" class="dropdown-content2">
                   <div id="cadastro_projeto">
                   <br>
@@ -47,10 +48,10 @@
               </div>
         </div>
         
-        <img id="imgbtn_trf" src="images/img_trf.png">
-        <img id="imgbtn_dev" src="images/img_dev.png">
+        <img id="imgbtn_trf" src="{% static 'images/img_trf.png' %}">
+        <img id="imgbtn_dev" src="{% static 'images/img_dev.png' %}">
         
-        <img id="imgbtn_download" src="images/img_download.png">
+        <img id="imgbtn_download" src="{% static 'images/img_download.png' %}">
         <button id="btn2" class="btn_shadow2">SALVAR</button>       
     </div>
 
@@ -65,7 +66,7 @@
 			</div>
 
 			<div id="center" class="box">
-               <iframe id="iframeCentral" src="gantt.html"></iframe>
+               <iframe id="iframeCentral" src="{% url 'grafs' %}" ></iframe>
                 
 			</div>
 
