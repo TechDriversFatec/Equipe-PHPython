@@ -78,7 +78,7 @@
 	height: 60px;
 }
 
-#top #imgbtn1{
+#top #imgbtn_menusuperior{
     justify-content: flex-start;
     width: 40px;
     height: 40px;
@@ -89,12 +89,12 @@
 /*MENU 1 DROPDOWN*/
 
 /**/
-.dropdown {
+.dropdown_menusuperior {
   position: relative;
   display: inline-block;
 }
 
-.dropdown-content {
+.dropdown-content_menusuperior {
   display: none;
   position: absolute;
   background-color: #f1f1f1;
@@ -107,7 +107,7 @@
   
 }
 
-.dropdown-content a {
+.dropdown-content_menusuperior a {
   color: black;
   padding: 12px 16px;
   text-decoration: none;
@@ -118,7 +118,7 @@
     border-width: 1px;
 }
 
-.dropdown a:hover {background-color: #ddd;}
+.dropdown_menusuperior a:hover {background-color: #ddd;}
 
 .show {display: block;}
 /**/
@@ -137,7 +137,7 @@
 }
 
 
-#top #imgbtn2{
+#top #imgbtn_play{
     justify-content: flex-end;
     width: 20px;
     height: 20px;
@@ -145,7 +145,7 @@
     margin-left: 620px;
 }
 
-#top #btn1{
+#top #btn_compartilhar{
     justify-content: flex-end;
     margin-top: 9px;
     margin-left: 20px;
@@ -187,7 +187,197 @@
     
 }
 
-#top_central #imgbtn_topcentral{
+#top_central #imgbtn_prj{
+    justify-content: flex-end;
+    width: 20px;
+    height: 20px;
+    margin-top: 9px;
+    margin-right: 25px;
+    
+}
+
+/*MENU DROPDOWN CADASTRO DE PROJETO */
+
+/**/
+.dropdown_prj {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content_prj {
+  display: none;
+  position: absolute;
+  background-color: white;
+  border-style: inset;
+  border-width: 5px;
+  border-color: #698FEB;
+  border-radius:0px 20px 0px 20px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  width: 220px;
+  height: 350px;
+}
+
+
+
+.dropdown-content_prj #cadastro_projeto{
+    width: 220px;
+    height: 300px;
+    
+}
+
+.dropdown-content_prj #cadastro_projeto input{
+    width: 200px;
+    margin-left: 5px;
+    margin-bottom: 6px;
+    
+}
+
+.dropdown-content_prj #cadastro_projeto label{
+    margin-left: 5px;
+    
+}
+
+.dropdown-content_prj #cadastro_projeto #btn_salvarprojeto{
+   margin-left: 30px;
+    margin-top: -5px;
+}
+
+.show {display: block;}
+/**/
+
+
+#top_central #imgbtn_trf{
+    justify-content: flex-end;
+    width: 20px;
+    height: 20px;
+    margin-top: 9px;
+    margin-right: 25px;
+    
+}
+
+/*MENU DROPDOWN CADASTRO DE TAREFA*/
+
+/**/
+.dropdown_trf {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content_trf {
+  display: none;
+  position: absolute;
+  background-color: white;
+  border-style: inset;
+  border-width: 5px;
+  border-color: #698FEB;
+  border-radius:0px 20px 0px 20px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  width: 220px;
+  height: 350px;
+}
+
+
+
+.dropdown-content_trf #cadastro_tarefa{
+    width: 220px;
+    height: 300px;
+    
+}
+
+.dropdown-content_trf #cadastro_tarefa input{
+    width: 200px;
+    
+    margin-left: 5px;
+    margin-bottom: 9px;
+    
+}
+
+.dropdown-content_trf #cadastro_tarefa label{
+    margin-left: 5px;
+    
+    
+}
+
+.dropdown-content_trf #cadastro_tarefa #btn_salvartarefa{
+   margin-left: 30px;
+   
+}
+
+.show {display: block;}
+/**/
+
+
+
+#top_central #imgbtn_pessoas{
+    justify-content: flex-end;
+    width: 20px;
+    height: 20px;
+    margin-top: 9px;
+    margin-right: 25px;
+    
+}
+
+
+/*MENU DROPDOWN CADASTRO DE PESSOA*/
+
+/**/
+.dropdown_pessoas {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content_pessoas{
+  display: none;
+  position: absolute;
+  background-color: white;
+  border-style: inset;
+  border-width: 5px;
+  border-color: #698FEB;
+  border-radius:0px 20px 0px 20px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  width: 220px;
+  height: 350px;
+}
+
+
+
+.dropdown-content_pessoas #cadastro_pessoas{
+    width: 220px;
+    height: 300px;
+    
+}
+
+.dropdown-content_pessoas #cadastro_pessoas input{
+    width: 200px;
+    
+    margin-left: 5px;
+    margin-bottom: 9px;
+    
+}
+
+.dropdown-content_pessoas #cadastro_pessoas label{
+    margin-left: 5px;
+    
+    
+}
+
+.dropdown-content_pessoas #cadastro_pessoas #btn_salvarpessoa{
+   margin-left: 30px;
+   
+}
+
+.show {display: block;}
+/**/
+
+
+
+
+
+
+#top_central #imgbtn_download{
     justify-content: flex-end;
     width: 20px;
     height: 20px;
@@ -197,7 +387,8 @@
 }
 
 
-#top_central #btn2{
+
+#top_central #btn_salvarprojeto{
     margin-top: 10px;
     width: 80px;
 }
@@ -232,7 +423,7 @@
     
 }
 
-#left_center #btn3{
+#left_center #btn_expandetarefa{
     margin-left: 15px;
 }
 
@@ -256,7 +447,7 @@
 	
 }
 
-#right_center #btn4{
+#right_center #btn_pessoas{
     margin-left: 25px;
 }
 
@@ -278,7 +469,7 @@
     
 }
 
-#right_center #btn5{
+#right_center #btn_datas{
     margin-left: 25px;
     margin-top: 2px;
 }
@@ -317,17 +508,73 @@
 
 /*///////////////////////////////////*/
 
-/*DEININDO O ESTILO DA PÁGINA CENTRAL*/
-/*
-#footer{
-	margin-top: 20px;
-	width: 1100px;
-	display: flex;
-	justify-content: center;
-	flex-wrap: wrap;
-	height: 60px;
-	border-width: 5px;
-	border-style: ridge;
-	border-color: #68BAE8;
+
+/*CADASTRO DE PESSOAS*/
+
+#abreCadastroPessoas{
+    border-style: inset;
+  border-width: 5px;
+  border-color: #698FEB;
+  border-radius:0px 20px 0px 20px;
 }
-*/
+
+#cadastroPessoas{
+    width: 300px;
+    margin-left: 40px;
+}
+
+ #abreCadastroPessoas #cadasPes_menusuperior{
+    width: 590px;
+    height: 60px;
+    margin-left: 5px;
+     margin-top: -8px;
+}
+
+ #abreCadastroPessoas #cadasPes_menusuperior h1{
+    width: 300px;
+    margin-left: 5px;
+     margin-top: 20px;
+     
+    
+}
+
+
+
+#cadastroPessoas input{
+    width: 250px;
+}
+
+#cadastroPessoas #btn_gravarpessoa{
+    margin-top: 10px;
+    width: 120px
+} 
+
+#cadastroPessoas #btn_limpar{
+    margin-top: 10px;
+    width: 120px
+} 
+
+#listaPessoas{
+    margin-top: 30px;
+    width: 700px;
+    height: 300px;
+    overflow-y: auto;
+}
+
+#listaPessoas table{
+    width: 500px;
+    margin-left: 30px;
+}
+
+#listaPessoas table caption{
+    width: 300px;
+}
+
+#abreCadastroPessoas{
+    width: 600px;
+    height: 600px;
+    
+}
+
+
+/*////////////////////////////////////*/

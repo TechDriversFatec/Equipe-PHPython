@@ -8,35 +8,125 @@
 </head>
 <body>
 	<div id="top" class="boxShadow1">
-       <div class="dropdown">
-          <img id="imgbtn1" src="images/btn_menu_superior.png" onclick="menuDropdown()" class="dropbtn">
-              <div id="myDropdown" class="dropdown-content">
+       <div class="dropdown_menusuperior">
+          <img id="imgbtn_menusuperior" src="images/btn_menu_superior.png" onclick="menuDropdown_menusuperior()" class="dropbtn_menusuperior">
+              <div id="menu_superior" class="dropdown-content_menusuperior">
                 <a href="#novo_gantt_planner">Novo Gantt Planner</a>
                 <a href="#abrir_gantt_planner">Abrir Gantt Planner</a>
-                  <a href="#abrir_gantt_planner">Desenvolvedores</a>
-                
+                  <a href="#" onclick="clicaPessoas()">Pessoas</a>
+                <!--href="javascript:cadastroPessoas()"-->
               </div>
         </div>
 
          <h1>Gantt Planner - by PHPython</h1>
-        <img id="imgbtn2" src="images/img_play.png">
-        <button id="btn1" class="btn_shadow2">COMPARTILHAR</button>
+        <img id="imgbtn_play" src="images/img_play.png">
+        <button id="btn_compartilhar" class="btn_shadow2">COMPARTILHAR</button>
 	</div>
     
     <div id="top_central" class="boxShadow1">
         <h1 contenteditable="true" id="nomePlanner">Nome Planejamento</h1>
-        <a href="javascript:cadastroProjeto()"><img  id="imgbtn_topcentral" src="images/img_prj.png"></a>
-        <img id="imgbtn_topcentral" src="images/img_trf.png">
-        <img id="imgbtn_topcentral" src="images/img_dev.png">
         
-        <img id="imgbtn_topcentral" src="images/img_download.png">
-        <button id="btn2" class="btn_shadow2">SALVAR</button>       
+        <div id="imgbtn_prj" class="dropdown_prj">
+          <img id="imgbtn_prj" src="images/img_prj.png" onclick="menuDropdown_prj()" class="dropbtn_prj">
+              <div id="menu_prj" class="dropdown-content_prj">
+                  <div id="cadastro_projeto">
+                  <br>
+                <label for="nomeProjeto">Nome projeto: <input id="nomeProjeto" type="text"></label>
+                  <br>
+                  <label for="escopo">Escopo: <input id="escopo" type="text"></label>
+                  <br>
+                  <label for="dt_inicio">Data Início: <input id="dt_inicio" type="date"></label>
+                  <br>
+                  <label for="dt_prazo">Prazo Entrega: <input id="dt_prazo" type="date"></label>
+                    <br>
+                  <label for="cor">Cor do projeto: <input id="cor" type="color"></label>
+                    <br><br>
+                      <button id="btn_salvarprojeto" type="submit" class="btn_shadow2">Gravar</button>
+                      
+                </div>
+              </div>
+        </div>
+        
+        <div id="imgbtn_trf"  class="dropdown_trf">
+          <img id="imgbtn_trf" src="images/img_trf.png" onclick="menuDropdown_trf()" class="dropbtn_trf">
+              <div id="menu_trf" class="dropdown-content_trf">
+                <div id="cadastro_tarefa">
+                  <br>
+                  <label for="nomeProjeto">Seleione Projeto: <input id="nomeProjeto" type="text" list="listaProjetos"></label>
+                  <datalist id="listaProjetos">
+                      <option value="Projeto 1">
+                  </datalist>
+                  <br>
+                  <label for="nomeTarefa">Nome Tarefa: <input id="nomeTarefa" type="text"></label>
+                  <br>
+                  <label for="dt_inicio">Data Inicial: <input id="dt_inicio" type="date"></label>
+                  <br>
+                  <label for="dt_final">Data Final: <input id="dt_final" type="date"></label>
+                    <br>
+                  <label for="dt_prazo">Prazo: <input id="dt_prazo" type="date"></label>
+                    <br>
+                  <label for="interdependencia">Interdependência: <input id="interdependencia" type="text" list="listaTarefas"></label>
+                  <datalist id="listaTarefas">
+                      <option value="Tarefa 1">
+                      <option value="Tarefa 2">
+                  </datalist>
+                    <br>
+                      <button id="btn_salvartarefa" type="submit" class="btn_shadow2">Gravar</button>
+                  
+                  
+                </div>
+                
+              </div>
+        </div>
+        
+         <div id="imgbtn_pessoas"  class="dropdown_pessoas">
+          <img id="imgbtn_pessoas" src="images/img_dev.png" onclick="menuDropdown_pessoas()" class="dropbtn_pessoas">
+              <div id="menu_pessoas" class="dropdown-content_pessoas">
+                <div id="cadastro_pessoas">
+                  
+                 
+                  <br>
+                  <label for="nomeProjeto">Seleione Projeto: <input id="nomeProjeto" type="text" list="listaProjetos"></label>
+                  <datalist id="listaProjetos">
+                      <option value="Projeto 1">
+                  </datalist>
+                  <br>
+                <br>
+                     <label for="tarefas">Tarefa: <input id="tarefas" type="text" list="listaTarefas"></label>
+                  <datalist id="listaTarefas">
+                      <option value="Tarefa 1">
+                      <option value="Tarefa 2">
+                  </datalist>
+                    <br>
+                  <label for="listanomePessoa">Seleione a pessoa: <input id="listanomePessoa" type="text" list="listaPessoa"></label>
+                  <datalist id="listaPessoa">
+                      <option value="João">
+                      <option value="Ana">
+                      <option value="Pedrinho">
+                  </datalist>
+                  
+                    <br>
+                    <label for="hr_tarefa">Horas diárias na tarefa: <input id="hr_tarefa" type="time"></label>
+                    <br>
+                 
+                      <button id="btn_salvarpessoa" type="submit" class="btn_shadow2">Gravar</button>
+                  
+                  
+                </div>
+                
+              </div>
+        </div>
+        
+            
+        
+        <img id="imgbtn_download" src="images/img_download.png">
+        <button id="btn_salvarplanning" class="btn_shadow2">SALVAR</button>       
     </div>
 
 	<div  id="central">
 	
 			<div id="left_center" class="box">
-                <button id="btn3" class="btn_shadow1" onclick="expandeTarefas()">PROJETO 1</button>
+                <button id="btn_expandetarefa" class="btn_shadow1" onclick="expandeTarefas()">PROJETO 1</button>
                 <div id="col_tarefas">
                     
                 </div>
@@ -51,14 +141,14 @@
 			<div id="right_center" class="box">
                 
                 <div id="pessoas_top">
-                    <button id="btn4" class="btn_shadow2" onclick="expandePessoas()">PESSOAS</button>
+                    <button id="btn_pessoas" class="btn_shadow2" onclick="expandePessoas()">PESSOAS</button>
                     <div id="pessoas_list" class="boxShadow1"> 
                         
                     </div>
                 </div>
                 
                 <div id="datas">
-                    <button id="btn5" class="btn_shadow2">DATAS</button>
+                    <button id="btn_datas" class="btn_shadow2">DATAS</button>
                     <div id="datas_list" class="boxShadow1"> 
                         <br>
                         <label class="styleWord1">PRAZO: </label>
@@ -80,8 +170,55 @@
     </div>
     
     
+    <!--- CHAMA O CADASTRO DE PESSOAS -->
+    <dialog id="abreCadastroPessoas">
+        
+         <div id="cadasPes_menusuperior" class="boxShadow1">
                 
-                
+                <h1 class="styleWord1">Cadastro de Pessoas</h1>
+            
+        </div>
+        <br><br>
+        <div id='cadastroPessoas'>
+            
+           
+            
+            <label for='nomePessoa'>Nome da pessoa: </label><input type='text' id='nomePessoa'>
+            <br><br>
+            <label for='contato'>Contato: </label><input type='text' id='contato'>
+            <br><br>
+            <button id='btn_gravarpessoa' onclick="gravarPessoa()" class='btn_shadow2'>Gravar</button>
+            <button id='btn_limpar' class='btn_shadow2'>Limpar</button>
+        </div>
+        
+        <br><br><br>
+        <div id='listaPessoas'>
+            
+            <table border=1>
+                    <thead>
+                        <caption>Pessoas cadastradas:</caption>
+                        <tr>
+                        <th>Nome</th><th>Contato</th>
+                        </tr>
+                  </thead>
+                    <tbody id="adicionaTabela">
+                        
+                        <!--
+                        <tr>
+                            <td>Pedrinho</td><td>(12)99999-9999</td>
+                           </tr>
+                        <tr>
+                            <td>João</td><td>(12)99999-9999</td>
+                         </tr>
+                        -->
+
+
+                    </tbody>
+
+        
+            </table>
+        </div>
+    </dialog>
 
 </body>
 
