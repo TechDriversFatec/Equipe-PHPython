@@ -14,7 +14,7 @@
                 <a href="#novo_gantt_planner">Novo Gantt Planner</a>
                 <a href="#abrir_gantt_planner">Abrir Gantt Planner</a>
                   <a href="#" onclick="clicaPessoas()">Pessoas</a>
-                <!--href="javascript:cadastroPessoas()"-->
+               
               </div>
         </div>
 
@@ -26,44 +26,27 @@
     <div id="top_central" class="boxShadow1">
         <h1 contenteditable="true" id="nomePlanner">Nome Planejamento</h1>
         
-        <div id="imgbtn_prj" class="dropdown_prj">
-          <img id="imgbtn_prj" src="images/img_prj.png" onclick="menuDropdown_prj()" class="dropbtn_prj">
-              <div id="menu_prj" class="dropdown-content_prj">
-                  <div id="cadastro_projeto">
-                  <br>
-                <label for="nomeProjeto">Nome projeto: <input id="nomeProjeto" type="text"></label>
-                  <br>
-                  <label for="escopo">Escopo: <input id="escopo" type="text"></label>
-                  <br>
-                  <label for="dt_inicio">Data Início: <input id="dt_inicio" type="date"></label>
-                  <br>
-                  <label for="dt_prazo">Prazo Entrega: <input id="dt_prazo" type="date"></label>
-                    <br>
-                  <label for="cor">Cor do projeto: <input id="cor" type="color"></label>
-                    <br><br>
-                      <button id="btn_salvarprojeto" type="submit" class="btn_shadow2">Gravar</button>
-                      
-                </div>
-              </div>
-        </div>
+        
+         <img id="imgbtn_prj" src="images/img_prj.png" onclick="clicaProjeto()">
+   
         
         <div id="imgbtn_trf"  class="dropdown_trf">
           <img id="imgbtn_trf" src="images/img_trf.png" onclick="menuDropdown_trf()" class="dropbtn_trf">
               <div id="menu_trf" class="dropdown-content_trf">
                 <div id="cadastro_tarefa">
                   <br>
-                  <label for="nomeProjeto">Seleione Projeto: <input id="nomeProjeto" type="text" list="listaProjetos"></label>
+                  <label>Seleione Projeto: <input type="text" list="listaProjetos"></label>
                   <datalist id="listaProjetos">
                       <option value="Projeto 1">
                   </datalist>
                   <br>
                   <label for="nomeTarefa">Nome Tarefa: <input id="nomeTarefa" type="text"></label>
                   <br>
-                  <label for="dt_inicio">Data Inicial: <input id="dt_inicio" type="date"></label>
+                  <label for="dt_inicioTarefa">Data Inicial: <input id="dt_inicio" type="date"></label>
                   <br>
-                  <label for="dt_final">Data Final: <input id="dt_final" type="date"></label>
+                  <label for="dt_finalTarefa">Data Final: <input id="dt_final" type="date"></label>
                     <br>
-                  <label for="dt_prazo">Prazo: <input id="dt_prazo" type="date"></label>
+                  <label for="dt_prazoTarefa">Prazo: <input id="dt_prazo" type="date"></label>
                     <br>
                   <label for="interdependencia">Interdependência: <input id="interdependencia" type="text" list="listaTarefas"></label>
                   <datalist id="listaTarefas">
@@ -80,13 +63,13 @@
         </div>
         
          <div id="imgbtn_pessoas"  class="dropdown_pessoas">
-          <img id="imgbtn_pessoas" src="images/img_dev.png" onclick="menuDropdown_pessoas()" class="dropbtn_pessoas">
+          <img id="imgbtn_pessoas" src="images/img_pessoas.png" onclick="menuDropdown_pessoas()" class="dropbtn_pessoas">
               <div id="menu_pessoas" class="dropdown-content_pessoas">
                 <div id="cadastro_pessoas">
                   
                  
                   <br>
-                  <label for="nomeProjeto">Seleione Projeto: <input id="nomeProjeto" type="text" list="listaProjetos"></label>
+                  <label >Seleione Projeto: <input  type="text" list="listaProjetos"></label>
                   <datalist id="listaProjetos">
                       <option value="Projeto 1">
                   </datalist>
@@ -169,26 +152,78 @@
             <button id="btn6" class="btn_shadow4">ANO</button> 
     </div>
     
+     <!------------------------------------------------------------->
     
-    <!--- CHAMA O CADASTRO DE PESSOAS -->
-    <dialog id="abreCadastroPessoas">
-        
-         <div id="cadasPes_menusuperior" class="boxShadow1">
+    <!--CADASTRO DE PROJETO -->
+            <dialog id="abreCadastroProjeto" class="abreCadastro"> 
+         <div id="bloco_superior" class="boxShadow1">
+                <button id="btn_fechar" class="btn_shadow2" onclick="fecharCadastroProjeto()">[X]Fechar</button>
+             <h1 class="styleWord1">Cadastro de Projeto</h1>        </div>
+        <br><br>
                 
-                <h1 class="styleWord1">Cadastro de Pessoas</h1>
             
+             <div id="cadastro_projeto">
+                 
+                 <label  for="codProjeto">Código projeto: <input readonly="true" id="codProjeto" type="text"></label>
+                 <br><br>
+                <label for="nomeProjeto">Nome projeto: <input id="nomeProjeto" readonly="true" type="text"></label>
+                  
+                  <label for="escopo">Escopo: <input id="escopo" readonly="true" type="text"></label>
+                  <br><br>
+                  <label for="dt_inicioProjeto">Data Início: <input readonly="true" id="dt_inicioProjeto" type="date"></label>
+                  
+                  <label for="dt_prazoProjeto">Prazo Entrega: <input readonly="true" id="dt_prazoProjeto" type="date"></label>
+                    <br><br>
+                  <label for="corProjeto">Cor do projeto: <input hidden id="corProjeto" type="color"></label>
+                    <br><br>
+                  <button id="btn_novoprojeto" type="submit" class="btn_shadow2" onclick="novoProjeto()">Novo</button>
+                
+                      <button id="btn_salvarprojeto" type="submit" class="btn_shadow2" onclick="gravarProjeto()">Gravar</button>
+                      <button id="btn_cancelarCadasProjeto" type="submit" class="btn_shadow2" onclick="cancelarCadasProjeto()">Cancelar</button>
+                 
+                </div>
+               
+                <div id='listaProjeto'>
+            
+            <table id="sortable" border=1>
+                    <thead>
+                        <caption>Projetos cadastrados:</caption>
+                        <tr>
+                        <th>Projeto</th><th>Data Início</th><th>Prazo</th><th>Cor</th>
+                        </tr>
+                  </thead>
+                    <tbody id="corpoTabelaProjeto">
+                        
+                       
+                    
+
+
+                    </tbody>
+
+        
+            </table>
+                   
         </div>
+                 
+              
+            </dialog>
+            
+     <!------------------------------------------------------------->
+    <!--- CADASTRO DE PESSOAS -->
+    <dialog id="abreCadastroPessoas" class="abreCadastro"> 
+         <div id="bloco_superior" class="boxShadow1">
+                <button id="btn_fechar" class="btn_shadow2" onclick="fecharCadastroPessoa()">[X]Fechar</button>
+             <h1 class="styleWord1">Cadastro de Pessoas</h1>        </div>
         <br><br>
         <div id='cadastroPessoas'>
-            
+        
+            <label for='nomePessoa'>Nome da pessoa: </label><input type='text' id='nomePessoa' name="nomePessoa">
+            <br><br>
+            <label for='contato'>Contato: </label><input type='text' id='contato' name="contato">
+            <br><br>
+            <button id='btn_gravarpessoa' onclick="gravarPessoa(), jsonCadastroPessoa()" class='btn_shadow2'>Gravar</button>
+            <button id='btn_limparCadasPessoa' class='btn_shadow2' onclick="limparCadasPessoa()">Limpar</button>
            
-            
-            <label for='nomePessoa'>Nome da pessoa: </label><input type='text' id='nomePessoa'>
-            <br><br>
-            <label for='contato'>Contato: </label><input type='text' id='contato'>
-            <br><br>
-            <button id='btn_gravarpessoa' onclick="gravarPessoa()" class='btn_shadow2'>Gravar</button>
-            <button id='btn_limpar' class='btn_shadow2'>Limpar</button>
         </div>
         
         <br><br><br>
@@ -201,16 +236,10 @@
                         <th>Nome</th><th>Contato</th>
                         </tr>
                   </thead>
-                    <tbody id="adicionaTabela">
+                    <tbody id="corpoTabelaPessoas">
                         
-                        <!--
-                        <tr>
-                            <td>Pedrinho</td><td>(12)99999-9999</td>
-                           </tr>
-                        <tr>
-                            <td>João</td><td>(12)99999-9999</td>
-                         </tr>
-                        -->
+                       
+                    
 
 
                     </tbody>
@@ -218,8 +247,9 @@
         
             </table>
         </div>
+        
     </dialog>
-
+ <!------------------------------------------------------------->
 </body>
 
 

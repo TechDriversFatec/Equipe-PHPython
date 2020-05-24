@@ -1,22 +1,155 @@
-/*POPUP WINDOW*/
+/*WINDOW.ONLOAD*/
 
 
-/*CADASTRO DE PESSOAS*/
-/*function cadastroPessoas(){
-popupCadastroProjeto = window.open('', 'Cadastro de Pessoas', "width=250 height=250 left=700 top=280 resizable=false scrollbars=false");
-popupCadastroProjeto.document.write ("<!DOCTYPE HTML><html><head><meta charset='utf-8'><title>Cadastro de pessoas</title><link rel='stylesheet' href='css/estilos.css'></head><body><div id='cadastroPessoas'><label for='nomePessoa'>Nome da pessoa: </label><input type='text' id='nomePessoa'><br><label for='contato'>Contato: </label><input type='text' id='contato'><br><button id='btn_gravarpessoa' class='btn_shadow2'>Gravar</button><button id='btn_limpar' class='btn_shadow2'>Limpar</button></div><div id='listaPessoas'><table border=1><thead><caption>Pessoas cadastradas:</caption><tr><th>Nome</th><th>Contato</th></tr></thead><tbody><tr><td>Pedrinho</td><td>(12)99999-9999</td></tr><tr><td>João</td><td>(12)99999-9999</td></tr></tbody></table></div></body> </html>");
-}*/
+window.onload = carregaGantt;
 
-/*
-clicaCadastroPessoas = document.getElementById("clicaPessoas");
-abreCadastroPessoas = document.getElementById("abreCadastroPessoas")
+/*/////////////*/
+
+/*CADASTRO DE PROJETOS*/////////////////////////////
+
+function clicaProjeto(){
+    codProjeto = 0;
+    dialogCadastro = document.getElementById("abreCadastroProjeto");
+    dialogCadastro.showModal();
+    document.getElementById("codProjeto").value = codProjeto;
+    document.getElementById("btn_cancelarCadasProjeto").disabled = true;
+     if(document.getElementById("btn_cancelarCadasProjeto").disabled = true){
+       mudaBotao =  document.getElementById("btn_cancelarCadasProjeto");
+        mudaBotao.style.backgroundColor = "gray";
+    }
+    document.getElementById("btn_novoprojeto").disabled = false;
+    mudaBotao =  document.getElementById("btn_novoprojeto");
+        mudaBotao.style.backgroundColor = "#698FEB";
+}
+
+function fecharCadastroProjeto(){
+    dialogCadastro.close();
+    limparCadasProjeto();
+}
+
+function habilitaBtnCancelarProjeto(){
+    document.getElementById("btn_cancelarCadasProjeto").disabled = false;
+    mudaBotao =  document.getElementById("btn_cancelarCadasProjeto");
+        mudaBotao.style.backgroundColor = "#698FEB";
+}
+
+function habilitaCamposProjeto(){
+     document.getElementById("nomeProjeto").readOnly = false;
+    document.getElementById("escopo").readOnly = false;
+    document.getElementById("dt_inicioProjeto").readOnly = false;
+    document.getElementById("dt_prazoProjeto").readOnly = false;
+    document.getElementById("corProjeto").hidden = false;
+}
+
+function desabilitaCamposProjeto(){
+    document.getElementById('nomeProjeto').value = '';
+    document.getElementById('escopo').value = '';
+    document.getElementById('dt_inicioProjeto').value = '';
+    document.getElementById('dt_prazoProjeto').value = '';
+    document.getElementById('corProjeto').disabled = true;
+    document.getElementById("nomeProjeto").readOnly = true;
+    document.getElementById("escopo").readOnly = true;
+    document.getElementById("dt_inicioProjeto").readOnly = true;
+    document.getElementById("dt_prazoProjeto").readOnly = true;
+    document.getElementById("corProjeto").hidden = true;
+}
+
+function habilitaBtnNovoProjeto(){
+     document.getElementById("btn_novoprojeto").disabled = false;
+    mudaBotao =  document.getElementById("btn_novoprojeto");
+        mudaBotao.style.backgroundColor = "#698FEB";
+}
+
+function desabilitaBtnNovoProjeto(){
+    document.getElementById("btn_novoprojeto").disabled = true;
+    if(document.getElementById("btn_novoprojeto").disabled = true){
+       mudaBotao =  document.getElementById("btn_novoprojeto");
+        mudaBotao.style.backgroundColor = "gray";
+    }
+}
 
 
-clicaCadastroPessoas.addEventListener.apply('click', function(){
-    abreCadastroPessoas[0].show();                     
-                         
-});*/
+vetor_projeto = [];
 
+
+
+function novoProjeto(){
+    codAnterior = parseInt(document.getElementById("codProjeto").value);
+    novoCod = codAnterior+1;
+    document.getElementById("codProjeto").value = novoCod;
+    habilitaCamposProjeto();
+    habilitaBtnCancelarProjeto();
+    desabilitaBtnNovoProjeto();
+    
+}
+
+function cancelarCadasProjeto(){
+    document.getElementById("codProjeto").value = vetor_projeto.length;
+    
+    desabilitaCamposProjeto();
+    habilitaBtnNovoProjeto();
+ }
+
+function gravarProjeto(){
+    
+    codPrj = document.getElementById("codProjeto");
+    nomeProjeto = document.getElementById("nomeProjeto");
+    escopo = document.getElementById("escopo");
+    dt_inicioProjeto = document.getElementById("dt_inicioProjeto");
+    dt_prazoProjeto = document.getElementById("dt_prazoProjeto");
+    corProjeto = document.getElementById("corProjeto");
+    
+    projeto = [codPrj.value,nomeProjeto.value, escopo.value, dt_inicioProjeto.value, dt_prazoProjeto.value, corProjeto.value];
+    
+    vetor_projeto.push(projeto);
+        
+    linhaTabelaProjeto = "<tr draggable=true><td>"+nomeProjeto.value+"</td><td>"+dt_inicioProjeto.value+"</td><td>"+dt_prazoProjeto.value+"</td><td bgcolor="+corProjeto.value+"></td></tr>";
+    
+   
+    
+    document.getElementById("corpoTabelaProjeto").innerHTML += linhaTabelaProjeto;
+    
+    
+    jsonCadastroProjeto();
+    
+    desabilitaCamposProjeto();
+    habilitaBtnNovoProjeto();
+    
+    
+}
+
+function jsonCadastroProjeto(){
+    jsonProjeto= [];
+    for(i=0;i<vetor_projeto.length;i++){
+        jsonProjeto.push({
+            'codPrj': vetor_projeto[i][0],
+            'nomeProjeto': vetor_projeto[i][1],
+            'escopo': vetor_projeto[i][2],
+            'dt_inicioProjeto': vetor_projeto[i][3],
+            'dt_prazoProjeto': vetor_projeto[i][4],
+            'corProjeto': vetor_projeto[i][5]
+        });
+    }
+    console.log(jsonProjeto);
+}
+
+
+
+/*///////////////////////////////////////*/
+
+
+/*CADASTRO DE PESSOAS*///////////////////////////////
+
+
+function fecharCadastroPessoa(){
+    dialogCadastro.close();
+    limparCadasPessoa();
+}
+
+function limparCadasPessoa(){
+    document.getElementById('nomePessoa').value = '';
+    document.getElementById('contato').value = '';
+}
 
 function clicaPessoas(){
     
@@ -26,45 +159,41 @@ function clicaPessoas(){
     dialogCadastro.showModal();
 }
 
+vetor_pessoa = [];
+
 
 function gravarPessoa(){
     
-    nomePessoa = document.getElementById("nomePessoa");
+  
+   document.getElementById("nomePessoa");
     contato = document.getElementById("contato");
     
+    pessoa = [nomePessoa.value,contato.value];
+     
     
+    vetor_pessoa.push(pessoa);
     
-    divEl = document.createElement("tbody")
-    textEl = document.createTextNode("<tr><td>"+nomePessoa.value+"</td><td>"+contato.value+"</td></tr>")
-    divEl.appendChild(textEl)
-
-    document.getElementById("listaPessoas").appendChild(divEl)
+    linhaTabelaPessoas = "<tr><td>"+nomePessoa.value+"</td><td>"+contato.value+"</td></tr>";
     
+    document.getElementById("corpoTabelaPessoas").innerHTML += linhaTabelaPessoas;
     
-    /*
-    novoConteudo = document.createTextNode("<tr><td>"+nomePessoa.value+"</td><td>"+contato.value+"</td></tr>");
-    document.getElementById("adicionarTabela").appendChild(novoConteudo);
-    
-    */
-    
-    
-    
-    /*selecionatabela = document.getElementById('adicionatabela');
-    selecionatabela.innerHTML = "<tr><td>"+nomePessoa.value+"</td><td>"+contato.value+"</td></tr>"*/
-    
-    /*selecionaTabela = document.querySelector('adicionaTabela');
-    
-    conteudoNovo = documen.createTextNode("<tr><td>"+nomePessoa.value+"</td><td>"+contato.value+"</td></tr>");
-    
-    fragment = new DocumentFragment();
-    
-    fragment.appendChild(conteudoNovo);*/
     
 }
 
+function jsonCadastroPessoa(){
+    jsonPessoas = [];
+    for(i=0;i<vetor_pessoa.length;i++){
+        jsonPessoas.push({
+            'nomePessoa': vetor_pessoa[i][0],
+            'contato': vetor_pessoa[i][1]
+        });
+    }
+    console.log(jsonPessoas);
+}
 
 
-/*////////////////////////////////////////*/
+/*/////////////////////////////////////////////////*/
+
 
 
 ////////////////
@@ -81,24 +210,10 @@ function expandePessoas() {
 
 function menuDropdown_menusuperior() {
   document.getElementById("menu_superior").classList.toggle("show");
-}
-
-/*MENU PROJETO DROPDOWN*/
-
-function menuDropdown_prj() {
-  document.getElementById("menu_prj").classList.toggle("show");
-}
-
-/*MENU TAREFA DROPDOWN*/
-
-function menuDropdown_trf() {
-  document.getElementById("menu_trf").classList.toggle("show");
-}
-
-/*MENU PESSOAS DROPDOWN*/
-
-function menuDropdown_pessoas() {
-  document.getElementById("menu_pessoas").classList.toggle("show");
+    
+  document.getElementById("menu_prj").classList.remove("show");
+  document.getElementById("menu_trf").classList.remove("show");
+ 
 }
 
 //////////////////////////////////////////////////
@@ -205,4 +320,3 @@ function carregaGantt(){
 
 
 
-window.onload = carregaGantt;

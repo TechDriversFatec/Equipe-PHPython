@@ -1,3 +1,9 @@
+/*
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+*/
+
+
 *{
 	width: 0px;
 	padding: 0px;
@@ -71,6 +77,40 @@
 /*///////////////////////////////////*/
 
 
+/*TELA PADRÃO DE CADASTROS - DIALOG*/
+
+.abreCadastro{
+    border-style: inset;
+  border-width: 5px;
+  border-color: #698FEB;
+  border-radius:0px 20px 0px 20px;
+    width: 600px;
+    height: 600px;
+}
+
+.abreCadastro #btn_fechar{
+    margin-top: 10px;
+     margin-left: 500px;
+     width: 80px;
+}
+
+#bloco_superior{
+     width: 590px;
+    height: 60px;
+    margin-left: 5px;
+     margin-top: 10px;
+}
+
+#bloco_superior h1{
+    width: 300px;
+    margin-left: 5px;
+     margin-top: -30px;
+}
+
+
+
+/*///////////////////////////////////*/
+
 /*DEFININDO O ESTILO DA BARRA SUPERIOR*/
 #top {
     display: inline-flex;
@@ -139,8 +179,8 @@
 
 #top #imgbtn_play{
     justify-content: flex-end;
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     margin-top: 18px;
     margin-left: 620px;
 }
@@ -179,20 +219,21 @@
     
 }
 
-#top_central a {
-    justify-content: flex-end;
-    width: 20px;
-    height: 20px;
-    margin-right: 25px;
-    
+
+
+#top_central #btn_salvarplanning{
+    margin-top: 9px;
+    width: 80px;
+    margin-left: -20px;
 }
 
 #top_central #imgbtn_prj{
     justify-content: flex-end;
-    width: 20px;
-    height: 20px;
-    margin-top: 9px;
-    margin-right: 25px;
+    width: 30px;
+    height: 30px;
+    margin-top: 13px;
+    margin-right: 85px;
+    margin-left: -100px;
     
 }
 
@@ -243,18 +284,27 @@
     margin-top: -5px;
 }
 
+.dropdown-content_prj #cadastro_projeto #btn_limparCadasProjeto{
+    width: 80px;
+    margin-left: 5px;
+    
+}
+
 .show {display: block;}
 /**/
 
 
 #top_central #imgbtn_trf{
     justify-content: flex-end;
-    width: 20px;
-    height: 20px;
-    margin-top: 9px;
-    margin-right: 25px;
+    width: 30px;
+    height: 30px;
+    margin-top: 6px;
+    margin-right: 50px;
+    margin-left: -30px;
     
 }
+
+
 
 /*MENU DROPDOWN CADASTRO DE TAREFA*/
 
@@ -312,10 +362,11 @@
 
 #top_central #imgbtn_pessoas{
     justify-content: flex-end;
-    width: 20px;
-    height: 20px;
-    margin-top: 9px;
-    margin-right: 25px;
+    width: 30px;
+    height: 40px;
+    margin-top: 5px;
+    margin-right: 50px;
+    margin-left: -30px;
     
 }
 
@@ -379,10 +430,11 @@
 
 #top_central #imgbtn_download{
     justify-content: flex-end;
-    width: 20px;
-    height: 20px;
-    margin-top: 18px;
-    margin-right: 25px;
+    width: 30px;
+    height: 30px;
+    margin-top: 12px;
+    margin-right: 50px;
+    margin-left: -50px;
     
 }
 
@@ -509,36 +561,81 @@
 /*///////////////////////////////////*/
 
 
+/*CADASTRO PROJETO*/
+
+#cadastro_projeto{
+    width: 580px;
+    margin-left: 15px;
+    display: block;
+    
+}
+
+
+#cadastro_projeto #codProjeto{
+   width: 100px;
+}
+
+#cadastro_projeto #nomeProjeto{
+   width: 200px;
+}
+#cadastro_projeto #escopo{
+    width: 200px;
+}
+#cadastro_projeto #dt_inicioProjeto{
+    width: 150px;
+}
+#cadastro_projeto #dt_prazoProjeto{
+    width: 150px;
+}
+#cadastro_projeto #corProjeto{
+    width: 200px;
+}
+#cadastro_projeto #btn_novoprojeto{
+    width: 100px;
+}
+#cadastro_projeto #btn_salvarprojeto{
+    width: 100px;
+    margin-left: 5px;
+}
+#cadastro_projeto #btn_cancelarCadasProjeto{
+    width: 100px;
+    margin-left: 5px;
+}
+
+
+#listaProjeto{
+    margin-top: 30px;
+    width: 550px;
+    height: 200px;
+    overflow: auto;
+}
+
+#listaProjeto table{
+    width: 500px;
+    margin-left: 30px;
+    
+}
+
+#listaProjeto table caption{
+    width: 200px;
+    margin-left: -30px;
+}
+
+#corpoTabelaProjeto tr:hover{
+    cursor: move;
+    background-color: gray;
+}
+
+
+/*////////////////////////////////////*/
+
 /*CADASTRO DE PESSOAS*/
 
-#abreCadastroPessoas{
-    border-style: inset;
-  border-width: 5px;
-  border-color: #698FEB;
-  border-radius:0px 20px 0px 20px;
-}
 
 #cadastroPessoas{
     width: 300px;
     margin-left: 40px;
 }
-
- #abreCadastroPessoas #cadasPes_menusuperior{
-    width: 590px;
-    height: 60px;
-    margin-left: 5px;
-     margin-top: -8px;
-}
-
- #abreCadastroPessoas #cadasPes_menusuperior h1{
-    width: 300px;
-    margin-left: 5px;
-     margin-top: 20px;
-     
-    
-}
-
-
 
 #cadastroPessoas input{
     width: 250px;
@@ -549,32 +646,30 @@
     width: 120px
 } 
 
-#cadastroPessoas #btn_limpar{
+#cadastroPessoas #btn_limparCadasPessoa{
     margin-top: 10px;
     width: 120px
 } 
 
 #listaPessoas{
     margin-top: 30px;
-    width: 700px;
-    height: 300px;
-    overflow-y: auto;
+    width: 550px;
+    height: 200px;
+    overflow: auto;
 }
 
 #listaPessoas table{
     width: 500px;
     margin-left: 30px;
+    
 }
 
 #listaPessoas table caption{
-    width: 300px;
-}
-
-#abreCadastroPessoas{
-    width: 600px;
-    height: 600px;
-    
+    width: 200px;
+    margin-left: -30px;
 }
 
 
 /*////////////////////////////////////*/
+
+
