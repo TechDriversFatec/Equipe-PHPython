@@ -39,7 +39,9 @@ function clicaProjeto(){
 
 function buscaValoresProjeto(){
     
-    codAtual = parseInt(document.getElementById("codProjeto").value);
+   codAtual = parseInt(document.getElementById("codProjeto").value);
+    
+    
     
     for(i=0;i<vetor_projeto.length;i++){
         
@@ -196,19 +198,14 @@ vetor_projeto = [];
 vetor_tabelaProjeto = [];
 
 function carregaTabela(){
+   
+    document.getElementById("corpoTabelaProjeto").innerHTML = '';
     
-    
-    for(i = 0; vetor_tabelaProjeto.length;i++){
+    for(i = 0; i < vetor_tabelaProjeto.length;i++){
+         document.getElementById("corpoTabelaProjeto").innerHTML += vetor_tabelaProjeto[i];
         
-        linhaTabelaProjeto = "<tr><td>"+vetor_tabelaProjeto[i][0]+"</td><td>"+vetor_tabelaProjeto[i][1]+"</td><td>"+vetor_tabelaProjeto[i][3]+"</td><td>"+vetor_tabelaProjeto[i][4]+"</td><td bgcolor="+vetor_tabelaProjeto[i][5]+"></td></tr>";
-    
-        
-        if(gravarProjeto()){
-            document.getElementById("corpoTabelaProjeto").innerHTML += linhaTabelaProjeto;
-        }else if(excluirCadasProjeto()){
-            document.getElementById("corpoTabelaProjeto").innerHTML -= linhaTabelaProjeto;
-        }
     }    
+    
 }
 
 function novoProjeto(){
@@ -229,6 +226,7 @@ function novoProjeto(){
     desabilitaAvancoCodProjeto();
     desabilitaRecuoCodProjeto();
     limparCamposCadasProjeto();
+    carregaTabela();
     
 }
 
@@ -242,6 +240,7 @@ function cancelarCadasProjeto(){
     habilitaRecuoCodProjeto();
     buscaValoresProjeto();
     habilitaBtnNovoProjeto();
+    carregaTabela();
 }
 
 function gravarProjeto(){
@@ -257,15 +256,15 @@ function gravarProjeto(){
     
     vetor_projeto.push(projeto);
         
-     linhaTabelaProjeto = "<tr><td>"+codPrj.value+"</td><td>"+nomeProjeto.value+"</td><td>"+dt_inicioProjeto.value+"</td><td>"+ dt_prazoProjeto.value+"</td><td bgcolor="+corProjeto.value+"></td></tr>";
+     linhaTabelaProjeto = ["<tr><td>"+codPrj.value+"</td><td>"+nomeProjeto.value+"</td><td>"+dt_inicioProjeto.value+"</td><td>"+ dt_prazoProjeto.value+"</td><td bgcolor="+corProjeto.value+"></td></tr>"];
     
     
     
     vetor_tabelaProjeto.push(linhaTabelaProjeto);
-    
-    console.log(vetor_tabelaProjeto);
-    
     carregaTabela();
+    
+    
+    
     
     jsonCadastroProjeto();
     
@@ -302,16 +301,19 @@ function excluirCadasProjeto(){
         if(codAtual == vetor_projeto[i][0]){
             
             vetor_projeto.splice([i],5);
+            
+            vetor_tabelaProjeto.splice([i],1);
+            
+            
         }
         console.log(vetor_projeto);
     }
     
-    linhaTabelaProjeto = "<tr><td>"+codPrj.value+"</td><td>"+nomeProjeto.value+"</td><td>"+dt_inicioProjeto.value+"</td><td>"+dt_prazoProjeto.value+"</td><td bgcolor="+corProjeto.value+"></td></tr>";
+      carregaTabela();
+      document.getElementById("codProjeto").value = vetor_projeto.length;
+    buscaValoresProjeto();
+      
     
-   
-    console.log(linhaTabelaProjeto);
-    
-    document.getElementById("corpoTabelaProjeto").innerHTML -= linhaTabelaProjeto;
     
 }
 
