@@ -30,21 +30,25 @@
         <div id="imgbtn_prj" class="dropdown2">
           <img id="imgbtn_prj" src="{% static 'images/img_prj.png' %}" onclick="menuDropdown_prj()" class="dropbtn2">
               <div id="menu_prj" class="dropdown-content2">
+                  <form method="post" action="{% url 'save_projeto' %}">{% csrf_token %}
                   <div id="cadastro_projeto">
-                  <br>
-                <label for="nomeProjeto">Nome projeto: <input id="nomeProjeto" type="text"></label>
-                  <br><br>
-                  <label for="escopo">Escopo: <input id="escopo" type="text"></label>
-                  <br><br>
-                  <label for="dt_inicio">Data Início: <input id="dt_inicio" type="date"></label>
-                  <br><br>
-                  <label for="dt_prazo">Prazo Entrega: <input id="dt_prazo" type="date"></label>
-                    <br><br>
-                  <label for="cor">Cor do projeto: <input id="cor" type="color"></label>
-                    <br><br>
-                      <button id="btn7" type="submit" class="btn_shadow2">Gravar</button>
-                      
+
+
+                      <br>
+                      <label for="nomeProjeto">Nome projeto: <input id="nomeProjeto" type="text" name="prj_nome"></label>
+                      <br><br>
+                      <label for="escopo">Escopo: <input id="escopo" type="text" name="prj_escopo"></label>
+                      <br><br>
+                      <label for="dt_inicio">Data Início: <input id="dt_inicio" type="date" name="prj_datainicio"></label>
+                      <br><br>
+                      <label for="dt_prazo">Prazo Entrega: <input id="dt_prazo" type="date" name="prj_prazoentrega"></label>
+                        <br><br>
+                      <label for="cor">Cor do projeto: <input id="cor" type="color" name="prj_color"></label>
+                        <br><br>
+                          <button id="btn7" type="submit" class="btn_shadow2">Gravar</button>
+
                 </div>
+              </form>
               </div>
         </div>
         

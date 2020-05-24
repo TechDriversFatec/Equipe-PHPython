@@ -7,5 +7,6 @@ admin.autodiscover()
 urlpatterns = [
     url(r'request', views.index_page, name='home'),
     url(r'^$', views.index_page, name='home'),
-    url(r'gantt', views.gantt, name='grafs')
+    url(r'gantt', views.gantt, name='grafs'),
+    url(r'projeto/save', views.save_project, name='save_projeto')
 ]
