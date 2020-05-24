@@ -165,7 +165,9 @@
              <div id="cadastro_projeto">
                  
                  <label  for="codProjeto">Código projeto: <input readonly="true" id="codProjeto" type="text"></label>
-                 <br><br>
+                 <button type="button" id="codAnteriorCadasProjeto" class="btn_shadow1_1" onclick="recuarCodProjeto()"></button>
+                 <button type="button" id="codPosteriorCadasProjeto" class="btn_shadow1" onclick="avancarCodProjeto()"></button>
+                                  <br><br>
                 <label for="nomeProjeto">Nome projeto: <input id="nomeProjeto" readonly="true" type="text"></label>
                   
                   <label for="escopo">Escopo: <input id="escopo" readonly="true" type="text"></label>
@@ -174,12 +176,13 @@
                   
                   <label for="dt_prazoProjeto">Prazo Entrega: <input readonly="true" id="dt_prazoProjeto" type="date"></label>
                     <br><br>
-                  <label for="corProjeto">Cor do projeto: <input hidden id="corProjeto" type="color"></label>
+                  <label for="corProjeto">Cor do projeto: <input disabled="true" id="corProjeto" type="color"></label>
                     <br><br>
                   <button id="btn_novoprojeto" type="submit" class="btn_shadow2" onclick="novoProjeto()">Novo</button>
                 
                       <button id="btn_salvarprojeto" type="submit" class="btn_shadow2" onclick="gravarProjeto()">Gravar</button>
                       <button id="btn_cancelarCadasProjeto" type="submit" class="btn_shadow2" onclick="cancelarCadasProjeto()">Cancelar</button>
+                     <button id="btn_excluirCadasProjeto" type="submit" class="btn_shadow2" onclick="excluirCadasProjeto()">Excluir</button>
                  
                 </div>
                
@@ -189,7 +192,7 @@
                     <thead>
                         <caption>Projetos cadastrados:</caption>
                         <tr>
-                        <th>Projeto</th><th>Data Início</th><th>Prazo</th><th>Cor</th>
+                        <th>Código</th><th>Projeto</th><th>Data Início</th><th>Prazo</th><th>Cor</th>
                         </tr>
                   </thead>
                     <tbody id="corpoTabelaProjeto">

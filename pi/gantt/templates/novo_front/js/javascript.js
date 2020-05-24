@@ -9,17 +9,107 @@ window.onload = carregaGantt;
 
 function clicaProjeto(){
     codProjeto = 0;
+    codProjetoAtual = 0;
+    
+    if(vetor_projeto.length > 1){
+        codProjeto = vetor_projeto.length;
+        document.getElementById("codProjeto").value = codProjeto;
+        habilitaRecuoCodProjeto();
+        
+    }
+    else
+    {
+        document.getElementById("codProjeto").value = codProjeto;
+        desabilitaRecuoCodProjeto();
+        desabilitaAvancoCodProjeto();
+    }
+    
     dialogCadastro = document.getElementById("abreCadastroProjeto");
     dialogCadastro.showModal();
-    document.getElementById("codProjeto").value = codProjeto;
-    document.getElementById("btn_cancelarCadasProjeto").disabled = true;
-     if(document.getElementById("btn_cancelarCadasProjeto").disabled = true){
-       mudaBotao =  document.getElementById("btn_cancelarCadasProjeto");
-        mudaBotao.style.backgroundColor = "gray";
+    
+    
+    
+     desabilitaBtnCancelarProjeto();
+    habilitaBtnNovoProjeto();
+    desabilitaBtnGravaProjeto();
+    buscaValoresProjeto();
+    
     }
-    document.getElementById("btn_novoprojeto").disabled = false;
-    mudaBotao =  document.getElementById("btn_novoprojeto");
-        mudaBotao.style.backgroundColor = "#698FEB";
+
+
+function buscaValoresProjeto(){
+    
+    codAtual = parseInt(document.getElementById("codProjeto").value);
+    
+    for(i=0;i<vetor_projeto.length;i++){
+        
+        if(codAtual == vetor_projeto[i][0]){
+        document.getElementById("nomeProjeto").value = vetor_projeto[i][1];
+        document.getElementById("escopo").value = vetor_projeto[i][2];
+        document.getElementById("dt_inicioProjeto").value = vetor_projeto[i][3];
+        document.getElementById("dt_prazoProjeto").value = vetor_projeto[i][4];
+        document.getElementById("corProjeto").value = vetor_projeto[i][5];
+        }
+    }
+}
+
+function recuarCodProjeto(){
+    document.getElementById("codProjeto").value = vetor_projeto.length -1;
+    
+   
+    habilitaAvancoCodProjeto();
+    
+    if(document.getElementById("codProjeto").value == 1){
+        desabilitaRecuoCodProjeto();
+    }
+    buscaValoresProjeto();
+}
+
+function avancarCodProjeto(){
+    codProjetoAtual = parseInt(document.getElementById("codProjeto").value);
+    
+    codProjetoAtual += 1;
+    
+    document.getElementById("codProjeto").value = codProjetoAtual;
+    
+    if(vetor_projeto.length ==  document.getElementById("codProjeto").value){
+        desabilitaAvancoCodProjeto();
+    }
+    habilitaRecuoCodProjeto();
+    buscaValoresProjeto();
+}
+
+function desabilitaRecuoCodProjeto(){
+        document.getElementById("codAnteriorCadasProjeto").disabled = true;
+     if(document.getElementById("codAnteriorCadasProjeto").disabled = true){
+       mudaBotao =  document.getElementById("codAnteriorCadasProjeto");
+        mudaBotao.style.backgroundColor = "gray";
+}
+    
+}
+
+function desabilitaAvancoCodProjeto(){
+  document.getElementById("codPosteriorCadasProjeto").disabled = true;
+     if(document.getElementById("codPosteriorCadasProjeto").disabled = true){
+       mudaBotao =  document.getElementById("codPosteriorCadasProjeto");
+        mudaBotao.style.backgroundColor = "gray";
+}
+}
+
+function habilitaRecuoCodProjeto(){
+   
+   if(document.getElementById("codProjeto").value > 1){ document.getElementById("codAnteriorCadasProjeto").disabled = false;
+    mudaBotao =  document.getElementById("codAnteriorCadasProjeto");
+    mudaBotao.style.backgroundColor = "#698FEB";
+     
+}
+}
+
+
+function habilitaAvancoCodProjeto(){
+  document.getElementById("codPosteriorCadasProjeto").disabled = false;
+    mudaBotao =  document.getElementById("codPosteriorCadasProjeto");
+    mudaBotao.style.backgroundColor = "#698FEB";
 }
 
 function fecharCadastroProjeto(){
@@ -33,25 +123,33 @@ function habilitaBtnCancelarProjeto(){
         mudaBotao.style.backgroundColor = "#698FEB";
 }
 
+function desabilitaBtnCancelarProjeto(){
+    document.getElementById("btn_cancelarCadasProjeto").disabled = true;
+     if(document.getElementById("btn_cancelarCadasProjeto").disabled = true){
+       mudaBotao =  document.getElementById("btn_cancelarCadasProjeto");
+        mudaBotao.style.backgroundColor = "gray";
+}
+}
+
 function habilitaCamposProjeto(){
      document.getElementById("nomeProjeto").readOnly = false;
     document.getElementById("escopo").readOnly = false;
     document.getElementById("dt_inicioProjeto").readOnly = false;
     document.getElementById("dt_prazoProjeto").readOnly = false;
-    document.getElementById("corProjeto").hidden = false;
+    
+    document.getElementById("corProjeto").disabled = false;
+    
+    
 }
 
 function desabilitaCamposProjeto(){
-    document.getElementById('nomeProjeto').value = '';
-    document.getElementById('escopo').value = '';
-    document.getElementById('dt_inicioProjeto').value = '';
-    document.getElementById('dt_prazoProjeto').value = '';
-    document.getElementById('corProjeto').disabled = true;
+    limparCamposCadasProjeto();
     document.getElementById("nomeProjeto").readOnly = true;
     document.getElementById("escopo").readOnly = true;
     document.getElementById("dt_inicioProjeto").readOnly = true;
-    document.getElementById("dt_prazoProjeto").readOnly = true;
-    document.getElementById("corProjeto").hidden = true;
+    document.getElementById("dt_prazoProjeto").readOnly = true;  
+    document.getElementById("corProjeto").disabled = true;
+    
 }
 
 function habilitaBtnNovoProjeto(){
@@ -68,18 +166,69 @@ function desabilitaBtnNovoProjeto(){
     }
 }
 
+function desabilitaBtnGravaProjeto(){
+    document.getElementById("btn_salvarprojeto").disabled = true;
+    if(document.getElementById("btn_salvarprojeto").disabled = true){
+       mudaBotao =  document.getElementById("btn_salvarprojeto");
+        mudaBotao.style.backgroundColor = "gray";
+    }
+}
+
+function habilitaBtnGravarProjeto(){
+    document.getElementById("btn_salvarprojeto").disabled = false;
+    mudaBotao =  document.getElementById("btn_salvarprojeto");
+        mudaBotao.style.backgroundColor = "#698FEB";
+}
+
+function limparCamposCadasProjeto(){
+    document.getElementById("nomeProjeto").value = '';
+    document.getElementById("escopo").value = '';
+    document.getElementById("dt_prazoProjeto").value = '';
+    document.getElementById("dt_inicioProjeto").value = '';
+    
+   mudaCor = document.getElementById("corProjeto");
+    cor = "#000000";
+    
+    mudaCor.value = cor.value;
+}
 
 vetor_projeto = [];
+vetor_tabelaProjeto = [];
 
-
+function carregaTabela(){
+    
+    
+    for(i = 0; vetor_tabelaProjeto.length;i++){
+        
+        linhaTabelaProjeto = "<tr><td>"+vetor_tabelaProjeto[i][0]+"</td><td>"+vetor_tabelaProjeto[i][1]+"</td><td>"+vetor_tabelaProjeto[i][3]+"</td><td>"+vetor_tabelaProjeto[i][4]+"</td><td bgcolor="+vetor_tabelaProjeto[i][5]+"></td></tr>";
+    
+        
+        if(gravarProjeto()){
+            document.getElementById("corpoTabelaProjeto").innerHTML += linhaTabelaProjeto;
+        }else if(excluirCadasProjeto()){
+            document.getElementById("corpoTabelaProjeto").innerHTML -= linhaTabelaProjeto;
+        }
+    }    
+}
 
 function novoProjeto(){
-    codAnterior = parseInt(document.getElementById("codProjeto").value);
+    
+    if(document.getElementById("codProjeto").value == 0){
+         codAnterior = parseInt(document.getElementById("codProjeto").value);
     novoCod = codAnterior+1;
     document.getElementById("codProjeto").value = novoCod;
+    }
+    else{
+         document.getElementById("codProjeto").value = vetor_projeto.length+1;
+    }
+   
     habilitaCamposProjeto();
     habilitaBtnCancelarProjeto();
     desabilitaBtnNovoProjeto();
+    habilitaBtnGravarProjeto();
+    desabilitaAvancoCodProjeto();
+    desabilitaRecuoCodProjeto();
+    limparCamposCadasProjeto();
     
 }
 
@@ -87,8 +236,13 @@ function cancelarCadasProjeto(){
     document.getElementById("codProjeto").value = vetor_projeto.length;
     
     desabilitaCamposProjeto();
+    
+    desabilitaBtnGravaProjeto();
+    desabilitaBtnCancelarProjeto();
+    habilitaRecuoCodProjeto();
+    buscaValoresProjeto();
     habilitaBtnNovoProjeto();
- }
+}
 
 function gravarProjeto(){
     
@@ -103,19 +257,26 @@ function gravarProjeto(){
     
     vetor_projeto.push(projeto);
         
-    linhaTabelaProjeto = "<tr draggable=true><td>"+nomeProjeto.value+"</td><td>"+dt_inicioProjeto.value+"</td><td>"+dt_prazoProjeto.value+"</td><td bgcolor="+corProjeto.value+"></td></tr>";
+     linhaTabelaProjeto = "<tr><td>"+codPrj.value+"</td><td>"+nomeProjeto.value+"</td><td>"+dt_inicioProjeto.value+"</td><td>"+ dt_prazoProjeto.value+"</td><td bgcolor="+corProjeto.value+"></td></tr>";
     
-   
     
-    document.getElementById("corpoTabelaProjeto").innerHTML += linhaTabelaProjeto;
     
+    vetor_tabelaProjeto.push(linhaTabelaProjeto);
+    
+    console.log(vetor_tabelaProjeto);
+    
+    carregaTabela();
     
     jsonCadastroProjeto();
     
     desabilitaCamposProjeto();
     habilitaBtnNovoProjeto();
+    desabilitaBtnGravaProjeto();
+    desabilitaBtnCancelarProjeto();
+    habilitaRecuoCodProjeto();
+    buscaValoresProjeto();
     
-    
+        
 }
 
 function jsonCadastroProjeto(){
@@ -133,7 +294,26 @@ function jsonCadastroProjeto(){
     console.log(jsonProjeto);
 }
 
-
+function excluirCadasProjeto(){
+    codAtual = parseInt(document.getElementById("codProjeto").value);
+    
+    for(i = 0; i<vetor_projeto.length;i++){
+        
+        if(codAtual == vetor_projeto[i][0]){
+            
+            vetor_projeto.splice([i],5);
+        }
+        console.log(vetor_projeto);
+    }
+    
+    linhaTabelaProjeto = "<tr><td>"+codPrj.value+"</td><td>"+nomeProjeto.value+"</td><td>"+dt_inicioProjeto.value+"</td><td>"+dt_prazoProjeto.value+"</td><td bgcolor="+corProjeto.value+"></td></tr>";
+    
+   
+    console.log(linhaTabelaProjeto);
+    
+    document.getElementById("corpoTabelaProjeto").innerHTML -= linhaTabelaProjeto;
+    
+}
 
 /*///////////////////////////////////////*/
 

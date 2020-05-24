@@ -30,6 +30,20 @@
     background-repeat: no-repeat;
 }
 
+.btn_shadow1_1{
+    width: 150px;
+    height: 35px;
+    border-radius: 6px;
+    background-color: #698FEB;
+    color: white;
+    font-weight: 500;
+    font-family: monospace;
+    box-shadow: 0px 0px 5px #698FEB;
+    background-image: url(../images/seta2.png);
+    background-position: right;
+    background-repeat: no-repeat;
+}
+
 .btn_shadow2{
     width: 150px;
     height: 35px;
@@ -573,6 +587,19 @@
 
 #cadastro_projeto #codProjeto{
    width: 100px;
+   
+    
+}
+
+#cadastro_projeto #codAnteriorCadasProjeto{
+    width: 30px;
+    margin-left: 5px;
+}
+
+#cadastro_projeto #codPosteriorCadasProjeto{
+    width: 30px;
+    margin-left: 5px;
+    
 }
 
 #cadastro_projeto #nomeProjeto{
