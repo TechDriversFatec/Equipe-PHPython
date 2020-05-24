@@ -13,6 +13,7 @@ class tb_Projeto(models.Model):
     prj_escopo = models.CharField('Escopo', max_length=119)
     prj_datainicio = models.DateField('Data Inicio')
     prj_prazoentrega = models.DateField('Prazo de Entrega')
+    prj_color = models.CharField('Cor', max_length=60, default='')
 
 
 class tb_Tarefa(models.Model):
