@@ -28,39 +28,9 @@
         
         
          <img id="imgbtn_prj" src="images/img_prj.png" onclick="clicaProjeto()">
-   
         
-        <div id="imgbtn_trf"  class="dropdown_trf">
-          <img id="imgbtn_trf" src="images/img_trf.png" onclick="menuDropdown_trf()" class="dropbtn_trf">
-              <div id="menu_trf" class="dropdown-content_trf">
-                <div id="cadastro_tarefa">
-                  <br>
-                  <label>Seleione Projeto: <input type="text" list="listaProjetos"></label>
-                  <datalist id="listaProjetos">
-                      <option value="Projeto 1">
-                  </datalist>
-                  <br>
-                  <label for="nomeTarefa">Nome Tarefa: <input id="nomeTarefa" type="text"></label>
-                  <br>
-                  <label for="dt_inicioTarefa">Data Inicial: <input id="dt_inicio" type="date"></label>
-                  <br>
-                  <label for="dt_finalTarefa">Data Final: <input id="dt_final" type="date"></label>
-                    <br>
-                  <label for="dt_prazoTarefa">Prazo: <input id="dt_prazo" type="date"></label>
-                    <br>
-                  <label for="interdependencia">Interdependência: <input id="interdependencia" type="text" list="listaTarefas"></label>
-                  <datalist id="listaTarefas">
-                      <option value="Tarefa 1">
-                      <option value="Tarefa 2">
-                  </datalist>
-                    <br>
-                      <button id="btn_salvartarefa" type="submit" class="btn_shadow2">Gravar</button>
-                  
-                  
-                </div>
-                
-              </div>
-        </div>
+         <img id="imgbtn_trf" src="images/img_trf.png" onclick="clicaTarefa()" class="dropbtn_trf">
+              
         
          <div id="imgbtn_pessoas"  class="dropdown_pessoas">
           <img id="imgbtn_pessoas" src="images/img_pessoas.png" onclick="menuDropdown_pessoas()" class="dropbtn_pessoas">
@@ -69,17 +39,9 @@
                   
                  
                   <br>
-                  <label >Seleione Projeto: <input  type="text" list="listaProjetos"></label>
-                  <datalist id="listaProjetos">
-                      <option value="Projeto 1">
-                  </datalist>
-                  <br>
+                 
                 <br>
-                     <label for="tarefas">Tarefa: <input id="tarefas" type="text" list="listaTarefas"></label>
-                  <datalist id="listaTarefas">
-                      <option value="Tarefa 1">
-                      <option value="Tarefa 2">
-                  </datalist>
+                     
                     <br>
                   <label for="listanomePessoa">Seleione a pessoa: <input id="listanomePessoa" type="text" list="listaPessoa"></label>
                   <datalist id="listaPessoa">
@@ -188,7 +150,7 @@
                
                 <div id='listaProjeto'>
             
-            <table id="sortable" border=1>
+            <table border=1>
                     <thead>
                         <caption>Projetos cadastrados:</caption>
                         <tr>
@@ -253,6 +215,49 @@
         
     </dialog>
  <!------------------------------------------------------------->
+    
+<!--CADASTRO DE TAREFA -->
+            <dialog id="abreCadastroTarefa" class="abreCadastro"> 
+         <div id="bloco_superior" class="boxShadow1">
+                <button id="btn_fechar" class="btn_shadow2" onclick="fecharCadastroTarefa()">[X]Fechar</button>
+             <h1 class="styleWord1">Cadastro de Tarefa</h1>        
+         </div>
+        <br><br>
+                
+           <div id="cadastro_tarefa">
+                <label  for="codProjeto">Código tarefa: <input readonly="true" id="codTarefa" type="text"></label>
+                 <button type="button" id="codAnteriorCadasTarefa" class="btn_shadow1_1" onclick="recuarCodTarefa()"></button>
+                 <button type="button" id="codPosteriorCadasTarefa" class="btn_shadow1" onclick="avancarCodTarefa()"></button>
+                <br><br>
+               <label for="selecionaProjeto">Selecione o projeto: <input id="selecionaProjeto" type="text" list="listaProjetos"></label>
+                  <datalist id="listaProjetos">
+                      
+                  </datalist>
+               <br>
+               <label for="interdependencia">Interdependencia: <input id="interdependencia" type="text" list="listaInterdependencia"></label>
+                  <datalist id="listaInterdependencia">
+                      <option value="Tarefa 1">
+                      <option value="Tarefa 2">
+                  </datalist>
+               <br>
+                <label for="nomeTarefa">Nome tarefa: <input id="nomeTarefa" readonly="true" type="text"></label>
+               <br>
+               <br>
+               <label for="dt_inicioTarefa">Data Início: <input id="dt_inicioTarefa" readonly="true" type="date"></label>
+               <label for="dt_finalTarefa">Data Final: <input id="dt_finalTarefa" readonly="true" type="date"></label>
+               <br>
+               <label for="dt_prazoTarefa">Prazo: <input id="dt_prazoTarefa" readonly="true" type="date"></label>
+               <label>Entregável: </label><input id="entregavel" readonly="true" type="checkbox">
+               <br><br>
+               <button id="btn_novatarefa" type="submit" class="btn_shadow2" onclick="novaTarefa()">Novo</button>       
+               <button id="btn_salvartarefa" type="submit" class="btn_shadow2" onclick="gravarTarefa()">Gravar</button>
+                      <button id="btn_cancelarCadasTarefa" type="submit" class="btn_shadow2" onclick="cancelarCadasTarefa()">Cancelar</button>
+                     <button id="btn_excluirCadasTarefa" type="submit" class="btn_shadow2" onclick="excluirCadasTarefa()">Excluir</button>
+                
+                </div>
+          </dialog>
+            
+     <!------------------------------------------------------------->
 </body>
 
 

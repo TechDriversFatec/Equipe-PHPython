@@ -11,7 +11,7 @@ function clicaProjeto(){
     codProjeto = 0;
     codProjetoAtual = 0;
     
-    if(vetor_projeto.length > 1){
+    if(vetor_projeto.length >= 1){
         codProjeto = vetor_projeto.length;
         document.getElementById("codProjeto").value = codProjeto;
         habilitaRecuoCodProjeto();
@@ -35,7 +35,6 @@ function clicaProjeto(){
     buscaValoresProjeto();
     
     }
-
 
 function buscaValoresProjeto(){
     
@@ -107,7 +106,6 @@ function habilitaRecuoCodProjeto(){
 }
 }
 
-
 function habilitaAvancoCodProjeto(){
   document.getElementById("codPosteriorCadasProjeto").disabled = false;
     mudaBotao =  document.getElementById("codPosteriorCadasProjeto");
@@ -116,7 +114,7 @@ function habilitaAvancoCodProjeto(){
 
 function fecharCadastroProjeto(){
     dialogCadastro.close();
-    limparCadasProjeto();
+    limparCamposCadasProjeto();
 }
 
 function habilitaBtnCancelarProjeto(){
@@ -211,11 +209,10 @@ function carregaTabela(){
 function novoProjeto(){
     
     if(document.getElementById("codProjeto").value == 0){
-         codAnterior = parseInt(document.getElementById("codProjeto").value);
-    novoCod = codAnterior+1;
-    document.getElementById("codProjeto").value = novoCod;
-    }
-    else{
+         codAnteriorProjeto = parseInt(document.getElementById("codProjeto").value);
+    novoCodProjeto = codAnteriorProjeto+1;
+    document.getElementById("codProjeto").value = novoCodProjeto;
+    }else{
          document.getElementById("codProjeto").value = vetor_projeto.length+1;
     }
    
@@ -376,26 +373,334 @@ function jsonCadastroPessoa(){
 
 /*/////////////////////////////////////////////////*/
 
+/*CADASTRO DE TAREFAS*/////////////////////////////
 
+function clicaTarefa(){
+    codTarefa = 0;
+    codTarefaAtual = 0;
+    
+    if(vetor_tarefa.length > 1){
+        codTarefa = vetor_tarefa.length;
+        document.getElementById("codTarefa").value = codTarefa;
+        habilitaRecuoCodTarefa();
+        
+    }
+    else
+    {
+        document.getElementById("codTarefa").value = codTarefa;
+        desabilitaRecuoCodTarefa();
+        desabilitaAvancoCodTarefa();
+    }
+    
+    dialogCadastro = document.getElementById("abreCadastroTarefa");
+    dialogCadastro.showModal();
+    
+    
+    
+     desabilitaBtnCancelarTarefa();
+    habilitaBtnNovaTarefa();
+    desabilitaBtnGravaTarefa();
+    buscaValoresTarefa();
+    carregaDatalistProjetos();
+    
+    }
 
-////////////////
-function expandeTarefas() {
-    col_tarefas.innerHTML = col_tarefas.innerHTML + "<button type='button' class='btn_shadow3'>TAREFAS 1</button>";
+function carregaDatalistProjetos(){
+    
+    document.getElementById("listaProjetos").innerHTML = '';
+    
+    for(i =0; i< vetor_projeto.length;i++){
+        
+        document.getElementById("listaProjetos").innerHTML += "<option value='"+vetor_projeto[i][1]+"'>";
+        
+        
+    }
+    
     
 }
 
-function expandePessoas() {
-    pessoas_list.innerHTML = pessoas_list.innerHTML + "<label class='styleWord1'>DEV 1</label>"
+function buscaValoresTarefa(){
+    
+   codTarefaAtual = parseInt(document.getElementById("codTarefa").value);
+    
+    
+    
+    for(i=0;i<vetor_tarefa.length;i++){
+        
+        if(codTarefaAtual == vetor_tarefa[i][0]){
+        document.getElementById("selecionaProjeto").value = vetor_tarefa[i][1];
+        document.getElementById("interdependencia").value = vetor_tarefa[i][2];
+        document.getElementById("nomeTarefa").value = vetor_tarefa[i][3];
+        document.getElementById("dt_inicioTarefa").value = vetor_tarefa[i][4];
+        document.getElementById("dt_finalTarefa").value = vetor_tarefa[i][5];
+         document.getElementById("dt_prazoTarefa").value = vetor_tarefa[i][5];
+            
+        }
+    }
 }
+
+function recuarCodTarefa(){
+    document.getElementById("codTarefa").value = vetor_tarefa.length -1;
+    
+   
+    habilitaAvancoCodTarefa();
+    
+    if(document.getElementById("codTarefa").value == 1){
+        desabilitaRecuoCodTarefa();
+    }
+    buscaValoresTarefa();
+}
+
+function avancarCodTarefa(){
+    codTarefaAtual = parseInt(document.getElementById("codTarefa").value);
+    
+    codTarefaAtual += 1;
+    
+    document.getElementById("codTarefa").value = codTarefaAtual;
+    
+    if(vetor_tarefa.length ==  document.getElementById("codTarefa").value){
+        desabilitaAvancoCodTarefa();
+    }
+    habilitaRecuoCodTarefa();
+    buscaValoresTarefa();
+}
+
+function desabilitaRecuoCodTarefa(){
+        document.getElementById("codAnteriorCadasTarefa").disabled = true;
+     if(document.getElementById("codAnteriorCadasTarefa").disabled = true){
+       mudaBotao =  document.getElementById("codAnteriorCadasTarefa");
+        mudaBotao.style.backgroundColor = "gray";
+}
+    
+}
+
+function desabilitaAvancoCodTarefa(){
+  document.getElementById("codPosteriorCadasTarefa").disabled = true;
+     if(document.getElementById("codPosteriorCadasTarefa").disabled = true){
+       mudaBotao =  document.getElementById("codPosteriorCadasTarefa");
+        mudaBotao.style.backgroundColor = "gray";
+}
+}
+
+function habilitaRecuoCodTarefa(){
+   
+   if(document.getElementById("codTarefa").value > 1){ document.getElementById("codAnteriorCadasTarefa").disabled = false;
+    mudaBotao =  document.getElementById("codAnteriorCadasTarefa");
+    mudaBotao.style.backgroundColor = "#698FEB";
+     
+}
+}
+
+function habilitaAvancoCodTarefa(){
+  document.getElementById("codPosteriorCadasTarefa").disabled = false;
+    mudaBotao =  document.getElementById("codPosteriorCadasTarefa");
+    mudaBotao.style.backgroundColor = "#698FEB";
+}
+
+function fecharCadastroTarefa(){
+    dialogCadastro.close();
+    limparCadasTarefa();
+}
+
+function habilitaBtnCancelarTarefa(){
+    document.getElementById("btn_cancelarCadasTarefa").disabled = false;
+    mudaBotao =  document.getElementById("btn_cancelarCadasTarefa");
+        mudaBotao.style.backgroundColor = "#698FEB";
+}
+
+function desabilitaBtnCancelarTarefa(){
+    document.getElementById("btn_cancelarCadasTarefa").disabled = true;
+     if(document.getElementById("btn_cancelarCadasTarefa").disabled = true){
+       mudaBotao =  document.getElementById("btn_cancelarCadasTarefa");
+        mudaBotao.style.backgroundColor = "gray";
+}
+}
+
+function habilitaCamposTarefa(){
+     document.getElementById("selecionaProjeto").readOnly = false;
+    document.getElementById("interdependencia").readOnly = false;   
+    document.getElementById("nomeTarefa").readOnly = false;
+    document.getElementById("dt_inicioTarefa").readOnly = false;
+     document.getElementById("dt_finalTarefa").readOnly = false;
+    document.getElementById("dt_prazoTarefa").readOnly = false;
+        
+}
+
+function desabilitaCamposTarefa(){
+    limparCamposCadasTarefa();
+    document.getElementById("selecionaProjeto").readOnly = true;     document.getElementById("interdependencia").readOnly = true; 
+    document.getElementById("nomeTarefa").readOnly = true;
+    document.getElementById("dt_inicioTarefa").readOnly = true;
+     document.getElementById("dt_finalTarefa").readOnly = true;
+    document.getElementById("dt_prazoTarefa").readOnly = true;
+    
+}
+
+function habilitaBtnNovaTarefa(){
+     document.getElementById("btn_novatarefa").disabled = false;
+    mudaBotao =  document.getElementById("btn_novatarefa");
+        mudaBotao.style.backgroundColor = "#698FEB";
+}
+
+function desabilitaBtnNovaTarefa(){
+    document.getElementById("btn_novatarefa").disabled = true;
+    if(document.getElementById("btn_novatarefa").disabled = true){
+       mudaBotao =  document.getElementById("btn_novatarefa");
+        mudaBotao.style.backgroundColor = "gray";
+    }
+}
+
+function desabilitaBtnGravaTarefa(){
+    document.getElementById("btn_salvartarefa").disabled = true;
+    if(document.getElementById("btn_salvartarefa").disabled = true){
+       mudaBotao =  document.getElementById("btn_salvartarefa");
+        mudaBotao.style.backgroundColor = "gray";
+    }
+}
+
+function habilitaBtnGravarTarefa(){
+    document.getElementById("btn_salvartarefa").disabled = false;
+    mudaBotao =  document.getElementById("btn_salvartarefa");
+        mudaBotao.style.backgroundColor = "#698FEB";
+}
+
+function limparCamposCadasTarefa(){
+    document.getElementById("selecionaProjeto").value = '';
+    document.getElementById("interdependencia").value = '';
+    document.getElementById("nomeTarefa").value = '';
+    document.getElementById("dt_inicioTarefa").value = '';
+     document.getElementById("dt_finalTarefa").value = '';
+    document.getElementById("dt_prazoTarefa").value = '';
+    
+   
+}
+
+vetor_tarefa = [];
+
+
+
+function novaTarefa(){
+    
+    if(document.getElementById("codTarefa").value == 0){
+         codAnteriorTarefa = parseInt(document.getElementById("codTarefa").value);
+    novoCodTarefa = codAnteriorTarefa+1;
+    document.getElementById("codTarefa").value = novoCodTarefa;
+    }
+    else{
+         document.getElementById("codTarefa").value = vetor_projeto.length+1;
+    }
+   
+    habilitaCamposTarefa();
+    habilitaBtnCancelarTarefa();
+    desabilitaBtnNovaTarefa();
+    habilitaBtnGravarTarefa();
+    desabilitaAvancoCodTarefa();
+    desabilitaRecuoCodTarefa();
+    limparCamposCadasTarefa();
+   
+    
+}
+
+function cancelarCadasTarefa(){
+    document.getElementById("codTarefa").value = vetor_tarefa.length;
+    
+    desabilitaCamposTarefa();
+    
+    desabilitaBtnGravaTarefa();
+    desabilitaBtnCancelarTarefa();
+    habilitaRecuoCodTarefa();
+    buscaValoresTarefa();
+    habilitaBtnNovaTarefa();
+   
+}
+
+function gravarTarefa(){
+    codProjetoSelecionado = '';
+    trf_id = document.getElementById("codTarefa");
+    selecionaProjeto = document.getElementById("selecionaProjeto").value;
+    
+    
+    for(i = 0; i< vetor_projeto.length;i++){
+        
+        if(selecionaProjeto == vetor_projeto[i][1]){
+            fk_prj_id = vetor_projeto[i][0];
+        }
+       
+    }
+        
+    trf_interdependencia = document.getElementById("interdependencia");
+    trf_nometarefa = document.getElementById("nomeTarefa");
+    trf_datainicial = document.getElementById("dt_inicioTarefa");
+    trf_datafinal = document.getElementById("dt_finalTarefa");
+    trf_prazo = document.getElementById("dt_prazoTarefa");
+    trf_entregavel = document.getElementById("entregavel");
+    
+    tarefa = [trf_id.value, trf_nometarefa.value, trf_datainicial.value, trf_datafinal.value, trf_prazo.value, trf_interdependencia.value, trf_entregavel.value, fk_prj_id];
+    
+    vetor_tarefa.push(tarefa);
+    console.log(vetor_tarefa);
+    
+    
+    jsonCadastroTarefa();
+    desabilitaCamposTarefa();
+    habilitaBtnNovaTarefa();
+    desabilitaBtnGravaTarefa();
+    desabilitaBtnCancelarTarefa();
+    habilitaRecuoCodTarefa();
+    buscaValoresTarefa();       
+}
+
+function jsonCadastroTarefa(){
+    jsonTarefa = [];
+    for(i=0;i<vetor_tarefa.length;i++){
+        jsonTarefa.push({
+           'trf_id': vetor_tarefa[i][0],
+            'trf_nometarefa': vetor_tarefa[i][1],
+            'trf_datainicial': vetor_tarefa[i][2],
+            'trf_datafinal': vetor_tarefa[i][3],
+            'trf_prazo': vetor_tarefa[i][4],
+            'trf_interdependencia': vetor_tarefa[i][5],
+            'trf_entregavel': vetor_tarefa[i][6],
+            'fk_prj_id': vetor_tarefa[i][7]
+        });
+    }
+    console.log(jsonTarefa);
+}
+
+function excluirCadasTarefa(){
+    codAtual = parseInt(document.getElementById("codTarefa").value);
+    
+    for(i = 0; i<vetor_tarefa.length;i++){
+        
+        if(codAtual == vetor_tarefa[i][0]){
+            
+            vetor_tarefa.splice([i],5);
+            
+            vetor_tabelaTarefa.splice([i],1);
+            
+            
+        }
+        console.log(vetor_tarefa);
+    }
+    
+      carregaTabela();
+      document.getElementById("codTarefao").value = vetor_tarefa.length;
+    buscaValoresTarefa();
+      
+    
+    
+}
+
+/*///////////////////////////////////////*/
+
+
+
 
 /*MENU DROPDOWN BTN_menusuperior*/////////////////////////////
 
 function menuDropdown_menusuperior() {
   document.getElementById("menu_superior").classList.toggle("show");
     
-  document.getElementById("menu_prj").classList.remove("show");
-  document.getElementById("menu_trf").classList.remove("show");
- 
 }
 
 //////////////////////////////////////////////////

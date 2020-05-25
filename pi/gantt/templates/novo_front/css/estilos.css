@@ -312,9 +312,9 @@
     justify-content: flex-end;
     width: 30px;
     height: 30px;
-    margin-top: 6px;
-    margin-right: 50px;
-    margin-left: -30px;
+    margin-top: 12px;
+    margin-right: 90px;
+    margin-left: -40px;
     
 }
 
@@ -648,10 +648,6 @@
     margin-left: -30px;
 }
 
-#corpoTabelaProjeto tr:hover{
-    cursor: move;
-    background-color: gray;
-}
 
 
 /*////////////////////////////////////*/
@@ -699,4 +695,101 @@
 
 /*////////////////////////////////////*/
 
+/*CADASTRO TAREFA*/
 
+#cadastro_tarefa{
+    width: 580px;
+    margin-left: 15px;
+    display: block;
+    
+}
+
+
+#cadastro_tarefa #selecionaProjeto{
+     width: 250px;
+    margin-bottom: 10px;
+}
+
+#cadastro_tarefa #interdependencia{
+     width: 200px;
+    margin-bottom: 10px;
+}
+
+#cadastro_tarefa #codTarefa{
+   width: 100px;
+   
+    
+}
+
+#cadastro_tarefa #codAnteriorCadasTarefa{
+    width: 30px;
+    margin-left: 5px;
+}
+
+#cadastro_tarefa #codPosteriorCadasTarefa{
+    width: 30px;
+    margin-left: 5px;
+    
+}
+
+#cadastro_tarefa #nomeTarefa{
+   width: 200px;
+}
+#cadastro_tarefa  #dt_inicioTarefa{
+    width: 150px;
+}
+#cadastro_tarefa  #dt_finalTarefa{
+    width: 150px;
+    margin-bottom: 10px;
+}
+#cadastro_tarefa  #dt_prazoTarefa{
+    width: 150px;
+}
+
+
+
+#cadastro_tarefa  #entregavel{
+    width: 15px;
+    height: 15px;
+    
+    
+}
+
+
+#cadastro_tarefa  #btn_novotarefa{
+    width: 100px;
+}
+#cadastro_tarefa  #btn_salvartarefa{
+    width: 100px;
+    margin-left: 5px;
+}
+#cadastro_tarefa  #btn_cancelarCadasTarefa{
+    width: 100px;
+    margin-left: 5px;
+}
+
+
+
+
+#listaTarefa{
+    margin-top: 30px;
+    width: 550px;
+    height: 200px;
+    overflow: auto;
+}
+
+#listaTarefa table{
+    width: 500px;
+    margin-left: 30px;
+    
+}
+
+#listaTarefa table caption{
+    width: 200px;
+    margin-left: -30px;
+}
+
+
+
+
+/*////////////////////////////////////*/
