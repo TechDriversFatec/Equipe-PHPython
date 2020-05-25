@@ -98,19 +98,19 @@
             
              <div id="cadastro_projeto">
                  
-                 <label  for="codProjeto">Código projeto: <input readonly="true" id="codProjeto" type="text"></label>
+                 <label  for="codProjeto">Código projeto: <input readonly="true" id="codProjeto" type="text" name="prj_id"></label>
                  <button type="button" id="codAnteriorCadasProjeto" class="btn_shadow1_1" onclick="recuarCodProjeto()"></button>
                  <button type="button" id="codPosteriorCadasProjeto" class="btn_shadow1" onclick="avancarCodProjeto()"></button>
                                   <br><br>
-                <label for="nomeProjeto">Nome projeto: <input id="nomeProjeto" readonly="true" type="text"></label>
+                <label for="nomeProjeto">Nome projeto: <input id="nomeProjeto" readonly="true" type="text" name="prj_nome"></label>
                   
-                  <label for="escopo">Escopo: <input id="escopo" readonly="true" type="text"></label>
+                  <label for="escopo">Escopo: <input id="escopo" readonly="true" type="text" name="prj_escopo"></label>
                   <br><br>
-                  <label for="dt_inicioProjeto">Data Início: <input readonly="true" id="dt_inicioProjeto" type="date"></label>
+                  <label for="dt_inicioProjeto">Data Início: <input readonly="true" id="dt_inicioProjeto" type="date" name="prj_datainicio"></label>
                   
-                  <label for="dt_prazoProjeto">Prazo Entrega: <input readonly="true" id="dt_prazoProjeto" type="date"></label>
+                  <label for="dt_prazoProjeto">Prazo Entrega: <input readonly="true" id="dt_prazoProjeto" type="date" name="prj_prazo"></label>
                     <br><br>
-                  <label for="corProjeto">Cor do projeto: <input disabled="true" id="corProjeto" type="color"></label>
+                  <label for="corProjeto">Cor do projeto: <input disabled="true" id="corProjeto" type="color" name="prj_cor"></label>
                     <br><br>
                   <button id="btn_novoprojeto" type="submit" class="btn_shadow2" onclick="novoProjeto()">Novo</button>
                 
@@ -153,14 +153,19 @@
              <h1 class="styleWord1">Cadastro de Pessoas</h1>        </div>
         <br><br>
         <div id='cadastroPessoas'>
-        
-            <label for='nomePessoa'>Nome da pessoa: </label><input type='text' id='nomePessoa' name="nomePessoa">
+            <label for='codPessoa'>Código: </label><input type='text' id='codPessoa' name="pes_id" name="pes_id">
+            <button type="button" id="codAnteriorCadasPessoa" class="btn_shadow1_1" onclick="recuarCodPessoa()"></button>
+                 <button type="button" id="codPosteriorCadasPessoa" class="btn_shadow1" onclick="avancarCodPesso()"></button>
             <br><br>
-            <label for='contato'>Contato: </label><input type='text' id='contato' name="contato">
+            <label for='nomePessoa'>Nome da pessoa: </label><input type='text' id='nomePessoa' name="nomePessoa" name="pes_nome">
             <br><br>
-            <button id='btn_gravarpessoa' onclick="gravarPessoa(), jsonCadastroPessoa()" class='btn_shadow2'>Gravar</button>
-            <button id='btn_limparCadasPessoa' class='btn_shadow2' onclick="limparCadasPessoa()">Limpar</button>
-           
+            <label for='contato'>Contato: </label><input type='text' id='contato' name="pes_contato">
+            <br><br>
+            <button id="btn_novapessoa" type="submit" class="btn_shadow2" onclick="novaPessoa()">Novo</button>       
+            <button id="btn_salvarpessoa" type="submit" class="btn_shadow2" onclick="gravarPessoa()">Gravar</button>
+            <button id="btn_cancelarCadasPessoa" type="submit" class="btn_shadow2" onclick="cancelarCadasPessoa()">Cancelar</button>
+            <button id="btn_excluirCadasPessoa" type="submit" class="btn_shadow2" onclick="excluirCadasPessoa()">Excluir</button>
+                
         </div>
         
         <br><br><br>
@@ -170,7 +175,7 @@
                     <thead>
                         <caption>Pessoas cadastradas:</caption>
                         <tr>
-                        <th>Nome</th><th>Contato</th>
+                        <th>Código</th><th>Nome</th><th>Contato</th>
                         </tr>
                   </thead>
                     <tbody id="corpoTabelaPessoas">
@@ -197,28 +202,28 @@
         <br><br>
                 
            <div id="cadastro_tarefa">
-                <label  for="codProjeto">Código tarefa: <input readonly="true" id="codTarefa" type="text"></label>
+                <label  for="codProjeto">Código: <input readonly="true" id="codTarefa" type="text" name="trf_id"></label>
                  <button type="button" id="codAnteriorCadasTarefa" class="btn_shadow1_1" onclick="recuarCodTarefa()"></button>
                  <button type="button" id="codPosteriorCadasTarefa" class="btn_shadow1" onclick="avancarCodTarefa()"></button>
                 <br><br>
-               <label for="selecionaProjeto">Selecione o projeto: <input id="selecionaProjeto" disabled="true" type="text" list="listaProjetos"></label>
+               <label for="selecionaProjeto">Selecione o projeto: <input id="selecionaProjeto" disabled="true" type="text" list="listaProjetos" name="fk_prj_id"></label>
                   <datalist id="listaProjetos">
                       
                   </datalist>
                <br>
-               <label for="interdependencia">Interdependencia: <input disabled="true" id="interdependencia" type="text" list="listaInterdependencia"></label>
+               <label for="interdependencia">Interdependencia: <input disabled="true" id="interdependencia" type="text" list="listaInterdependencia" name="trf_interdependencia"></label>
                   <datalist id="listaInterdependencia">
                       
                   </datalist>
                <br>
-                <label for="nomeTarefa">Nome tarefa: <input id="nomeTarefa" readonly="true" type="text"></label>
+                <label for="nomeTarefa">Nome tarefa: <input id="nomeTarefa" readonly="true" type="text" name="trf_nometarefa"></label>
                <br>
                <br>
-               <label for="dt_inicioTarefa">Data Início: <input id="dt_inicioTarefa" readonly="true" type="date"></label>
-               <label for="dt_finalTarefa">Data Final: <input id="dt_finalTarefa" readonly="true" type="date"></label>
+               <label for="dt_inicioTarefa">Data Início: <input id="dt_inicioTarefa" readonly="true" type="date" name="trf_datainicial"></label>
+               <label for="dt_finalTarefa">Data Final: <input id="dt_finalTarefa" readonly="true" type="date" name="trf_datafinal"></label>
                <br>
-               <label for="dt_prazoTarefa">Prazo: <input id="dt_prazoTarefa" readonly="true" type="date"></label>
-               <label>Entregável: </label><input id="entregavel" disabled="true" type="checkbox">
+               <label for="dt_prazoTarefa">Prazo: <input id="dt_prazoTarefa" readonly="true" type="date" name="trf_prazo"></label>
+               <label>Entregável: </label><input id="entregavel" disabled="true" type="checkbox" name="trf_entregavel">
                <br><br>
                <button id="btn_novatarefa" type="submit" class="btn_shadow2" onclick="novaTarefa()">Novo</button>       
                <button id="btn_salvartarefa" type="submit" class="btn_shadow2" onclick="gravarTarefa()">Gravar</button>
@@ -240,23 +245,30 @@
         </div>
         <br><br>
         <div id='distribuicaoPessoas'>
-            <label  for="codDistribuicao">Código: <input readonly="true" id="codDistribuicao" type="text"></label>
-           <br><br>
+            <label  for="codDistribuicao">Código: <input readonly="true" id="codDistribuicao" type="text" name="pes_trf_id"></label>
+            <button type="button" id="codAnteriorDistribuicao" class="btn_shadow1_1" onclick="recuarCodDistribuicao()"></button>
+                 <button type="button" id="codPosteriorDistribuicao" class="btn_shadow1" onclick="avancarCodDistribuicao()"></button>
+                <br><br>
+           
                <label for="selecionaProjeto">Selecione o projeto: <input id="selecionaProjeto" disabled="true" type="text" list="listaProjetos"></label>
                   <datalist id="listaProjetos">
-                      
+                      <!-- RETORNA AQUI VISUALIZAÇÃO DOS PROJETOS -->
                   </datalist>
                <br>
-            <label for="listaTarefa">Selecione a Tarefa: <input disabled="true" id="listaTarefa" type="text" list="listaTarefa"></label>
+            <label for="listaTarefa">Selecione a Tarefa: <input disabled="true" id="listaTarefa" type="text" list="listaTarefa" name="fk_trf_id"></label>
                   <datalist id="listaTarefa">
                       
                   </datalist>
                <br>
-            <label for="listaPessoa">Selecione a Pessoa: <input disabled="true" id="listaPessoa" type="text" list="listaPessoa"></label>
+            <label for="listaPessoa">Selecione a Pessoa: <input disabled="true" id="listaPessoa" type="text" list="listaPessoa" name="fk_pes_id"></label>
                   <datalist id="listaPessoa">
                       
                   </datalist>
                <br>
+            <button id="btn_novadistribuicao" type="submit" class="btn_shadow2" onclick="novaDistribuicao()">Novo</button>       
+               <button id="btn_salvardistribuicao" type="submit" class="btn_shadow2" onclick="gravarDistribuicao()">Gravar</button>
+                      <button id="btn_cancelarDistribuicao" type="submit" class="btn_shadow2" onclick="cancelarCadasDistribuicao()">Cancelar</button>
+                     <button id="btn_excluirDistribuicao" type="submit" class="btn_shadow2" onclick="excluirDistribuicao()">Excluir</button>
         </div>
         
         <br><br>

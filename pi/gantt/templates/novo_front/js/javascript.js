@@ -377,7 +377,7 @@ function gravarPessoa(){
     
     document.getElementById("corpoTabelaPessoas").innerHTML += linhaTabelaPessoas;
     
-    
+    jsonCadastroPessoa();
 }
 
 function jsonCadastroPessoa(){
@@ -649,8 +649,6 @@ function habilitaDesabilitaBtnExcluirTarefa(){
 
 vetor_tarefa = [];
 
-
-
 function novaTarefa(){
     
     if(vetor_projeto.length == 0){
@@ -782,14 +780,37 @@ function excluirCadasTarefa(){
 
 
 function distribuiPessoas(){
+    /*
+    codDistribuicao = 0;
+    codDistribuicaoAtual = 0;
+    
+    if(vetor_distribuicao.length > 1){
+        codDistribuicao = vetor_distribuicao.length;
+        document.getElementById("codDistribuicao").value = codDistribuicao;
+        habilitaRecuoCodDistribuicao();
+        
+    }
+    else
+    {
+        document.getElementById("codDistribuicao").value = codDistribuicao;
+        desabilitaRecuoCodDistribuicao();
+        desabilitaAvancoCodDistribuicao();
+    }*/
     
     dialogCadastro = document.getElementById("distribuiPessoas");
-    
-    document.getElementById("distribuiPessoas").classList.remove("show");
     dialogCadastro.showModal();
     
     
-    carregaDatalistProjetos()
+    
+     desabilitaBtnCancelarDistribuicao();
+    habilitaBtnNovaDistribuicao();
+    desabilitaBtnGravaDistribuicao();
+    buscaValoresDistribuicao();
+    carregaDatalistProjetos();
+    carregaDataListInterdepedencia()
+    desabilitaAvancoCodDistribuicao();
+    habilitaDesabilitaBtnExcluirDistribuicao();
+    
 }
 
 function fecharDistribuicaoPessoa(){
@@ -799,8 +820,31 @@ function fecharDistribuicaoPessoa(){
 
 
 
+function carregaDatalistProjetos(){
+    
+    document.getElementById("listaProjetos").innerHTML = '';
+    
+    for(i =0; i< vetor_projeto.length;i++){
+        
+        document.getElementById("listaProjetos").innerHTML += "<option value='"+vetor_projeto[i][1]+"'>";
+             
+    }
+    
+}
 
-/*/////////////////////////////////////////////////*/
+function carregaDataListTarefas(){
+    
+     document.getElementById("listaTarefa").innerHTML = '';
+    
+    if(vetor_tarefa.length == 0){
+        document.getElementById("listaTarefa").innerHTML += "<option value=' '>";
+    }
+    for(i =0; i< vetor_tarefa.length;i++){
+        
+        document.getElementById("listaTarefa").innerHTML += "<option value='"+vetor_tarefa[i][1]+"'>";
+    }
+}
+
 
 
 

@@ -628,7 +628,10 @@
     width: 100px;
     margin-left: 5px;
 }
-
+#cadastro_projeto #btn_excluirCadasProjeto{
+    width: 100px;
+    
+}
 
 #listaProjeto{
     margin-top: 30px;
@@ -656,7 +659,7 @@
 
 
 #cadastroPessoas{
-    width: 300px;
+    width: 500px;
     margin-left: 40px;
 }
 
@@ -664,15 +667,31 @@
     width: 250px;
 }
 
-#cadastroPessoas #btn_gravarpessoa{
-    margin-top: 10px;
-    width: 120px
-} 
+#cadastroPessoas #codAnteriorCadasPessoa{
+    width: 30px;
+    margin-left: 5px;
+}
 
-#cadastroPessoas #btn_limparCadasPessoa{
-    margin-top: 10px;
-    width: 120px
-} 
+#cadastroPessoas #codPosteriorCadasPessoa{
+    width: 30px;
+    margin-left: 5px;
+    
+}
+#cadastroPessoas #btn_novapessoa{
+    width: 100px;
+}
+#cadastroPessoas #btn_salvarpessoa{
+    width: 100px;
+    margin-left: 5px;
+}
+#cadastroPessoas #btn_cancelarCadasPessoa{
+    width: 100px;
+    margin-left: 5px;
+}
+#cadastroPessoas #btn_excluirCadasPessoa{
+    width: 100px;
+    
+}
 
 #TablePessoas{
     margin-top: 30px;
@@ -699,7 +718,8 @@
 
 
 #distribuicaoPessoas{
-    width: 400px;
+    width: 500px;
+    margin-left: 20px;
 }
 
 #distribuicaoPessoas #codDistribuicao{
@@ -744,6 +764,38 @@
 .col4{
     width: 6px;
 }
+
+
+#distribuicaoPessoas #codAnteriorDistribuicao{
+    width: 30px;
+    margin-left: 5px;
+}
+
+#distribuicaoPessoas #codPosteriorDistribuicao{
+    width: 30px;
+    margin-left: 5px;
+    
+}
+
+#distribuicaoPessoas  #btn_novadistribuicao{
+    width: 100px;
+    margin-top: 10px;
+}
+#distribuicaoPessoas  #btn_salvardistribuicao{
+    width: 100px;
+    margin-left: 5px;
+}
+#distribuicaoPessoas  #btn_cancelarDistribuicao{
+    width: 100px;
+    margin-left: 5px;
+}
+
+#distribuicaoPessoas  #btn_excluirDistribuicao{
+    width: 100px;
+    margin-left: 5px;
+}
+
+
 /*////////////////////////////////////*/
 
 
