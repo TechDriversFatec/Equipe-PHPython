@@ -423,6 +423,7 @@ function clicaTarefa(){
     desabilitaBtnGravaTarefa();
     buscaValoresTarefa();
     carregaDatalistProjetos();
+    carregaDataListInterdepedencia()
     desabilitaAvancoCodTarefa();
     habilitaDesabilitaBtnExcluirTarefa();
     
@@ -435,6 +436,22 @@ function carregaDatalistProjetos(){
     for(i =0; i< vetor_projeto.length;i++){
         
         document.getElementById("listaProjetos").innerHTML += "<option value='"+vetor_projeto[i][1]+"'>";
+        
+        
+    }
+    
+}
+
+function carregaDataListInterdepedencia(){
+    
+     document.getElementById("listaInterdependencia").innerHTML = '';
+    
+    if(vetor_tarefa.length == 0){
+        document.getElementById("listaInterdependencia").innerHTML += "<option value=' '>";
+    }
+    for(i =0; i< vetor_tarefa.length;i++){
+        
+        document.getElementById("listaInterdependencia").innerHTML += "<option value='"+vetor_tarefa[i][1]+"'>";
         
         
     }
@@ -561,7 +578,7 @@ function habilitaCamposTarefa(){
     document.getElementById("dt_inicioTarefa").readOnly = false;
      document.getElementById("dt_finalTarefa").readOnly = false;
     document.getElementById("dt_prazoTarefa").readOnly = false;
-        
+        document.getElementById("entregavel").disabled = false;  
 }
 
 function desabilitaCamposTarefa(){
@@ -571,6 +588,7 @@ function desabilitaCamposTarefa(){
     document.getElementById("dt_inicioTarefa").readOnly = true;
      document.getElementById("dt_finalTarefa").readOnly = true;
     document.getElementById("dt_prazoTarefa").readOnly = true;
+     document.getElementById("entregavel").disabled = true;  
     
 }
 
@@ -635,6 +653,12 @@ vetor_tarefa = [];
 
 function novaTarefa(){
     
+    if(vetor_projeto.length == 0){
+        
+        alert("Ainda não há projeto cadastrado!")
+    }
+    else{
+    
     if(document.getElementById("codTarefa").value == 0){
          codAnteriorTarefa = parseInt(document.getElementById("codTarefa").value);
     novoCodTarefa = codAnteriorTarefa+1;
@@ -653,6 +677,7 @@ function novaTarefa(){
     limparCamposCadasTarefa();
    
     
+}
 }
 
 function cancelarCadasTarefa(){
@@ -703,6 +728,7 @@ function gravarTarefa(){
     habilitaRecuoCodTarefa();
     buscaValoresTarefa();     
     habilitaDesabilitaBtnExcluirTarefa();
+    carregaDataListInterdepedencia();
 }
 
 function jsonCadastroTarefa(){
@@ -752,6 +778,29 @@ function excluirCadasTarefa(){
 
 /*///////////////////////////////////////*/
 
+/*DISTRIBUIÇÃO DE PESSOAS AOS PROJETOS*///////////////////////////////
+
+
+function distribuiPessoas(){
+    
+    dialogCadastro = document.getElementById("distribuiPessoas");
+    
+    document.getElementById("distribuiPessoas").classList.remove("show");
+    dialogCadastro.showModal();
+    
+    
+    carregaDatalistProjetos()
+}
+
+function fecharDistribuicaoPessoa(){
+    dialogCadastro.close();
+    limparCadasPessoa();
+}
+
+
+
+
+/*/////////////////////////////////////////////////*/
 
 
 

@@ -32,37 +32,9 @@
          <img id="imgbtn_trf" src="images/img_trf.png" onclick="clicaTarefa()" class="dropbtn_trf">
               
         
-         <div id="imgbtn_pessoas"  class="dropdown_pessoas">
-          <img id="imgbtn_pessoas" src="images/img_pessoas.png" onclick="menuDropdown_pessoas()" class="dropbtn_pessoas">
-              <div id="menu_pessoas" class="dropdown-content_pessoas">
-                <div id="cadastro_pessoas">
-                  
-                 
-                  <br>
-                 
-                <br>
-                     
-                    <br>
-                  <label for="listanomePessoa">Seleione a pessoa: <input id="listanomePessoa" type="text" list="listaPessoa"></label>
-                  <datalist id="listaPessoa">
-                      <option value="João">
-                      <option value="Ana">
-                      <option value="Pedrinho">
-                  </datalist>
-                  
-                    <br>
-                    <label for="hr_tarefa">Horas diárias na tarefa: <input id="hr_tarefa" type="time"></label>
-                    <br>
-                 
-                      <button id="btn_salvarpessoa" type="submit" class="btn_shadow2">Gravar</button>
-                  
-                  
-                </div>
-                
-              </div>
-        </div>
-        
-            
+         
+          <img id="imgbtn_pessoas" src="images/img_pessoas.png" onclick="distribuiPessoas()" class="dropbtn_pessoas">
+              
         
         <img id="imgbtn_download" src="images/img_download.png">
         <button id="btn_salvarplanning" class="btn_shadow2">SALVAR</button>       
@@ -192,7 +164,7 @@
         </div>
         
         <br><br><br>
-        <div id='listaPessoas'>
+        <div id='TablePessoas'>
             
             <table border=1>
                     <thead>
@@ -229,15 +201,14 @@
                  <button type="button" id="codAnteriorCadasTarefa" class="btn_shadow1_1" onclick="recuarCodTarefa()"></button>
                  <button type="button" id="codPosteriorCadasTarefa" class="btn_shadow1" onclick="avancarCodTarefa()"></button>
                 <br><br>
-               <label for="selecionaProjeto">Selecione o projeto: <input id="selecionaProjeto" type="text" list="listaProjetos"></label>
+               <label for="selecionaProjeto">Selecione o projeto: <input id="selecionaProjeto" disabled="true" type="text" list="listaProjetos"></label>
                   <datalist id="listaProjetos">
                       
                   </datalist>
                <br>
-               <label for="interdependencia">Interdependencia: <input id="interdependencia" type="text" list="listaInterdependencia"></label>
+               <label for="interdependencia">Interdependencia: <input disabled="true" id="interdependencia" type="text" list="listaInterdependencia"></label>
                   <datalist id="listaInterdependencia">
-                      <option value="Tarefa 1">
-                      <option value="Tarefa 2">
+                      
                   </datalist>
                <br>
                 <label for="nomeTarefa">Nome tarefa: <input id="nomeTarefa" readonly="true" type="text"></label>
@@ -247,7 +218,7 @@
                <label for="dt_finalTarefa">Data Final: <input id="dt_finalTarefa" readonly="true" type="date"></label>
                <br>
                <label for="dt_prazoTarefa">Prazo: <input id="dt_prazoTarefa" readonly="true" type="date"></label>
-               <label>Entregável: </label><input id="entregavel" readonly="true" type="checkbox">
+               <label>Entregável: </label><input id="entregavel" disabled="true" type="checkbox">
                <br><br>
                <button id="btn_novatarefa" type="submit" class="btn_shadow2" onclick="novaTarefa()">Novo</button>       
                <button id="btn_salvartarefa" type="submit" class="btn_shadow2" onclick="gravarTarefa()">Gravar</button>
@@ -258,6 +229,65 @@
           </dialog>
             
      <!------------------------------------------------------------->
+    
+    
+     <!--DISTRIBUIR PESSOAS AOS PROJETOS -->
+    
+    <dialog id="distribuiPessoas" class="abreCadastro"> 
+         <div id="bloco_superior" class="boxShadow1">
+                <button id="btn_fechar" class="btn_shadow2" onclick="fecharDistribuicaoPessoa()">[X]Fechar</button>
+             <h1 class="styleWord1">Distribuição Pessoas </h1>       
+        </div>
+        <br><br>
+        <div id='distribuicaoPessoas'>
+            <label  for="codDistribuicao">Código: <input readonly="true" id="codDistribuicao" type="text"></label>
+           <br><br>
+               <label for="selecionaProjeto">Selecione o projeto: <input id="selecionaProjeto" disabled="true" type="text" list="listaProjetos"></label>
+                  <datalist id="listaProjetos">
+                      
+                  </datalist>
+               <br>
+            <label for="listaTarefa">Selecione a Tarefa: <input disabled="true" id="listaTarefa" type="text" list="listaTarefa"></label>
+                  <datalist id="listaTarefa">
+                      
+                  </datalist>
+               <br>
+            <label for="listaPessoa">Selecione a Pessoa: <input disabled="true" id="listaPessoa" type="text" list="listaPessoa"></label>
+                  <datalist id="listaPessoa">
+                      
+                  </datalist>
+               <br>
+        </div>
+        
+        <br><br>
+        
+            <div id='TableDistribuicao'>
+            
+            <table border=1>
+                    <thead>
+                        <caption>Distribuição de pessoas:</caption>
+                        <tr>
+                        <th class="col1">Pessoa</th><th class="col2">Tarefa</th><th class="col3">Projeto</th><th class="col4">Cor</th>
+                        </tr>
+                  </thead>
+                    <tbody id="corpoTabelaDistribuicao">
+                        
+                       
+                    
+
+
+                    </tbody>
+
+        
+            </table>
+        </div>
+        
+        
+       
+    </dialog>
+    
+    
+    <!------------------------------------------------------------->
 </body>
 
 

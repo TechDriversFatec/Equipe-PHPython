@@ -116,7 +116,7 @@
 }
 
 #bloco_superior h1{
-    width: 300px;
+    width: 320px;
     margin-left: 5px;
      margin-top: -30px;
 }
@@ -378,9 +378,9 @@
     justify-content: flex-end;
     width: 30px;
     height: 40px;
-    margin-top: 5px;
-    margin-right: 50px;
-    margin-left: -30px;
+    margin-top: 10px;
+    margin-right: 80px;
+    margin-left: -50px;
     
 }
 
@@ -674,26 +674,78 @@
     width: 120px
 } 
 
-#listaPessoas{
+#TablePessoas{
     margin-top: 30px;
     width: 550px;
     height: 200px;
     overflow: auto;
 }
 
-#listaPessoas table{
+#TablePessoas table{
     width: 500px;
     margin-left: 30px;
     
 }
 
-#listaPessoas table caption{
+#TablePessoas table caption{
     width: 200px;
     margin-left: -30px;
 }
 
 
 /*////////////////////////////////////*/
+
+/*DISTRIBUI PESSOAS*/
+
+
+#distribuicaoPessoas{
+    width: 400px;
+}
+
+#distribuicaoPessoas #codDistribuicao{
+    width: 100px;
+}
+
+#distribuicaoPessoas #selecionaProjeto{
+    width: 200px;
+    margin-bottom: 10px;
+}
+
+#distribuicaoPessoas #listaTarefa{
+    width: 200px;
+     margin-bottom: 10px;
+}
+
+#distribuicaoPessoas #listaPessoa{
+    width: 200px;
+}
+
+#TableDistribuicao{
+    margin-top: 10px;
+    width: 600px;
+    height: 200px;
+    overflow: auto;
+}
+
+#TableDistribuicao table{
+    width: 590px;
+    margin-left: 5px;
+    
+}
+
+#TableDistribuicao caption{
+    width: 160px;
+}
+
+.col1{
+    width: 120px;
+}
+
+.col4{
+    width: 6px;
+}
+/*////////////////////////////////////*/
+
 
 /*CADASTRO TAREFA*/
 
@@ -751,10 +803,7 @@
 #cadastro_tarefa  #entregavel{
     width: 15px;
     height: 15px;
-    
-    
 }
-
 
 #cadastro_tarefa  #btn_novotarefa{
     width: 100px;
@@ -766,27 +815,6 @@
 #cadastro_tarefa  #btn_cancelarCadasTarefa{
     width: 100px;
     margin-left: 5px;
-}
-
-
-
-
-#listaTarefa{
-    margin-top: 30px;
-    width: 550px;
-    height: 200px;
-    overflow: auto;
-}
-
-#listaTarefa table{
-    width: 500px;
-    margin-left: 30px;
-    
-}
-
-#listaTarefa table caption{
-    width: 200px;
-    margin-left: -30px;
 }
 
 
