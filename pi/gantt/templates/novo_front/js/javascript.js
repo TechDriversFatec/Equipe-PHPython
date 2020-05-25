@@ -33,6 +33,8 @@ function clicaProjeto(){
     habilitaBtnNovoProjeto();
     desabilitaBtnGravaProjeto();
     buscaValoresProjeto();
+    desabilitaAvancoCodProjeto();
+    habilitaDesabilitaBtnExcluirProjeto();
     
     }
 
@@ -60,9 +62,7 @@ function recuarCodProjeto(){
    
     habilitaAvancoCodProjeto();
     
-    if(document.getElementById("codProjeto").value == 1){
-        desabilitaRecuoCodProjeto();
-    }
+    
     buscaValoresProjeto();
 }
 
@@ -164,6 +164,22 @@ function desabilitaBtnNovoProjeto(){
        mudaBotao =  document.getElementById("btn_novoprojeto");
         mudaBotao.style.backgroundColor = "gray";
     }
+}
+
+function habilitaDesabilitaBtnExcluirProjeto(){
+    if(document.getElementById("codProjeto").value == 0){
+     document.getElementById("btn_excluirCadasProjeto").disabled = true;
+    if(document.getElementById("btn_excluirCadasProjeto").disabled = true){
+       mudaBotao =  document.getElementById("btn_excluirCadasProjeto");
+        mudaBotao.style.backgroundColor = "gray";
+    }
+        
+}else{
+    document.getElementById("btn_excluirCadasProjeto").disabled = false;
+    mudaBotao =  document.getElementById("btn_excluirCadasProjeto");
+        mudaBotao.style.backgroundColor = "#698FEB";
+}
+
 }
 
 function desabilitaBtnGravaProjeto(){
@@ -271,6 +287,7 @@ function gravarProjeto(){
     desabilitaBtnCancelarProjeto();
     habilitaRecuoCodProjeto();
     buscaValoresProjeto();
+    habilitaDesabilitaBtnExcluirProjeto();
     
         
 }
@@ -309,8 +326,12 @@ function excluirCadasProjeto(){
       carregaTabela();
       document.getElementById("codProjeto").value = vetor_projeto.length;
     buscaValoresProjeto();
-      
+    habilitaDesabilitaBtnExcluirProjeto();
     
+    if(document.getElementById("codProjeto").value == 0){
+        limparCamposCadasProjeto();
+    }
+   
     
 }
 
@@ -402,6 +423,8 @@ function clicaTarefa(){
     desabilitaBtnGravaTarefa();
     buscaValoresTarefa();
     carregaDatalistProjetos();
+    desabilitaAvancoCodTarefa();
+    habilitaDesabilitaBtnExcluirTarefa();
     
     }
 
@@ -423,17 +446,32 @@ function buscaValoresTarefa(){
     
    codTarefaAtual = parseInt(document.getElementById("codTarefa").value);
     
+   selecionaNomeProjeto = '';
     
     
     for(i=0;i<vetor_tarefa.length;i++){
         
         if(codTarefaAtual == vetor_tarefa[i][0]){
-        document.getElementById("selecionaProjeto").value = vetor_tarefa[i][1];
-        document.getElementById("interdependencia").value = vetor_tarefa[i][2];
-        document.getElementById("nomeTarefa").value = vetor_tarefa[i][3];
-        document.getElementById("dt_inicioTarefa").value = vetor_tarefa[i][4];
-        document.getElementById("dt_finalTarefa").value = vetor_tarefa[i][5];
-         document.getElementById("dt_prazoTarefa").value = vetor_tarefa[i][5];
+        document.getElementById("nomeTarefa").value = vetor_tarefa[i][1];
+        document.getElementById("dt_inicioTarefa").value = vetor_tarefa[i][2];
+        document.getElementById("dt_finalTarefa").value = vetor_tarefa[i][3];  
+        document.getElementById("dt_prazoTarefa").value = vetor_tarefa[i][4];
+        document.getElementById("interdependencia").value = vetor_tarefa[i][5];
+        document.getElementById("entregavel").value = vetor_tarefa[i][6];   
+        
+            
+        for(x =0;x<vetor_projeto.length;x++){
+            
+            if(vetor_tarefa[i][7] == vetor_projeto[x][0]){
+                selecionaNomeProjeto = vetor_projeto[x][1];
+                
+            }
+            
+        }
+        
+        document.getElementById("selecionaProjeto").value = selecionaNomeProjeto;
+        
+            
             
         }
     }
@@ -517,8 +555,8 @@ function desabilitaBtnCancelarTarefa(){
 }
 
 function habilitaCamposTarefa(){
-     document.getElementById("selecionaProjeto").readOnly = false;
-    document.getElementById("interdependencia").readOnly = false;   
+     document.getElementById("selecionaProjeto").disabled = false;
+    document.getElementById("interdependencia").disabled = false;   
     document.getElementById("nomeTarefa").readOnly = false;
     document.getElementById("dt_inicioTarefa").readOnly = false;
      document.getElementById("dt_finalTarefa").readOnly = false;
@@ -528,7 +566,7 @@ function habilitaCamposTarefa(){
 
 function desabilitaCamposTarefa(){
     limparCamposCadasTarefa();
-    document.getElementById("selecionaProjeto").readOnly = true;     document.getElementById("interdependencia").readOnly = true; 
+    document.getElementById("selecionaProjeto").disabled = true;     document.getElementById("interdependencia").disabled = true; 
     document.getElementById("nomeTarefa").readOnly = true;
     document.getElementById("dt_inicioTarefa").readOnly = true;
      document.getElementById("dt_finalTarefa").readOnly = true;
@@ -575,6 +613,22 @@ function limparCamposCadasTarefa(){
    
 }
 
+function habilitaDesabilitaBtnExcluirTarefa(){
+    if(document.getElementById("codTarefa").value == 0){
+     document.getElementById("btn_excluirCadasTarefa").disabled = true;
+    if(document.getElementById("btn_excluirCadasTarefa").disabled = true){
+       mudaBotao =  document.getElementById("btn_excluirCadasTarefa");
+        mudaBotao.style.backgroundColor = "gray";
+    }
+        
+}else{
+    document.getElementById("btn_excluirCadasTarefa").disabled = false;
+    mudaBotao =  document.getElementById("btn_excluirCadasTarefa");
+        mudaBotao.style.backgroundColor = "#698FEB";
+}
+
+}
+
 vetor_tarefa = [];
 
 
@@ -587,7 +641,7 @@ function novaTarefa(){
     document.getElementById("codTarefa").value = novoCodTarefa;
     }
     else{
-         document.getElementById("codTarefa").value = vetor_projeto.length+1;
+         document.getElementById("codTarefa").value = vetor_tarefa.length+1;
     }
    
     habilitaCamposTarefa();
@@ -647,7 +701,8 @@ function gravarTarefa(){
     desabilitaBtnGravaTarefa();
     desabilitaBtnCancelarTarefa();
     habilitaRecuoCodTarefa();
-    buscaValoresTarefa();       
+    buscaValoresTarefa();     
+    habilitaDesabilitaBtnExcluirTarefa();
 }
 
 function jsonCadastroTarefa(){
@@ -674,19 +729,23 @@ function excluirCadasTarefa(){
         
         if(codAtual == vetor_tarefa[i][0]){
             
-            vetor_tarefa.splice([i],5);
+            vetor_tarefa.splice([i],8);
             
-            vetor_tabelaTarefa.splice([i],1);
+           
             
             
         }
-        console.log(vetor_tarefa);
+       
     }
     
-      carregaTabela();
-      document.getElementById("codTarefao").value = vetor_tarefa.length;
+      
+      document.getElementById("codTarefa").value = vetor_tarefa.length;
     buscaValoresTarefa();
       
+    habilitaDesabilitaBtnExcluirTarefa();
+    if(document.getElementById("codTarefa").value == 0){
+        limparCamposCadasTarefa();
+    }
     
     
 }
