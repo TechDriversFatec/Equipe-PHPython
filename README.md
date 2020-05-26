@@ -175,6 +175,10 @@ onde essas informações são idealmente dispostas de forma a não sobrecarregar
 
 [WIREFRAME (ATUALIZADO)](https://www.figma.com/proto/lRDoAT9A8U6i1HlY84PNut/PHPython?node-id=1%3A2&scaling=min-zoom)
 
+## BANCO DE DADOS
+
+![diagrama-uml](/uploads/f547a6f6bcda4157bb54774714b1ae40/diagrama-uml.jpeg)
+
 ## TECNOLOGIAS UTILIZADAS
 
 - Python
