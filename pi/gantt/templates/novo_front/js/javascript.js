@@ -554,7 +554,7 @@ function habilitaAvancoCodTarefa(){
 
 function fecharCadastroTarefa(){
     dialogCadastro.close();
-    limparCadasTarefa();
+    limparCamposCadasTarefa();
 }
 
 function habilitaBtnCancelarTarefa(){
@@ -780,7 +780,7 @@ function excluirCadasTarefa(){
 
 
 function distribuiPessoas(){
-    /*
+   
     codDistribuicao = 0;
     codDistribuicaoAtual = 0;
     
@@ -795,7 +795,7 @@ function distribuiPessoas(){
         document.getElementById("codDistribuicao").value = codDistribuicao;
         desabilitaRecuoCodDistribuicao();
         desabilitaAvancoCodDistribuicao();
-    }*/
+    }
     
     dialogCadastro = document.getElementById("distribuiPessoas");
     dialogCadastro.showModal();
@@ -813,12 +813,171 @@ function distribuiPessoas(){
     
 }
 
+function buscaValoresDistribuicao(){
+    
+   codAtual = parseInt(document.getElementById("codDistribuicao").value);
+    
+    
+    
+    for(i=0;i<vetor_distribuicao.length;i++){
+        
+        if(codAtual == vetor_distribuicao[i][0]){
+        document.getElementById("selecionaProjeto").value = vetor_distribuicao[i][1];
+        document.getElementById("listaTarefa").value = vetor_distribuicao[i][2];
+        document.getElementById("listaPessoa").value = vetor_distribuicao[i][3];
+        }
+    }
+}
+
 function fecharDistribuicaoPessoa(){
     dialogCadastro.close();
     limparCadasPessoa();
 }
 
+function recuarCodDistribuicao(){
+    document.getElementById("codDistribuicao").value = vetor_distribuicao.length -1;
+    
+   
+    habilitaAvancoCodDistribuicao();
+    
+    
+    buscaValoresDistribuicao();
+}
 
+function avancarCodDistribuicao(){
+    codDistribuicaoAtual = parseInt(document.getElementById("codDistribuicao").value);
+    
+    codDistribuicaoAtual += 1;
+    
+    document.getElementById("codDistribuicao").value = codDistribuicaoAtual;
+    
+    if(vetor_distribuicao.length ==  document.getElementById("codDistribuicao").value){
+        desabilitaAvancoCodDistribuicao();
+    }
+    habilitaRecuoCodDistribuicao();
+    buscaValoresDistribuicao();
+}
+
+function desabilitaRecuoCodDistribuicao(){
+        document.getElementById("codAnteriorDistribuicao").disabled = true;
+     if(document.getElementById("codAnteriorDistribuicao").disabled = true){
+       mudaBotao =  document.getElementById("codAnteriorDistribuicao");
+        mudaBotao.style.backgroundColor = "gray";
+}
+    
+}
+
+function desabilitaAvancoCodDistribuicao(){
+  document.getElementById("codPosteriorDistribuicao").disabled = true;
+     if(document.getElementById("codPosteriorDistribuicao").disabled = true){
+       mudaBotao =  document.getElementById("codPosteriorDistribuicao");
+        mudaBotao.style.backgroundColor = "gray";
+}
+}
+
+function habilitaRecuoCodDistribuicao(){
+   
+   if(document.getElementById("codDistribuicao").value > 1){ document.getElementById("codAnteriorCadasDistribuicao").disabled = false;
+    mudaBotao =  document.getElementById("codAnteriorCadasDistribuicao");
+    mudaBotao.style.backgroundColor = "#698FEB";
+     
+}
+}
+
+function habilitaAvancoCodDistribuicao(){
+  document.getElementById("codPosteriorCadasDistribuicao").disabled = false;
+    mudaBotao =  document.getElementById("codPosteriorCadasDistribuicao");
+    mudaBotao.style.backgroundColor = "#698FEB";
+}
+
+function habilitaBtnCancelarDistribuicao(){
+document.getElementById("btn_cancelarDistribuicao").disabled = false;
+    mudaBotao = document.getElementById("btn_cancelarDistribuicao");
+    mudaBotao.style.backgroundColor = "#698FEB";
+}
+
+function desabilitaBtnCancelarDistribuicao(){
+    document.getElementById("btn_cancelarDistribuicao").disabled = true;
+     if(document.getElementById("btn_cancelarDistribuicao").disabled = true){
+       mudaBotao =  document.getElementById("btn_cancelarDistribuicao");
+        mudaBotao.style.backgroundColor = "gray";
+}
+}
+
+function habilitaCamposDistribuicao(){
+     document.getElementById("selecionaProjeto").disabled = false;
+    
+    document.getElementById("listaTarefa").disabled = false;
+    
+    document.getElementById("listaPessoa").disabled = false;
+    
+}
+
+function desabilitaCamposDistribuicao(){
+    limparCamposCadasProjeto();
+    document.getElementById("selecionaProjeto").disabled = true;
+    
+    document.getElementById("listaTarefa").disabled = true;
+    
+    document.getElementById("listaPessoa").disabled = true;
+}
+
+function habilitaBtnNovaDistribuicao(){
+     document.getElementById("btn_novadistribuicao").disabled = false;
+    mudaBotao =  document.getElementById("btn_novadistribuicao");
+        mudaBotao.style.backgroundColor = "#698FEB";
+}
+
+function desabilitaBtnNovaDistribuicao(){
+    document.getElementById("btn_novadistribuicao").disabled = true;
+    if(document.getElementById("btn_novadistribuicao").disabled = true){
+       mudaBotao =  document.getElementById("btn_novadistribuicao");
+        mudaBotao.style.backgroundColor = "gray";
+    }
+}
+
+function habilitaDesabilitaBtnExcluirDistribuicao(){
+    if(document.getElementById("codDistribuicao").value == 0){
+     document.getElementById("btn_excluirDistribuicao").disabled = true;
+    if(document.getElementById("btn_excluirDistribuicao").disabled = true){
+       mudaBotao =  document.getElementById("btn_excluirDistribuicao");
+        mudaBotao.style.backgroundColor = "gray";
+    }
+        
+}else{
+    document.getElementById("btn_excluirDistribuicao").disabled = false;
+    mudaBotao =  document.getElementById("btn_excluirDistribuicao");
+        mudaBotao.style.backgroundColor = "#698FEB";
+}
+
+}
+
+function desabilitaBtnGravaDistribuicao(){
+    document.getElementById("btn_salvardistribuicao").disabled = true;
+    if(document.getElementById("btn_salvardistribuicao").disabled = true){
+       mudaBotao =  document.getElementById("btn_salvardistribuicao");
+        mudaBotao.style.backgroundColor = "gray";
+    }
+}
+
+function habilitaBtnGravarDistribuicao(){
+    document.getElementById("btn_salvardistribuicao").disabled = false;
+    mudaBotao =  document.getElementById("btn_salvardistribuicao");
+        mudaBotao.style.backgroundColor = "#698FEB";
+}
+
+function limparCamposCadasDistribuicao(){
+   document.getElementById("selecionaProjeto").value = ' ';
+    
+    document.getElementById("listaTarefa").value = ' ';
+    
+    document.getElementById("listaPessoa").value = ' ';
+}
+
+
+
+
+///DATALIST
 
 function carregaDatalistProjetos(){
     
@@ -832,20 +991,178 @@ function carregaDatalistProjetos(){
     
 }
 
-function carregaDataListTarefas(){
+function carregaDataListTarefasDistribuicao(){
     
      document.getElementById("listaTarefa").innerHTML = '';
+    retorna_tarefas = [];
+    retornaCodProjeto = [];
     
-    if(vetor_tarefa.length == 0){
-        document.getElementById("listaTarefa").innerHTML += "<option value=' '>";
-    }
-    for(i =0; i< vetor_tarefa.length;i++){
+    if(listaProjetos.value == ' '){
         
-        document.getElementById("listaTarefa").innerHTML += "<option value='"+vetor_tarefa[i][1]+"'>";
     }
+    else{
+        buscaProjeto = document.getElementById('selecionaProjeto').value;
+        
+        for(i = 0;i<vetor_projeto.length;i++){
+            
+            if(buscaProjeto.value == vetor_projeto[i][1]){
+                
+                retornaCodProjeto = vetor_projeto[i][0];
+                
+                for(x = 0; x < vetor_tarefa.length;x++){
+                    
+                    if(retornaCodProjeto == vetor_tarefa[x][0]){
+                        
+                        retorna_tarefas.push(retornaCodProjeto);
+                        console.log(retorna_tarefas);
+                    }
+                    
+                    
+                }
+                
+                
+        }
+        
+    }
+    }
+    
+    /*document.getElementById("listaTarefa").innerHTML += "<option value=' '>";*/
 }
 
 
+///DATALIST
+
+vetor_distribuicao = [];
+
+function novaDistribuicao(){
+            
+           if(vetor_projeto.length > 0 && vetor_tarefa.length > 0){
+                if(document.getElementById("codDistribuicao").value == 0){
+                 codAnteriorDistribuicao = parseInt(document.getElementById("codDistribuicao").value);
+            novoCodDistribuicao = codAnteriorDistribuicao+1;
+            document.getElementById("codDistribuicao").value = novoCodDistribuicao;
+            }
+            else{
+                 document.getElementById("codDistribuicao").value = vetor_distribuicao.length+1;
+            }
+
+            habilitaCamposDistribuicao();
+            habilitaBtnCancelarDistribuicao();
+            desabilitaBtnNovaDistribuicao();
+            habilitaBtnGravarDistribuicao();
+            desabilitaAvancoCodDistribuicao();
+            desabilitaRecuoCodDistribuicao();
+            limparCamposCadasDistribuicao();
+            
+           }else{
+               alert("Sem Projeto ou Tarefa cadastrada");
+           }
+         
+    }
+
+   
+function cancelarCadasDistribuicao(){
+    document.getElementById("codDistribuicao").value = vetor_distribuicao.length;
+    
+    desabilitaCamposDistribuicao();
+    
+    desabilitaBtnGravaDistribuicao();
+    desabilitaBtnCancelarDistribuicao();
+    habilitaRecuoCodDistribuicao();
+    buscaValoresDistribuicao();
+    habilitaBtnNovaDistribuicao();
+   
+    
+    
+}
+
+function gravarDistribuicao(){
+    codProjetoSelecionado = '';
+    pes_trf_id = document.getElementById("codDistribuicao");
+    selecionaProjeto = document.getElementById("selecionaProjeto").value;
+    
+    
+    for(i = 0; i< vetor_projeto.length;i++){
+        
+        if(selecionaProjeto == vetor_projeto[i][1]){
+            fk_prj_id = vetor_projeto[i][0];
+        }
+       
+    }
+    selecionaTarefa = document.getElementById("selecionaTarefa").value;
+    
+    
+    for(i = 0; i< vetor_tarefa.length;i++){
+        
+        if(selecionaTarefa == vetor_tarefa[i][1]){
+            fk_trf_id = vetor_tarefa[i][0];
+        }
+       
+    }
+    
+    selecionaPessoa = document.getElementById("selecionaPessoa").value;
+    
+    
+    for(i = 0; i< vetor_pessoa.length;i++){
+        
+        if(selecionaPessoa == vetor_pessoa[i][1]){
+            fk_pes_id = vetor_pessoa[i][0];
+        }
+       
+    }
+    
+    
+    distribuicao = [pes_trf_id.value, fk_trf_id.value, fk_pes_id.value];
+    
+    vetor_distribuicao.push(distribuicao);
+    console.log(vetor_distribuicao);
+    
+    
+    jsonCadastroDistribuicao();
+    desabilitaCamposDistribuicao();
+    habilitaBtnNovaDistribuicao();
+    desabilitaBtnGravaDistribuicao();
+    desabilitaBtnCancelarDistribuicao();
+    habilitaRecuoCodDistribuicao();
+    buscaValoresDistribuicao();     
+    habilitaDesabilitaBtnExcluirDistribuicao();
+    
+}
+
+function jsonCadastroDistribuicao(){
+    jsonDistribuicao = [];
+    for(i=0;i<vetor_distribuicao.length;i++){
+        jsonDistribuicao.push({
+           'pes_trf_id': vetor_distribuicao[i][0],
+           'fk_trf_id': vetor_distribuicao[i][1],
+           'fk_pes_id': vetor_distribuicao[i][2]
+        });
+    }
+    console.log(jsonDistribuicao);
+}
+
+function excluirCadasDistribuicao(){
+    codAtual = parseInt(document.getElementById("codDistribuicao").value);
+    
+    for(i = 0; i<vetor_distribuicao.length;i++){
+        
+        if(codAtual == vetor_distribuicao[i][0]){
+            
+            vetor_distribuicao.splice([i],3);
+        }    
+    }
+    
+      
+      document.getElementById("codDistribuicao").value = vetor_distribuicao.length;
+    buscaValoresDistribuicao();
+      
+    habilitaDesabilitaBtnExcluirDistribuicao();
+    if(document.getElementById("codDistribuicao").value == 0){
+        limparCamposCadasDistribuicao();
+    }
+    
+    
+}
 
 
 /*MENU DROPDOWN BTN_menusuperior*/////////////////////////////
