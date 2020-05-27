@@ -9,10 +9,33 @@ window.onload = carregaGantt;
 
 function clicaPessoas(){
     
-    dialogCadastro = document.getElementById("abreCadastroPessoas");
+    codPessoa = 0;
+    codPessoaAtual = 0;
     
-    document.getElementById("menu_superior").classList.remove("show");
+    if(vetor_pessoa.length >= 1){
+        codPessoa = vetor_pessoa.length;
+        document.getElementById("codPessoa").value = codPessoa;
+        habilitaRecuoCodPessoa();
+        
+    }
+    else
+    {
+        document.getElementById("codPessoa").value = codPessoa;
+        desabilitaRecuoCodPessoa();
+        desabilitaAvancoCodPessoa();
+    }
+    
+    dialogCadastro = document.getElementById("abreCadastroPessoas");
     dialogCadastro.showModal();
+    
+    
+   
+     desabilitaBtnCancelarPessoa();
+    habilitaBtnNovaPessoa();
+    desabilitaBtnGravaPessoa();
+    buscaValoresPessoa();
+    desabilitaAvancoCodPessoa();
+    habilitaDesabilitaBtnExcluirPessoa();
 }
 
 function buscaValoresPessoa(){
@@ -41,146 +64,134 @@ function recuarCodPessoa(){
     buscaValoresProjeto();
 }
 
-function avancarCodProjeto(){
-    codProjetoAtual = parseInt(document.getElementById("codProjeto").value);
+function avancarCodPessoa(){
+    codPessoaAtual = parseInt(document.getElementById("codPessoa").value);
     
-    codProjetoAtual += 1;
+    codPessoaAtual += 1;
     
-    document.getElementById("codProjeto").value = codProjetoAtual;
+    document.getElementById("codPessoa").value = codPessoaAtual;
     
-    if(vetor_projeto.length ==  document.getElementById("codProjeto").value){
-        desabilitaAvancoCodProjeto();
+    if(vetor_pessoa.length ==  document.getElementById("codPessoa").value){
+        desabilitaAvancoCodPessoa();
     }
-    habilitaRecuoCodProjeto();
-    buscaValoresProjeto();
+    habilitaRecuoCodPessoa();
+    buscaValoresPessoa();
 }
 
-function desabilitaRecuoCodProjeto(){
-        document.getElementById("codAnteriorCadasProjeto").disabled = true;
-     if(document.getElementById("codAnteriorCadasProjeto").disabled = true){
-       mudaBotao =  document.getElementById("codAnteriorCadasProjeto");
+function desabilitaRecuoCodPessoa(){
+        document.getElementById("codAnteriorCadasPessoa").disabled = true;
+     if(document.getElementById("codAnteriorCadasPessoa").disabled = true){
+       mudaBotao =  document.getElementById("codAnteriorCadasPessoa");
         mudaBotao.style.backgroundColor = "gray";
 }
     
 }
 
-function desabilitaAvancoCodProjeto(){
-  document.getElementById("codPosteriorCadasProjeto").disabled = true;
-     if(document.getElementById("codPosteriorCadasProjeto").disabled = true){
-       mudaBotao =  document.getElementById("codPosteriorCadasProjeto");
+function desabilitaAvancoCodPessoa(){
+  document.getElementById("codPosteriorCadasPessoa").disabled = true;
+     if(document.getElementById("codPosteriorCadasPessoa").disabled = true){
+       mudaBotao =  document.getElementById("codPosteriorCadasPessoa");
         mudaBotao.style.backgroundColor = "gray";
 }
 }
 
-function habilitaRecuoCodProjeto(){
+function habilitaRecuoCodPessoa(){
    
-   if(document.getElementById("codProjeto").value > 1){ document.getElementById("codAnteriorCadasProjeto").disabled = false;
-    mudaBotao =  document.getElementById("codAnteriorCadasProjeto");
+   if(document.getElementById("codPessoa").value > 1){ 
+       document.getElementById("codAnteriorCadasPessoa").disabled = false;
+    mudaBotao =  document.getElementById("codAnteriorCadasPessoa");
     mudaBotao.style.backgroundColor = "#698FEB";
      
 }
 }
 
-function habilitaAvancoCodProjeto(){
-  document.getElementById("codPosteriorCadasProjeto").disabled = false;
-    mudaBotao =  document.getElementById("codPosteriorCadasProjeto");
+function habilitaAvancoCodPessoa(){
+  document.getElementById("codPosteriorCadasPessoa").disabled = false;
+    mudaBotao =  document.getElementById("codPosteriorCadasPessoa");
     mudaBotao.style.backgroundColor = "#698FEB";
 }
 
-function fecharCadastroProjeto(){
+function fecharCadastroPessoa(){
     dialogCadastro.close();
-    limparCamposCadasProjeto();
+    limparCamposCadasPessoa();
 }
 
-function habilitaBtnCancelarProjeto(){
-    document.getElementById("btn_cancelarCadasProjeto").disabled = false;
-    mudaBotao =  document.getElementById("btn_cancelarCadasProjeto");
+function habilitaBtnCancelarPessoa(){
+    document.getElementById("btn_cancelarCadasPessoa").disabled = false;
+    mudaBotao =  document.getElementById("btn_cancelarCadasPessoa");
         mudaBotao.style.backgroundColor = "#698FEB";
 }
 
-function desabilitaBtnCancelarProjeto(){
-    document.getElementById("btn_cancelarCadasProjeto").disabled = true;
-     if(document.getElementById("btn_cancelarCadasProjeto").disabled = true){
-       mudaBotao =  document.getElementById("btn_cancelarCadasProjeto");
+function desabilitaBtnCancelarPessoa(){
+    document.getElementById("btn_cancelarCadasPessoa").disabled = true;
+     if(document.getElementById("btn_cancelarCadasPessoa").disabled = true){
+       mudaBotao =  document.getElementById("btn_cancelarCadasPessoa");
         mudaBotao.style.backgroundColor = "gray";
 }
 }
 
-function habilitaCamposProjeto(){
-     document.getElementById("nomeProjeto").readOnly = false;
-    document.getElementById("escopo").readOnly = false;
-    document.getElementById("dt_inicioProjeto").readOnly = false;
-    document.getElementById("dt_prazoProjeto").readOnly = false;
-    
-    document.getElementById("corProjeto").disabled = false;
+function habilitaCamposPessoa(){
+     document.getElementById("nomePessoa").readOnly = false;
+    document.getElementById("contato").readOnly = false;
+  
+}
+
+function desabilitaCamposPessoa(){
+    limparCamposCadasPessoa();
+    document.getElementById("nomePessoa").readOnly = true;
+    document.getElementById("contato").readOnly = true;
     
     
 }
 
-function desabilitaCamposProjeto(){
-    limparCamposCadasProjeto();
-    document.getElementById("nomeProjeto").readOnly = true;
-    document.getElementById("escopo").readOnly = true;
-    document.getElementById("dt_inicioProjeto").readOnly = true;
-    document.getElementById("dt_prazoProjeto").readOnly = true;  
-    document.getElementById("corProjeto").disabled = true;
-    
-}
-
-function habilitaBtnNovoProjeto(){
-     document.getElementById("btn_novoprojeto").disabled = false;
-    mudaBotao =  document.getElementById("btn_novoprojeto");
+function habilitaBtnNovaPessoa(){
+     document.getElementById("btn_novapessoa").disabled = false;
+    mudaBotao =  document.getElementById("btn_novapessoa");
         mudaBotao.style.backgroundColor = "#698FEB";
 }
 
-function desabilitaBtnNovoProjeto(){
-    document.getElementById("btn_novoprojeto").disabled = true;
-    if(document.getElementById("btn_novoprojeto").disabled = true){
-       mudaBotao =  document.getElementById("btn_novoprojeto");
+function desabilitaBtnNovaPessoa(){
+    document.getElementById("btn_novapessoa").disabled = true;
+    if(document.getElementById("btn_novapessoa").disabled = true){
+       mudaBotao =  document.getElementById("btn_novapessoa");
         mudaBotao.style.backgroundColor = "gray";
     }
 }
 
-function habilitaDesabilitaBtnExcluirProjeto(){
-    if(document.getElementById("codProjeto").value == 0){
-     document.getElementById("btn_excluirCadasProjeto").disabled = true;
-    if(document.getElementById("btn_excluirCadasProjeto").disabled = true){
-       mudaBotao =  document.getElementById("btn_excluirCadasProjeto");
+function habilitaDesabilitaBtnExcluirPessoa(){
+    if(document.getElementById("codPessoa").value == 0){
+     document.getElementById("btn_excluirCadasPessoa").disabled = true;
+    if(document.getElementById("btn_excluirCadasPessoa").disabled = true){
+       mudaBotao =  document.getElementById("btn_excluirCadasPessoa");
         mudaBotao.style.backgroundColor = "gray";
     }
         
 }else{
-    document.getElementById("btn_excluirCadasProjeto").disabled = false;
-    mudaBotao =  document.getElementById("btn_excluirCadasProjeto");
+    document.getElementById("btn_excluirCadasPessoa").disabled = false;
+    mudaBotao =  document.getElementById("btn_excluirCadasPessoa");
         mudaBotao.style.backgroundColor = "#698FEB";
 }
 
 }
 
-function desabilitaBtnGravaProjeto(){
-    document.getElementById("btn_salvarprojeto").disabled = true;
-    if(document.getElementById("btn_salvarprojeto").disabled = true){
-       mudaBotao =  document.getElementById("btn_salvarprojeto");
+function desabilitaBtnGravaPessoa(){
+    document.getElementById("btn_salvarpessoa").disabled = true;
+    if(document.getElementById("btn_salvarpessoa").disabled = true){
+       mudaBotao =  document.getElementById("btn_salvarpessoa");
         mudaBotao.style.backgroundColor = "gray";
     }
 }
 
-function habilitaBtnGravarProjeto(){
-    document.getElementById("btn_salvarprojeto").disabled = false;
-    mudaBotao =  document.getElementById("btn_salvarprojeto");
+function habilitaBtnGravarPessoa(){
+    document.getElementById("btn_salvarpessoa").disabled = false;
+    mudaBotao =  document.getElementById("btn_salvarpessoa");
         mudaBotao.style.backgroundColor = "#698FEB";
 }
 
-function limparCamposCadasProjeto(){
-    document.getElementById("nomeProjeto").value = '';
-    document.getElementById("escopo").value = '';
-    document.getElementById("dt_prazoProjeto").value = '';
-    document.getElementById("dt_inicioProjeto").value = '';
+function limparCamposCadasPessoa(){
+    document.getElementById("nomePessoa").value = '';
+    document.getElementById("contato").value = '';
     
-   mudaCor = document.getElementById("corProjeto");
-    cor = "#000000";
-    
-    mudaCor.value = cor.value;
 }
 
 function fecharCadastroPessoa(){
@@ -196,37 +207,123 @@ function limparCadasPessoa(){
 
 
 vetor_pessoa = [];
+vetor_tabelaPessoa = [];
 
+function carregaTabelaPessoa(){
+   
+    document.getElementById("corpoTabelaPessoas").innerHTML = '';
+    
+    for(i = 0; i < vetor_tabelaPessoa.length;i++){
+         document.getElementById("corpoTabelaPessoas").innerHTML += vetor_tabelaPessoa[i];
+        console.log(vetor_tabelaPessoa[i]);
+    }    
+    
+}
+
+function novaPessoa(){
+    
+    if(document.getElementById("codPessoa").value == 0){
+         codAnteriorPessoa = parseInt(document.getElementById("codPessoa").value);
+    novoCodPessoa = codAnteriorPessoa+1;
+    document.getElementById("codPessoa").value = novoCodPessoa;
+    }else{
+         document.getElementById("codPessoa").value = vetor_pessoa.length+1;
+    }
+   
+    habilitaCamposPessoa();
+    habilitaBtnCancelarPessoa();
+    desabilitaBtnNovaPessoa();
+    habilitaBtnGravarPessoa();
+    desabilitaAvancoCodPessoa();
+    desabilitaRecuoCodPessoa();
+    limparCamposCadasPessoa();
+    
+    
+}
+
+function cancelarCadasPessoa(){
+    document.getElementById("codPessoa").value = vetor_pessoa.length;
+    
+    desabilitaCamposPessoa();
+    
+    desabilitaBtnGravaPessoa();
+    desabilitaBtnCancelarPessoa();
+    habilitaRecuoCodPessoa();
+    buscaValoresPessoa();
+    habilitaBtnNovaPessoa();
+    carregaTabela();
+}
 
 function gravarPessoa(){
     
-  
-   document.getElementById("nomePessoa");
+  codPessoa= document.getElementById("codPessoa");
+   nomePessoa = document.getElementById("nomePessoa");
     contato = document.getElementById("contato");
     
-    pessoa = [nomePessoa.value,contato.value];
+    pessoa = [codPessoa.value, nomePessoa.value,contato.value];
      
     
     vetor_pessoa.push(pessoa);
     
-    linhaTabelaPessoas = "<tr><td>"+nomePessoa.value+"</td><td>"+contato.value+"</td></tr>";
+    linhaTabelaPessoas = "<tr><td>"+codPessoa.value+"</td><td>"+nomePessoa.value+"</td><td>"+contato.value+"</td></tr>";
     
-    document.getElementById("corpoTabelaPessoas").innerHTML += linhaTabelaPessoas;
+    
+    
+    
+    vetor_tabelaPessoa.push(linhaTabelaPessoas);
+    
+    carregaTabelaPessoa();
     
     jsonCadastroPessoa();
+    desabilitaCamposPessoa();
+    habilitaBtnNovaPessoa();
+    desabilitaBtnGravaPessoa();
+    desabilitaBtnCancelarPessoa();
+    habilitaRecuoCodPessoa();
+    buscaValoresPessoa();
+    habilitaDesabilitaBtnExcluirPessoa();
+    
 }
 
 function jsonCadastroPessoa(){
     jsonPessoas = [];
     for(i=0;i<vetor_pessoa.length;i++){
         jsonPessoas.push({
-            'nomePessoa': vetor_pessoa[i][0],
-            'contato': vetor_pessoa[i][1]
+            'pes_id': vetor_pessoa[i][0],
+            'pes_nome': vetor_pessoa[i][1],
+            'pes_contato': vetor_pessoa[i][2]
         });
     }
     console.log(jsonPessoas);
 }
 
+function excluirCadasPessoa(){
+    codAtual = parseInt(document.getElementById("codPessoa").value);
+    
+    for(i = 0; i<vetor_pessoa.length;i++){
+        
+        if(codAtual == vetor_pessoa[i][0]){
+            
+            vetor_pessoa.splice([i],2);
+            
+            vetor_tabelaPessoa.splice([i],1);
+            
+            
+        }
+        console.log(vetor_projeto);
+    }
+    
+      carregaTabelaPessoa();
+      document.getElementById("codPessoa").value = vetor_pessoa.length;
+    buscaValoresPessoa();
+    habilitaDesabilitaBtnExcluirPessoa();
+    
+    if(document.getElementById("codPessoa").value == 0){
+        limparCamposCadasPessoa();
+    }
+   
+    
+}
 
 /*/////////////////////////////////////////////////*/
 
@@ -1353,6 +1450,12 @@ function menuDropdown_menusuperior() {
 
 //////////////////////////////////////////////////
 
+/*JSON PARA CARREGAR GRÁFICO DE GANTT*/
+
+
+
+
+//////////////////////////////////////////////////
 
 /*VISUALIZAÇÃO DO GRÁFICO GANTT*/
 
