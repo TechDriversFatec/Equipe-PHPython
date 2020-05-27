@@ -806,8 +806,8 @@ function distribuiPessoas(){
     habilitaBtnNovaDistribuicao();
     desabilitaBtnGravaDistribuicao();
     buscaValoresDistribuicao();
-    carregaDatalistProjetos();
-    carregaDataListInterdepedencia()
+    carregaDatalistProjetos_distribuicao();
+    
     desabilitaAvancoCodDistribuicao();
     habilitaDesabilitaBtnExcluirDistribuicao();
     
@@ -822,7 +822,7 @@ function buscaValoresDistribuicao(){
     for(i=0;i<vetor_distribuicao.length;i++){
         
         if(codAtual == vetor_distribuicao[i][0]){
-        document.getElementById("selecionaProjeto").value = vetor_distribuicao[i][1];
+        document.getElementById("selecionaProjeto_distribuicao").value = vetor_distribuicao[i][1];
         document.getElementById("listaTarefa").value = vetor_distribuicao[i][2];
         document.getElementById("listaPessoa").value = vetor_distribuicao[i][3];
         }
@@ -905,7 +905,7 @@ function desabilitaBtnCancelarDistribuicao(){
 }
 
 function habilitaCamposDistribuicao(){
-     document.getElementById("selecionaProjeto").disabled = false;
+     document.getElementById("selecionaProjeto_distribuicao").disabled = false;
     
     document.getElementById("listaTarefa").disabled = false;
     
@@ -915,7 +915,7 @@ function habilitaCamposDistribuicao(){
 
 function desabilitaCamposDistribuicao(){
     limparCamposCadasProjeto();
-    document.getElementById("selecionaProjeto").disabled = true;
+    document.getElementById("selecionaProjeto_distribuicao").disabled = true;
     
     document.getElementById("listaTarefa").disabled = true;
     
@@ -967,7 +967,7 @@ function habilitaBtnGravarDistribuicao(){
 }
 
 function limparCamposCadasDistribuicao(){
-   document.getElementById("selecionaProjeto").value = ' ';
+   document.getElementById("selecionaProjeto_distribuicao").value = ' ';
     
     document.getElementById("listaTarefa").value = ' ';
     
@@ -977,21 +977,21 @@ function limparCamposCadasDistribuicao(){
 
 
 
-///DATALIST
+/*DATALIST*/
 
-function carregaDatalistProjetos(){
+function carregaDatalistProjetos_distribuicao(){
     
-    document.getElementById("listaProjetos").innerHTML = '';
+    document.getElementById("listaProjetos_distribuicao").innerHTML = '';
     
     for(i =0; i< vetor_projeto.length;i++){
         
-        document.getElementById("listaProjetos").innerHTML += "<option value='"+vetor_projeto[i][1]+"'>";
+        document.getElementById("listaProjetos_distribuicao").innerHTML += "<option value='"+vetor_projeto[i][1]+"'>";
              
     }
     
 }
 
-function carregaDataListTarefasDistribuicao(){
+/*function carregaDataListTarefasDistribuicao(){
     
      document.getElementById("listaTarefa").innerHTML = '';
     retorna_tarefas = [];
@@ -1027,7 +1027,7 @@ function carregaDataListTarefasDistribuicao(){
     }
     
     /*document.getElementById("listaTarefa").innerHTML += "<option value=' '>";*/
-}
+
 
 
 ///DATALIST
