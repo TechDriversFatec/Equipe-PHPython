@@ -251,18 +251,18 @@
                  <button type="button" id="codPosteriorDistribuicao" class="btn_shadow1" onclick="avancarCodDistribuicao()"></button>
                 <br><br>
            
-               <label for="selecionaProjeto_distribuicao">Selecione o projeto: <input id="selecionaProjeto_distribuicao" disabled="true" type="text" list="listaProjetos_distribuicao"></label>
+               <label for="selecionaProjeto_distribuicao">Selecione o projeto: <input id="selecionaProjeto_distribuicao" disabled="true" type="text" list="listaProjetos_distribuicao" oninput="carregaDataListTarefasDistribuicao()"></label>
                   <datalist id="listaProjetos_distribuicao">
                      
                   </datalist>
                <br>
-            <label for="listaTarefa">Selecione a Tarefa: <input disabled="true" id="listaTarefa" type="text" list="listaTarefa" name="fk_trf_id"></label>
-                  <datalist id="listaTarefa">
+            <label for="listaTarefa">Selecione a Tarefa: <input disabled="true" id="listaTarefa" type="text" list="listaTarefa_distribuicao" name="fk_trf_id" oninput="carregaDatalistPessoas_distribuicao()"></label>
+                  <datalist id="listaTarefa_distribuicao">
                       
                   </datalist>
                <br>
-            <label for="listaPessoa">Selecione a Pessoa: <input disabled="true" id="listaPessoa" type="text" list="listaPessoa" name="fk_pes_id"></label>
-                  <datalist id="listaPessoa">
+            <label for="listaPessoa">Selecione a Pessoa: <input disabled="true" id="listaPessoa" type="text" list="listaPessoa_distribuicao" name="fk_pes_id"></label>
+                  <datalist id="listaPessoa_distribuicao">
                       
                   </datalist>
                <br>
