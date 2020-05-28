@@ -40,17 +40,25 @@
               
         
         <img id="imgbtn_download" src="images/img_download.png">
-        <button id="btn_salvarplanning" class="btn_shadow2" onclick="carregaGantt()">SALVAR</button>       
+        <button id="btn_salvarplanning" class="btn_shadow2" onclick="carregaGantt()">SALVAR</button>    
+        
     </div>
 
 	<div  id="central">
 	
 			<div id="left_center" class="box">
-                <button id="btn_expandetarefa" class="btn_shadow1" onclick="expandeTarefas()">PROJETO 1</button>
+                
+                <div id="prj_cadastrados">
+                
+                
+                
+                </div>
+                
+                <!--<button id="btn_expandetarefa" class="btn_shadow1" onclick="expandeProjetos()"></button>
                 <div id="col_tarefas">
                     
                 </div>
-
+-->
 			</div>
 
 			<div id="center" class="box">
@@ -83,10 +91,10 @@
 			</div>
 	</div>
     <div id="bottom_central" class="boxShadow1">
-            <button id="btn6" class="btn_shadow4" >DIA</button>
-            <button id="btn6" class="btn_shadow4">SEMANA</button>
-            <button id="btn6" class="btn_shadow4">MÊS</button>
-            <button id="btn6" class="btn_shadow4">ANO</button> 
+            <button id="btn6" class="btn_shadow4" onclick="periodo_dia()">DIA</button>
+            <button id="btn6" class="btn_shadow4" onclick="periodo_semana()">SEMANA</button>
+            <button id="btn6" class="btn_shadow4" onclick="periodo_mes()">MÊS</button>
+            <button id="btn6" class="btn_shadow4" onclick="periodo_ano()">ANO</button> 
     </div>
     
      <!------------------------------------------------------------->

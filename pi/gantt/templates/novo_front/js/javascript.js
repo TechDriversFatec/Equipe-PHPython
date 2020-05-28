@@ -505,6 +505,8 @@ function habilitaDesabilitaBtnExcluirProjeto(){
 
 }
 
+
+
 function desabilitaBtnGravaProjeto(){
     document.getElementById("btn_salvarprojeto").disabled = true;
     if(document.getElementById("btn_salvarprojeto").disabled = true){
@@ -533,6 +535,7 @@ function limparCamposCadasProjeto(){
 
 vetor_projeto = [];
 vetor_tabelaProjeto = [];
+vetor_prjcadastrados = [];
 
 function carregaTabela(){
    
@@ -563,6 +566,7 @@ function novoProjeto(){
     desabilitaRecuoCodProjeto();
     limparCamposCadasProjeto();
     carregaTabela();
+    
     
 }
 
@@ -600,7 +604,9 @@ function gravarProjeto(){
     carregaTabela();
     
     
+    linha = "<button id=btn_expandetarefa'"+codPrj.value+"' class='btn_shadow1' style='background-color:"+corProjeto.value+"' onclick='expandeTarefas'"+codPrj.value+"'()'>"+nomeProjeto.value+"</button>";
     
+    document.getElementById("prj_cadastrados").innerHTML +=  linha;
     
     jsonCadastroProjeto();
     
@@ -611,6 +617,7 @@ function gravarProjeto(){
     habilitaRecuoCodProjeto();
     buscaValoresProjeto();
     habilitaDesabilitaBtnExcluirProjeto();
+    
     
         
 }
@@ -632,6 +639,8 @@ function jsonCadastroProjeto(){
 
 function excluirCadasProjeto(){
     codAtual = parseInt(document.getElementById("codProjeto").value);
+   
+   
     
     for(i = 0; i<vetor_projeto.length;i++){
         
@@ -641,12 +650,17 @@ function excluirCadasProjeto(){
             
             vetor_tabelaProjeto.splice([i],1);
             
+            vetor_prjcadastrados.splice([i],1)
+            
+            
+            
             
         }
         console.log(vetor_projeto);
     }
     
       carregaTabela();
+    expandeProjetos();
       document.getElementById("codProjeto").value = vetor_projeto.length;
     buscaValoresProjeto();
     habilitaDesabilitaBtnExcluirProjeto();
@@ -657,6 +671,28 @@ function excluirCadasProjeto(){
    
     
 }
+
+/*EXPANDE PROJETOS MENU CENTRAL ESQUERDO*/
+
+function expandeProjetos(){
+    
+    
+    document.getElementById("prj_cadastrados").innerHTML = '';
+    for(i =0; i< vetor_projeto.length;i++){
+        
+        linha = "<button id=btn_expandetarefa'"+i+"' class='btn_shadow1' onclick='expandeTarefas'"+i+"'()'>'"+vetor_projeto[i][1]+"'</button>";
+        
+        vetor_prjcadastrados.push(linha);
+        
+         
+        
+        
+    }
+    //"<option value='"+vetor_projeto[i][1]+"'>"
+    
+    document.getElementById("prj_cadastrados").innerHTML +=  vetor_prjcadastrados;
+}
+
 
 /*///////////////////////////////////////*/
 
@@ -1504,6 +1540,42 @@ function jsonGantt(){
 
 }
 //////////////////////////////////////////////////
+
+
+/*MUDANÇA DE PREÍODOS GANTT*/
+
+// Quarter Day, Half Day, Day, Week, Month 
+
+
+function periodo_dia(){
+    
+    gantt.change_view_mode('Day');
+}
+
+function periodo_semana(){
+    gantt.change_view_mode('Week');
+}
+
+function periodo_mes(){
+    gantt.change_view_mode('Month');
+}
+
+function periodo_ano(){
+    gantt.change_view_mode('Year');
+}
+
+
+
+/*//////////////////////////////////////////////*/
+
+
+
+
+function expandeTarefas(){}
+
+/*//////////////////////////////////////////////*/
+
+
 
 /*VISUALIZAÇÃO DO GRÁFICO GANTT*/
 /*
