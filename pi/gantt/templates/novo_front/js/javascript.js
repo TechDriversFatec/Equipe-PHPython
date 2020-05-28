@@ -1452,11 +1452,11 @@ function menuDropdown_menusuperior() {
 
 /*JSON PARA CARREGAR GRÁFICO DE GANTT*/
 
-
 function carregaGantt(){
-   
-   
-
+    
+ 
+    
+    
         vetor_gantt = [];
         for(i=0;i<vetor_projeto.length;i++){
             
@@ -1465,41 +1465,49 @@ function carregaGantt(){
             for(x = 0; x < vetor_tarefa.length;x++){
             
             if(buscaCodProjeto == vetor_tarefa[x][7]){
+                
+                //x[i].style.backgroundColor = "red";
                 addVetor = ["Task "+x,vetor_tarefa[x][1],vetor_tarefa[x][2],vetor_tarefa[x][3], vetor_projeto[i][5]];
                 vetor_gantt.push(addVetor);
                 
-            }
+                 
         }
             
         }
+          
     
    jsonGantt();
     
 }
+}
 
 function jsonGantt(){
+    
     tasks = [];
     for(i = 0; i< vetor_gantt.length;i++){
         tasks.push({
             'id': vetor_gantt[i][0],
             'name': vetor_gantt[i][1],
+            'color': vetor_gantt[i][4],
             'start': vetor_gantt[i][2],
             'end': vetor_gantt[i][3],
-            'progress': 20,
-            'color': vetor_gantt[i][4],
-            'custom_class': 'bar-milestone'
+            'progress': 20,       
+            'custom_class': 'tcolor'
+               
+    
                 
         });
     }
-   
+     
      console.log(tasks);
-   
+   gantt = new Gantt("#gantt", tasks);
+
 }
 //////////////////////////////////////////////////
 
 /*VISUALIZAÇÃO DO GRÁFICO GANTT*/
-
-/* function carregaGantt(){
+/*
+function carregaGantt(){
    
     tasks = [
   {
@@ -1578,7 +1586,7 @@ function jsonGantt(){
 ]
     
     
-    gantt = new Gantt("#gantt", jsonGantt);
+    gantt = new Gantt("#gantt", tasks);
   
     
     var gantt = new Gantt("#gantt", tasks, {

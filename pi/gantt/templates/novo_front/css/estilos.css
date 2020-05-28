@@ -1,13 +1,10 @@
 /*
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
+
 */
+@import url(./frappe-gantt.css);
 
-
-*{
-	width: 0px;
-	padding: 0px;
-}
 
 /*DEFININDO A CLASS BORDER BOX-SHADOW*/
 
@@ -88,6 +85,8 @@
     font-family: monospace;
 }
 /**/
+/*///////////////////////////////////*/
+
 /*///////////////////////////////////*/
 
 
@@ -251,61 +250,7 @@
     
 }
 
-/*MENU DROPDOWN CADASTRO DE PROJETO */
 
-/**/
-.dropdown_prj {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content_prj {
-  display: none;
-  position: absolute;
-  background-color: white;
-  border-style: inset;
-  border-width: 5px;
-  border-color: #698FEB;
-  border-radius:0px 20px 0px 20px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-  width: 220px;
-  height: 350px;
-}
-
-
-
-.dropdown-content_prj #cadastro_projeto{
-    width: 220px;
-    height: 300px;
-    
-}
-
-.dropdown-content_prj #cadastro_projeto input{
-    width: 200px;
-    margin-left: 5px;
-    margin-bottom: 6px;
-    
-}
-
-.dropdown-content_prj #cadastro_projeto label{
-    margin-left: 5px;
-    
-}
-
-.dropdown-content_prj #cadastro_projeto #btn_salvarprojeto{
-   margin-left: 30px;
-    margin-top: -5px;
-}
-
-.dropdown-content_prj #cadastro_projeto #btn_limparCadasProjeto{
-    width: 80px;
-    margin-left: 5px;
-    
-}
-
-.show {display: block;}
-/**/
 
 
 #top_central #imgbtn_trf{
@@ -320,57 +265,6 @@
 
 
 
-/*MENU DROPDOWN CADASTRO DE TAREFA*/
-
-/**/
-.dropdown_trf {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content_trf {
-  display: none;
-  position: absolute;
-  background-color: white;
-  border-style: inset;
-  border-width: 5px;
-  border-color: #698FEB;
-  border-radius:0px 20px 0px 20px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-  width: 220px;
-  height: 350px;
-}
-
-
-
-.dropdown-content_trf #cadastro_tarefa{
-    width: 220px;
-    height: 300px;
-    
-}
-
-.dropdown-content_trf #cadastro_tarefa input{
-    width: 200px;
-    
-    margin-left: 5px;
-    margin-bottom: 9px;
-    
-}
-
-.dropdown-content_trf #cadastro_tarefa label{
-    margin-left: 5px;
-    
-    
-}
-
-.dropdown-content_trf #cadastro_tarefa #btn_salvartarefa{
-   margin-left: 30px;
-   
-}
-
-.show {display: block;}
-/**/
 
 
 
@@ -383,62 +277,6 @@
     margin-left: -50px;
     
 }
-
-
-/*MENU DROPDOWN CADASTRO DE PESSOA*/
-
-/**/
-.dropdown_pessoas {
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-content_pessoas{
-  display: none;
-  position: absolute;
-  background-color: white;
-  border-style: inset;
-  border-width: 5px;
-  border-color: #698FEB;
-  border-radius:0px 20px 0px 20px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-  width: 220px;
-  height: 350px;
-}
-
-
-
-.dropdown-content_pessoas #cadastro_pessoas{
-    width: 220px;
-    height: 300px;
-    
-}
-
-.dropdown-content_pessoas #cadastro_pessoas input{
-    width: 200px;
-    
-    margin-left: 5px;
-    margin-bottom: 9px;
-    
-}
-
-.dropdown-content_pessoas #cadastro_pessoas label{
-    margin-left: 5px;
-    
-    
-}
-
-.dropdown-content_pessoas #cadastro_pessoas #btn_salvarpessoa{
-   margin-left: 30px;
-   
-}
-
-.show {display: block;}
-/**/
-
-
-
 
 
 
@@ -460,7 +298,6 @@
 }
 
 /*///////////////////////////////////*/
-
 
 /*DEFININDO O ESTILO DAS COLUNAS CENTRAIS*/
 
@@ -493,7 +330,7 @@
     margin-left: 15px;
 }
 
-#center #iframeCentral{
+#center {
     margin-left: 20px;
 	width: 856px;
 	height: 380px;
@@ -507,7 +344,7 @@
 
 #right_center{
     justify-content: flex-end;
-    margin-left: 890px;
+    
 	width: 200px;
 	height: 380px;
 	
@@ -798,7 +635,6 @@
 
 /*////////////////////////////////////*/
 
-
 /*CADASTRO TAREFA*/
 
 #cadastro_tarefa{
@@ -875,3 +711,9 @@
 /*////////////////////////////////////*/
 
 
+/*CUSTOM GANTT*/
+
+
+.tcolor .bar {
+  fill: #0d0; 
+}
