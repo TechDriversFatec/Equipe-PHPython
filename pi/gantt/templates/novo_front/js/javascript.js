@@ -8,9 +8,10 @@ window.onload = carregaGantt;
 /*CADASTRO DE PROJETOS*/////////////////////////////
 
 function clicaProjeto(){
+    alert('teste')
     codProjeto = 0;
     codProjetoAtual = 0;
-    
+    console.log(vetor_projeto)
     if(vetor_projeto.length >= 1){
         codProjeto = vetor_projeto.length;
         document.getElementById("codProjeto").value = codProjeto;

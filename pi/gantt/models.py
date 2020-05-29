@@ -1,10 +1,10 @@
 from django.db import models
 
 
-class tb_Desenvolvedor(models.Model):
-    dev_id = models.AutoField('id', primary_key=True)
-    dev_nome = models.CharField('Nome', max_length=90)
-    dev_contato = models.BigIntegerField('Contato')
+class tb_Pessoa(models.Model):
+    pes_id = models.AutoField('id', primary_key=True)
+    pes_nome = models.CharField('Nome', max_length=90)
+    pes_contato = models.BigIntegerField('Contato')
 
 
 class tb_Projeto(models.Model):
@@ -22,8 +22,9 @@ class tb_Tarefa(models.Model):
     trf_datainicial = models.DateField('Data Inicial')
     trf_datafinal = models.DateField('Data Final', null=True)
     trf_prazo = models.DateField('Prazo')
-    trf_interdependencia = models.IntegerField('Interdenpencia', null=True)
+    trf_interdependencia = models.IntegerField('Interdenpencia', null=True, default=0)
     trf_entregavel = models.BooleanField('Entregavel', default=False)
+    trf_color = models.CharField('cor', max_length=16, default='')
     fk_prj_id = models.ForeignKey(tb_Projeto, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -32,12 +33,13 @@ class tb_Tarefa(models.Model):
 
 class tb_Dev_Trf(models.Model):
 
-    fk_dev_id = models.ForeignKey(tb_Desenvolvedor, on_delete=models.CASCADE)
+    fk_pes_id = models.ForeignKey(tb_Pessoa, on_delete=models.CASCADE)
     fk_trf_id = models.ForeignKey(tb_Tarefa, on_delete=models.CASCADE)
     class Meta:
-        unique_together = (("fk_dev_id", "fk_trf_id"),)
+        unique_together = (("fk_pes_id", "fk_trf_id"),)
 
-
+class tbTeste(models.Model):
+    teste = models.CharField(max_length=1)
 
 
 # Create your models here.

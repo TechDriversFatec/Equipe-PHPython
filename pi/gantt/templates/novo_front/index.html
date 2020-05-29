@@ -6,7 +6,7 @@
 	<title>PI - PHPYTHON - GANTT</title>	
 	<link rel="stylesheet" type="text/css" href="{% static 'css/estilos.css' %}">
     <script type="text/javascript" src="{% static 'js/javascript.js' %}"></script>
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 
 </head>
 <body>
@@ -33,8 +33,7 @@
          <img id="imgbtn_prj" src="{% static 'images/img_prj.png' %}" onclick="clicaProjeto()">
         
          <img id="imgbtn_trf" src="{% static 'images/img_trf.png' %}" onclick="clicaTarefa()" class="dropbtn_trf">
-              
-        
+
          
           <img id="imgbtn_pessoas" src="{% static 'images/img_pessoas.png' %}" onclick="distribuiPessoas()" class="dropbtn_pessoas">
               
@@ -98,31 +97,31 @@
              <h1 class="styleWord1">Cadastro de Projeto</h1>        </div>
         <br><br>
                 
-            
+            <form method="post" action="{% url 'save_projeto' %}">{% csrf_token %}
              <div id="cadastro_projeto">
-                 
-                 <label  for="codProjeto">Código projeto: <input readonly="true" id="codProjeto" type="text" name="prj_id"></label>
-                 <button type="button" id="codAnteriorCadasProjeto" class="btn_shadow1_1" onclick="recuarCodProjeto()"></button>
-                 <button type="button" id="codPosteriorCadasProjeto" class="btn_shadow1" onclick="avancarCodProjeto()"></button>
-                                  <br><br>
-                <label for="nomeProjeto">Nome projeto: <input id="nomeProjeto" readonly="true" type="text" name="prj_nome"></label>
-                  
-                  <label for="escopo">Escopo: <input id="escopo" readonly="true" type="text" name="prj_escopo"></label>
-                  <br><br>
-                  <label for="dt_inicioProjeto">Data Início: <input readonly="true" id="dt_inicioProjeto" type="date" name="prj_datainicio"></label>
-                  
-                  <label for="dt_prazoProjeto">Prazo Entrega: <input readonly="true" id="dt_prazoProjeto" type="date" name="prj_prazo"></label>
-                    <br><br>
-                  <label for="corProjeto">Cor do projeto: <input disabled="true" id="corProjeto" type="color" name="prj_cor"></label>
-                    <br><br>
-                  <button id="btn_novoprojeto" type="submit" class="btn_shadow2" onclick="novoProjeto()">Novo</button>
-                
-                      <button id="btn_salvarprojeto" type="submit" class="btn_shadow2" onclick="gravarProjeto()">Gravar</button>
-                      <button id="btn_cancelarCadasProjeto" type="submit" class="btn_shadow2" onclick="cancelarCadasProjeto()">Cancelar</button>
-                     <button id="btn_excluirCadasProjeto" type="submit" class="btn_shadow2" onclick="excluirCadasProjeto()">Excluir</button>
-                 
+
+                     <label  for="codProjeto">Código projeto: <input readonly="true" id="codProjeto" value="{{ last_id }}"></label>
+                     <button type="button" id="codAnteriorCadasProjeto" class="btn_shadow1_1" onclick="recuarCodProjeto()"></button>
+                     <button type="button" id="codPosteriorCadasProjeto" class="btn_shadow1" onclick="avancarCodProjeto()"></button>
+                                      <br><br>
+                      <label for="nomeProjeto">Nome projeto: <input id="nomeProjeto" readonly="true" type="text" name="prj_nome"></label>
+
+                      <label for="escopo">Escopo: <input id="escopo" readonly="true" type="text" name="prj_escopo"></label>
+                      <br><br>
+                      <label for="dt_inicioProjeto">Data Início: <input readonly="true" id="dt_inicioProjeto" type="date" name="prj_datainicio"></label>
+
+                      <label for="dt_prazoProjeto">Prazo Entrega: <input readonly="true" id="dt_prazoProjeto" type="date" name="prj_prazoentrega"></label>
+                        <br><br>
+                      <label for="corProjeto">Cor do projeto: <input disabled="true" id="corProjeto" type="color" name="prj_color"></label>
+                        <br><br>
+                      <button id="btn_novoprojeto" type="submit" class="btn_shadow2" onclick="novoProjeto()">Novo</button>
+
+                          <button id="btn_salvarprojeto" type="submit" class="btn_shadow2" >Gravar</button>
+                          <button id="btn_cancelarCadasProjeto" type="submit" class="btn_shadow2" onclick="cancelarCadasProjeto()">Cancelar</button>
+                         <button id="btn_excluirCadasProjeto" type="submit" class="btn_shadow2" onclick="excluirCadasProjeto()">Excluir</button>
+
                 </div>
-               
+                </form>
                 <div id='listaProjeto'>
             
             <table border=1>
@@ -132,9 +131,21 @@
                         <th>Código</th><th>Projeto</th><th>Data Início</th><th>Prazo</th><th>Cor</th>
                         </tr>
                   </thead>
-                    <tbody id="corpoTabelaProjeto">
-                        
-                       
+
+                    <tbody id="">
+                       {% if  project|length >= 1 %}
+
+                            {% for project in projects %}
+                                <tr>
+                                    <td> {{ project.id }} </td>
+                                    <td> {{ project.projeto }} </td>
+                                    <td> {{ project.start_date }} </td>
+                                    <td> {{ project.prazo }} </td>
+                                    <td> {{ project.color }} </td>
+                                </tr>
+
+                            {% endfor %}
+                       {% endif %}
                     
 
 
@@ -155,22 +166,24 @@
                 <button id="btn_fechar" class="btn_shadow2" onclick="fecharCadastroPessoa()">[X]Fechar</button>
              <h1 class="styleWord1">Cadastro de Pessoas</h1>        </div>
         <br><br>
+        <form method="post" action="{% url 'save_person' %}"> {% csrf_token %}
         <div id='cadastroPessoas'>
-            <label for='codPessoa'>Código: </label><input type='text' id='codPessoa' name="pes_id" name="pes_id">
+            <label for='codPessoa'>Código: </label><input type='text' id='codPessoa' name="" name="">
             <button type="button" id="codAnteriorCadasPessoa" class="btn_shadow1_1" onclick="recuarCodPessoa()"></button>
                  <button type="button" id="codPosteriorCadasPessoa" class="btn_shadow1" onclick="avancarCodPesso()"></button>
             <br><br>
-            <label for='nomePessoa'>Nome da pessoa: </label><input type='text' id='nomePessoa' name="nomePessoa" name="pes_nome">
-            <br><br>
-            <label for='contato'>Contato: </label><input type='text' id='contato' name="pes_contato">
-            <br><br>
-            <button id="btn_novapessoa" type="submit" class="btn_shadow2" onclick="novaPessoa()">Novo</button>       
-            <button id="btn_salvarpessoa" type="submit" class="btn_shadow2" onclick="gravarPessoa()">Gravar</button>
-            <button id="btn_cancelarCadasPessoa" type="submit" class="btn_shadow2" onclick="cancelarCadasPessoa()">Cancelar</button>
-            <button id="btn_excluirCadasPessoa" type="submit" class="btn_shadow2" onclick="excluirCadasPessoa()">Excluir</button>
-                
+
+                <label for='nomePessoa'>Nome da pessoa: </label><input type='text' id='nomePessoa' name="pes_nome">
+                <br><br>
+                <label for='contato'>Contato: </label><input type='text' id='contato' name="pes_contato">
+                <br><br>
+                <button id="btn_novapessoa" type="submit" class="btn_shadow2" onclick="novaPessoa()">Novo</button>
+                <button id="btn_salvarpessoa" type="submit" class="btn_shadow2" onclick="gravarPessoa()">Gravar</button>
+                <button id="btn_cancelarCadasPessoa" type="submit" class="btn_shadow2" onclick="cancelarCadasPessoa()">Cancelar</button>
+                <button id="btn_excluirCadasPessoa" type="submit" class="btn_shadow2" onclick="excluirCadasPessoa()">Excluir</button>
+
         </div>
-        
+        </form>
         <br><br><br>
         <div id='TablePessoas'>
             
@@ -180,11 +193,20 @@
                         <tr>
                         <th>Código</th><th>Nome</th><th>Contato</th>
                         </tr>
-                  </thead>
-                    <tbody id="corpoTabelaPessoas">
+                    </thead>
+                    <tbody >
                         
                        
-                    
+                        {% for pessoa in pessoas  %}
+                            <tr>
+                                <td>
+                                    {{ pessoa.codigo }}
+                                    {{ pessoa.nome }}
+                                    {{ pessoa.contato }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+
 
 
                     </tbody>
@@ -203,9 +225,9 @@
              <h1 class="styleWord1">Cadastro de Tarefa</h1>        
          </div>
         <br><br>
-                
+        <form method="post" action="{% url 'save_task' %}"> {% csrf_token %}
            <div id="cadastro_tarefa">
-                <label  for="codProjeto">Código: <input readonly="true" id="codTarefa" type="text" name="trf_id"></label>
+                <label  for="codProjeto">Código: <input readonly="true" id="codTarefa" type="text" name=""></label>
                  <button type="button" id="codAnteriorCadasTarefa" class="btn_shadow1_1" onclick="recuarCodTarefa()"></button>
                  <button type="button" id="codPosteriorCadasTarefa" class="btn_shadow1" onclick="avancarCodTarefa()"></button>
                 <br><br>
@@ -214,26 +236,27 @@
                       
                   </datalist>
                <br>
-               <label for="interdependencia">Interdependencia: <input disabled="true" id="interdependencia" type="text" list="listaInterdependencia" name="trf_interdependencia"></label>
+               <label for="interdependencia">Interdependencia: <input disabled="true" id="interdependencia" type="text" list="listaInterdependencia" name="trf_interdependencia" value="0"> </label>
                   <datalist id="listaInterdependencia">
-                      
+                      <option value="0"> 0</option>
                   </datalist>
                <br>
-                <label for="nomeTarefa">Nome tarefa: <input id="nomeTarefa" readonly="true" type="text" name="trf_nometarefa"></label>
+                <label for="nomeTarefa">Nome tarefa: <input id="nomeTarefa" readonly="true" type="text" name="trf_name"></label>
                <br>
                <br>
                <label for="dt_inicioTarefa">Data Início: <input id="dt_inicioTarefa" readonly="true" type="date" name="trf_datainicial"></label>
                <label for="dt_finalTarefa">Data Final: <input id="dt_finalTarefa" readonly="true" type="date" name="trf_datafinal"></label>
                <br>
                <label for="dt_prazoTarefa">Prazo: <input id="dt_prazoTarefa" readonly="true" type="date" name="trf_prazo"></label>
-               <label>Entregável: </label><input id="entregavel" disabled="true" type="checkbox" name="trf_entregavel">
+               <label>Entregável: </label><input id="entregavel" disabled="true" type="radio" name="trf_entregavel">
                <br><br>
                <button id="btn_novatarefa" type="submit" class="btn_shadow2" onclick="novaTarefa()">Novo</button>       
                <button id="btn_salvartarefa" type="submit" class="btn_shadow2" onclick="gravarTarefa()">Gravar</button>
                       <button id="btn_cancelarCadasTarefa" type="submit" class="btn_shadow2" onclick="cancelarCadasTarefa()">Cancelar</button>
                      <button id="btn_excluirCadasTarefa" type="submit" class="btn_shadow2" onclick="excluirCadasTarefa()">Excluir</button>
                 
-                </div>
+           </div>
+        </form>
           </dialog>
             
      <!------------------------------------------------------------->
@@ -300,8 +323,7 @@
         
        
     </dialog>
-    
-    
+
     <!------------------------------------------------------------->
 </body>
 
