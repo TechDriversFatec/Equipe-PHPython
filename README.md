@@ -84,25 +84,35 @@ as seguintes informações básicas: id, nome e contato;
 
 **3ª ENTREGA**
 
-- (REQ-5) O Gerente pode visualizar as tarefas de cada projeto. Cada tarefa deve estar atrelada a necessariamente um projeto;
-- (REQ-6) O Gerente pode incluir e excluir usuários para cada projeto;
-- (REQ-7) O Gerente pode incluir um usuário em uma ou mais tarefas se esse usuário fizer parte do projeto relacionado a tarefa.
-- (REQ-8) O Gerente e o Usuário podem visualizar quais pessoas fazem parte de cada projeto e tarefa diretamente no gráfico;
+- (REQ-6) O Gerente pode incluir e excluir usuários para cada projeto (2 sprints);
+- (REQ-7) O Gerente pode incluir um usuário em uma ou mais tarefas se esse usuário fizer parte do projeto relacionado a tarefa (2 sprints);
 - (REQ-9) O Gerente pode criar, alterar, visualizar ou excluir um cadastro de projeto através de um menu;
 - (REQ-10) O Gerente pode criar, alterar, visualizar ou excluir um cadastro de tarefa através de um menu;
 - (REQ-11) O Gerente pode criar, alterar, visualizar ou excluir um cadastro de pessoa através de um menu;
-- (REQ-12) O Gerente e o usuário podem visualizar os projetos e tarefas por diferença de cor no gráfico de gantt;
-- (REQ-13) O Gerente podem fazer alterações na visualização do gráfico de forma dinâmica direto no gráfico de gantt. As seguintes alterações podem ser feitas:
+- (REQ-12) O Gerente e o usuário podem visualizar os projetos e tarefas por diferença de cor no gráfico de gantt (2 sprints);
+- (REQ-13) O Gerente pode fazer alterações na visualização do gráfico de forma dinâmica direto no gráfico de gantt. As seguintes alterações podem ser feitas:
 visualizar por período de dia, semana, mês ou ano, escolher quais projetos e tarefas serão exibidos, alterar o período, duração, data de inicio e fim
-de cada tarefa;
-- (REQ-14) O Gerente e o Usuário podem salvar as alterações feitas no gráfico de gantt;
-- (REQ-15) O Gerente pode compartilhar uma imagem com os usuários através de um botão de compartilhamento;
-- (REQ-18) O Gerente pode visualizar o histórico de alterações salvas de cada gráfico;
+de cada tarefa (2 sprints);
 
 **4ª ENTREGA**
 
+- (REQ-5) O Gerente pode visualizar as tarefas de cada projeto. Cada tarefa deve estar atrelada a necessariamente um projeto;
+- (REQ-6) O Gerente pode incluir e excluir usuários para cada projeto (2 sprints);
+- (REQ-7) O Gerente pode incluir um usuário em uma ou mais tarefas se esse usuário fizer parte do projeto relacionado a tarefa (2 sprints);
+- (REQ-8) O Gerente e o Usuário podem visualizar quais pessoas fazem parte de cada projeto e tarefa diretamente no gráfico;
+- (REQ-12) O Gerente e o usuário podem visualizar os projetos e tarefas por diferença de cor no gráfico de gantt (2 sprints);
+- (REQ-13) O Gerente pode fazer alterações na visualização do gráfico de forma dinâmica direto no gráfico de gantt. As seguintes alterações podem ser feitas:
+visualizar por período de dia, semana, mês ou ano, escolher quais projetos e tarefas serão exibidos, alterar o período, duração, data de inicio e fim
+de cada tarefa (2 sprints);
+- (REQ-14) O Gerente e o Usuário podem salvar as alterações feitas no gráfico de gantt (2 sprints);
+- (REQ-15) O Gerente pode compartilhar uma imagem com os usuários através de um botão de compartilhamento;
+
+
+**5ª ENTREGA**
+
 - (REQ-16) O Gerente pode criar novos gráficos através de um menu e alternar entre a visualização deles;
 - (REQ-17) O Gerente pode excluir gráficos através de uma lista de gráficos;
+- (REQ-18) O Gerente pode visualizar o histórico de alterações salvas de cada gráfico;
 - (REQ-19) O Gerente pode criar, alterar, visualizar ou excluir um cadastro de projeto. Cada cadastro de projeto deve conter além das informações básicas, 
 as seguintes informações: custo base, horas de desenvolvimento, pessoas(usuários), progresso e data final;
 - (REQ-20) O Gerente pode criar, alterar, visualizar ou excluir um cadastro de tarefas. Cada cadastro de projeto deve conter além das informações básicas, 
@@ -112,7 +122,7 @@ as seguintes informações: horas disponíveis, salário, férias, carga horári
 - (REQ-22) Gerente e Usuário podem pesquisar cadastros de Projetos, Tarefas e Pessoas;
 - (REQ-23) Gerente pode visualizar todas as pessoas com horas livres sem filtro, com filtro de projetos ou com filtro de tarefas em um intervalo de tempo;
 
-**5ª ENTREGA**
+**6ª ENTREGA (FINAL)**
 
 - (REQ-24) Gerente e Usuário podem visualizar uma escala "Nervouser", que é quando uma pessoa está a muitas horas em um projeto. Essa escala existe para
 que não haja problemas de motivação.
@@ -120,9 +130,6 @@ que não haja problemas de motivação.
 em um intervalo de tempo.
 - (REQ-26) Gerente pode gerar relatórios de Projetos com os seguintes dados: Horas trabalhadas por pessoa, progresso, prazos;
 - (REQ-27) Gerente pode subdividir uma tarefa em duas novas;
-
-**6ª ENTREGA (FINAL)**
-
 - (REQ-28) Gerente pode baixar qualquer um dos relatórios;
 - (REQ-29) Usuários podem alterar um gráfico de gantt simultaneamente desde que pertença ao projeto em que vai alterar;
 - (REQ-30) Usuário pode acessar aba de HELP para tirar dúvidas;
