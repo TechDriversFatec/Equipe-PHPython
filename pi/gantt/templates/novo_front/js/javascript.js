@@ -598,15 +598,14 @@ function gravarProjeto(){
         
      linhaTabelaProjeto = ["<tr><td>"+codPrj.value+"</td><td>"+nomeProjeto.value+"</td><td>"+dt_inicioProjeto.value+"</td><td>"+ dt_prazoProjeto.value+"</td><td bgcolor="+corProjeto.value+"></td></tr>"];
     
-    
+     add_btn_prj_menu_esquerdo = ["<button id='"+codPrj.value+"' class='btn_shadow1' style='background-color:"+corProjeto.value+"' onclick='expandeTarefas'"+codPrj.value+"'()'>"+nomeProjeto.value+"</button>"];
     
     vetor_tabelaProjeto.push(linhaTabelaProjeto);
+    vetor_prjcadastrados.push(add_btn_prj_menu_esquerdo);
     carregaTabela();
     
     
-    linha = "<button id=btn_expandetarefa'"+codPrj.value+"' class='btn_shadow1' style='background-color:"+corProjeto.value+"' onclick='expandeTarefas'"+codPrj.value+"'()'>"+nomeProjeto.value+"</button>";
     
-    document.getElementById("prj_cadastrados").innerHTML +=  linha;
     
     jsonCadastroProjeto();
     
@@ -617,7 +616,7 @@ function gravarProjeto(){
     habilitaRecuoCodProjeto();
     buscaValoresProjeto();
     habilitaDesabilitaBtnExcluirProjeto();
-    
+    add_prj_menu_esquerdo();
     
         
 }
@@ -640,7 +639,7 @@ function jsonCadastroProjeto(){
 function excluirCadasProjeto(){
     codAtual = parseInt(document.getElementById("codProjeto").value);
    
-   
+    
     
     for(i = 0; i<vetor_projeto.length;i++){
         
@@ -650,17 +649,14 @@ function excluirCadasProjeto(){
             
             vetor_tabelaProjeto.splice([i],1);
             
-            vetor_prjcadastrados.splice([i],1)
-            
-            
-            
+            vetor_prjcadastrados.splice([i],1);
             
         }
         console.log(vetor_projeto);
     }
     
       carregaTabela();
-    expandeProjetos();
+    add_prj_menu_esquerdo();
       document.getElementById("codProjeto").value = vetor_projeto.length;
     buscaValoresProjeto();
     habilitaDesabilitaBtnExcluirProjeto();
@@ -674,25 +670,35 @@ function excluirCadasProjeto(){
 
 /*EXPANDE PROJETOS MENU CENTRAL ESQUERDO*/
 
-function expandeProjetos(){
-    
+function add_prj_menu_esquerdo(){
     
     document.getElementById("prj_cadastrados").innerHTML = '';
-    for(i =0; i< vetor_projeto.length;i++){
-        
-        linha = "<button id=btn_expandetarefa'"+i+"' class='btn_shadow1' onclick='expandeTarefas'"+i+"'()'>'"+vetor_projeto[i][1]+"'</button>";
-        
-        vetor_prjcadastrados.push(linha);
-        
-         
-        
+    for(i = 0; i<vetor_prjcadastrados.length;i++){
+    document.getElementById("prj_cadastrados").innerHTML +=  vetor_prjcadastrados[i];
         
     }
-    //"<option value='"+vetor_projeto[i][1]+"'>"
-    
-    document.getElementById("prj_cadastrados").innerHTML +=  vetor_prjcadastrados;
 }
 
+//EM CONSTRUÇÃO
+function expandeTarefas(){
+    
+   for(i=0;i<vetor_projeto.length;i++){
+       
+       recebeBtnPrj = document.getElementById([i]);
+       recebeBtnprj.ddEventListener("click", function(){
+           
+           for(x=0;x<vetor_tarefa.length;x++){
+               
+               add_btn_prj_menu_esquerdo = ["<button class='btn_shadow1' style='background-color:"+corProjeto.value+"' onclick='expandeTarefas'"+codPrj.value+"'()'>"+nomeProjeto.value+"</button>"];
+               
+           }
+           
+       });
+       
+       
+       
+   }
+}
 
 /*///////////////////////////////////////*/
 
