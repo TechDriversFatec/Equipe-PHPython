@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import tb_Tarefa, tb_Desenvolvedor, tb_Projeto, tb_Dev_Trf
+from .models import tb_Tarefa, tb_Pessoa, tb_Projeto, tb_Dev_Trf
 # Register your models here.
 
 
@@ -27,17 +27,17 @@ class ProjetoAdmin(admin.ModelAdmin):
     search_fields = ['prj_id', 'prj_nome', 'prj_escopo']
 
 
-class DesenvolvedorAdmin(admin.ModelAdmin):
+class PessoaAdmin(admin.ModelAdmin):
     list_display = [
-        'dev_id',
-        'dev_nome',
-        'dev_contato',
+        'pes_id',
+        'pes_nome',
+        'pes_contato',
     ]
     search_fields = ['dev_nome']
 
 
 admin.site.register(tb_Tarefa, TarefaAdmin)
-admin.site.register(tb_Desenvolvedor, DesenvolvedorAdmin)
+admin.site.register(tb_Pessoa, PessoaAdmin)
 admin.site.register(tb_Projeto, ProjetoAdmin)
 admin.site.register(tb_Dev_Trf)
 
