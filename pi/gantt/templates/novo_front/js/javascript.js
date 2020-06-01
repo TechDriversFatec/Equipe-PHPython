@@ -2,7 +2,6 @@
 
 
 
-
 /*/////////////*/
 
 /*CADASTRO DE PESSOAS*///////////////////////////////
@@ -536,6 +535,7 @@ function limparCamposCadasProjeto(){
 vetor_projeto = [];
 vetor_tabelaProjeto = [];
 vetor_prjcadastrados = [];
+vetor_trfcadastrados = [];
 
 function carregaTabela(){
    
@@ -598,7 +598,7 @@ function gravarProjeto(){
         
      linhaTabelaProjeto = ["<tr><td>"+codPrj.value+"</td><td>"+nomeProjeto.value+"</td><td>"+dt_inicioProjeto.value+"</td><td>"+ dt_prazoProjeto.value+"</td><td bgcolor="+corProjeto.value+"></td></tr>"];
     
-     add_btn_prj_menu_esquerdo = ["<button id='"+codPrj.value+"' class='btn_shadow1' style='background-color:"+corProjeto.value+"' onclick='expandeTarefas'"+codPrj.value+"'()'>"+nomeProjeto.value+"</button>"];
+     add_btn_prj_menu_esquerdo = ["<button id='btn_prj"+codPrj.value+"' onClick='expandeTarefas()' class='btn_shadow1' style='background-color:"+corProjeto.value+"' >"+nomeProjeto.value+"</button>"];
     
     vetor_tabelaProjeto.push(linhaTabelaProjeto);
     vetor_prjcadastrados.push(add_btn_prj_menu_esquerdo);
@@ -617,6 +617,8 @@ function gravarProjeto(){
     buscaValoresProjeto();
     habilitaDesabilitaBtnExcluirProjeto();
     add_prj_menu_esquerdo();
+   
+    
     
         
 }
@@ -676,30 +678,59 @@ function add_prj_menu_esquerdo(){
     for(i = 0; i<vetor_prjcadastrados.length;i++){
     document.getElementById("prj_cadastrados").innerHTML +=  vetor_prjcadastrados[i];
         
+    novaDivTrf = document.createElement("div");
+        
+    novaDivTrf.id = "trf_cadastradas_prj"+(i+1)+"";
+    
+        
+   document.getElementById("prj_cadastrados").appendChild(novaDivTrf);
+        
+        
     }
 }
 
+
+
 //EM CONSTRUÇÃO
 function expandeTarefas(){
-    
+  
+     document.getElementById("prj_cadastrados").innerHTML = '';
    for(i=0;i<vetor_projeto.length;i++){
        
-       recebeBtnPrj = document.getElementById([i]);
-       recebeBtnprj.ddEventListener("click", function(){
-           
-           for(x=0;x<vetor_tarefa.length;x++){
+      
+       
+       recebeCodPrj = i+1;  
+       for(x=0; x<vetor_tarefa.length;x++){
+            if(recebeCodPrj == vetor_tarefa[x][7]){
+               codTrf = jsonTarefa[x]['trf_id'];
+               recebeNomeTrf = jsonTarefa[x]['trf_nometarefa'];            
+               corProjeto = jsonProjeto[i]['corProjeto'];                    
+               add_btn_trf_menu_esquerdo = ["<button id='btn_trf"+codTrf+"' onClick='dadosTarefa()' class='btn_shadow3' style='border-color:"+corProjeto+"'>"+recebeNomeTrf+"</button>"]; 
                
-               add_btn_prj_menu_esquerdo = ["<button class='btn_shadow1' style='background-color:"+corProjeto.value+"' onclick='expandeTarefas'"+codPrj.value+"'()'>"+nomeProjeto.value+"</button>"];
-               
+               vetor_trfcadastrados.push(add_btn_trf_menu_esquerdo);
+                
+               document.getElementById("trf_cadastradas_prj"+i+"").innerHTML +=  vetor_trfcadastrados[i];
+              
            }
            
-       });
-       
-       
-       
+         
+       }   
    }
+    
+    
+    //add_trf_menu_esquerdo();
+   
+    console.log(vetor_trfcadastrados);
 }
 
+function add_trf_menu_esquerdo(){
+
+    document.getElementById("prj_cadastrados").innerHTML = '';
+    for(i = 0; i<vetor_trfcadastrados.length;i++){
+    document.getElementById("prj_cadastrados").innerHTML +=  vetor_trfcadastrados[i];
+        
+    }    
+}
 /*///////////////////////////////////////*/
 
 
@@ -1577,7 +1608,6 @@ function periodo_ano(){
 
 
 
-function expandeTarefas(){}
 
 /*//////////////////////////////////////////////*/
 
