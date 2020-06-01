@@ -670,7 +670,7 @@ function excluirCadasProjeto(){
     
 }
 
-/*EXPANDE PROJETOS MENU CENTRAL ESQUERDO*/
+/*EXPANDE PROJETOS MENU CENTRAL ESQUERDO*/////////////////////////////////////////////////////
 
 function add_prj_menu_esquerdo(){
     
@@ -690,48 +690,37 @@ function add_prj_menu_esquerdo(){
 }
 
 
+/*EXPANDE TAREFAS MENU CENTRAL ESQUERDO*/
 
-//EM CONSTRUÇÃO
-function expandeTarefas(){
-  
-   
-   for(i=0;i<vetor_projeto.length;i++){
-       
-      
-       
+///FUNÇÃO ATRIBUÍDA PARA O BTN GRAVAR TAREFA
+function vetorTrfCadastrados(){
+    vetor_trfcadastrados = [];
+  for(i=0;i<vetor_projeto.length;i++){
        recebeCodPrj = i+1;  
+           document.getElementById("trf_cadastradas_prj"+recebeCodPrj+"").innerHTML = '';
        for(x=0; x<vetor_tarefa.length;x++){
             if(recebeCodPrj == vetor_tarefa[x][7]){
                codTrf = jsonTarefa[x]['trf_id'];
                recebeNomeTrf = jsonTarefa[x]['trf_nometarefa'];            
                corProjeto = jsonProjeto[i]['corProjeto'];                    
-               add_btn_trf_menu_esquerdo = ["<button id='btn_trf"+codTrf+"' onClick='dadosTarefa()' class='btn_shadow3' style='border-color:"+corProjeto+"'>"+recebeNomeTrf+"</button>"]; 
+               add_btn_trf_menu_esquerdo = [recebeCodPrj,"<button id='btn_trf"+codTrf+"' onClick='dadosTarefa()' class='btn_shadow3' style='border-color:"+corProjeto+"'>"+recebeNomeTrf+"</button>"]; 
                
                vetor_trfcadastrados.push(add_btn_trf_menu_esquerdo);
                 
-               document.getElementById("trf_cadastradas_prj"+recebeCodPrj+"").innerHTML +=  vetor_trfcadastrados[x];
-              console.log(vetor_trfcadastrados[x]);
-           }
-           
-         
-       }   
+            
+              // document.getElementById("trf_cadastradas_prj"+recebeCodPrj+"").innerHTML +=  vetor_trfcadastrados[x];
+            
+           }        
+       }    
    }
-    
-    
-    //add_trf_menu_esquerdo();
-   
     console.log(vetor_trfcadastrados);
 }
 
-function add_trf_menu_esquerdo(){
 
-    document.getElementById("prj_cadastrados").innerHTML = '';
-    for(i = 0; i<vetor_trfcadastrados.length;i++){
-    document.getElementById("prj_cadastrados").innerHTML +=  vetor_trfcadastrados[i];
-        
-    }    
-}
-/*///////////////////////////////////////*/
+
+
+
+/*///////////////////////////////////////////////////////////////////////////////////////*/
 
 
 
@@ -1069,6 +1058,7 @@ function gravarTarefa(){
     buscaValoresTarefa();     
     habilitaDesabilitaBtnExcluirTarefa();
     carregaDataListInterdepedencia();
+    vetorTrfCadastrados();
 }
 
 function jsonCadastroTarefa(){
