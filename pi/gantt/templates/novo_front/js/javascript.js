@@ -694,7 +694,7 @@ function add_prj_menu_esquerdo(){
 //EM CONSTRUÇÃO
 function expandeTarefas(){
   
-     document.getElementById("prj_cadastrados").innerHTML = '';
+   
    for(i=0;i<vetor_projeto.length;i++){
        
       
@@ -709,8 +709,8 @@ function expandeTarefas(){
                
                vetor_trfcadastrados.push(add_btn_trf_menu_esquerdo);
                 
-               document.getElementById("trf_cadastradas_prj"+i+"").innerHTML +=  vetor_trfcadastrados[i];
-              
+               document.getElementById("trf_cadastradas_prj"+recebeCodPrj+"").innerHTML +=  vetor_trfcadastrados[x];
+              console.log(vetor_trfcadastrados[x]);
            }
            
          
