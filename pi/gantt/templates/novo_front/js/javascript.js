@@ -598,7 +598,7 @@ function gravarProjeto(){
         
      linhaTabelaProjeto = ["<tr><td>"+codPrj.value+"</td><td>"+nomeProjeto.value+"</td><td>"+dt_inicioProjeto.value+"</td><td>"+ dt_prazoProjeto.value+"</td><td bgcolor="+corProjeto.value+"></td></tr>"];
     
-     add_btn_prj_menu_esquerdo = ["<button id='btn_prj"+codPrj.value+"' onClick='expandeTrf()' class='btn_shadow1' style='background-color:"+corProjeto.value+"' >"+nomeProjeto.value+"</button>"];
+     add_btn_prj_menu_esquerdo = ["<button id='btn_prj"+codPrj.value+"' onClick='expandeTrf(this.id)' class='btn_shadow1' style='background-color:"+corProjeto.value+"' >"+nomeProjeto.value+"</button>"];
     
     vetor_tabelaProjeto.push(linhaTabelaProjeto);
     vetor_prjcadastrados.push(add_btn_prj_menu_esquerdo);
@@ -697,7 +697,7 @@ function vetorTrfCadastrados(){
     vetor_trfcadastrados = [];
   for(i=0;i<vetor_projeto.length;i++){
        recebeCodPrj = i+1;  
-           document.getElementById("trf_cadastradas_prj"+recebeCodPrj+"").innerHTML = '';
+          
        for(x=0; x<vetor_tarefa.length;x++){
             if(recebeCodPrj == vetor_tarefa[x][7]){
                codTrf = jsonTarefa[x]['trf_id'];
@@ -714,26 +714,71 @@ function vetorTrfCadastrados(){
        }    
    }
     console.log(vetor_trfcadastrados);
+    expandeTrf();
 }
 
 ///FUNÇÃO ATRIBUÍDA PARA O BTN PROJETO NO MENU LATERAL ESQUERDO
-function expandeTrf(){
+
+function expandeTrf(nomeBtn){
     
-    for(i = 0; i< vetor_projeto.length;i++){
+    jsonPrjTrf = [];
+    for(i=0;i<vetor_trfcadastrados.length;i++){
         
-        recebeCodPrj = i+1;
-        
-        
-        selecionaBtnPrj = document.getElementById("btn_prj'"+(i+1)+"'");
-        
-        if(selecionaBtnPrj){
-            alert("clicou o botão"+selecionaBtnPrj);
-        }
+        jsonPrjTrf.push({
+            'codPrjTrf': vetor_trfcadastrados[i][0],
+            'nomeTrf': vetor_trfcadastrados[i][1]    
+        });
         
         
+        console.log(jsonPrjTrf);
     }
     
+    
+    
+        alert(nomeBtn);
+    
+    
 }
+    /*selecionaBtnPrj.addEventListener('click', function(){
+        
+        
+        
+    });*/
+    
+    
+   /*
+    for(i = 0; i< vetor_projeto.length;i++){
+        
+        recebeCodPrjTrf = i+1;
+         
+        
+         selecionaBtnPrj = document.getElementById("btn_prj"+recebeCodPrjTrf+"");
+        //document.getElementById("trf_cadastradas_prj"+recebeCodPrjTrf+"").innerHTML = '';
+        
+        selecionaBtnPrj.addEventListener('click', function(){
+            for(x =0; x<vetor_trfcadastrados.length;x++){
+            
+            if(recebeCodPrjTrf == vetor_trfcadastrados[x][0]){
+                jsonPrjTrf = [];
+                jsonPrjTrf.push({
+                'codPrj': vetor_trfcadastrados[x][0],    
+                'nomeTrf': vetor_trfcadastrados[x][1]
+                });
+                
+                document.getElementById("trf_cadastradas_prj"+recebeCodPrjTrf+"").appendChild(jsonPrjTrf['nomeTrf']);
+                
+            }
+            }
+        });
+        
+            
+            
+        
+       }*/
+        
+    
+    
+
 
 
 
