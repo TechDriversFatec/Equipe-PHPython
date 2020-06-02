@@ -598,7 +598,7 @@ function gravarProjeto(){
         
      linhaTabelaProjeto = ["<tr><td>"+codPrj.value+"</td><td>"+nomeProjeto.value+"</td><td>"+dt_inicioProjeto.value+"</td><td>"+ dt_prazoProjeto.value+"</td><td bgcolor="+corProjeto.value+"></td></tr>"];
     
-     add_btn_prj_menu_esquerdo = ["<button id='btn_prj"+codPrj.value+"' onClick='expandeTarefas()' class='btn_shadow1' style='background-color:"+corProjeto.value+"' >"+nomeProjeto.value+"</button>"];
+     add_btn_prj_menu_esquerdo = ["<button id='btn_prj"+codPrj.value+"' onClick='expandeTrf()' class='btn_shadow1' style='background-color:"+corProjeto.value+"' >"+nomeProjeto.value+"</button>"];
     
     vetor_tabelaProjeto.push(linhaTabelaProjeto);
     vetor_prjcadastrados.push(add_btn_prj_menu_esquerdo);
@@ -716,6 +716,24 @@ function vetorTrfCadastrados(){
     console.log(vetor_trfcadastrados);
 }
 
+///FUNÇÃO ATRIBUÍDA PARA O BTN PROJETO NO MENU LATERAL ESQUERDO
+function expandeTrf(){
+    
+    for(i = 0; i< vetor_projeto.length;i++){
+        
+        recebeCodPrj = i+1;
+        
+        
+        selecionaBtnPrj = document.getElementById("btn_prj'"+(i+1)+"'");
+        
+        if(selecionaBtnPrj){
+            alert("clicou o botão"+selecionaBtnPrj);
+        }
+        
+        
+    }
+    
+}
 
 
 
