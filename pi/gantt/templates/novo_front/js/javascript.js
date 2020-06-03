@@ -202,12 +202,8 @@ function limparCadasPessoa(){
     document.getElementById('nomePessoa').value = '';
     document.getElementById('contato').value = '';
 }
-
-
-
 vetor_pessoa = [];
 vetor_tabelaPessoa = [];
-
 function carregaTabelaPessoa(){
    
     document.getElementById("corpoTabelaPessoas").innerHTML = '';
@@ -504,8 +500,6 @@ function habilitaDesabilitaBtnExcluirProjeto(){
 
 }
 
-
-
 function desabilitaBtnGravaProjeto(){
     document.getElementById("btn_salvarprojeto").disabled = true;
     if(document.getElementById("btn_salvarprojeto").disabled = true){
@@ -597,30 +591,23 @@ function gravarProjeto(){
     vetor_projeto.push(projeto);
         
      linhaTabelaProjeto = ["<tr><td>"+codPrj.value+"</td><td>"+nomeProjeto.value+"</td><td>"+dt_inicioProjeto.value+"</td><td>"+ dt_prazoProjeto.value+"</td><td bgcolor="+corProjeto.value+"></td></tr>"];
+     vetor_tabelaProjeto.push(linhaTabelaProjeto);
+     carregaTabela();
     
-     add_btn_prj_menu_esquerdo = ["<button id='btn_prj"+codPrj.value+"' onClick='expandeTrf(this.id)' class='btn_shadow1' style='background-color:"+corProjeto.value+"' >"+nomeProjeto.value+"</button>"];
+     
     
-    vetor_tabelaProjeto.push(linhaTabelaProjeto);
-    vetor_prjcadastrados.push(add_btn_prj_menu_esquerdo);
-    carregaTabela();
-    
-    
-    
-    
+    add_btn_prj_menu_esquerdo = ["<button id='btn_prj"+codPrj.value+"' onClick='expandeTrf(this.id)' class='btn_shadow1' style='background-color:"+corProjeto.value+"' >"+nomeProjeto.value+"</button>"]; //CRIA VALOR PARA ADICIONAR NA DIV "prj_cadastrados"
+     vetor_prjcadastrados.push(add_btn_prj_menu_esquerdo);//ADICIONA LINHA PARA CRIAÇÃO DO BTN DE PROJETO
+     add_prj_menu_esquerdo();//CRIAÇÃO DO BOTÃO DE PROJETO
+        
     jsonCadastroProjeto();
-    
     desabilitaCamposProjeto();
     habilitaBtnNovoProjeto();
     desabilitaBtnGravaProjeto();
     desabilitaBtnCancelarProjeto();
     habilitaRecuoCodProjeto();
     buscaValoresProjeto();
-    habilitaDesabilitaBtnExcluirProjeto();
-    add_prj_menu_esquerdo();
-   
-    
-    
-        
+    habilitaDesabilitaBtnExcluirProjeto(); 
 }
 
 function jsonCadastroProjeto(){
@@ -674,18 +661,16 @@ function excluirCadasProjeto(){
 
 function add_prj_menu_esquerdo(){
     
-    document.getElementById("prj_cadastrados").innerHTML = '';
-    for(i = 0; i<vetor_prjcadastrados.length;i++){
-    document.getElementById("prj_cadastrados").innerHTML +=  vetor_prjcadastrados[i];
+    document.getElementById("prj_cadastrados").innerHTML = ''; //ZERA DIV PARA NOVOS BUTTONS
+    for(i = 0; i<vetor_prjcadastrados.length;i++){ // VARREDURA DO VETOR CRIADO COM OS INSERTS PARA A DIV
+    document.getElementById("prj_cadastrados").innerHTML +=  vetor_prjcadastrados[i];//ADICIONA OS INSERTS NA DIV 
         
-    novaDivTrf = document.createElement("div");
+    novaDivTrf = document.createElement("div");//CRIA NOVA DIV PARA RECEBER TAREFAS CORRESPONDENTES AO PROJETO CRIADO
         
-    novaDivTrf.id = "trf_cadastradas_prj"+(i+1)+"";
-    
-        
-   document.getElementById("prj_cadastrados").appendChild(novaDivTrf);
-        
-        
+    novaDivTrf.id = "trf_cadastradas_prj"+(i+1)+"";//NOME DA DIV PARA RECEBER AS TAREFAS
+       
+    document.getElementById("prj_cadastrados").appendChild(novaDivTrf);//ADICIONA A DIV ABAIXO DO PROJETO CRIADO
+              
     }
 }
 
@@ -695,61 +680,45 @@ function add_prj_menu_esquerdo(){
 ///FUNÇÃO ATRIBUÍDA PARA O BTN GRAVAR TAREFA
 function vetorTrfCadastrados(){
     vetor_trfcadastrados = [];
-  for(i=0;i<vetor_projeto.length;i++){
-       recebeCodPrj = i+1;  
-          
-       for(x=0; x<vetor_tarefa.length;x++){
-            if(recebeCodPrj == vetor_tarefa[x][7]){
-               codTrf = jsonTarefa[x]['trf_id'];
-               recebeNomeTrf = jsonTarefa[x]['trf_nometarefa'];            
-               corProjeto = jsonProjeto[i]['corProjeto'];                    
-               add_btn_trf_menu_esquerdo = [recebeCodPrj,"<button id='btn_trf"+codTrf+"' onClick='dadosTarefa()' class='btn_shadow3' style='border-color:"+corProjeto+"'>"+recebeNomeTrf+"</button>"]; 
-               
-               vetor_trfcadastrados.push(add_btn_trf_menu_esquerdo);
+  for(i=0;i<vetor_projeto.length;i++){//VARREDURA NOS PROJETOS CADASTRADOS
+       recebeCodPrj = i+1;  //SELECIONA O CODIGO DO PROJETO    
+       for(x=0; x<vetor_tarefa.length;x++){ //VARREDURA NAS TAREFAS CADASTRADAS
+            if(recebeCodPrj == vetor_tarefa[x][7]){//VALIDA O CODIGO DO PROJETO DO CADASTRO DE PROJETO AO CODIGO DO PROJETO NO CADASTRO DE TAREFA E CRIA UM VETOR PARA INSERIR NA DIV CRIADA.
                 
-            
-              // document.getElementById("trf_cadastradas_prj"+recebeCodPrj+"").innerHTML +=  vetor_trfcadastrados[x];
-            
+               codTrf = jsonTarefa[x]['trf_id']; //CODIGO DA TAREFA - TABELA TAREFA
+               recebeNomeTrf = jsonTarefa[x]['trf_nometarefa']; //NOME DA TAREFA - TABELA TAREFA            
+               corProjeto = jsonProjeto[i]['corProjeto']; //COR DO PROJETO - TABELA PROJETO                   
+               add_btn_trf_menu_esquerdo = [recebeCodPrj,"<button id='btn_trf"+codTrf+"' onClick='dadosTarefa()' class='btn_shadow3' style='border-color:"+corProjeto+"'>"+recebeNomeTrf+"</button>"]; // CRIA LINHA PARA NOVOS BOTÕES DE TAREFAS, ABAIXO DO PROJETO CORRESPONDENTE
+               
+               vetor_trfcadastrados.push(add_btn_trf_menu_esquerdo);//ADICIONA NO VETOR AS TAREFAS CADASTRADAS E SEUS RESPECTIVOS BOTÕES, COM O ID DO PROJETO NO ÍNDICE 0                  
            }        
        }    
    }
-    console.log(vetor_trfcadastrados);
-    
+    console.log(vetor_trfcadastrados);//VERIFICA INTEGRIDADE DO VETOR  
 }
 
 ///FUNÇÃO ATRIBUÍDA PARA O BTN PROJETO NO MENU LATERAL ESQUERDO
 
 function expandeTrf(nomeBtn){
-   
+    divideBtn = nomeBtn.substr(7);//REMOVE E DEIXA APENAS O NÚMERO DE IDENTIFICAÇÃO DO BOTÃO DE CADA TAREFA "btn_trf'num exemplo'"
     
-        divideBtn = nomeBtn.substr(7);
-    
-     
-    
-   
-    
-    selecionaDiv = document.getElementById('trf_cadastradas_prj'+divideBtn+'').textContent;
-      
-    
-    
-   if(selecionaDiv == ''){
+    selecionaDiv = document.getElementById('trf_cadastradas_prj'+divideBtn+'').textContent;//SELECIONA A DIV DE CADA PROJETO E VERIFICA SE TEM CONTEÚDO DENTRO
+    if(selecionaDiv == ''){//CASO NÃO TENHA CONTEÚDO
        
-        for(i=0;i<vetor_trfcadastrados.length;i++){
+        for(i=0;i<vetor_trfcadastrados.length;i++){//FAZ VARREDURA NOS BOTÕES DAS TAREFAS
         
         
-        if(divideBtn == vetor_trfcadastrados[i][0]){
+        if(divideBtn == vetor_trfcadastrados[i][0]){ //CASO O NÚMERO DE IDENTIFICAÇÃO DO BTN DA TAREFA SEJA IGUAL AO ID DE CADA PROJETO, É ADICIONADO O BOTÃO NA DIV CORRESPONDENTE
             
-            document.getElementById('trf_cadastradas_prj'+divideBtn+'').innerHTML += vetor_trfcadastrados[i][1];
+            document.getElementById('trf_cadastradas_prj'+divideBtn+'').innerHTML += vetor_trfcadastrados[i][1];//ADICIONA OS BOTÕES DAS TAREFAS NAS DIV'S DOS PROJETOS CORRESPONDENTES
         }    
 }
    }else{
-       document.getElementById('trf_cadastradas_prj'+divideBtn+'').remove()
-       add_prj_menu_esquerdo();
+       document.getElementById('trf_cadastradas_prj'+divideBtn+'').remove() //CASO TENHA CONTEÚDO NA DIV, ELE É ELIMINADO. ISSO FOI FEITO PARA CRIAR O RECUO.
+       add_prj_menu_esquerdo();//ADICIONA NOVAMENTE A DIV DO PROJETO
    }
 }
 /*///////////////////////////////////////////////////////////////////////////////////////*/
-
-
 
 
 /*CADASTRO DE TAREFAS*/////////////////////////////
@@ -1053,7 +1022,6 @@ function gravarTarefa(){
     codProjetoSelecionado = '';
     trf_id = document.getElementById("codTarefa");
     selecionaProjeto = document.getElementById("selecionaProjeto").value;
-    
     
     for(i = 0; i< vetor_projeto.length;i++){
         
@@ -1544,55 +1512,37 @@ function menuDropdown_menusuperior() {
 /*JSON PARA CARREGAR GRÁFICO DE GANTT*/
 
 function carregaGantt(){
-    
- 
-    
-    
         vetor_gantt = [];
-        for(i=0;i<vetor_projeto.length;i++){
+        for(i=0;i<vetor_projeto.length;i++){ //SELECIONA O VETOR PROJETO COM AS INFORMAÇÕES EQUIVALENTES À TABELA PROJETO
+             buscaCodProjeto = vetor_projeto[i][0]; //BUSCA O CÓDIGO UTILIZANDO A VARREDURA COM FOR
+            for(x = 0; x < vetor_tarefa.length;x++){ // FAZ A VARREDURA NAS TAREFAS CADASTRADAS EQUIVALENTE A TABELA TAREFAS
             
-             buscaCodProjeto = vetor_projeto[i][0];
-        
-            for(x = 0; x < vetor_tarefa.length;x++){
-            
-            if(buscaCodProjeto == vetor_tarefa[x][7]){
+            if(buscaCodProjeto == vetor_tarefa[x][7]){ // VERIFICA SE O CÓDIGO DO PROJETO É IGUAL AO COD DO PROJETO NA TABELA TAREFA
                 
                 //x[i].style.backgroundColor = "red";
-                addVetor = ["Task "+x,vetor_tarefa[x][1],vetor_tarefa[x][2],vetor_tarefa[x][3], vetor_projeto[i][5]];
-                vetor_gantt.push(addVetor);
-                
-                 
+                addVetor = ["Task "+x,vetor_tarefa[x][1],vetor_tarefa[x][2],vetor_tarefa[x][3], vetor_projeto[i][5]];//CRIA VETOR COM INFORMAÇÕES NECESSÁRIAS PARA CARREGAR O GANTT 
+                vetor_gantt.push(addVetor);//ADICIONA AO VETOR                     
+        }      
         }
-            
-        }
-          
-    
-   jsonGantt();
-    
+   jsonGantt();//CARREGA FUNCTION DA JSON DO GANTT PARA CRIAÇÃO DO JSON
 }
 }
 
 function jsonGantt(){
-    
-    tasks = [];
-    for(i = 0; i< vetor_gantt.length;i++){
-        tasks.push({
+    tasks = []; //PREPARO DE VETOR PARA RECEBER JSON
+    for(i = 0; i< vetor_gantt.length;i++){ //FAZ A VARREDURA NO VETOR PARA CRIAR JSON
+        tasks.push({ //CARREGA O JSON COM AS INFORMAÇÕES NECESSÁRIAS PARA CARREGAR O GRÁFICO GANTT
             'id': vetor_gantt[i][0],
             'name': vetor_gantt[i][1],
             'color': vetor_gantt[i][4],
             'start': vetor_gantt[i][2],
             'end': vetor_gantt[i][3],
             'progress': 20,       
-            'custom_class': 'tcolor'
-               
-    
-                
+            'custom_class': 'tcolor'                     
         });
     }
-     
-     console.log(tasks);
-   gantt = new Gantt("#gantt", tasks);
-
+     console.log(tasks); //TESTE DE INTEGRIDADE
+   gantt = new Gantt("#gantt", tasks); //ENVIO DE DADOS PARA O GRÁFICO GANTT
 }
 //////////////////////////////////////////////////
 
@@ -1604,19 +1554,19 @@ function jsonGantt(){
 
 function periodo_dia(){
     
-    gantt.change_view_mode('Day');
+    gantt.change_view_mode('Day'); // MUDANÇA DE PERÍODO PARA DIA
 }
 
 function periodo_semana(){
-    gantt.change_view_mode('Week');
+    gantt.change_view_mode('Week');// MUDANÇA DE PERÍODO PARA SEMANA
 }
 
 function periodo_mes(){
-    gantt.change_view_mode('Month');
+    gantt.change_view_mode('Month');// MUDANÇA DE PERÍODO PARA MÊS
 }
 
 function periodo_ano(){
-    gantt.change_view_mode('Year');
+    gantt.change_view_mode('Year');// MUDANÇA DE PERÍODO PARA ANO
 }
 
 
