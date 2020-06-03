@@ -2,332 +2,379 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-	<meta charset="utf-8">
-	<title>PI - PHPYTHON - GANTT</title>	
-	<link rel="stylesheet" type="text/css" href="{% static 'css/estilos.css' %}">
+    <meta charset="utf-8">
+    <title>PI - PHPYTHON - GANTT</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/estilos.css' %}">
     <script type="text/javascript" src="{% static 'js/javascript.js' %}"></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>/
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    /
 
 </head>
 <body>
-	<div id="top" class="boxShadow1">
-       <div class="dropdown_menusuperior">
-          <img id="imgbtn_menusuperior" src="{% static 'images/btn_menu_superior.png' %}" onclick="menuDropdown_menusuperior()" class="dropbtn_menusuperior">
-              <div id="menu_superior" class="dropdown-content_menusuperior">
-                <a href="#novo_gantt_planner">Novo Gantt Planner</a>
-                <a href="#abrir_gantt_planner">Abrir Gantt Planner</a>
-                  <a href="#" onclick="clicaPessoas()">Pessoas</a>
-               
-              </div>
+<div id="top" class="boxShadow1">
+    <div class="dropdown_menusuperior">
+        <img id="imgbtn_menusuperior" src="{% static 'images/btn_menu_superior.png' %}"
+             onclick="menuDropdown_menusuperior()" class="dropbtn_menusuperior">
+        <div id="menu_superior" class="dropdown-content_menusuperior">
+            <a href="#novo_gantt_planner">Novo Gantt Planner</a>
+            <a href="#abrir_gantt_planner">Abrir Gantt Planner</a>
+            <a href="#" onclick="clicaPessoas()">Pessoas</a>
+
         </div>
-
-         <h1>Gantt Planner - by PHPython</h1>
-        <img id="imgbtn_play" src="{% static 'images/img_play.png' %}">
-        <button id="btn_compartilhar" class="btn_shadow2">COMPARTILHAR</button>
-	</div>
-    
-    <div id="top_central" class="boxShadow1">
-        <h1 contenteditable="true" id="nomePlanner">Nome Planejamento</h1>
-        
-        
-         <img id="imgbtn_prj" src="{% static 'images/img_prj.png' %}" onclick="clicaProjeto()">
-        
-         <img id="imgbtn_trf" src="{% static 'images/img_trf.png' %}" onclick="clicaTarefa()" class="dropbtn_trf">
-
-         
-          <img id="imgbtn_pessoas" src="{% static 'images/img_pessoas.png' %}" onclick="distribuiPessoas()" class="dropbtn_pessoas">
-              
-        
-        <img id="imgbtn_download" src="{% static 'images/img_download.png' %}">
-        <button id="btn_salvarplanning" class="btn_shadow2">SALVAR</button>       
     </div>
 
-	<div  id="central">
-	
-			<div id="left_center" class="box">
-                <button id="btn_expandetarefa" class="btn_shadow1" onclick="expandeTarefas()">PROJETO 1</button>
-                <div id="col_tarefas">
-                    
-                </div>
+    <h1>Gantt Planner - by PHPython</h1>
+    <img id="imgbtn_play" src="{% static 'images/img_play.png' %}">
+    <button id="btn_compartilhar" class="btn_shadow2">COMPARTILHAR</button>
+</div>
 
-			</div>
-
-			<div id="center" class="box">
-               <iframe id="iframeCentral" src="{% url 'grafs' %}" ></iframe>
-                
-			</div>
-
-			<div id="right_center" class="box">
-                
-                <div id="pessoas_top">
-                    <button id="btn_pessoas" class="btn_shadow2" onclick="expandePessoas()">PESSOAS</button>
-                    <div id="pessoas_list" class="boxShadow1"> 
-                        
-                    </div>
-                </div>
-                
-                <div id="datas">
-                    <button id="btn_datas" class="btn_shadow2">DATAS</button>
-                    <div id="datas_list" class="boxShadow1"> 
-                        <br>
-                        <label class="styleWord1">PRAZO: </label>
-                        <br><br>
-                        <label class="styleWord1">INICIO:</label>
-                        <br><br>
-                        <label class="styleWord1">FINAL:</label>
-                        
-                    </div>
-                </div>
-                 
-			</div>
-	</div>
-    <div id="bottom_central" class="boxShadow1">
-            <button id="btn6" class="btn_shadow4" >DIA</button>
-            <button id="btn6" class="btn_shadow4">SEMANA</button>
-            <button id="btn6" class="btn_shadow4">MÊS</button>
-            <button id="btn6" class="btn_shadow4">ANO</button> 
-    </div>
-    
-     <!------------------------------------------------------------->
-    
-    <!--CADASTRO DE PROJETO -->
-            <dialog id="abreCadastroProjeto" class="abreCadastro"> 
-         <div id="bloco_superior" class="boxShadow1">
-                <button id="btn_fechar" class="btn_shadow2" onclick="fecharCadastroProjeto()">[X]Fechar</button>
-             <h1 class="styleWord1">Cadastro de Projeto</h1>        </div>
-        <br><br>
-                
-            <form method="post" action="{% url 'save_projeto' %}">{% csrf_token %}
-             <div id="cadastro_projeto">
-
-                     <label  for="codProjeto">Código projeto: <input readonly="true" id="codProjeto" value="{{ last_id }}"></label>
-                     <button type="button" id="codAnteriorCadasProjeto" class="btn_shadow1_1" onclick="recuarCodProjeto()"></button>
-                     <button type="button" id="codPosteriorCadasProjeto" class="btn_shadow1" onclick="avancarCodProjeto()"></button>
-                                      <br><br>
-                      <label for="nomeProjeto">Nome projeto: <input id="nomeProjeto" readonly="true" type="text" name="prj_nome"></label>
-
-                      <label for="escopo">Escopo: <input id="escopo" readonly="true" type="text" name="prj_escopo"></label>
-                      <br><br>
-                      <label for="dt_inicioProjeto">Data Início: <input readonly="true" id="dt_inicioProjeto" type="date" name="prj_datainicio"></label>
-
-                      <label for="dt_prazoProjeto">Prazo Entrega: <input readonly="true" id="dt_prazoProjeto" type="date" name="prj_prazoentrega"></label>
-                        <br><br>
-                      <label for="corProjeto">Cor do projeto: <input disabled="true" id="corProjeto" type="color" name="prj_color"></label>
-                        <br><br>
-                      <button id="btn_novoprojeto" type="submit" class="btn_shadow2" onclick="novoProjeto()">Novo</button>
-
-                          <button id="btn_salvarprojeto" type="submit" class="btn_shadow2" >Gravar</button>
-                          <button id="btn_cancelarCadasProjeto" type="submit" class="btn_shadow2" onclick="cancelarCadasProjeto()">Cancelar</button>
-                         <button id="btn_excluirCadasProjeto" type="submit" class="btn_shadow2" onclick="excluirCadasProjeto()">Excluir</button>
-
-                </div>
-                </form>
-                <div id='listaProjeto'>
-            
-            <table border=1>
-                    <thead>
-                        <caption>Projetos cadastrados:</caption>
-                        <tr>
-                        <th>Código</th><th>Projeto</th><th>Data Início</th><th>Prazo</th><th>Cor</th>
-                        </tr>
-                  </thead>
-
-                    <tbody id="">
-                       {% if  project|length >= 1 %}
-
-                            {% for project in projects %}
-                                <tr>
-                                    <td> {{ project.id }} </td>
-                                    <td> {{ project.projeto }} </td>
-                                    <td> {{ project.start_date }} </td>
-                                    <td> {{ project.prazo }} </td>
-                                    <td> {{ project.color }} </td>
-                                </tr>
-
-                            {% endfor %}
-                       {% endif %}
-                    
+<div id="top_central" class="boxShadow1">
+    <h1 contenteditable="true" id="nomePlanner">Nome Planejamento</h1>
 
 
-                    </tbody>
+    <img id="imgbtn_prj" src="{% static 'images/img_prj.png' %}" onclick="clicaProjeto()">
 
-        
-            </table>
-                   
+    <img id="imgbtn_trf" src="{% static 'images/img_trf.png' %}" onclick="clicaTarefa()" class="dropbtn_trf">
+
+
+    <img id="imgbtn_pessoas" src="{% static 'images/img_pessoas.png' %}" onclick="distribuiPessoas()"
+         class="dropbtn_pessoas">
+
+
+    <img id="imgbtn_download" src="{% static 'images/img_download.png' %}">
+    <button id="btn_salvarplanning" class="btn_shadow2">SALVAR</button>
+</div>
+
+<div id="central">
+
+    <div id="left_center" class="box">
+        <button id="btn_expandetarefa" class="btn_shadow1" onclick="expandeTarefas()">PROJETO 1</button>
+        <div id="col_tarefas">
+
         </div>
-                 
-              
-            </dialog>
-            
-     <!------------------------------------------------------------->
-    <!--- CADASTRO DE PESSOAS -->
-    <dialog id="abreCadastroPessoas" class="abreCadastro"> 
-         <div id="bloco_superior" class="boxShadow1">
-                <button id="btn_fechar" class="btn_shadow2" onclick="fecharCadastroPessoa()">[X]Fechar</button>
-             <h1 class="styleWord1">Cadastro de Pessoas</h1>        </div>
-        <br><br>
-        <form method="post" action="{% url 'save_person' %}"> {% csrf_token %}
+
+    </div>
+
+    <div id="center" class="box">
+        <iframe id="iframeCentral" src="{% url 'grafs' %}"></iframe>
+
+    </div>
+
+    <div id="right_center" class="box">
+
+        <div id="pessoas_top">
+            <button id="btn_pessoas" class="btn_shadow2" onclick="expandePessoas()">PESSOAS</button>
+            <div id="pessoas_list" class="boxShadow1">
+
+            </div>
+        </div>
+
+        <div id="datas">
+            <button id="btn_datas" class="btn_shadow2">DATAS</button>
+            <div id="datas_list" class="boxShadow1">
+                <br>
+                <label class="styleWord1">PRAZO: </label>
+                <br><br>
+                <label class="styleWord1">INICIO:</label>
+                <br><br>
+                <label class="styleWord1">FINAL:</label>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="bottom_central" class="boxShadow1">
+    <button id="btn6" class="btn_shadow4">DIA</button>
+    <button id="btn6" class="btn_shadow4">SEMANA</button>
+    <button id="btn6" class="btn_shadow4">MÊS</button>
+    <button id="btn6" class="btn_shadow4">ANO</button>
+</div>
+
+<!------------------------------------------------------------->
+
+<!--CADASTRO DE PROJETO -->
+<dialog id="abreCadastroProjeto" class="abreCadastro">
+    <div id="bloco_superior" class="boxShadow1">
+        <button id="btn_fechar" class="btn_shadow2" onclick="fecharCadastroProjeto()">[X]Fechar</button>
+        <h1 class="styleWord1">Cadastro de Projeto</h1></div>
+    <br><br>
+
+    <form method="post" action="{% url 'save_projeto' %}">{% csrf_token %}
+        <div id="cadastro_projeto">
+
+            <label for="codProjeto">Código projeto: <input readonly="true" id="codProjeto"
+                                                           value="{{ last_id }}"></label>
+            <button type="button" id="codAnteriorCadasProjeto" class="btn_shadow1_1"
+                    onclick="recuarCodProjeto()"></button>
+            <button type="button" id="codPosteriorCadasProjeto" class="btn_shadow1"
+                    onclick="avancarCodProjeto()"></button>
+            <br><br>
+            <label for="nomeProjeto">Nome projeto: <input id="nomeProjeto" readonly="true" type="text" name="prj_nome"></label>
+
+            <label for="escopo">Escopo: <input id="escopo" readonly="true" type="text" name="prj_escopo"></label>
+            <br><br>
+            <label for="dt_inicioProjeto">Data Início: <input readonly="true" id="dt_inicioProjeto" type="date"
+                                                              name="prj_datainicio"></label>
+
+            <label for="dt_prazoProjeto">Prazo Entrega: <input readonly="true" id="dt_prazoProjeto" type="date"
+                                                               name="prj_prazoentrega"></label>
+            <br><br>
+            <label for="corProjeto">Cor do projeto: <input disabled="true" id="corProjeto" type="color"
+                                                           name="prj_color"></label>
+            <br><br>
+            <button id="btn_novoprojeto" type="submit" class="btn_shadow2" onclick="novoProjeto()">Novo</button>
+
+            <button id="btn_salvarprojeto" type="submit" class="btn_shadow2">Gravar</button>
+            <button id="btn_cancelarCadasProjeto" type="submit" class="btn_shadow2" onclick="cancelarCadasProjeto()">
+                Cancelar
+            </button>
+            <button id="btn_excluirCadasProjeto" type="submit" class="btn_shadow2" onclick="excluirCadasProjeto()">
+                Excluir
+            </button>
+
+        </div>
+    </form>
+    <div id='listaProjeto'>
+
+        <table border=1>
+            <thead>
+            <caption>Projetos cadastrados:</caption>
+            <tr>
+                <th>Código</th>
+                <th>Projeto</th>
+                <th>Data Início</th>
+                <th>Prazo</th>
+                <th>Cor</th>
+            </tr>
+            </thead>
+
+            <tbody id="">
+            {% if  project|length >= 0 %}
+
+                {% for project in projects %}
+                    <tr>
+                        <td> {{ project.id }} </td>
+                        <td> {{ project.projeto }} </td>
+                        <td> {{ project.start_date }} </td>
+                        <td> {{ project.prazo }} </td>
+                        <td> {{ project.color }} </td>
+                    </tr>
+
+                {% endfor %}
+            {% endif %}
+
+
+            </tbody>
+
+
+        </table>
+
+    </div>
+
+
+</dialog>
+
+<!------------------------------------------------------------->
+<!--- CADASTRO DE PESSOAS -->
+<dialog id="abreCadastroPessoas" class="abreCadastro">
+    <div id="bloco_superior" class="boxShadow1">
+        <button id="btn_fechar" class="btn_shadow2" onclick="fecharCadastroPessoa()">[X]Fechar</button>
+        <h1 class="styleWord1">Cadastro de Pessoas</h1></div>
+    <br><br>
+    <form method="post" action="{% url 'save_person' %}"> {% csrf_token %}
         <div id='cadastroPessoas'>
             <label for='codPessoa'>Código: </label><input type='text' id='codPessoa' name="" name="">
-            <button type="button" id="codAnteriorCadasPessoa" class="btn_shadow1_1" onclick="recuarCodPessoa()"></button>
-                 <button type="button" id="codPosteriorCadasPessoa" class="btn_shadow1" onclick="avancarCodPesso()"></button>
+            <button type="button" id="codAnteriorCadasPessoa" class="btn_shadow1_1"
+                    onclick="recuarCodPessoa()"></button>
+            <button type="button" id="codPosteriorCadasPessoa" class="btn_shadow1" onclick="avancarCodPesso()"></button>
             <br><br>
 
-                <label for='nomePessoa'>Nome da pessoa: </label><input type='text' id='nomePessoa' name="pes_nome">
-                <br><br>
-                <label for='contato'>Contato: </label><input type='text' id='contato' name="pes_contato">
-                <br><br>
-                <button id="btn_novapessoa" type="submit" class="btn_shadow2" onclick="novaPessoa()">Novo</button>
-                <button id="btn_salvarpessoa" type="submit" class="btn_shadow2" onclick="gravarPessoa()">Gravar</button>
-                <button id="btn_cancelarCadasPessoa" type="submit" class="btn_shadow2" onclick="cancelarCadasPessoa()">Cancelar</button>
-                <button id="btn_excluirCadasPessoa" type="submit" class="btn_shadow2" onclick="excluirCadasPessoa()">Excluir</button>
+            <label for='nomePessoa'>Nome da pessoa: </label><input type='text' id='nomePessoa' name="pes_nome">
+            <br><br>
+            <label for='contato'>Contato: </label><input type='text' id='contato' name="pes_contato">
+            <br><br>
+            <button id="btn_novapessoa" type="" class="btn_shadow2" onclick="novaPessoa()">Novo</button>
+            <button id="btn_salvarpessoa" type="submit" class="btn_shadow2" onclick="gravarPessoa()">Gravar</button>
+            <button id="btn_cancelarCadasPessoa" type="" class="btn_shadow2" onclick="cancelarCadasPessoa()">Cancelar
+            </button>
+            <button id="btn_excluirCadasPessoa" type="" class="btn_shadow2" onclick="excluirCadasPessoa()">Excluir
+            </button>
 
         </div>
-        </form>
-        <br><br><br>
-        <div id='TablePessoas'>
-            
-            <table border=1>
-                    <thead>
-                        <caption>Pessoas cadastradas:</caption>
-                        <tr>
-                        <th>Código</th><th>Nome</th><th>Contato</th>
-                        </tr>
-                    </thead>
-                    <tbody >
-                        
-                       
-                        {% for pessoa in pessoas  %}
-                            <tr>
-                                <td>
-                                    {{ pessoa.codigo }}
-                                    {{ pessoa.nome }}
-                                    {{ pessoa.contato }}
-                                </td>
-                            </tr>
-                        {% endfor %}
+    </form>
+    <br><br><br>
+    <div id='TablePessoas'>
+
+        <table border=1>
+            <thead>
+            <caption>Pessoas cadastradas:</caption>
+            <tr>
+                <th>Código</th>
+                <th>Nome</th>
+                <th>Contato</th>
+            </tr>
+            </thead>
+            <tbody>
 
 
+            {% for pessoa in pessoas %}
+                <tr>
+                    <td>
+                        {{ pessoa.codigo }}
+                        {{ pessoa.nome }}
+                        {{ pessoa.contato }}
+                    </td>
+                </tr>
+            {% endfor %}
 
-                    </tbody>
 
-        
-            </table>
-        </div>
-        
-    </dialog>
- <!------------------------------------------------------------->
-    
+            </tbody>
+
+
+        </table>
+    </div>
+
+</dialog>
+<!------------------------------------------------------------->
+
 <!--CADASTRO DE TAREFA -->
-            <dialog id="abreCadastroTarefa" class="abreCadastro"> 
-         <div id="bloco_superior" class="boxShadow1">
-                <button id="btn_fechar" class="btn_shadow2" onclick="fecharCadastroTarefa()">[X]Fechar</button>
-             <h1 class="styleWord1">Cadastro de Tarefa</h1>        
-         </div>
-        <br><br>
-        <form method="post" action="{% url 'save_task' %}"> {% csrf_token %}
-           <div id="cadastro_tarefa">
-                <label  for="codProjeto">Código: <input readonly="true" id="codTarefa" type="text" name=""></label>
-                 <button type="button" id="codAnteriorCadasTarefa" class="btn_shadow1_1" onclick="recuarCodTarefa()"></button>
-                 <button type="button" id="codPosteriorCadasTarefa" class="btn_shadow1" onclick="avancarCodTarefa()"></button>
-                <br><br>
-               <label for="selecionaProjeto">Selecione o projeto: <input id="selecionaProjeto" disabled="true" type="text" list="listaProjetos" name="fk_prj_id"></label>
-                  <datalist id="listaProjetos">
-                      
-                  </datalist>
-               <br>
-               <label for="interdependencia">Interdependencia: <input disabled="true" id="interdependencia" type="text" list="listaInterdependencia" name="trf_interdependencia" value="0"> </label>
-                  <datalist id="listaInterdependencia">
-                      <option value="0"> 0</option>
-                  </datalist>
-               <br>
-                <label for="nomeTarefa">Nome tarefa: <input id="nomeTarefa" readonly="true" type="text" name="trf_name"></label>
-               <br>
-               <br>
-               <label for="dt_inicioTarefa">Data Início: <input id="dt_inicioTarefa" readonly="true" type="date" name="trf_datainicial"></label>
-               <label for="dt_finalTarefa">Data Final: <input id="dt_finalTarefa" readonly="true" type="date" name="trf_datafinal"></label>
-               <br>
-               <label for="dt_prazoTarefa">Prazo: <input id="dt_prazoTarefa" readonly="true" type="date" name="trf_prazo"></label>
-               <label>Entregável: </label><input id="entregavel" disabled="true" type="radio" name="trf_entregavel">
-               <br><br>
-               <button id="btn_novatarefa" type="submit" class="btn_shadow2" onclick="novaTarefa()">Novo</button>       
-               <button id="btn_salvartarefa" type="submit" class="btn_shadow2" onclick="gravarTarefa()">Gravar</button>
-                      <button id="btn_cancelarCadasTarefa" type="submit" class="btn_shadow2" onclick="cancelarCadasTarefa()">Cancelar</button>
-                     <button id="btn_excluirCadasTarefa" type="submit" class="btn_shadow2" onclick="excluirCadasTarefa()">Excluir</button>
-                
-           </div>
-        </form>
-          </dialog>
-            
-     <!------------------------------------------------------------->
-    
-    
-     <!--DISTRIBUIR PESSOAS AOS PROJETOS -->
-    
-    <dialog id="distribuiPessoas" class="abreCadastro"> 
-         <div id="bloco_superior" class="boxShadow1">
-                <button id="btn_fechar" class="btn_shadow2" onclick="fecharDistribuicaoPessoa()">[X]Fechar</button>
-             <h1 class="styleWord1">Distribuição Pessoas </h1>       
+<dialog id="abreCadastroTarefa" class="abreCadastro">
+    <div id="bloco_superior" class="boxShadow1">
+        <button id="btn_fechar" class="btn_shadow2" onclick="fecharCadastroTarefa()">[X]Fechar</button>
+        <h1 class="styleWord1">Cadastro de Tarefa</h1>
+    </div>
+    <br><br>
+    <form method="post" action="{% url 'save_task' %}"> {% csrf_token %}
+        <div id="cadastro_tarefa">
+            <label for="codProjeto">Código: <input readonly="true" id="codTarefa" type="text" name=""></label>
+            <button type="button" id="codAnteriorCadasTarefa" class="btn_shadow1_1"
+                    onclick="recuarCodTarefa()"></button>
+            <button type="button" id="codPosteriorCadasTarefa" class="btn_shadow1"
+                    onclick="avancarCodTarefa()"></button>
+            <br><br>
+            <label for="selecionaProjeto">Selecione o projeto:
+
+            <select name="fk_prj_id" style="width: 10%">
+                {% for projeto in projects %}
+
+                    <option value="{{ projeto.id }}"> {{ projeto.projeto }} </option>
+                {% endfor %}
+
+            </select>
+            <br>
+            <br>
+
+            <label for="interdependencia">Interdependencia:
+            <select id="" name="trf_interdependencia" style="width: 10%">
+                <option value="0">Nenhum</option>
+                {% for task in tasks %}
+
+                    <option value="{{ task.id }}"> {{ task.name }} </option>
+                {% endfor %}
+            </select>
+            <br>
+            <br>
+            <label for="nomeTarefa">Nome tarefa: <input id="nomeTarefa" readonly="true" type="text"
+                                                        name="trf_name"></label>
+            <br>
+            <br>
+            <label for="dt_inicioTarefa">Data Início: <input id="dt_inicioTarefa" readonly="true" type="date"
+                                                             name="trf_datainicial"></label>
+            <label for="dt_finalTarefa">Data Final: <input id="dt_finalTarefa" readonly="true" type="date"
+                                                           name="trf_datafinal"></label>
+            <br>
+            <label for="dt_prazoTarefa">Prazo: <input id="dt_prazoTarefa" readonly="true" type="date" name="trf_prazo"></label>
+            <label>Entregável: </label><input id="entregavel" disabled="true" type="radio" name="trf_entregavel">
+            <br><br>
+            <button id="btn_novatarefa" type="button" class="btn_shadow2" onclick="novaTarefa()">Novo</button>
+            <button id="btn_salvartarefa" type="submit" class="btn_shadow2" onclick="gravarTarefa()">Gravar</button>
+            <button id="btn_cancelarCadasTarefa" type="button" class="btn_shadow2" onclick="cancelarCadasTarefa()">
+                Cancelar
+            </button>
+            <button id="btn_excluirCadasTarefa" type="button" class="btn_shadow2" onclick="excluirCadasTarefa()">
+                Excluir
+            </button>
+
         </div>
+    </form>
+</dialog>
+
+<!------------------------------------------------------------->
+
+
+<!--DISTRIBUIR PESSOAS AOS PROJETOS -->
+
+<dialog id="distribuiPessoas" class="abreCadastro">
+    <div id="bloco_superior" class="boxShadow1">
+        <button id="btn_fechar" class="btn_shadow2" onclick="fecharDistribuicaoPessoa()">[X]Fechar</button>
+        <h1 class="styleWord1">Distribuição Pessoas </h1>
+    </div>
+    <br><br>
+    <div id='distribuicaoPessoas'>
+        <label for="codDistribuicao">Código: <input readonly="true" id="codDistribuicao" type="text" name="pes_trf_id"></label>
+        <button type="button" id="codAnteriorDistribuicao" class="btn_shadow1_1"
+                onclick="recuarCodDistribuicao()"></button>
+        <button type="button" id="codPosteriorDistribuicao" class="btn_shadow1"
+                onclick="avancarCodDistribuicao()"></button>
         <br><br>
-        <div id='distribuicaoPessoas'>
-            <label  for="codDistribuicao">Código: <input readonly="true" id="codDistribuicao" type="text" name="pes_trf_id"></label>
-            <button type="button" id="codAnteriorDistribuicao" class="btn_shadow1_1" onclick="recuarCodDistribuicao()"></button>
-                 <button type="button" id="codPosteriorDistribuicao" class="btn_shadow1" onclick="avancarCodDistribuicao()"></button>
-                <br><br>
-           
-               <label for="selecionaProjeto">Selecione o projeto: <input id="selecionaProjeto" disabled="true" type="text" list="listaProjetos"></label>
-                  <datalist id="listaProjetos">
-                      <!-- RETORNA AQUI VISUALIZAÇÃO DOS PROJETOS -->
-                  </datalist>
-               <br>
-            <label for="listaTarefa">Selecione a Tarefa: <input disabled="true" id="listaTarefa" type="text" list="listaTarefa" name="fk_trf_id"></label>
-                  <datalist id="listaTarefa">
-                      
-                  </datalist>
-               <br>
-            <label for="listaPessoa">Selecione a Pessoa: <input disabled="true" id="listaPessoa" type="text" list="listaPessoa" name="fk_pes_id"></label>
-                  <datalist id="listaPessoa">
-                      
-                  </datalist>
-               <br>
-            <button id="btn_novadistribuicao" type="submit" class="btn_shadow2" onclick="novaDistribuicao()">Novo</button>       
-               <button id="btn_salvardistribuicao" type="submit" class="btn_shadow2" onclick="gravarDistribuicao()">Gravar</button>
-                      <button id="btn_cancelarDistribuicao" type="submit" class="btn_shadow2" onclick="cancelarCadasDistribuicao()">Cancelar</button>
-                     <button id="btn_excluirDistribuicao" type="submit" class="btn_shadow2" onclick="excluirDistribuicao()">Excluir</button>
-        </div>
-        
-        <br><br>
-        
-            <div id='TableDistribuicao'>
-            
-            <table border=1>
-                    <thead>
-                        <caption>Distribuição de pessoas:</caption>
-                        <tr>
-                        <th class="col1">Pessoa</th><th class="col2">Tarefa</th><th class="col3">Projeto</th><th class="col4">Cor</th>
-                        </tr>
-                  </thead>
-                    <tbody id="corpoTabelaDistribuicao">
-                        
-                       
-                    
+
+        <label for="selecionaProjeto">Selecione o projeto: <input id="selecionaProjeto" disabled="true" type="text"
+                                                                  list="listaProjetos"></label>
+        <datalist id="listaProjetos">
+            <!-- RETORNA AQUI VISUALIZAÇÃO DOS PROJETOS -->
+        </datalist>
+        <br>
+        <label for="listaTarefa">Selecione a Tarefa: <input disabled="true" id="listaTarefa" type="text"
+                                                            list="listaTarefa" name="fk_trf_id"></label>
+        <datalist id="listaTarefa">
+
+        </datalist>
+        <br>
+        <label for="listaPessoa">Selecione a Pessoa: <input disabled="true" id="listaPessoa" type="text"
+                                                            list="listaPessoa" name="fk_pes_id"></label>
+        <datalist id="listaPessoa">
+
+        </datalist>
+        <br>
+        <button id="btn_novadistribuicao" type="submit" class="btn_shadow2" onclick="novaDistribuicao()">Novo</button>
+        <button id="btn_salvardistribuicao" type="submit" class="btn_shadow2" onclick="gravarDistribuicao()">Gravar
+        </button>
+        <button id="btn_cancelarDistribuicao" type="submit" class="btn_shadow2" onclick="cancelarCadasDistribuicao()">
+            Cancelar
+        </button>
+        <button id="btn_excluirDistribuicao" type="submit" class="btn_shadow2" onclick="excluirDistribuicao()">Excluir
+        </button>
+    </div>
+
+    <br><br>
+
+    <div id='TableDistribuicao'>
+
+        <table border=1>
+            <thead>
+            <caption>Distribuição de pessoas:</caption>
+            <tr>
+                <th class="col1">Pessoa</th>
+                <th class="col2">Tarefa</th>
+                <th class="col3">Projeto</th>
+                <th class="col4">Cor</th>
+            </tr>
+            </thead>
+            <tbody id="corpoTabelaDistribuicao">
 
 
-                    </tbody>
+            </tbody>
 
-        
-            </table>
-        </div>
-        
-        
-       
-    </dialog>
 
-    <!------------------------------------------------------------->
+        </table>
+    </div>
+
+
+</dialog>
+
+<!------------------------------------------------------------->
 </body>
-
-
 
 
 </html>

@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse
 from .models import tb_Tarefa, tb_Projeto, tb_Pessoa
 from django.views.decorators.clickjacking import xframe_options_exempt
 from .forms import PostProjeto, PostTarefa, PostPessoa
+from django.shortcuts import redirect
 
 
 # Create your views here.
@@ -9,18 +10,18 @@ def index_page(request):
     # Projetos
     projects = []
     tb_projects = tb_Projeto.objects.all()
-    count_projects = len(tb_projects.order_by("prj_id"))
+    count_projects = tb_projects.order_by("prj_id").count()
     if count_projects > 2:
-        last_id = tb_projects.order_by("prj_id")[len(tb_projects.order_by("prj_id")) - 1]
+        last_id = tb_projects.order_by("prj_id")[count_projects - 1]
         last_id = last_id.prj_id
     else:
         if count_projects == 0:
             last_id = 0
         else:
-            last_id = tb_projects.order_by("prj_id")[len(tb_projects.order_by("prj_id")) - 1]
+            last_id = tb_projects.order_by("prj_id")[count_projects - 1]
             last_id = last_id.prj_id
 
-    for project in tb_projects:
+    for project in tb_Projeto.objects.all():
         project_return = {
             'id': project.prj_id,
             'projeto': project.prj_nome,
@@ -32,20 +33,35 @@ def index_page(request):
 
     # Pessoa
     pessoas = []
-    tbpessoa = tb_Pessoa.objects.all()
-    for pessoa in tbpessoa:
+    for pessoa in tb_Pessoa.objects.all():
         var = {
             'codigo': pessoa.pes_id,
             'nome': pessoa.pes_nome,
             'contato': pessoa.pes_contato
         }
         pessoas.append(pessoa)
+
+    # Tarefas
+    task_json = []
+    tasks = tb_Tarefa.objects.all()
+    for task in tasks:
+        gannt_retunr = {
+            'id': task.trf_id,
+            'name': task.trf_name,
+            'start': task.trf_datainicial.strftime('%Y-%m-%d'),
+            'end': task.trf_datafinal.strftime('%Y-%m-%d'),
+            'progress': 100
+        }
+        task_json.append(gannt_retunr)
+
     context = {
         'projects': projects,
         'last_id': last_id,
-        'pessoas': pessoas
+        'pessoas': pessoas,
+        'tasks': task_json
     }
     template_name = "novo_front/index.html"
+
     return render(request, template_name, context)
 
 
@@ -77,7 +93,7 @@ def save_project(request):
         post = form.save(commit=False)
         post.save()
 
-    return render(request, 'novo_front/index.html')
+    return redirect('home')
 
 
 def save_task(request):
@@ -87,7 +103,7 @@ def save_task(request):
         post = form.save(commit=False)
         post.save()
 
-    return render(request, 'novo_front/index.html')
+    return redirect('home')
 
 
 def save_person(request):
@@ -95,4 +111,4 @@ def save_person(request):
     if form.is_valid():
         post = form.save(commit=False)
         post.save()
-    return render(request, 'novo_front/index.html')
+    return redirect('home')

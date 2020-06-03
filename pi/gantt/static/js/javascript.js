@@ -229,7 +229,7 @@ function novoProjeto() {
         novoCodProjeto = codAnteriorProjeto + 1;
         document.getElementById("codProjeto").value = novoCodProjeto;
     } else {
-        document.getElementById("codProjeto").value = document.getElementById("codProjeto").value + 1;
+        document.getElementById("codProjeto").value = parseInt(document.getElementById("codProjeto").value) + 1;
 
     }
 
