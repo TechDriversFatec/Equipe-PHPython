@@ -714,73 +714,26 @@ function vetorTrfCadastrados(){
        }    
    }
     console.log(vetor_trfcadastrados);
-    expandeTrf();
+    
 }
 
 ///FUNÇÃO ATRIBUÍDA PARA O BTN PROJETO NO MENU LATERAL ESQUERDO
 
 function expandeTrf(nomeBtn){
+   
+        divideBtn = nomeBtn.substr(7);
     
-    jsonPrjTrf = [];
+    document.getElementById("trf_cadastradas_prj"+divideBtn+"").innerHTML = '';
     for(i=0;i<vetor_trfcadastrados.length;i++){
         
-        jsonPrjTrf.push({
-            'codPrjTrf': vetor_trfcadastrados[i][0],
-            'nomeTrf': vetor_trfcadastrados[i][1]    
-        });
-        
-        
-        console.log(jsonPrjTrf);
+        if(divideBtn == vetor_trfcadastrados[i][0]){
+            
+            document.getElementById("trf_cadastradas_prj"+divideBtn+"").innerHTML += vetor_trfcadastrados[i][1];
+        }
     }
-    
-    
-    
-        alert(nomeBtn);
-    
-    
+        
+  
 }
-    /*selecionaBtnPrj.addEventListener('click', function(){
-        
-        
-        
-    });*/
-    
-    
-   /*
-    for(i = 0; i< vetor_projeto.length;i++){
-        
-        recebeCodPrjTrf = i+1;
-         
-        
-         selecionaBtnPrj = document.getElementById("btn_prj"+recebeCodPrjTrf+"");
-        //document.getElementById("trf_cadastradas_prj"+recebeCodPrjTrf+"").innerHTML = '';
-        
-        selecionaBtnPrj.addEventListener('click', function(){
-            for(x =0; x<vetor_trfcadastrados.length;x++){
-            
-            if(recebeCodPrjTrf == vetor_trfcadastrados[x][0]){
-                jsonPrjTrf = [];
-                jsonPrjTrf.push({
-                'codPrj': vetor_trfcadastrados[x][0],    
-                'nomeTrf': vetor_trfcadastrados[x][1]
-                });
-                
-                document.getElementById("trf_cadastradas_prj"+recebeCodPrjTrf+"").appendChild(jsonPrjTrf['nomeTrf']);
-                
-            }
-            }
-        });
-        
-            
-            
-        
-       }*/
-        
-    
-    
-
-
-
 
 
 /*///////////////////////////////////////////////////////////////////////////////////////*/
@@ -1122,6 +1075,7 @@ function gravarTarefa(){
     habilitaDesabilitaBtnExcluirTarefa();
     carregaDataListInterdepedencia();
     vetorTrfCadastrados();
+    
 }
 
 function jsonCadastroTarefa(){
