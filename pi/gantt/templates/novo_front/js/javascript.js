@@ -721,21 +721,32 @@ function vetorTrfCadastrados(){
 
 function expandeTrf(nomeBtn){
    
+    
         divideBtn = nomeBtn.substr(7);
     
-    document.getElementById("trf_cadastradas_prj"+divideBtn+"").innerHTML = '';
-    for(i=0;i<vetor_trfcadastrados.length;i++){
+     
+    
+   
+    
+    selecionaDiv = document.getElementById('trf_cadastradas_prj'+divideBtn+'').textContent;
+      
+    
+    
+   if(selecionaDiv == ''){
+       
+        for(i=0;i<vetor_trfcadastrados.length;i++){
+        
         
         if(divideBtn == vetor_trfcadastrados[i][0]){
             
-            document.getElementById("trf_cadastradas_prj"+divideBtn+"").innerHTML += vetor_trfcadastrados[i][1];
-        }
-    }
-        
-  
+            document.getElementById('trf_cadastradas_prj'+divideBtn+'').innerHTML += vetor_trfcadastrados[i][1];
+        }    
 }
-
-
+   }else{
+       document.getElementById('trf_cadastradas_prj'+divideBtn+'').remove()
+       add_prj_menu_esquerdo();
+   }
+}
 /*///////////////////////////////////////////////////////////////////////////////////////*/
 
 
