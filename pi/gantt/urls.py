@@ -12,5 +12,6 @@ urlpatterns = [
     # urls para inserção de projetos, pessoas, tarefas
     url(r'projeto/save', views.save_project, name='save_projeto'),
     url(r'tarefa/save', views.save_task, name='save_task'),
-    url(r'person/save', views.save_person, name='save_person')
+    url(r'person/save', views.save_person, name='save_person'),
+    url(r'dist/save', views.save_dist, name='save_dist')
 ]

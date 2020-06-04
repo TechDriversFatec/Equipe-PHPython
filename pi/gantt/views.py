@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse
 from .models import tb_Tarefa, tb_Projeto, tb_Pessoa
 from django.views.decorators.clickjacking import xframe_options_exempt
-from .forms import PostProjeto, PostTarefa, PostPessoa
+from .forms import PostProjeto, PostTarefa, PostPessoa, PostDistr, tb_Dev_Trf
 from django.shortcuts import redirect
 
 
@@ -38,8 +38,9 @@ def index_page(request):
             'codigo': pessoa.pes_id,
             'nome': pessoa.pes_nome,
             'contato': pessoa.pes_contato
+
         }
-        pessoas.append(pessoa)
+        pessoas.append(var)
 
     # Tarefas
     task_json = []
@@ -54,11 +55,25 @@ def index_page(request):
         }
         task_json.append(gannt_retunr)
 
+    # Distribuição
+    dists = []
+
+    for task in tb_Dev_Trf.objects.select_related('fk_pes_id', 'fk_trf_id', 'fk_prj_id'):
+        var = {
+            'pes_nome': task.fk_pes_id.pes_nome,
+            'trf_nome': task.fk_trf_id.trf_name,
+            'prj_nome': task.fk_prj_id.prj_nome,
+            'cor': task.fk_prj_id.prj_color
+        }
+        dists.append(var)
+
+
     context = {
         'projects': projects,
         'last_id': last_id,
         'pessoas': pessoas,
-        'tasks': task_json
+        'tasks': task_json,
+        'dists': dists
     }
     template_name = "novo_front/index.html"
 
@@ -108,6 +123,14 @@ def save_task(request):
 
 def save_person(request):
     form = PostPessoa(request.POST)
+    if form.is_valid():
+        post = form.save(commit=False)
+        post.save()
+    return redirect('home')
+
+
+def save_dist(request):
+    form = PostDistr(request.POST)
     if form.is_valid():
         post = form.save(commit=False)
         post.save()

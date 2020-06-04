@@ -35,8 +35,9 @@ class tb_Dev_Trf(models.Model):
 
     fk_pes_id = models.ForeignKey(tb_Pessoa, on_delete=models.CASCADE)
     fk_trf_id = models.ForeignKey(tb_Tarefa, on_delete=models.CASCADE)
+    fk_prj_id = models.ForeignKey(tb_Projeto, on_delete=models.CASCADE)
     class Meta:
-        unique_together = (("fk_pes_id", "fk_trf_id"),)
+        unique_together = (("fk_pes_id", "fk_trf_id", 'fk_prj_id'),)
 
 class tbTeste(models.Model):
     teste = models.CharField(max_length=1)
