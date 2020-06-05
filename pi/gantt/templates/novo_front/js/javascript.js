@@ -750,7 +750,7 @@ function clicaTarefa(){
     desabilitaBtnGravaTarefa();
     buscaValoresTarefa();
     carregaDatalistProjetos();
-    carregaDataListInterdepedencia()
+    carregaDataListInterdepedencia();
     desabilitaAvancoCodTarefa();
     habilitaDesabilitaBtnExcluirTarefa();
     
@@ -1155,6 +1155,8 @@ function buscaValoresDistribuicao(){
         document.getElementById("listaPessoa").value = vetor_distribuicao[i][3];
         }
     }
+    
+    console.log(vetor_distribuicao);
 }
 
 function fecharDistribuicaoPessoa(){
@@ -1295,11 +1297,11 @@ function habilitaBtnGravarDistribuicao(){
 }
 
 function limparCamposCadasDistribuicao(){
-   document.getElementById("selecionaProjeto_distribuicao").value = ' ';
+   document.getElementById("selecionaProjeto_distribuicao").value = '';
     
-    document.getElementById("listaTarefa").value = ' ';
+    document.getElementById("listaTarefa").value = '';
     
-    document.getElementById("listaPessoa").value = ' ';
+    document.getElementById("listaPessoa").value = '';
 }
 
 
@@ -1312,11 +1314,9 @@ function carregaDatalistProjetos_distribuicao(){
     document.getElementById("listaProjetos_distribuicao").innerHTML = '';
     
     for(i =0; i< vetor_projeto.length;i++){
-        
-       
-       linhaDatalistProjetos_distribuicao = '<option value="'+vetor_projeto[i][1]+'">';
-           document.getElementById("listaProjetos_distribuicao").innerHTML += linhaDatalistProjetos_distribuicao;
-        
+           document.getElementById("listaProjetos_distribuicao").innerHTML += '<option value="'+vetor_projeto[i][1]+'">';
+            
+        console.log(vetor_projeto[i][1]);
              
     }
     
@@ -1351,14 +1351,12 @@ function carregaDataListTarefasDistribuicao(){
         }   
     }
     
-    
-    
 function carregaDatalistPessoas_distribuicao(){
     
     document.getElementById("listaPessoa_distribuicao").innerHTML = '';
     
     for(i =0; i< vetor_pessoa.length;i++){
-           document.getElementById("listaPessoa_distribuicao").innerHTML += '<option value="'+vetor_pessoa[i][0]+'">';
+           document.getElementById("listaPessoa_distribuicao").innerHTML += '<option value="'+vetor_pessoa[i][1]+'">';
         
              
     }
@@ -1367,6 +1365,29 @@ function carregaDatalistPessoas_distribuicao(){
 
 ///DATALIST
 
+
+//TABELA
+
+function carregatabelaDistribuicao(){
+    
+   document.getElementById("corpoTabelaDistribuicao").innerHTML = '';
+    
+    
+    for(i=0;i<vetor_tabelaDistribuicao.length;i++){
+        
+        document.getElementById("corpoTabelaDistribuicao").innerHTML += vetor_tabelaDistribuicao[i][0];
+        
+    }
+    
+    console.log(vetor_tabelaDistribuicao);
+    
+    
+}
+
+//TABELA
+
+vetor_tbdistribuicao = [];
+vetor_tabelaDistribuicao = [];
 vetor_distribuicao = [];
 
 function novaDistribuicao(){
@@ -1414,7 +1435,7 @@ function cancelarCadasDistribuicao(){
 function gravarDistribuicao(){
     codProjetoSelecionado = '';
     pes_trf_id = document.getElementById("codDistribuicao");
-    selecionaProjeto = document.getElementById("selecionaProjeto").value;
+    selecionaProjeto = document.getElementById("selecionaProjeto_distribuicao").value;
     
     
     for(i = 0; i< vetor_projeto.length;i++){
@@ -1424,7 +1445,7 @@ function gravarDistribuicao(){
         }
        
     }
-    selecionaTarefa = document.getElementById("selecionaTarefa").value;
+    selecionaTarefa = document.getElementById("listaTarefa").value;
     
     
     for(i = 0; i< vetor_tarefa.length;i++){
@@ -1435,7 +1456,7 @@ function gravarDistribuicao(){
        
     }
     
-    selecionaPessoa = document.getElementById("selecionaPessoa").value;
+    selecionaPessoa = document.getElementById("listaPessoa").value;
     
     
     for(i = 0; i< vetor_pessoa.length;i++){
@@ -1447,11 +1468,18 @@ function gravarDistribuicao(){
     }
     
     
-    distribuicao = [pes_trf_id.value, fk_trf_id.value, fk_pes_id.value];
+    tb_pes_trf = [pes_trf_id.value, fk_trf_id.value, fk_pes_id.value];
     
+    distribuicao = [pes_trf_id.value, selecionaProjeto,selecionaTarefa, selecionaPessoa];
+    
+    vetor_tbdistribuicao.push(tb_pes_trf);
     vetor_distribuicao.push(distribuicao);
     console.log(vetor_distribuicao);
     
+    
+    linhatabelaDistribuicao = ['<tr><td>'+selecionaProjeto+'</td><td>'+selecionaTarefa+'</td><td>'+selecionaPessoa+'</td></tr>'];
+    
+    vetor_tabelaDistribuicao.push(linhatabelaDistribuicao);
     
     jsonCadastroDistribuicao();
     desabilitaCamposDistribuicao();
@@ -1461,16 +1489,17 @@ function gravarDistribuicao(){
     habilitaRecuoCodDistribuicao();
     buscaValoresDistribuicao();     
     habilitaDesabilitaBtnExcluirDistribuicao();
+    carregatabelaDistribuicao();
     
 }
 
 function jsonCadastroDistribuicao(){
     jsonDistribuicao = [];
-    for(i=0;i<vetor_distribuicao.length;i++){
+    for(i=0;i<vetor_tbdistribuicao.length;i++){
         jsonDistribuicao.push({
-           'pes_trf_id': vetor_distribuicao[i][0],
-           'fk_trf_id': vetor_distribuicao[i][1],
-           'fk_pes_id': vetor_distribuicao[i][2]
+           'pes_trf_id': vetor_tbdistribuicao[i][0],
+           'fk_trf_id': vetor_tbdistribuicao[i][1],
+           'fk_pes_id': vetor_tbdistribuicao[i][2]
         });
     }
     console.log(jsonDistribuicao);
@@ -1484,6 +1513,8 @@ function excluirCadasDistribuicao(){
         if(codAtual == vetor_distribuicao[i][0]){
             
             vetor_distribuicao.splice([i],3);
+            
+            vetor_tabelaDistribuicao.splice([i],1);
         }    
     }
     
@@ -1496,6 +1527,7 @@ function excluirCadasDistribuicao(){
         limparCamposCadasDistribuicao();
     }
     
+    carregatabelaDistribuicao();
     
 }
 

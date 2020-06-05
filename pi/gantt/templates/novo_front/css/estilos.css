@@ -98,7 +98,8 @@
   border-color: #698FEB;
   border-radius:0px 20px 0px 20px;
     width: 600px;
-    height: 600px;
+    height: 550px;
+  
 }
 
 .abreCadastro #btn_fechar{
@@ -303,14 +304,14 @@
 
 #central{
     
-	width: 1310px;
+	width: 1248px;
 	display: flex;
 	flex-wrap: wrap;    
 	margin-top: 3px;
 }
 
 #left_center{
-	
+	overflow: auto;
 	width: 180px;
 	height: 380px;
     justify-content: flex-start;
@@ -345,13 +346,14 @@
 #right_center{
     justify-content: flex-end;
     
-	width: 200px;
+	width: 180px;
 	height: 380px;
 	
 }
 
 #right_center #btn_pessoas{
     margin-left: 25px;
+    
 }
 
 #right_center #pessoas_top #pessoas_list{
@@ -564,17 +566,17 @@
 }
 
 #distribuicaoPessoas #selecionaProjeto_distribuicao{
-    width: 200px;
+     width: 250px;
     margin-bottom: 10px;
 }
 
 #distribuicaoPessoas #listaTarefa{
-    width: 200px;
+    width: 250px;
      margin-bottom: 10px;
 }
 
 #distribuicaoPessoas #listaPessoa{
-    width: 200px;
+    width: 250px;
 }
 
 #TableDistribuicao{
