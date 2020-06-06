@@ -32,7 +32,6 @@ class tb_Tarefa(models.Model):
 
 
 class tb_Dev_Trf(models.Model):
-
     fk_pes_id = models.ForeignKey(tb_Pessoa, on_delete=models.CASCADE)
     fk_trf_id = models.ForeignKey(tb_Tarefa, on_delete=models.CASCADE)
     fk_prj_id = models.ForeignKey(tb_Projeto, on_delete=models.CASCADE)

@@ -1,17 +1,31 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
-from django.views.generic import TemplateView
+from rest_framework import routers
 from . import views
 admin.autodiscover()
+
+router = routers.DefaultRouter()
+router.register(r'project', views.ProjectsViewSet)
+router.register(r'task', views.TaskViewSet)
+router.register(r'persons', views.PersonViewSet)
+router.register(r'distribute', views.PersonViewSet)
+
 
 urlpatterns = [
     url(r'request', views.index_page, name='home'),
     url(r'^$', views.index_page, name='home'),
     url(r'gantt', views.gantt, name='grafs'),
 
+
+
     # urls para inserção de projetos, pessoas, tarefas
     url(r'projeto/save', views.save_project, name='save_projeto'),
     url(r'tarefa/save', views.save_task, name='save_task'),
     url(r'person/save', views.save_person, name='save_person'),
-    url(r'dist/save', views.save_dist, name='save_dist')
+    url(r'dist/save', views.save_dist, name='save_dist'),
+
+    # apis para front
+
+    url(r'^', include(router.urls)),
+    url(r'^api-auth/', include('rest_framework.urls')),
 ]

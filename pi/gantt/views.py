@@ -3,6 +3,9 @@ from .models import tb_Tarefa, tb_Projeto, tb_Pessoa
 from django.views.decorators.clickjacking import xframe_options_exempt
 from .forms import PostProjeto, PostTarefa, PostPessoa, PostDistr, tb_Dev_Trf
 from django.shortcuts import redirect
+from django.contrib.auth.models import User
+from rest_framework import viewsets
+from .serializers import ProjectSerializer, TaskSerializer, PersonSerializer, DistributeSerializer
 
 
 # Create your views here.
@@ -135,3 +138,23 @@ def save_dist(request):
         post = form.save(commit=False)
         post.save()
     return redirect('home')
+
+
+class ProjectsViewSet(viewsets.ModelViewSet):
+    queryset = tb_Projeto.objects.all()
+    serializer_class = ProjectSerializer
+
+
+class TaskViewSet(viewsets.ModelViewSet):
+    queryset = tb_Tarefa.objects.all()
+    serializer_class = TaskSerializer
+
+
+class PersonViewSet(viewsets.ModelViewSet):
+    queryset = tb_Pessoa.objects.all()
+    serializer_class = PersonSerializer
+
+
+class DistributeViewSet(viewsets.ModelViewSet):
+    queryset = tb_Dev_Trf.objects.all()
+    serializer_class = DistributeSerializer
