@@ -91,7 +91,7 @@ function avancarCodPessoa(){
     
     count = 0;
     codPessoaMaior = 0;   
-    codValidacao = 0;
+    
      
       for(i=0;i<vetor_pessoa.length;i++){   
           if((codPessoaAtual+1) == vetor_pessoa[i][0]){
@@ -343,23 +343,15 @@ function jsonCadastroPessoa(){
 }
 
 function excluirCadasPessoa(){
-    codAtual = parseInt(document.getElementById("codPessoa").value);
-    
-    codPessoaMaior = 0;
-    
-    for(i = 0; i<vetor_pessoa.length;i++){
-        
-        
+    codAtual = parseInt(document.getElementById("codPessoa").value)    
+    codPessoaMaior = 0;  
+    for(i = 0; i<vetor_pessoa.length;i++){      
         if(codAtual == vetor_pessoa[i][0]){
             
             vetor_pessoa.splice([i],1);
             
             vetor_tabelaPessoa.splice([i],1);
-            
-            
-        } 
-        
-        
+          }         
     }
         
     for(x=0;x<vetor_pessoa.length;x++){
@@ -374,14 +366,9 @@ function excluirCadasPessoa(){
     }else{
         document.getElementById("codPessoa").value = codPessoaMaior;
     }
-    
-    
-   
-    
     carregaTabelaPessoa();
     buscaValoresPessoa();
-    desabilitaAvancoCodPessoa();
-    
+    desabilitaAvancoCodPessoa();   
     
     if(document.getElementById("codPessoa").value <= 1){
         desabilitaRecuoCodPessoa();
@@ -392,7 +379,6 @@ function excluirCadasPessoa(){
     if(document.getElementById("codPessoa").value == 0){
         limparCamposCadasPessoa();
     }
-   
     
 }
 
@@ -407,9 +393,16 @@ function clicaProjeto(){
     codProjeto = 0;
     codProjetoAtual = 0;
     
+     codProjetoMaior = 0;   
+    
     if(vetor_projeto.length >= 1){
-        codProjeto = vetor_projeto.length;
-        document.getElementById("codProjeto").value = codProjeto;
+        
+        for(i = 0;i<vetor_projeto.length;i++){
+            if(vetor_projeto[i][0] > codProjetoMaior){
+            codProjetoMaior = vetor_projeto[i][0];    
+        }
+        }    
+        document.getElementById("codProjeto").value = ""+codProjetoMaior+"";
         habilitaRecuoCodProjeto();
         
     }
@@ -752,7 +745,6 @@ function jsonCadastroProjeto(){
 function excluirCadasProjeto(){
     codAtual = parseInt(document.getElementById("codProjeto").value);
    
-    
     codProjetoMaior = 0;  
     for(i = 0; i<vetor_projeto.length;i++){
         
@@ -762,15 +754,14 @@ function excluirCadasProjeto(){
             
             vetor_tabelaProjeto.splice([i],1);
             
-            vetor_prjcadastrados.splice([i],1);
-            
+            vetor_prjcadastrados.splice([i],1);     
         }
         console.log(vetor_projeto);
     }
     
      for(x=0;x<vetor_projeto.length;x++){
         if(vetor_projeto[x][0] > codProjetoMaior){
-            codProjetoMaior = vetor_projeto[x][0];    
+            codProjetoMaior = vetor_projeto[x][0];   
         }     
     }
     
@@ -779,9 +770,7 @@ function excluirCadasProjeto(){
           desabilitaRecuoCodProjeto();
     }else{
         document.getElementById("codProjeto").value = codProjetoMaior;
-    }
-    
-    
+    }    
     carregaTabelaProjeto();
     buscaValoresProjeto();
     desabilitaAvancoCodProjeto();
@@ -871,9 +860,16 @@ function clicaTarefa(){
     codTarefa = 0;
     codTarefaAtual = 0;
     
-    if(vetor_tarefa.length > 1){
-        codTarefa = vetor_tarefa.length;
-        document.getElementById("codTarefa").value = codTarefa;
+    codTarefaMaior = 0;  
+    
+    if(vetor_tarefa.length >= 1){
+          
+        for(i = 0;i<vetor_tarefa.length;i++){
+            if(vetor_tarefa[i][0] > codTarefaMaior){
+            codTarefaMaior = vetor_tarefa[i][0];    
+        }
+        }    
+        document.getElementById("codTarefa").value = ""+codTarefaMaior+"";
         habilitaRecuoCodTarefa();
         
     }
@@ -966,30 +962,65 @@ function buscaValoresTarefa(){
 }
 
 function recuarCodTarefa(){
-    document.getElementById("codTarefa").value = vetor_tarefa.length -1;
-    
-   
-    habilitaAvancoCodTarefa();
-    
-    if(document.getElementById("codTarefa").value == 1){
+    codTarefaAtual = parseInt(document.getElementById("codTarefa").value);
+    count = 0;
+    codTarefaMenor = 0;
+    codTarefaMenor = vetor_tarefa.length;
+     
+      for(i=0;i<vetor_tarefa.length;i++){
+          
+          if((codTarefaAtual-1) == vetor_tarefa[i][0]){
+              count += 1;
+          }
+           if(vetor_tarefa[i][0] < codTarefaMenor){
+            codTarefaMenor = vetor_tarefa[i][0]; 
+        }         
+      }
+        if(count == 0){
+           codTarefaAtual -= 2;
+        } else{
+           codTarefaAtual -= 1;
+        }
+        console.log(count); 
+        document.getElementById("codTarefa").value = codTarefaAtual;
+    if(codTarefaAtual == codTarefaMenor){
         desabilitaRecuoCodTarefa();
     }
-    buscaValoresTarefa();
+     habilitaAvancoCodTarefa();
+     buscaValoresTarefa();
 }
 
 function avancarCodTarefa(){
     codTarefaAtual = parseInt(document.getElementById("codTarefa").value);
     
-    codTarefaAtual += 1;
-    
-    document.getElementById("codTarefa").value = codTarefaAtual;
-    
-    if(vetor_tarefa.length ==  document.getElementById("codTarefa").value){
+    count = 0;
+    codTarefaMaior = 0;   
+    codValidacao = 0;
+     
+      for(i=0;i<vetor_tarefa.length;i++){   
+          if((codTarefaAtual+1) == vetor_tarefa[i][0]){
+              count += 1;     
+          }
+          
+          if(vetor_tarefa[i][0] > codTarefaMaior){
+            codTarefaMaior = vetor_tarefa[i][0];    
+        }
+      }
+        if(count == 0){
+           codTarefaAtual += 2;
+        } else{
+           codTarefaAtual += 1;
+        }    
+        console.log(count);
+        document.getElementById("codTarefa").value = codTarefaAtual;   
+    if(codTarefaAtual == codTarefaMaior){
         desabilitaAvancoCodTarefa();
     }
     habilitaRecuoCodTarefa();
     buscaValoresTarefa();
 }
+
+
 
 function desabilitaRecuoCodTarefa(){
         document.getElementById("codAnteriorCadasTarefa").disabled = true;
@@ -1121,7 +1152,7 @@ function habilitaDesabilitaBtnExcluirTarefa(){
 vetor_tarefa = [];
 
 function novaTarefa(){
-    
+    codTarefaMaior = 0;
     if(vetor_projeto.length == 0){
         
         alert("Ainda não há projeto cadastrado!")
@@ -1129,12 +1160,21 @@ function novaTarefa(){
     else{
     
     if(document.getElementById("codTarefa").value == 0){
-         codAnteriorTarefa = parseInt(document.getElementById("codTarefa").value);
+        codAnteriorTarefa = 0;
     novoCodTarefa = codAnteriorTarefa+1;
-    document.getElementById("codTarefa").value = novoCodTarefa;
+    document.getElementById("codTarefa").value = ""+novoCodTarefa+"";
+        
     }
     else{
-         document.getElementById("codTarefa").value = vetor_tarefa.length+1;
+         for(i = 0; i< vetor_tarefa.length;i++){
+            if(vetor_tarefa[i][0] > codTarefaMaior){
+            codTarefaMaior = vetor_tarefa[i][0];    
+        }
+            
+        }
+        novoCodTarefa = parseInt(codTarefaMaior);
+        novoCodTarefa += 1;
+       document.getElementById("codTarefa").value = ""+novoCodTarefa+"";
     }
    
     habilitaCamposTarefa();
@@ -1221,29 +1261,43 @@ function jsonCadastroTarefa(){
 function excluirCadasTarefa(){
     codAtual = parseInt(document.getElementById("codTarefa").value);
     
+    codTarefaMaior = 0;  
+    
     for(i = 0; i<vetor_tarefa.length;i++){
         
         if(codAtual == vetor_tarefa[i][0]){
             
-            vetor_tarefa.splice([i],8);
-            
-           
-            
-            
+            vetor_tarefa.splice([i],1); 
+            console.log(vetor_tarefa);
         }
        
     }
+    for(x=0;x<vetor_tarefa.length;x++){
+        if(vetor_tarefa[x][0] > codTarefaMaior){
+            codTarefaMaior = vetor_tarefa[x][0];    
+        }     
+    }
     
-      
-      document.getElementById("codTarefa").value = vetor_tarefa.length;
+    if(vetor_tarefa.length < 1){
+        document.getElementById("codTarefa").value = 0;
+          desabilitaRecuoCodTarefa();
+    }else{
+        document.getElementById("codTarefa").value = codTarefaMaior;
+    }
+   
     buscaValoresTarefa();
-      
+    desabilitaAvancoCodTarefa();   
+    
+    if(document.getElementById("codTarefa").value <= 1){
+        desabilitaRecuoCodTarefa();
+    }
+    
     habilitaDesabilitaBtnExcluirTarefa();
+    
     if(document.getElementById("codTarefa").value == 0){
         limparCamposCadasTarefa();
     }
-    
-    
+    vetorTrfCadastrados();
 }
 
 /*///////////////////////////////////////*/
@@ -1256,9 +1310,17 @@ function distribuiPessoas(){
     codDistribuicao = 0;
     codDistribuicaoAtual = 0;
     
-    if(vetor_distribuicao.length > 1){
-        codDistribuicao = vetor_distribuicao.length;
-        document.getElementById("codDistribuicao").value = codDistribuicao;
+     codDistribuicaoMaior = 0;
+    
+    if(vetor_distribuicao.length >= 1){
+     
+        for(i = 0;i<vetor_distribuicao.length;i++){
+            if(vetor_distribuicao[i][0] > codDistribuicaoMaior){
+            codDistribuicaoMaior = vetor_distribuicao[i][0];    
+        }
+        }    
+        document.getElementById("codDistribuicao").value = ""+codDistribuicaoMaior+"";
+        
         habilitaRecuoCodDistribuicao();
         
     }
@@ -1309,23 +1371,61 @@ function fecharDistribuicaoPessoa(){
 }
 
 function recuarCodDistribuicao(){
-    document.getElementById("codDistribuicao").value = vetor_distribuicao.length -1;
-    
-   
-    habilitaAvancoCodDistribuicao();
+     codDistribuicaoAtual = parseInt(document.getElementById("codDistribuicao").value);
+    count = 0;
+    codDistribuicaoMenor = 0;
+    codDistribuicaoMenor = vetor_distribuicao.length;
+     
+      for(i=0;i<vetor_distribuicao.length;i++){
+          
+          if((codDistribuicaoAtual-1) == vetor_distribuicao[i][0]){
+              count += 1;
+          }
+           if(vetor_distribuicao[i][0] < codDistribuicaoMenor){
+            codDistribuicaoMenor = vetor_distribuicao[i][0]; 
+        }         
+      }
+        if(count == 0){
+           codDistribuicaoAtual -= 2;
+        } else{
+           codDistribuicaoAtual -= 1;
+        }
+        console.log(count); 
+        document.getElementById("codDistribuicao").value = codDistribuicaoAtual;
+    if(codDistribuicaoAtual == codDistribuicaoMenor){
+        desabilitaRecuoCodDistribuicao();
+    }
+     habilitaAvancoCodDistribuicao();
+     buscaValoresDistribuicao();
     
     
     buscaValoresDistribuicao();
 }
 
 function avancarCodDistribuicao(){
-    codDistribuicaoAtual = parseInt(document.getElementById("codDistribuicao").value);
+   codDistribuicaoAtual = parseInt(document.getElementById("codDistribuicao").value);
     
-    codDistribuicaoAtual += 1;
+    count = 0;
+    codDistribuicaoMaior = 0;   
     
-    document.getElementById("codDistribuicao").value = codDistribuicaoAtual;
-    
-    if(vetor_distribuicao.length ==  document.getElementById("codDistribuicao").value){
+     
+      for(i=0;i<vetor_distribuicao.length;i++){   
+          if((codDistribuicaoAtual+1) == vetor_distribuicao[i][0]){
+              count += 1;     
+          }
+          
+          if(vetor_distribuicao[i][0] > codDistribuicaoMaior){
+            codDistribuicaoMaior = vetor_distribuicao[i][0];    
+        }
+      }
+        if(count == 0){
+           codDistribuicaoAtual += 2;
+        } else{
+           codDistribuicaoAtual += 1;
+        }    
+        console.log(count);
+        document.getElementById("codDistribuicao").value = codDistribuicaoAtual;   
+    if(codDistribuicaoAtual == codDistribuicaoMaior){
         desabilitaAvancoCodDistribuicao();
     }
     habilitaRecuoCodDistribuicao();
@@ -1535,15 +1635,23 @@ vetor_tabelaDistribuicao = [];
 vetor_distribuicao = [];
 
 function novaDistribuicao(){
-            
+            codDistribuicaoMaior = 0;
            if(vetor_projeto.length > 0 && vetor_tarefa.length > 0){
                 if(document.getElementById("codDistribuicao").value == 0){
-                 codAnteriorDistribuicao = parseInt(document.getElementById("codDistribuicao").value);
-            novoCodDistribuicao = codAnteriorDistribuicao+1;
-            document.getElementById("codDistribuicao").value = novoCodDistribuicao;
+                 codAnteriorDistribuicao = 0;
+    novoCodDistribuicao = codAnteriorDistribuicao+1;
+    document.getElementById("codDistribuicao").value = ""+novoCodDistribuicao+"";
             }
             else{
-                 document.getElementById("codDistribuicao").value = vetor_distribuicao.length+1;
+                 for(i = 0; i< vetor_distribuicao.length;i++){
+            if(vetor_distribuicao[i][0] > codDistribuicaoMaior){
+            codDistribuicaoMaior = vetor_distribuicao[i][0];    
+        }
+            
+        }
+        novoCodDistribuicao = parseInt(codDistribuicaoMaior);
+        novoCodDistribuicao += 1;
+       document.getElementById("codProjeto").value = ""+novoCodDistribuicao+"";
             }
 
             habilitaCamposDistribuicao();
@@ -1652,24 +1760,44 @@ function jsonCadastroDistribuicao(){
 function excluirCadasDistribuicao(){
     codAtual = parseInt(document.getElementById("codDistribuicao").value);
     
+    codDistribuicaoMaior = 0;  
+    
     for(i = 0; i<vetor_distribuicao.length;i++){
         
         if(codAtual == vetor_distribuicao[i][0]){
             
-            vetor_distribuicao.splice([i],3);
+            vetor_distribuicao.splice([i],1);
             
             vetor_tabelaDistribuicao.splice([i],1);
         }    
     }
     
-      
-      document.getElementById("codDistribuicao").value = vetor_distribuicao.length;
+       for(x=0;x<vetor_distribuicao.length;x++){
+        if(vetor_distribuicao[x][0] > codDistribuicaoMaior){
+            codDistribuicaoMaior = vetor_distribuicao[x][0];   
+        }     
+    }
+    
+    if(vetor_distribuicao.length < 1){
+        document.getElementById("codDistribuicao").value = 0;
+          desabilitaRecuoCodDistribuicao();
+    }else{
+        document.getElementById("codDistribuicao").value = codDistribuicaoMaior;
+    }    
+    carregaTabelaDistribuicao();
     buscaValoresDistribuicao();
-      
+    desabilitaAvancoCodDistribuicao();
+    
+     if(document.getElementById("codDistribuicao").value <= 1){
+        desabilitaRecuoCodDistribuicao();
+    }
+    
     habilitaDesabilitaBtnExcluirDistribuicao();
+    
     if(document.getElementById("codDistribuicao").value == 0){
         limparCamposCadasDistribuicao();
-    }
+    }    
+    
     
     carregatabelaDistribuicao();
     
