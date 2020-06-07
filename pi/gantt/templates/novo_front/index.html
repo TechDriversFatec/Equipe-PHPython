@@ -8,6 +8,7 @@
     
       <script type="text/javascript" src="js/frappe-gantt.min.js"></script>
      <script type="text/javascript" src="js/javascript.js"></script>
+    <script type="text/javascript" src="js/js_teste.js"></script>
     </head>
 <body>
 	<div id="top" class="boxShadow1">
@@ -23,7 +24,7 @@
 
          <h1>Gantt Planner - by PHPython</h1>
         <img id="imgbtn_play" src="images/img_play.png">
-        <button id="btn_compartilhar" class="btn_shadow2">COMPARTILHAR</button>
+        <button id="btn_compartilhar" class="btn_shadow2" onclick="pegaDIalog()">COMPARTILHAR</button>
 	</div>
     
     <div id="top_central" class="boxShadow1">
@@ -113,9 +114,9 @@
                  <button type="button" id="codAnteriorCadasProjeto" class="btn_shadow1_1" onclick="recuarCodProjeto()"></button>
                  <button type="button" id="codPosteriorCadasProjeto" class="btn_shadow1" onclick="avancarCodProjeto()"></button>
                                   <br><br>
-                <label for="nomeProjeto">Nome projeto: <input id="nomeProjeto" readonly="true" type="text" name="prj_nome"></label>
+                <label for="nomeProjeto">Nome projeto: <input autocomplete="off" id="nomeProjeto" readonly="true" type="text" name="prj_nome"></label>
                   
-                  <label for="escopo">Escopo: <input id="escopo" readonly="true" type="text" name="prj_escopo"></label>
+                  <label for="escopo">Escopo: <input autocomplete="off" id="escopo" readonly="true" type="text" name="prj_escopo"></label>
                   <br><br>
                   <label for="dt_inicioProjeto">Data Início: <input readonly="true" id="dt_inicioProjeto" type="date" name="prj_datainicio"></label>
                   
@@ -165,12 +166,12 @@
         <br><br>
         <div id='cadastroPessoas'>
             <label for='codPessoa'>Código: </label><input type='text' id='codPessoa' name="pes_id" name="pes_id">
-            <button type="button" id="codAnteriorCadasPessoa" class="btn_shadow1_1" onclick="recuarCodPessoa()"></button>
-                 <button type="button" id="codPosteriorCadasPessoa" class="btn_shadow1" onclick="avancarCodPesso()"></button>
+            <button type="button" disabled="true" id="codAnteriorCadasPessoa" class="btn_shadow1_1" onclick="recuarCodPessoa()"></button>
+                 <button type="button" disabled="true" id="codPosteriorCadasPessoa" class="btn_shadow1" onclick="avancarCodPessoa()"></button>
             <br><br>
-            <label for='nomePessoa'>Nome da pessoa: </label><input type='text' id='nomePessoa' name="nomePessoa" name="pes_nome">
+            <label for='nomePessoa'>Nome da pessoa: </label><input autocomplete="off" type='text' id='nomePessoa' name="nomePessoa" name="pes_nome">
             <br><br>
-            <label for='contato'>Contato: </label><input type='text' id='contato' name="pes_contato">
+            <label for='contato'>Contato: </label><input autocomplete="off" type='text' id='contato' name="pes_contato">
             <br><br>
             <button id="btn_novapessoa" type="submit" class="btn_shadow2" onclick="novaPessoa()">Novo</button>       
             <button id="btn_salvarpessoa" type="submit" class="btn_shadow2" onclick="gravarPessoa()">Gravar</button>
@@ -217,17 +218,17 @@
                  <button type="button" id="codAnteriorCadasTarefa" class="btn_shadow1_1" onclick="recuarCodTarefa()"></button>
                  <button type="button" id="codPosteriorCadasTarefa" class="btn_shadow1" onclick="avancarCodTarefa()"></button>
                 <br><br>
-               <label for="selecionaProjeto">Selecione o projeto: <input id="selecionaProjeto" disabled="true" type="text" list="listaProjetos" name="fk_prj_id"></label>
+               <label for="selecionaProjeto">Selecione o projeto: <input autocomplete="off" id="selecionaProjeto" disabled="true" type="text" list="listaProjetos" name="fk_prj_id"></label>
                   <datalist id="listaProjetos">
                       
                   </datalist>
                <br>
-               <label for="interdependencia">Interdependencia: <input disabled="true" id="interdependencia" type="text" list="listaInterdependencia" name="trf_interdependencia"></label>
+               <label for="interdependencia">Interdependencia: <input autocomplete="off" disabled="true" id="interdependencia" type="text" list="listaInterdependencia" name="trf_interdependencia"></label>
                   <datalist id="listaInterdependencia">
                       
                   </datalist>
                <br>
-                <label for="nomeTarefa">Nome tarefa: <input id="nomeTarefa" readonly="true" type="text" name="trf_nometarefa"></label>
+                <label for="nomeTarefa">Nome tarefa: <input autocomplete="off" id="nomeTarefa" readonly="true" type="text" name="trf_nometarefa"></label>
                <br>
                <br>
                <label for="dt_inicioTarefa">Data Início: <input id="dt_inicioTarefa" readonly="true" type="date" name="trf_datainicial"></label>
@@ -260,17 +261,17 @@
             <button type="button" id="codAnteriorDistribuicao" class="btn_shadow1_1" onclick="recuarCodDistribuicao()"></button>
                  <button type="button" id="codPosteriorDistribuicao" class="btn_shadow1" onclick="avancarCodDistribuicao()"></button>
                 <br><br>
-              <label for="selecionaProjeto_distribuicao">Selecione o projeto: <input id="selecionaProjeto_distribuicao" type="text" disabled="true" list="listaProjetos_distribuicao" oninput="carregaDataListTarefasDistribuicao()"></label>
+              <label for="selecionaProjeto_distribuicao">Selecione o projeto: <input autocomplete="off" id="selecionaProjeto_distribuicao" type="text" disabled="true" list="listaProjetos_distribuicao" oninput="carregaDataListTarefasDistribuicao()"></label>
                   <datalist id="listaProjetos_distribuicao">
                       
                   </datalist>
                <br>
-            <label for="listaTarefa">Selecione a Tarefa: <input disabled="true" id="listaTarefa" type="text" list="listaTarefa_distribuicao" name="fk_trf_id" oninput="carregaDatalistPessoas_distribuicao()"></label>
+            <label for="listaTarefa">Selecione a Tarefa: <input autocomplete="off" disabled="true" id="listaTarefa" type="text" list="listaTarefa_distribuicao" name="fk_trf_id" oninput="carregaDatalistPessoas_distribuicao()"></label>
                   <datalist id="listaTarefa_distribuicao">
                       
                   </datalist>
                <br>
-            <label for="listaPessoa">Selecione a Pessoa: <input disabled="true" id="listaPessoa" type="text" list="listaPessoa_distribuicao" name="fk_pes_id"></label>
+            <label for="listaPessoa">Selecione a Pessoa: <input autocomplete="off" disabled="true" id="listaPessoa" type="text" list="listaPessoa_distribuicao" name="fk_pes_id"></label>
                   <datalist id="listaPessoa_distribuicao">
                       
                   </datalist>

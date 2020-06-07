@@ -8,6 +8,8 @@
 
 function clicaPessoas(){
     
+    document.getElementById("menu_superior").classList.remove("show");
+    
     codPessoa = 0;
     codPessoaAtual = 0;
     
@@ -53,29 +55,67 @@ function buscaValoresPessoa(){
     }
 }
 
-function recuarCodPessoa(){
-    document.getElementById("codPessoa").value = vetor_pessoa.length -1;
-    
-   
-    habilitaAvancoCodProjeto();
-    
-    
-    buscaValoresProjeto();
+
+
+function recuarCodPessoa(){ 
+    codPessoaAtual = parseInt(document.getElementById("codPessoa").value);
+    count = 0;
+    codPessoaMenor = 0;
+    codPessoaMenor = vetor_pessoa.length;
+     
+      for(i=0;i<vetor_pessoa.length;i++){
+          
+          if((codPessoaAtual-1) == vetor_pessoa[i][0]){
+              count += 1;
+          }
+           if(vetor_pessoa[i][0] < codPessoaMenor){
+            codPessoaMenor = vetor_pessoa[i][0]; 
+        }         
+      }
+        if(count == 0){
+           codPessoaAtual -= 2;
+        } else{
+           codPessoaAtual -= 1;
+        }
+        console.log(count); 
+        document.getElementById("codPessoa").value = codPessoaAtual;
+    if(codPessoaAtual == codPessoaMenor){
+        desabilitaRecuoCodPessoa();
+    }
+     habilitaAvancoCodPessoa();
+     buscaValoresPessoa();
 }
 
 function avancarCodPessoa(){
     codPessoaAtual = parseInt(document.getElementById("codPessoa").value);
     
-    codPessoaAtual += 1;
-    
-    document.getElementById("codPessoa").value = codPessoaAtual;
-    
-    if(vetor_pessoa.length ==  document.getElementById("codPessoa").value){
+    count = 0;
+    codPessoaMaior = 0;   
+    codValidacao = 0;
+     
+      for(i=0;i<vetor_pessoa.length;i++){   
+          if((codPessoaAtual+1) == vetor_pessoa[i][0]){
+              count += 1;     
+          }
+          
+          if(vetor_pessoa[i][0] > codPessoaMaior){
+            codPessoaMaior = vetor_pessoa[i][0];    
+        }
+      }
+        if(count == 0){
+           codPessoaAtual += 2;
+        } else{
+           codPessoaAtual += 1;
+        }    
+        console.log(count);
+        document.getElementById("codPessoa").value = codPessoaAtual;   
+    if(codPessoaAtual == codPessoaMaior){
         desabilitaAvancoCodPessoa();
     }
     habilitaRecuoCodPessoa();
     buscaValoresPessoa();
 }
+
 
 function desabilitaRecuoCodPessoa(){
         document.getElementById("codAnteriorCadasPessoa").disabled = true;
@@ -216,13 +256,24 @@ function carregaTabelaPessoa(){
 }
 
 function novaPessoa(){
-    
+    codPessoaMaior = 0;
     if(document.getElementById("codPessoa").value == 0){
-         codAnteriorPessoa = parseInt(document.getElementById("codPessoa").value);
+    codAnteriorPessoa = 0;
     novoCodPessoa = codAnteriorPessoa+1;
-    document.getElementById("codPessoa").value = novoCodPessoa;
+    document.getElementById("codPessoa").value = ""+novoCodPessoa+"";
+        
     }else{
-         document.getElementById("codPessoa").value = vetor_pessoa.length+1;
+         /*document.getElementById("codPessoa").value = vetor_pessoa.length+1;*/
+        
+        for(i = 0; i< vetor_pessoa.length;i++){
+            if(vetor_pessoa[i][0] > codPessoaMaior){
+            codPessoaMaior = vetor_pessoa[i][0];    
+        }
+            
+        }
+        novoCodPessoa = parseInt(codPessoaMaior);
+        novoCodPessoa += 1;
+       document.getElementById("codPessoa").value = ""+novoCodPessoa+"";
     }
    
     habilitaCamposPessoa();
@@ -295,22 +346,48 @@ function jsonCadastroPessoa(){
 function excluirCadasPessoa(){
     codAtual = parseInt(document.getElementById("codPessoa").value);
     
+    codPessoaMaior = 0;
+    
     for(i = 0; i<vetor_pessoa.length;i++){
+        
         
         if(codAtual == vetor_pessoa[i][0]){
             
-            vetor_pessoa.splice([i],2);
+            vetor_pessoa.splice([i],1);
             
             vetor_tabelaPessoa.splice([i],1);
             
             
-        }
-        console.log(vetor_projeto);
+        } 
+        
+        
+    }
+        
+    for(x=0;x<vetor_pessoa.length;x++){
+        if(vetor_pessoa[x][0] > codPessoaMaior){
+            codPessoaMaior = vetor_pessoa[x][0];    
+        }     
     }
     
-      carregaTabelaPessoa();
-      document.getElementById("codPessoa").value = vetor_pessoa.length;
+    if(vetor_pessoa.length < 1){
+        document.getElementById("codPessoa").value = 0;
+          desabilitaRecuoCodPessoa();
+    }else{
+        document.getElementById("codPessoa").value = codPessoaMaior;
+    }
+    
+    
+   
+    
+    carregaTabelaPessoa();
     buscaValoresPessoa();
+    desabilitaAvancoCodPessoa();
+    
+    
+    if(document.getElementById("codPessoa").value <= 1){
+        desabilitaRecuoCodPessoa();
+    }
+    
     habilitaDesabilitaBtnExcluirPessoa();
     
     if(document.getElementById("codPessoa").value == 0){
@@ -319,6 +396,7 @@ function excluirCadasPessoa(){
    
     
 }
+
 
 /*/////////////////////////////////////////////////*/
 
@@ -375,27 +453,40 @@ function buscaValoresProjeto(){
 }
 
 function recuarCodProjeto(){
-    document.getElementById("codProjeto").value = vetor_projeto.length -1;
+     codProjetoAtual = parseInt(document.getElementById("codProjeto").value);
     
+    if(codProjetoAtual > 1){
+    codProjetoAtual -= 1;
+    document.getElementById("codProjeto").value = codProjetoAtual;
+    
+    
+        habilitaAvancoCodProjeto();
+    }
+    
+    if(codProjetoAtual == 1 || codProjetoAtual == 0){
+        desabilitaRecuoCodProjeto();
+    }
+      buscaValoresProjeto();
    
-    habilitaAvancoCodProjeto();
-    
-    
-    buscaValoresProjeto();
 }
 
 function avancarCodProjeto(){
-    codProjetoAtual = parseInt(document.getElementById("codProjeto").value);
+     codProjetoAtual = parseInt(document.getElementById("codProjeto").value);
     
     codProjetoAtual += 1;
     
     document.getElementById("codProjeto").value = codProjetoAtual;
     
-    if(vetor_projeto.length ==  document.getElementById("codProjeto").value){
-        desabilitaAvancoCodProjeto();
+    if(document.getElementById("codProjeto").value >= vetor_projeto.length){
+    desabilitaAvancoCodProjeto();
     }
+    
+    
+    if(codProjetoAtual >= 1){
     habilitaRecuoCodProjeto();
+    }
     buscaValoresProjeto();
+    
 }
 
 function desabilitaRecuoCodProjeto(){
@@ -600,6 +691,8 @@ function gravarProjeto(){
      vetor_prjcadastrados.push(add_btn_prj_menu_esquerdo);//ADICIONA LINHA PARA CRIAÇÃO DO BTN DE PROJETO
      add_prj_menu_esquerdo();//CRIAÇÃO DO BOTÃO DE PROJETO
         
+    
+     
     jsonCadastroProjeto();
     desabilitaCamposProjeto();
     habilitaBtnNovoProjeto();
