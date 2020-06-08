@@ -143,4 +143,3 @@ STATIC_URL = '/static/'
 #         },
 #     },
 # }
-

@@ -113,8 +113,8 @@
              <div id="cadastro_projeto">
                  
                  <label  for="codProjeto">Código projeto: <input readonly="true" id="codProjeto" type="text" name="prj_id"></label>
-                 <button type="button" id="codAnteriorCadasProjeto" class="btn_shadow1_1" onclick="recuarCodProjeto()"></button>
-                 <button type="button" id="codPosteriorCadasProjeto" class="btn_shadow1" onclick="avancarCodProjeto()"></button>
+                 <button type="button" id="codAnteriorCadasProjeto" class="btn_shadow1_1" onclick="getProjeto()"></button>
+                 <button type="button" id="codPosteriorCadasProjeto" class="btn_shadow1" onclick="getProjeto()"></button>
                                   <br><br>
                 <label for="nomeProjeto">Nome projeto: <input autocomplete="off" id="nomeProjeto" readonly="true" type="text" name="prj_nome"></label>
                   
@@ -128,10 +128,10 @@
                     <br><br>
                   <button id="btn_novoprojeto" type="submit" class="btn_shadow2" onclick="novoProjeto()">Novo</button>
                 
-                      <button id="btn_salvarprojeto" type="submit" class="btn_shadow2" onclick="gravarProjeto()">Gravar</button>
-                      <button id="btn_cancelarCadasProjeto" type="submit" class="btn_shadow2" onclick="cancelarCadasProjeto()">Cancelar</button>
-                     <button id="btn_excluirCadasProjeto" type="submit" class="btn_shadow2" onclick="excluirCadasProjeto()">Excluir</button>
-                 
+                      <button id="btn_salvarprojeto" type="submit" class="btn_shadow2" onclick="postProjeto()">Gravar</button>
+                      <button id="btn_atualizarCadasProjeto" type="submit" class="btn_shadow2" onclick="putProjeto()">Atualizar</button>
+                     <button id="btn_excluirCadasProjeto" type="submit" class="btn_shadow2" onclick="deleteProjeto()">Excluir</button>
+                     <button id="btn_cancelarCadasProjeto" type="submit" class="btn_shadow2" onclick="cancelarCadasProjeto()">Cancelar</button>
                 </div>
                
                 <div id='listaProjeto'>
@@ -180,9 +180,9 @@
         
             <button id="btn_novapessoa" type="submit" class="btn_shadow2" onclick="novaPessoa()">Novo</button>       
             <button id="btn_salvarpessoa" type="submit" class="btn_shadow2" onclick="postPessoa()">Gravar</button>
-            <button id="btn_cancelarCadasPessoa" type="submit" class="btn_shadow2" onclick="putPessoa()">Cancelar</button>
-            <button id="btn_excluirCadasPessoa" type="submit" class="btn_shadow2" onclick="excluirCadasPessoa()">Excluir</button>
-      
+            <button id="btn_atualizarCadasPessoa" type="submit" class="btn_shadow2" onclick="putPessoa()">Atualizar</button>
+            <button id="btn_excluirCadasPessoa" type="submit" class="btn_shadow2" onclick="deletePessoa()">Excluir</button>
+            <button id="btn_cancelarCadasPessoa" type="submit" class="btn_shadow2" onclick="cancelarCadasPessoa()">Cancelar</button>
         </div>
         
         <br><br><br>

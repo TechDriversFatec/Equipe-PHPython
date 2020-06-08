@@ -517,18 +517,24 @@
     
 }
 #cadastroPessoas #btn_novapessoa{
-    width: 100px;
+    width: 80px;
 }
 #cadastroPessoas #btn_salvarpessoa{
-    width: 100px;
+    width: 80px;
+    margin-left: 5px;
+}
+
+#cadastroPessoas #btn_atualizarCadasPessoa{
+    width: 80px;
+    margin-left: 5px;
+}
+
+#cadastroPessoas #btn_excluirCadasPessoa{
+    width: 80px;
     margin-left: 5px;
 }
 #cadastroPessoas #btn_cancelarCadasPessoa{
-    width: 100px;
-    margin-left: 5px;
-}
-#cadastroPessoas #btn_excluirCadasPessoa{
-    width: 100px;
+    width: 80px;
     
 }
 

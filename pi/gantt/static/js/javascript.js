@@ -65,7 +65,7 @@ function postPessoa(){
 
      xhr = new XMLHttpRequest();
     urlPostPessoa = 'http://localhost:8000/person/?format=json';
-    xhr.open("POST", urlPostPessoa);
+    xhr.open("POST", urlPostPessoa, true);
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.setRequestHeader("X-CSRFToken", csrftoken)
     xhr.send(JSON.stringify({ 'pes_nome': nomePessoa, 'pes_contato': contato }));
@@ -73,24 +73,38 @@ function postPessoa(){
 }
 
 function putPessoa(){
-    codPessoa = parseInt(document.getElementById("codPessoa").value);
+    codPessoa = document.getElementById("codPessoa").value;
+    
+    urlPutPessoa = 'http://localhost:8000/person/'+codPessoa+'/?format=json'
+
     nomePessoa = document.getElementById("nomePessoa").value;
     contato = document.getElementById("contato").value;
 
     xhr = new XMLHttpRequest();
-    urlPostPessoa = 'http://localhost:8000/person/?format=json';
-    xhr.open("PUT", urlPostPessoa);
+   
+    xhr.open("PUT", urlPutPessoa, true);
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.setRequestHeader("X-CSRFToken", csrftoken)
-    xhr.send(JSON.stringify({ 'pes_id':codPessoa, 'pes_nome': nomePessoa, 'pes_contato': contato }));
+    xhr.send(JSON.stringify({'pes_nome': nomePessoa, 'pes_contato': contato }));
 }
 
-///////////////////////////////////////////////////////////////////////////////////////
+function deletePessoa(){
+    codPessoa = document.getElementById("codPessoa").value;
+    urlPutPessoa = 'http://localhost:8000/person/'+codPessoa+'/?format=json'
+
+    nomePessoa = document.getElementById("nomePessoa").value;
+    contato = document.getElementById("contato").value;
+
+    xhr = new XMLHttpRequest();
+   
+    xhr.open("DELETE", urlPutPessoa, true);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.setRequestHeader("X-CSRFToken", csrftoken)
+    xhr.send(JSON.stringify({'pes_nome': nomePessoa, 'pes_contato': contato }));
 
 
-
-
-
+}
+///////////////////////FINISH: GET - POST - PUT - DELETE //////////////////////////////////////////////////////////
 function clicaPessoas(){
     
     document.getElementById("menu_superior").classList.remove("show");
@@ -476,13 +490,132 @@ function excluirCadasPessoa(){
 
 /*CADASTRO DE PROJETOS*/////////////////////////////
 
+/*GET AND POST - API*////////////////////////////////////////////////////////////////////
+
+
+
+function preencheCamposCadasProjeto(json){
+    document.getElementById("nomeProjeto").value = json.prj_nome; 
+    document.getElementById("escopo").value = json.prj_escopo;
+    document.getElementById("dt_inicioProjeto").value = json.prj_datainicio;
+    document.getElementById("dt_prazoProjeto").value = json.prj_prazoentrega;
+    document.getElementById("corProjeto").value = json.prj_color;
+
+}
+
+function getProjeto(){
+    codProjeto = document.getElementById("codProjeto").value;
+    
+    urlGetProjeto = 'http://localhost:8000/project/'+codProjeto+'/?format=json'
+    
+    xhr = new XMLHttpRequest();
+    xhr.open('GET', urlGetProjeto, true);
+
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4){
+            if(xhr.status == 200){
+                preencheCamposCadasProjeto(JSON.parse(xhr.responseText));
+                console.log(JSON.parse(xhr.responseText));
+            }
+        }
+    }
+    xhr.send();
+
+}
+
+function postProjeto(){
+    codProjeto = parseInt(document.getElementById("codProjeto").value);
+    codProjeto += 1;
+    document.getElementById("codProjeto").value = codProjeto;
+
+    nomeProjeto = document.getElementById("nomeProjeto").value;
+    escopo = document.getElementById("escopo").value;
+    dt_inicio = document.getElementById("dt_inicioProjeto").value;
+    dt_prazo = document.getElementById("dt_prazoProjeto").value;
+    cor = document.getElementById("corProjeto").value;
+
+     xhr = new XMLHttpRequest();
+    urlPostProjeto = 'http://localhost:8000/project/?format=json';
+    xhr.open("POST", urlPostProjeto, true);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.setRequestHeader("X-CSRFToken", csrftoken)
+    xhr.send(JSON.stringify({
+         'prj_nome': nomeProjeto, 
+         'prj_escopo': escopo, 
+         'prj_datainicio': dt_inicio,
+         'prj_prazoentrega': dt_prazo,
+         'prj_color': cor
+        }));
+    
+}
+
+function putProjeto(){
+    codProjeto = document.getElementById("codProjeto").value;
+    
+    urlPutProjeto = 'http://localhost:8000/person/'+codProjeto+'/?format=json'
+
+    nomeProjeto = document.getElementById("nomeProjeto").value;
+    escopo = document.getElementById("escopo").value;
+    dt_inicio = document.getElementById("dt_inicioProjeto").value;
+    dt_prazo = document.getElementById("dt_prazoProjeto").value;
+    cor = document.getElementById("corProjeto").value;
+    
+
+    xhr = new XMLHttpRequest();
+   
+    xhr.open("PUT", urlPutProjeto, true);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.setRequestHeader("X-CSRFToken", csrftoken)
+    xhr.send(JSON.stringify({
+        'prj_nome': nomeProjeto, 
+        'prj_escopo': escopo, 
+        'prj_datainicio': dt_inicio,
+        'prj_prazoentrega': dt_prazo,
+        'prj_color': cor
+       }));
+}
+
+function deleteProjeto(){
+    codProjeto = document.getElementById("codProjeto").value;
+    urlPutProjeto = 'http://localhost:8000/person/'+codProjeto+'/?format=json'
+
+    nomeProjeto = document.getElementById("nomeProjeto").value;
+    escopo = document.getElementById("escopo").value;
+    dt_inicio = document.getElementById("dt_inicioProjeto").value;
+    dt_prazo = document.getElementById("dt_prazoProjeto").value;
+    cor = document.getElementById("corProjeto").value;
+
+    xhr = new XMLHttpRequest();
+   
+    xhr.open("DELETE", urlPutPessoa, true);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.setRequestHeader("X-CSRFToken", csrftoken)
+    xhr.send(JSON.stringify({
+        'prj_nome': nomeProjeto, 
+        'prj_escopo': escopo, 
+        'prj_datainicio': dt_inicio,
+        'prj_prazoentrega': dt_prazo,
+        'prj_color': cor
+       }));
+
+
+}
+///////////////////////FINISH: GET - POST - PUT - DELETE //////////////////////////////////////////////////////////
+
+
 function clicaProjeto(){
     codProjeto = 0;
     codProjetoAtual = 0;
     
      codProjetoMaior = 0;   
     
-    if(vetor_projeto.length >= 1){
+
+     dialogCadastro = document.getElementById("abreCadastroProjeto");
+     dialogCadastro.showModal();
+     
+
+
+    /*if(vetor_projeto.length >= 1){
         
         for(i = 0;i<vetor_projeto.length;i++){
             if(vetor_projeto[i][0] > codProjetoMaior){
@@ -500,8 +633,7 @@ function clicaProjeto(){
         desabilitaAvancoCodProjeto();
     }
     
-    dialogCadastro = document.getElementById("abreCadastroProjeto");
-    dialogCadastro.showModal();
+    
     
     
     
@@ -511,7 +643,7 @@ function clicaProjeto(){
     buscaValoresProjeto();
     desabilitaAvancoCodProjeto();
     habilitaDesabilitaBtnExcluirProjeto();
-    
+    */
     }
 
 function buscaValoresProjeto(){
@@ -942,6 +1074,8 @@ function expandeTrf(nomeBtn){
 
 
 /*CADASTRO DE TAREFAS*/////////////////////////////
+
+
 
 function clicaTarefa(){
     codTarefa = 0;
