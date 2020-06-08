@@ -457,18 +457,23 @@
     width: 200px;
 }
 #cadastro_projeto #btn_novoprojeto{
-    width: 100px;
+    width: 80px;
 }
 #cadastro_projeto #btn_salvarprojeto{
-    width: 100px;
+    width: 80px;
+    margin-left: 5px;
+}
+#cadastro_projeto #btn_atualizarCadasProjeto{
+    width: 80px;
+    margin-left: 5px;
+}
+
+#cadastro_projeto #btn_excluirCadasProjeto{
+    width: 80px;
     margin-left: 5px;
 }
 #cadastro_projeto #btn_cancelarCadasProjeto{
-    width: 100px;
-    margin-left: 5px;
-}
-#cadastro_projeto #btn_excluirCadasProjeto{
-    width: 100px;
+    width: 80px;
     
 }
 
