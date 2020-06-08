@@ -1,19 +1,21 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
 	<meta charset="utf-8">
 	<title>PI - PHPYTHON - GANTT</title>	
-	<link rel="stylesheet" type="text/css" href="css/estilos.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/estilos.css' %}">
     
     
-      <script type="text/javascript" src="js/frappe-gantt.min.js"></script>
-     <script type="text/javascript" src="js/javascript.js"></script>
-    <script type="text/javascript" src="js/js_teste.js"></script>
+      <script type="text/javascript" src="{% static 'js/frappe-gantt.min.js' %}"></script>
+     <script type="text/javascript" src="{% static 'js/javascript.js' %}"></script>
+   
     </head>
 <body>
 	<div id="top" class="boxShadow1">
        <div class="dropdown_menusuperior">
-          <img id="imgbtn_menusuperior" src="images/btn_menu_superior.png" onclick="menuDropdown_menusuperior()" class="dropbtn_menusuperior">
+          <img id="imgbtn_menusuperior" src="{% static 'images/btn_menu_superior.png' %}" onclick="menuDropdown_menusuperior()" class="dropbtn_menusuperior">
               <div id="menu_superior" class="dropdown-content_menusuperior">
                 <a href="#novo_gantt_planner">Novo Gantt Planner</a>
                 <a href="#abrir_gantt_planner">Abrir Gantt Planner</a>
@@ -23,7 +25,7 @@
         </div>
 
          <h1>Gantt Planner - by PHPython</h1>
-        <img id="imgbtn_play" src="images/img_play.png">
+        <img id="imgbtn_play" src="{% static 'images/img_play.png' %}">
         <button id="btn_compartilhar" class="btn_shadow2" onclick="pegaDIalog()">COMPARTILHAR</button>
 	</div>
     
@@ -31,16 +33,16 @@
         <h1 contenteditable="true" id="nomePlanner">Nome Planejamento</h1>
         
         
-         <img id="imgbtn_prj" src="images/img_prj.png" onclick="clicaProjeto()">
+         <img id="imgbtn_prj" src="{% static 'images/img_prj.png' %}" onclick="clicaProjeto()">
         
-         <img id="imgbtn_trf" src="images/img_trf.png" onclick="clicaTarefa()" class="dropbtn_trf">
+         <img id="imgbtn_trf" src="{% static 'images/img_trf.png' %}" onclick="clicaTarefa()" class="dropbtn_trf">
               
         
          
-          <img id="imgbtn_pessoas" src="images/img_pessoas.png" onclick="distribuiPessoas()" class="dropbtn_pessoas">
+          <img id="imgbtn_pessoas" src="{% static 'images/img_pessoas.png' %}" onclick="distribuiPessoas()" class="dropbtn_pessoas">
               
         
-        <img id="imgbtn_download" src="images/img_download.png">
+        <img id="imgbtn_download" src="{% static 'images/img_download.png' %}">
         <button id="btn_salvarplanning" class="btn_shadow2" onclick="carregaGantt()">SALVAR</button>    
         
     </div>
@@ -165,19 +167,22 @@
              <h1 class="styleWord1">Cadastro de Pessoas</h1>        </div>
         <br><br>
         <div id='cadastroPessoas'>
+            
+           
             <label for='codPessoa'>Código: </label><input type='text' id='codPessoa' name="pes_id" name="pes_id">
-            <button type="button" disabled="true" id="codAnteriorCadasPessoa" class="btn_shadow1_1" onclick="recuarCodPessoa()"></button>
-                 <button type="button" disabled="true" id="codPosteriorCadasPessoa" class="btn_shadow1" onclick="avancarCodPessoa()"></button>
+            <button type="button" disabled="true" id="codAnteriorCadasPessoa" class="btn_shadow1_1" onclick="getPessoa()"></button>
+                 <button type="button" disabled="true" id="codPosteriorCadasPessoa" class="btn_shadow1" onclick="getPessoa()"></button>
             <br><br>
             <label for='nomePessoa'>Nome da pessoa: </label><input autocomplete="off" type='text' id='nomePessoa' name="nomePessoa" name="pes_nome">
             <br><br>
             <label for='contato'>Contato: </label><input autocomplete="off" type='text' id='contato' name="pes_contato">
             <br><br>
+        
             <button id="btn_novapessoa" type="submit" class="btn_shadow2" onclick="novaPessoa()">Novo</button>       
-            <button id="btn_salvarpessoa" type="submit" class="btn_shadow2" onclick="gravarPessoa()">Gravar</button>
-            <button id="btn_cancelarCadasPessoa" type="submit" class="btn_shadow2" onclick="cancelarCadasPessoa()">Cancelar</button>
+            <button id="btn_salvarpessoa" type="submit" class="btn_shadow2" onclick="postPessoa()">Gravar</button>
+            <button id="btn_cancelarCadasPessoa" type="submit" class="btn_shadow2" onclick="putPessoa()">Cancelar</button>
             <button id="btn_excluirCadasPessoa" type="submit" class="btn_shadow2" onclick="excluirCadasPessoa()">Excluir</button>
-                
+      
         </div>
         
         <br><br><br>
