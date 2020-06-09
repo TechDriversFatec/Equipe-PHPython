@@ -40,35 +40,32 @@ function getPessoa(value){
     
     urlGetPessoa = 'http://localhost:8000/person/'+codPessoa+'/?format=json'
     
-    xhr = new XMLHttpRequest();
-    xhr.open('GET', urlGetPessoa, true);
+    xhrGet = new XMLHttpRequest();
+    xhrGet.open('GET', urlGetPessoa, true);
 
-    xhr.onreadystatechange = function(){
-        if(xhr.readyState == 4){
-            if(xhr.status == 200){
-                preencheCamposCadasPessoa(JSON.parse(xhr.responseText));     
+    xhrGet.onreadystatechange = function(){
+        if(xhrGet.readyState == 4){
+            if(xhrGet.status == 200){
+                preencheCamposCadasPessoa(JSON.parse(xhrGet.responseText));     
             }
         }      
     }
-    xhr.send();
+    xhrGet.send();
 
 }
 
 function postPessoa(){
-    codPessoa = parseInt(document.getElementById("codPessoa").value);
-    codPessoa += 1;
-    document.getElementById("codPessoa").value = codPessoa;
-
+   
     nomePessoa = document.getElementById("nomePessoa").value;
     contato = document.getElementById("contato").value;
     
 
-     xhr = new XMLHttpRequest();
+     xhrPost = new XMLHttpRequest();
     urlPostPessoa = 'http://localhost:8000/person/?format=json';
-    xhr.open("POST", urlPostPessoa, true);
-    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xhr.setRequestHeader("X-CSRFToken", csrftoken)
-    xhr.send(JSON.stringify({ 'pes_nome': nomePessoa, 'pes_contato': contato }));
+    xhrPost.open("POST", urlPostPessoa, true);
+    xhrPost.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhrPost.setRequestHeader("X-CSRFToken", csrftoken)
+    xhrPost.send(JSON.stringify({ 'pes_nome': nomePessoa, 'pes_contato': contato }));
 
     carregaTabelaPessoa();
     desabilitaCamposPessoa();
@@ -76,8 +73,10 @@ function postPessoa(){
     desabilitaBtnGravaPessoa();
     desabilitaBtnCancelarPessoa();
     habilitaRecuoCodPessoa();
+   
     getPessoa();
-    habilitaDesabilitaBtnExcluirPessoa();
+  
+    
 }
 
 function putPessoa(){
@@ -99,53 +98,33 @@ function putPessoa(){
 function deletePessoa(){
     codPessoaMaior = 0; 
     codPessoa = document.getElementById("codPessoa").value;
-    urlPutPessoa = 'http://localhost:8000/person/'+codPessoa+'/?format=json'
+    urlDeletePessoa = 'http://localhost:8000/person/'+codPessoa+'/?format=json'
 
     nomePessoa = document.getElementById("nomePessoa").value;
     contato = document.getElementById("contato").value;
 
-    xhr = new XMLHttpRequest();
+    xhrDelete = new XMLHttpRequest();
    
-    xhr.open("DELETE", urlPutPessoa, true);
-    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xhr.setRequestHeader("X-CSRFToken", csrftoken)
-    xhr.send(JSON.stringify({'pes_nome': nomePessoa, 'pes_contato': contato }));
+    xhrDelete.open("DELETE", urlDeletePessoa, true);
+    xhrDelete.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhrDelete.setRequestHeader("X-CSRFToken", csrftoken)
+    xhrDelete.send(JSON.stringify({'pes_nome': nomePessoa, 'pes_contato': contato }));
 
-    for(i = 0; i<jsonCadasPessoa.length;i++){      
-        if(codPessoa == jsonCadasPessoa[i][0]){
-            
-          
-            
-            vetor_tabelaPessoa.splice([i],1);
-          }         
-    }  
-
-    for(x=0;x<jsonCadasPessoa.length;x++){
-        if(jsonCadasPessoa[x][0] > codPessoaMaior){
-            codPessoaMaior = jsonCadasPessoa[x][0];    
-        }     
-    }
     
-    if(jsonCadasPessoa.length < 1){
-        document.getElementById("codPessoa").value = 0;
-          desabilitaRecuoCodPessoa();
-    }else{
-        document.getElementById("codPessoa").value = codPessoaMaior;
-    }
+    
+    recuarCodPessoa();
+    
+
+
+    
+    
+    
+    
+
     carregaTabelaPessoa();
+    
+    desabilitaHabilitaBtnExcluirPessoa();
     getPessoa();
-    desabilitaAvancoCodPessoa();   
-    
-    if(document.getElementById("codPessoa").value <= 1){
-        desabilitaRecuoCodPessoa();
-    }
-    
-    habilitaDesabilitaBtnExcluirPessoa();
-    
-    if(document.getElementById("codPessoa").value == 0){
-        limparCamposCadasPessoa();
-    }
-
 
 }
 ///////////////////////FINISH: GET - POST - PUT - DELETE //////////////////////////////////////////////////////////
@@ -157,6 +136,8 @@ function clicaPessoas(){
     dialogCadastro = document.getElementById("abreCadastroPessoas");
 
     dialogCadastro.showModal();
+    
+    
 
     urlGetPessoa = 'http://localhost:8000/person/?format=json'
 
@@ -192,7 +173,11 @@ function clicaPessoas(){
         }
         
     }
+    
+   
     xhr.send();
+   
+   
 
     habilitaAvancoCodPessoa();
     habilitaRecuoCodPessoa();
@@ -200,8 +185,71 @@ function clicaPessoas(){
     habilitaBtnNovaPessoa();
     desabilitaBtnGravaPessoa();
     desabilitaAvancoCodPessoa();
-    habilitaDesabilitaBtnExcluirPessoa();
+    desabilitaHabilitaBtnExcluirPessoa();
+    carregaTabelaPessoa();
+  
 }
+
+function novaPessoa(){
+    codPessoa = parseInt(document.getElementById("codPessoa").value);
+    if(codPessoa == 0){
+        codPessoa = 1;
+        document.getElementById("codPessoa").value = codPessoa;
+    }else{
+    urlGetPessoa = 'http://localhost:8000/person/?format=json'
+    
+    
+    vetor_pessoa = [];
+    xhr = new XMLHttpRequest();
+    xhr.open('GET', urlGetPessoa, true);
+    xhr.onreadystatechange = function(){     
+        if(xhr.readyState == 4){
+            if(xhr.status == 200){
+                json = (JSON.parse(xhr.responseText));
+                for(i = 0;i<json.length;i++){
+                    vetor_pessoa.push(json[i]['pes_id']);
+                    
+                }
+                vetor_pessoa.reverse();
+                codPessoa = vetor_pessoa[0] + 1;
+                console.log(codPessoa);
+
+
+
+            }
+        }
+        document.getElementById("codPessoa").value = codPessoa;
+    }
+    
+    }
+    
+    
+    habilitaCamposPessoa();
+    habilitaBtnCancelarPessoa();
+    desabilitaBtnNovaPessoa();
+    habilitaBtnGravarPessoa();
+    desabilitaAvancoCodPessoa();
+    desabilitaRecuoCodPessoa();
+    limparCamposCadasPessoa();
+    desabilitaBtnExcluirPessoa()
+    xhr.send();
+}
+
+
+function cancelarCadasPessoa(){
+    codPessoa = parseInt(document.getElementById("codPessoa").value);
+    document.getElementById("codPessoa").value = codPessoa - 1;
+    
+    desabilitaCamposPessoa();
+    
+    desabilitaBtnGravaPessoa();
+    desabilitaBtnCancelarPessoa();
+    habilitaRecuoCodPessoa();
+    getPessoa();
+    habilitaBtnNovaPessoa();
+    desabilitaHabilitaBtnExcluirPessoa();
+}
+
 
 
 
@@ -210,12 +258,12 @@ function recuarCodPessoa(){
     
     codPessoa = parseInt(document.getElementById("codPessoa").value);
     vetor_pessoa = [];
-    xhr = new XMLHttpRequest();
-    xhr.open('GET', urlGetPessoa, true);
-    xhr.onreadystatechange = function(){     
-        if(xhr.readyState == 4){
-            if(xhr.status == 200){
-                json = (JSON.parse(xhr.responseText));
+    xhrRecuarCod = new XMLHttpRequest();
+    xhrRecuarCod.open('GET', urlGetPessoa, true);
+    xhrRecuarCod.onreadystatechange = function(){     
+        if(xhrRecuarCod.readyState == 4){
+            if(xhrRecuarCod.status == 200){
+                json = (JSON.parse(xhrRecuarCod.responseText));
                 for(i = 0;i<json.length;i++){
                     vetor_pessoa.push(json[i]['pes_id']);
                     
@@ -244,7 +292,7 @@ function recuarCodPessoa(){
         }
     
 
-xhr.send();
+        xhrRecuarCod.send();
 
 }
 
@@ -263,8 +311,8 @@ function avancarCodPessoa(){
                     vetor_pessoa.push(json[i]['pes_id']);
                     
                 }
+                
                 vetor_pessoa.reverse();
-                 
                  menorvalor = 0;
                  for(i=0;i<vetor_pessoa.length;i++){
                     
@@ -295,10 +343,10 @@ xhr.send();
 
 function desabilitaRecuoCodPessoa(){
         document.getElementById("codAnteriorCadasPessoa").disabled = true;
-     if(document.getElementById("codAnteriorCadasPessoa").disabled = true){
+     
        mudaBotao =  document.getElementById("codAnteriorCadasPessoa");
         mudaBotao.style.backgroundColor = "gray";
-}
+
     
 }
 
@@ -339,10 +387,9 @@ function habilitaBtnCancelarPessoa(){
 
 function desabilitaBtnCancelarPessoa(){
     document.getElementById("btn_cancelarCadasPessoa").disabled = true;
-     if(document.getElementById("btn_cancelarCadasPessoa").disabled = true){
-       mudaBotao =  document.getElementById("btn_cancelarCadasPessoa");
+        mudaBotao =  document.getElementById("btn_cancelarCadasPessoa");
         mudaBotao.style.backgroundColor = "gray";
-}
+
 }
 
 function habilitaCamposPessoa(){
@@ -367,34 +414,38 @@ function habilitaBtnNovaPessoa(){
 
 function desabilitaBtnNovaPessoa(){
     document.getElementById("btn_novapessoa").disabled = true;
-    if(document.getElementById("btn_novapessoa").disabled = true){
+
        mudaBotao =  document.getElementById("btn_novapessoa");
         mudaBotao.style.backgroundColor = "gray";
-    }
+
 }
 
-function habilitaDesabilitaBtnExcluirPessoa(){
-    if(document.getElementById("codPessoa").value == 0){
-     document.getElementById("btn_excluirCadasPessoa").disabled = true;
-    if(document.getElementById("btn_excluirCadasPessoa").disabled = true){
-       mudaBotao =  document.getElementById("btn_excluirCadasPessoa");
-        mudaBotao.style.backgroundColor = "gray";
-    }
-        
-}else{
-    document.getElementById("btn_excluirCadasPessoa").disabled = false;
+function desabilitaBtnExcluirPessoa(){
+    document.getElementById("btn_excluirCadasPessoa").disabled = true;
+    mudaBotao =  document.getElementById("btn_excluirCadasPessoa");
+     mudaBotao.style.backgroundColor = "gray";
+}
+
+function desabilitaHabilitaBtnExcluirPessoa(){
+    if(document.getElementById("codPessoa").value == ""+0+""){
+        document.getElementById("btn_excluirCadasPessoa").disabled = true;
+    mudaBotao =  document.getElementById("btn_excluirCadasPessoa");
+     mudaBotao.style.backgroundColor = "gray";
+    }else{
+        document.getElementById("btn_excluirCadasPessoa").disabled = false;
     mudaBotao =  document.getElementById("btn_excluirCadasPessoa");
         mudaBotao.style.backgroundColor = "#698FEB";
+    }
 }
 
-}
 
 function desabilitaBtnGravaPessoa(){
+  
     document.getElementById("btn_salvarpessoa").disabled = true;
-    if(document.getElementById("btn_salvarpessoa").disabled = true){
+    
        mudaBotao =  document.getElementById("btn_salvarpessoa");
         mudaBotao.style.backgroundColor = "gray";
-    }
+   
 }
 
 function habilitaBtnGravarPessoa(){
@@ -419,65 +470,44 @@ function limparCadasPessoa(){
     document.getElementById('contato').value = '';
 }
 
-vetor_tabelaPessoa = [];
+
 function carregaTabelaPessoa(){
-
-    linhaTabelaPessoas = "<tr><td>"+codPessoa.value+"</td><td>"+nomePessoa.value+"</td><td>"+contato.value+"</td></tr>";
+    urlGetPessoa = 'http://localhost:8000/person/?format=json'
     
-    vetor_tabelaPessoa.push(linhaTabelaPessoas);
-
-    document.getElementById("corpoTabelaPessoas").innerHTML = '';
+    codPessoa = parseInt(document.getElementById("codPessoa").value);
+    vetor_TabelaCadasPessoa = [];
+    xhrTable = new XMLHttpRequest();
+    xhrTable.open('GET', urlGetPessoa, true);
     
-    for(i = 0; i < vetor_tabelaPessoa.length;i++){
-         document.getElementById("corpoTabelaPessoas").innerHTML += vetor_tabelaPessoa[i];
-        console.log(vetor_tabelaPessoa[i]);
-    }    
-    
-}
+    xhrTable.onreadystatechange = function(){     
+        if(xhrTable.readyState == 4){
+            if(xhrTable.status == 200){
+                json = (JSON.parse(xhrTable.responseText));
+                for(i = 0;i<json.length;i++){
 
-function novaPessoa(){
-    codPessoaMaior = 0;
-    if(document.getElementById("codPessoa").value == 0){
-    codAnteriorPessoa = 0;
-    novoCodPessoa = codAnteriorPessoa+1;
-    document.getElementById("codPessoa").value = ""+novoCodPessoa+"";
+                    linhaTabelaPessoas = "<tr><td>"+json[i]['pes_id']+"</td><td>"+json[i]['pes_nome']+"</td><td>"+json[i]['pes_contato']+"</td></tr>";
+    
+                    vetor_TabelaCadasPessoa.push(linhaTabelaPessoas);
+                }
+                console.log(vetor_TabelaCadasPessoa);
+
+            }
+           
+        }
         
-    }else{
-                 
-        for(i = 0; i< jsonCadasPessoa.length;i++){
-            if(jsonCadasPessoa[i][0] > codPessoaMaior){
-            codPessoaMaior = jsonCadasPessoa[i][0];    
-        }
-            
-        }
-        novoCodPessoa = parseInt(codPessoaMaior);
-        novoCodPessoa += 1;
-       document.getElementById("codPessoa").value = ""+novoCodPessoa+"";
-    }
-   
-    habilitaCamposPessoa();
-    habilitaBtnCancelarPessoa();
-    desabilitaBtnNovaPessoa();
-    habilitaBtnGravarPessoa();
-    desabilitaAvancoCodPessoa();
-    desabilitaRecuoCodPessoa();
-    limparCamposCadasPessoa();
+        document.getElementById("corpoTabelaPessoas").innerHTML = '';
     
+    for(i = 0; i < vetor_TabelaCadasPessoa.length;i++){
+         document.getElementById("corpoTabelaPessoas").innerHTML += vetor_TabelaCadasPessoa[i];
+        console.log(vetor_TabelaCadasPessoa[i]);
+    }    
+    }
+    xhrTable.send();
+    
+
     
 }
 
-function cancelarCadasPessoa(){
-    document.getElementById("codPessoa").value = jsonCadasPessoa.length;
-    
-    desabilitaCamposPessoa();
-    
-    desabilitaBtnGravaPessoa();
-    desabilitaBtnCancelarPessoa();
-    habilitaRecuoCodPessoa();
-    getPessoa();
-    habilitaBtnNovaPessoa();
-    carregaTabelaPessoa();
-}
 
 
 
