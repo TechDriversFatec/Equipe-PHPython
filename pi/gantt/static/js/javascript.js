@@ -73,6 +73,7 @@ function postPessoa(){
     desabilitaBtnGravaPessoa();
     desabilitaBtnCancelarPessoa();
     habilitaRecuoCodPessoa();
+    desabilitaHabilitaBtnExcluirPessoa();
    
     getPessoa();
   
@@ -80,7 +81,13 @@ function postPessoa(){
 }
 
 function putPessoa(){
-    codPessoa = document.getElementById("codPessoa").value;
+    if(document.getElementById("nomePessoa").readOnly == true){
+        habilitaCamposPessoa();
+        mudaBotao =  document.getElementById("btn_atualizarCadasPessoa");
+        mudaBotao.style.backgroundColor = "green";
+
+    }else{
+        codPessoa = document.getElementById("codPessoa").value;
     
     urlPutPessoa = 'http://localhost:8000/person/'+codPessoa+'/?format=json'
 
@@ -93,6 +100,18 @@ function putPessoa(){
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.setRequestHeader("X-CSRFToken", csrftoken)
     xhr.send(JSON.stringify({'pes_nome': nomePessoa, 'pes_contato': contato }));
+
+    document.getElementById("nomePessoa").disabled == true;
+    document.getElementById("contato").disabled == true;
+    mudaBotao =  document.getElementById("btn_atualizarCadasPessoa");
+    mudaBotao.style.backgroundColor = "#698FEB";
+    getPessoa();
+    desabilitaCamposPessoa();
+    
+    }
+
+    carregaTabelaPessoa();
+    
 }
 
 function deletePessoa(){
@@ -111,20 +130,11 @@ function deletePessoa(){
     xhrDelete.send(JSON.stringify({'pes_nome': nomePessoa, 'pes_contato': contato }));
 
     
-    
-    recuarCodPessoa();
-    
-
-
-    
-    
-    
-    
 
     carregaTabelaPessoa();
-    
+    recuarCodPessoa();
     desabilitaHabilitaBtnExcluirPessoa();
-    getPessoa();
+    //getPessoa();
 
 }
 ///////////////////////FINISH: GET - POST - PUT - DELETE //////////////////////////////////////////////////////////
@@ -212,7 +222,7 @@ function novaPessoa(){
                 }
                 vetor_pessoa.reverse();
                 codPessoa = vetor_pessoa[0] + 1;
-                console.log(codPessoa);
+                
 
 
 
@@ -231,7 +241,8 @@ function novaPessoa(){
     desabilitaAvancoCodPessoa();
     desabilitaRecuoCodPessoa();
     limparCamposCadasPessoa();
-    desabilitaBtnExcluirPessoa()
+    desabilitaBtnExcluirPessoa();
+    desabilitaBtnAtualizarPessoa();
     xhr.send();
 }
 
@@ -248,6 +259,7 @@ function cancelarCadasPessoa(){
     getPessoa();
     habilitaBtnNovaPessoa();
     desabilitaHabilitaBtnExcluirPessoa();
+    habilitaBtnAtualizarPessoa();
 }
 
 
@@ -339,6 +351,26 @@ function avancarCodPessoa(){
 xhr.send();
 
 }
+
+
+function desabilitaBtnAtualizarPessoa(){
+    document.getElementById("btn_atualizarCadasPessoa").disabled = true;
+ 
+   mudaBotao =  document.getElementById("btn_atualizarCadasPessoa");
+    mudaBotao.style.backgroundColor = "gray";
+
+
+}
+
+function habilitaBtnAtualizarPessoa(){
+   
+ 
+        document.getElementById("btn_atualizarCadasPessoa").disabled = false;
+     mudaBotao =  document.getElementById("btn_atualizarCadasPessoa");
+     mudaBotao.style.backgroundColor = "#698FEB";
+      
+ 
+ }
 
 
 function desabilitaRecuoCodPessoa(){
@@ -472,12 +504,12 @@ function limparCadasPessoa(){
 
 
 function carregaTabelaPessoa(){
-    urlGetPessoa = 'http://localhost:8000/person/?format=json'
+    url = 'http://localhost:8000/person/?format=json'
     
     codPessoa = parseInt(document.getElementById("codPessoa").value);
     vetor_TabelaCadasPessoa = [];
     xhrTable = new XMLHttpRequest();
-    xhrTable.open('GET', urlGetPessoa, true);
+    xhrTable.open('GET', url, true);
     
     xhrTable.onreadystatechange = function(){     
         if(xhrTable.readyState == 4){
@@ -489,7 +521,7 @@ function carregaTabelaPessoa(){
     
                     vetor_TabelaCadasPessoa.push(linhaTabelaPessoas);
                 }
-                console.log(vetor_TabelaCadasPessoa);
+             
 
             }
            
@@ -499,7 +531,7 @@ function carregaTabelaPessoa(){
     
     for(i = 0; i < vetor_TabelaCadasPessoa.length;i++){
          document.getElementById("corpoTabelaPessoas").innerHTML += vetor_TabelaCadasPessoa[i];
-        console.log(vetor_TabelaCadasPessoa[i]);
+        
     }    
     }
     xhrTable.send();
