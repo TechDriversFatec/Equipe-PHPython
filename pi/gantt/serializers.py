@@ -28,7 +28,8 @@ class TaskSerializer(serializers.HyperlinkedModelSerializer):
             'trf_datafinal',
             'trf_prazo',
             'trf_interdependencia',
-            'trf_entregavel'
+            'trf_entregavel',
+            'fk_prj_id'
         )
 
 
