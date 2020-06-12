@@ -556,6 +556,7 @@ function getProjeto(){
     urlGetProjeto = 'http://localhost:8000/project/'+codProjeto+'/?format=json'
     
     xhrGetProjeto = new XMLHttpRequest();
+    
     xhrGetProjeto.open('GET', urlGetProjeto, true);
     xhrGetProjeto.onreadystatechange = function(){
         if(xhrGetProjeto.readyState == 4){
@@ -596,8 +597,6 @@ function postProjeto(){
         carregaTabelaProjeto_add_prj_menu_esquerdo();
         getProjeto();
 
-        getProjeto();
-        getProjeto();
         
         desabilitaCamposProjeto();
         habilitaBtnNovoProjeto();
@@ -1147,7 +1146,45 @@ function expandeTrf(nomeBtn){
 
 /*GET AND POST - API*////////////////////////////////////////////////////////////////////
 
+////DATALIST
+function carregaDatalistProjetos(){
 
+
+    urlGetProjeto = 'http://localhost:8000/project/?format=json';
+
+    xhrCarregaDatalistProjeto = new XMLHttpRequest();
+    vetor_DatalistProjetos = [];
+    xhrCarregaDatalistProjeto.open("GET", urlGetProjeto, true);
+    xhrCarregaDatalistProjeto.onreadystatechange = function(){
+        if(xhrCarregaDatalistProjeto.readyState == 4){
+            if(xhrCarregaDatalistProjeto.status == 200){
+               json = JSON.parse(xhrCarregaDatalistProjeto.responseText);     
+               document.getElementById("listaProjetos").innerHTML = '';
+                for(i = 0; i<json.length; i++){
+                    document.getElementById("listaProjetos").innerHTML += "<option value='"+json[i]['prj_nome']+"'>";
+                    
+                    linha = [json[i]['prj_id'], json[i]['prj_nome']];
+                    vetor_DatalistProjetos.push(linha);
+                    output(vetor_DatalistProjetos);
+                    
+                }
+                
+               
+            }
+        }      
+    }
+    
+    xhrCarregaDatalistProjeto.send();
+    
+ 
+}
+
+function output(array)
+{
+   console.log(array);
+}
+
+///////////
 
 function preencheCamposCadasTarefa(json){
     document.getElementById("nomeTarefa").value = json.trf_name; 
@@ -1168,14 +1205,14 @@ function getTarefa(){
     
     xhrGetTarefa.onreadystatechange = function(){
         if(xhrGetTarefa.readyState == 4){
-            if(xhrGeTarefa.status == 200){
+            if(xhrGetTarefa.status == 200){
                 preencheCamposCadasTarefa(JSON.parse(xhrGetTarefa.responseText));     
                 
             }
         }      
     }
     xhrGetTarefa.send();
-
+    carregaDatalistProjetos();
 }
 
 function postTarefa(){
@@ -1188,7 +1225,7 @@ function postTarefa(){
     
 
     xhrPostTarefa = new XMLHttpRequest();
-    urlPostTarefa = 'http://localhost:8000/task/?format=json';
+    urlPostTarefa = 'http://lopostTarefacalhost:8000/task/?format=json';
     xhrPostTarefa.open("POST", urlPostTarefa, true);
     xhrPostTarefa.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhrPostTarefa.setRequestHeader("X-CSRFToken", csrftoken)
@@ -1328,7 +1365,7 @@ function clicaTarefa(){
                    
                     document.getElementById("codTarefa").value = maiorvalor;
                     habilitaRecuoCodTarefa();
-                    getTarefa();
+                    
                 }else{
                     document.getElementById("codTarefa").value = 0;
                     desabilitaRecuoCodTarefa();
@@ -1341,14 +1378,16 @@ function clicaTarefa(){
         
     }
     xhrAbreTarefa.send();
-    
+    getTarefa();
     habilitaAvancoCodTarefa();
     habilitaRecuoCodTarefa();
     desabilitaBtnCancelarTarefa();
     habilitaBtnNovaTarefa();
     desabilitaBtnGravaTarefa();
     desabilitaAvancoCodTarefa();
-    desabilitaHabilitaBtnExcluirTarefa();
+    //desabilitaHabilitaBtnExcluirTarefa();
+    
+    
     
  
 }
@@ -1399,18 +1438,7 @@ function cancelarCadasTarefa(){
 }
 
 /*
-function carregaDatalistProjetos(){
-    
-    document.getElementById("listaProjetos").innerHTML = '';
-    
-    for(i =0; i< vetor_projeto.length;i++){
-        
-        document.getElementById("listaProjetos").innerHTML += "<option value='"+vetor_projeto[i][1]+"'>";
-        
-        
-    }
-    
-}
+
 
 function carregaDataListInterdepedencia(){
     
@@ -1582,7 +1610,8 @@ function habilitaCamposTarefa(){
 
 function desabilitaCamposTarefa(){
     limparCamposCadasTarefa();
-    document.getElementById("selecionaProjeto").disabled = true;     document.getElementById("interdependencia").disabled = true; 
+    document.getElementById("selecionaProjeto").disabled = true; 
+    document.getElementById("interdependencia").disabled = true; 
     document.getElementById("nomeTarefa").readOnly = true;
     document.getElementById("dt_inicioTarefa").readOnly = true;
      document.getElementById("dt_finalTarefa").readOnly = true;
