@@ -224,10 +224,11 @@
                  <button type="button" id="codAnteriorCadasTarefa" class="btn_shadow1_1" onclick="recuarCodTarefa()"></button>
                  <button type="button" id="codPosteriorCadasTarefa" class="btn_shadow1" onclick="avancarCodTarefa()"></button>
                 <br><br>
-               <label for="selecionaProjeto">Selecione o projeto: <input autocomplete="off" id="selecionaProjeto"  type="text" list="listaProjetos" name="fk_prj_id"></label>
+               <label for="selecionaProjeto">Selecione o projeto: <input disabled="true" autocomplete="off" id="selecionaProjeto" onblur="carregaDatalistProjetos()" type="text" list="listaProjetos" name="fk_prj_id"></label>
                   <datalist id="listaProjetos">
                       
                   </datalist>
+                  <label id="id_prj">TESTE</label>
                <br>
                <label for="interdependencia">Interdependencia: <input autocomplete="off" disabled="true" id="interdependencia" type="text" list="listaInterdependencia" name="trf_interdependencia"></label>
                   <datalist id="listaInterdependencia">
@@ -244,9 +245,10 @@
                <label>Entregável: </label><input id="entregavel" disabled="true" type="checkbox" name="trf_entregavel">
                <br><br>
                <button id="btn_novatarefa" type="submit" class="btn_shadow2" onclick="novaTarefa()">Novo</button>       
-               <button id="btn_salvartarefa" type="submit" class="btn_shadow2" onclick="gravarTarefa()">Gravar</button>
-                      <button id="btn_cancelarCadasTarefa" type="submit" class="btn_shadow2" onclick="cancelarCadasTarefa()">Cancelar</button>
-                     <button id="btn_excluirCadasTarefa" type="submit" class="btn_shadow2" onclick="excluirCadasTarefa()">Excluir</button>
+               <button id="btn_salvartarefa" type="submit" class="btn_shadow2" onclick="postTarefa()">Gravar</button>
+               <button id="btn_atualizarCadasTarefa" type="submit" class="btn_shadow2" onclick="putTarefa()">Atualizar</button>
+               <button id="btn_excluirCadasTarefa" type="submit" class="btn_shadow2" onclick="deleteTarefa()">Excluir</button>
+                <button id="btn_cancelarCadasTarefa" type="submit" class="btn_shadow2" onclick="cancelarCadasTarefa()">Cancelar</button>
                 
                 </div>
           </dialog>
