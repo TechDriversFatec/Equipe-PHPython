@@ -1,6 +1,11 @@
 /*WINDOW.ONLOAD*/
 
-window.onload = carregaTabelaProjeto_add_prj_menu_esquerdo;
+window.onload = function(){
+    add_prj_menu_esquerdo();
+    getAllTasks();
+}
+
+
 
 
 /*/////////////*/
@@ -594,7 +599,7 @@ function postProjeto(){
         }));
     
     
-        carregaTabelaProjeto_add_prj_menu_esquerdo();
+        carregaTabelaProjeto();
         getProjeto();
 
         
@@ -649,7 +654,7 @@ function putProjeto(){
     
     }
 
-    carregaTabelaProjeto_add_prj_menu_esquerdo();
+    carregaTabelaProjeto();
 }
 
 function deleteProjeto(){
@@ -846,7 +851,7 @@ function recuarCodProjeto(){
                     desabilitaRecuoCodProjeto();
                 }
                 habilitaAvancoCodProjeto();
-                carregaTabelaProjeto_add_prj_menu_esquerdo();
+                carregaTabelaProjeto();
                 }
             }
         }
@@ -1041,15 +1046,56 @@ function limparCamposCadasProjeto(){
     mudaCor.value = cor.value;
 }
 
+function add_prj_menu_esquerdo(){
+    document.getElementById("prj_cadastrados").innerHTML = ''; 
+    vetor_prjcadastrados = [];
 
+    urlProjetos = 'http://localhost:8000/project/?format=json';
 
-function carregaTabelaProjeto_add_prj_menu_esquerdo(){
+    xhrBtnProjeto = new XMLHttpRequest();
+    xhrBtnProjeto.open('GET', urlProjetos, true);
+    
+    xhrBtnProjeto.onreadystatechange = function(){     
+        if(xhrBtnProjeto.readyState == 4){
+            if(xhrBtnProjeto.status == 200){
+                json = (JSON.parse(xhrBtnProjeto.responseText));
+
+                for(i = 0;i<json.length;i++){
+
+                    /*CARREGA VETOR PARA CADASTRAR PROJETO NO MENU LATERAL ESQUERDO */
+                    add_btn_prj_menu_esquerdo = [json[i]['prj_id'],"<button id='btn_prj"+json[i]['prj_id']+"' onClick='expandeTrf(this.id)' class='btn_shadow1' style='background-color:"+json[i]['prj_color']+"' >"+json[i]['prj_nome']+"</button>"]; //CRIA VALOR PARA ADICIONAR NA DIV "prj_cadastrados"
+                    vetor_prjcadastrados.push(add_btn_prj_menu_esquerdo);//ADICIONA LINHA PARA CRIAÇÃO DO BTN DE PROJETO
+                    ///////////////////
+
+                }
+                    /*ENVIA PROJETO AO MENU LATERAL ESQUERDO*/
+                    document.getElementById("prj_cadastrados").innerHTML = ''; //ZERA DIV PARA NOVOS BUTTONS
+                    for(i = 0; i<vetor_prjcadastrados.length;i++){ // VARREDURA DO VETOR CRIADO COM OS INSERTS PARA A DIV
+                    document.getElementById("prj_cadastrados").innerHTML +=  vetor_prjcadastrados[i][1];//ADICIONA OS INSERTS NA DIV 
+                        
+                    novaDivTrf = document.createElement("div");//CRIA NOVA DIV PARA RECEBER TAREFAS CORRESPONDENTES AO PROJETO CRIADO
+                        
+                    novaDivTrf.id = "trf_cadastradas_prj"+vetor_prjcadastrados[i][0]+"";//NOME DA DIV PARA RECEBER AS TAREFAS
+                    
+                    document.getElementById("prj_cadastrados").appendChild(novaDivTrf);//ADICIONA A DIV ABAIXO DO PROJETO CRIADO
+                    //////////////////////////////////    
+
+            }
+        }
+    }
+    vetorTrfCadastrados(json, null); 
+}
+    xhrBtnProjeto.send();
+
+}
+
+function carregaTabelaProjeto(){
     document.getElementById("prj_cadastrados").innerHTML = ''; 
     urlTabelaProjeto = 'http://localhost:8000/project/?format=json'
     
     codProjeto = parseInt(document.getElementById("codProjeto").value);
     vetor_tabelaProjeto = [];
-    vetor_prjcadastrados = [];
+    
     xhrTabelaProjeto = new XMLHttpRequest();
     xhrTabelaProjeto.open('GET', urlTabelaProjeto, true);
     
@@ -1057,13 +1103,15 @@ function carregaTabelaProjeto_add_prj_menu_esquerdo(){
         if(xhrTabelaProjeto.readyState == 4){
             if(xhrTabelaProjeto.status == 200){
                 json = (JSON.parse(xhrTabelaProjeto.responseText));
+
+                
                 for(i = 0;i<json.length;i++){
 
                     linhaTabelaProjeto = ["<tr><td>"+json[i]['prj_id']+"</td><td>"+json[i]['prj_nome']+"</td><td>"+json[i]['prj_datainicio']+"</td><td>"+json[i]['prj_prazoentrega']+"</td><td bgcolor="+json[i]['prj_color']+"></td></tr>"];
                     vetor_tabelaProjeto.push(linhaTabelaProjeto); 
 
                     /*CARREGA VETOR PARA CADASTRAR PROJETO NO MENU LATERAL ESQUERDO */
-                    add_btn_prj_menu_esquerdo = ["<button id='btn_prj"+json[i]['prj_id']+"' onClick='expandeTrf(this.id)' class='btn_shadow1' style='background-color:"+json[i]['prj_color']+"' >"+json[i]['prj_nome']+"</button>"]; //CRIA VALOR PARA ADICIONAR NA DIV "prj_cadastrados"
+                    add_btn_prj_menu_esquerdo = [json[i]['prj_id'],"<button id='btn_prj"+json[i]['prj_id']+"' onClick='expandeTrf(this.id)' class='btn_shadow1' style='background-color:"+json[i]['prj_color']+"' >"+json[i]['prj_nome']+"</button>"]; //CRIA VALOR PARA ADICIONAR NA DIV "prj_cadastrados"
                     vetor_prjcadastrados.push(add_btn_prj_menu_esquerdo);//ADICIONA LINHA PARA CRIAÇÃO DO BTN DE PROJETO
                     ///////////////////
                 
@@ -1072,30 +1120,32 @@ function carregaTabelaProjeto_add_prj_menu_esquerdo(){
                 /*ENVIA PROJETO AO MENU LATERAL ESQUERDO*/
                 document.getElementById("prj_cadastrados").innerHTML = ''; //ZERA DIV PARA NOVOS BUTTONS
                 for(i = 0; i<vetor_prjcadastrados.length;i++){ // VARREDURA DO VETOR CRIADO COM OS INSERTS PARA A DIV
-                document.getElementById("prj_cadastrados").innerHTML +=  vetor_prjcadastrados[i];//ADICIONA OS INSERTS NA DIV 
+                document.getElementById("prj_cadastrados").innerHTML +=  vetor_prjcadastrados[i][1];//ADICIONA OS INSERTS NA DIV 
                     
                 novaDivTrf = document.createElement("div");//CRIA NOVA DIV PARA RECEBER TAREFAS CORRESPONDENTES AO PROJETO CRIADO
                     
-                novaDivTrf.id = "trf_cadastradas_prj"+(i+1)+"";//NOME DA DIV PARA RECEBER AS TAREFAS
+                novaDivTrf.id = "trf_cadastradas_prj"+vetor_prjcadastrados[i][0]+"";//NOME DA DIV PARA RECEBER AS TAREFAS
                    
                 document.getElementById("prj_cadastrados").appendChild(novaDivTrf);//ADICIONA A DIV ABAIXO DO PROJETO CRIADO
                 //////////////////////////////////    
 
                 }
     
-     
+                
              
 
             }
            
         }
         getProjeto();
+        add_prj_menu_esquerdo();
         document.getElementById("corpoTabelaProjeto").innerHTML = '';
     
     for(i = 0; i < vetor_tabelaProjeto.length;i++){
          document.getElementById("corpoTabelaProjeto").innerHTML += vetor_tabelaProjeto[i];
         
-    }    
+    }   
+    
     }
     getProjeto();
     xhrTabelaProjeto.send();
@@ -1104,17 +1154,29 @@ function carregaTabelaProjeto_add_prj_menu_esquerdo(){
 }
 /*EXPANDE TAREFAS MENU CENTRAL ESQUERDO*/
 
+recebe_vetorprojeto = [];
+recebe_vetortarefa = [];
 ///FUNÇÃO ATRIBUÍDA PARA O BTN GRAVAR TAREFA
-function vetorTrfCadastrados(){
+function vetorTrfCadastrados(vetor_projeto, vetor_tarefa){
     vetor_trfcadastrados = [];
-  for(i=0;i<vetor_projeto.length;i++){//VARREDURA NOS PROJETOS CADASTRADOS
-       recebeCodPrj = i+1;  //SELECIONA O CODIGO DO PROJETO    
-       for(x=0; x<vetor_tarefa.length;x++){ //VARREDURA NAS TAREFAS CADASTRADAS
-            if(recebeCodPrj == vetor_tarefa[x][7]){//VALIDA O CODIGO DO PROJETO DO CADASTRO DE PROJETO AO CODIGO DO PROJETO NO CADASTRO DE TAREFA E CRIA UM VETOR PARA INSERIR NA DIV CRIADA.
+    if(vetor_projeto != null){
+        recebe_vetorprojeto = vetor_projeto;
+    }
+    if(vetor_tarefa != null){
+        recebe_vetortarefa = vetor_tarefa;
+    }
+    
+    console.log(recebe_vetortarefa);
+    console.log(recebe_vetorprojeto);
+if(recebe_vetorprojeto != '' && recebe_vetortarefa != ''){
+  for(i=0;i<recebe_vetorprojeto.length;i++){//VARREDURA NOS PROJETOS CADASTRADOS
+       recebeCodPrj = recebe_vetorprojeto[i]['prj_id'];  //SELECIONA O CODIGO DO PROJETO    
+       for(x=0; x<recebe_vetortarefa.length;x++){ //VARREDURA NAS TAREFAS CADASTRADAS
+            if(recebeCodPrj == recebe_vetortarefa[x]['fk_prj_id']){//VALIDA O CODIGO DO PROJETO DO CADASTRO DE PROJETO AO CODIGO DO PROJETO NO CADASTRO DE TAREFA E CRIA UM VETOR PARA INSERIR NA DIV CRIADA.
                 
-               codTrf = jsonTarefa[x]['trf_id']; //CODIGO DA TAREFA - TABELA TAREFA
-               recebeNomeTrf = jsonTarefa[x]['trf_nometarefa']; //NOME DA TAREFA - TABELA TAREFA            
-               corProjeto = jsonProjeto[i]['corProjeto']; //COR DO PROJETO - TABELA PROJETO                   
+               codTrf = recebe_vetortarefa[x]['trf_id']; //CODIGO DA TAREFA - TABELA TAREFA
+               recebeNomeTrf = recebe_vetortarefa[x]['trf_name']; //NOME DA TAREFA - TABELA TAREFA            
+               corProjeto = recebe_vetorprojeto[i]['prj_color']; //COR DO PROJETO - TABELA PROJETO                   
                add_btn_trf_menu_esquerdo = [recebeCodPrj,"<button id='btn_trf"+codTrf+"' onClick='dadosTarefa()' class='btn_shadow3' style='border-color:"+corProjeto+"'>"+recebeNomeTrf+"</button>"]; // CRIA LINHA PARA NOVOS BOTÕES DE TAREFAS, ABAIXO DO PROJETO CORRESPONDENTE
                
                vetor_trfcadastrados.push(add_btn_trf_menu_esquerdo);//ADICIONA NO VETOR AS TAREFAS CADASTRADAS E SEUS RESPECTIVOS BOTÕES, COM O ID DO PROJETO NO ÍNDICE 0                  
@@ -1123,12 +1185,13 @@ function vetorTrfCadastrados(){
    }
     console.log(vetor_trfcadastrados);//VERIFICA INTEGRIDADE DO VETOR  
 }
-
+}
 ///FUNÇÃO ATRIBUÍDA PARA O BTN PROJETO NO MENU LATERAL ESQUERDO
 
 function expandeTrf(nomeBtn){
     divideBtn = nomeBtn.substr(7);//REMOVE E DEIXA APENAS O NÚMERO DE IDENTIFICAÇÃO DO BOTÃO DE CADA TAREFA "btn_trf'num exemplo'"
-    
+    console.log("teste: "+divideBtn+"");
+    console.log(vetor_trfcadastrados);
     selecionaDiv = document.getElementById('trf_cadastradas_prj'+divideBtn+'').textContent;//SELECIONA A DIV DE CADA PROJETO E VERIFICA SE TEM CONTEÚDO DENTRO
     if(selecionaDiv == ''){//CASO NÃO TENHA CONTEÚDO
        
@@ -1136,13 +1199,13 @@ function expandeTrf(nomeBtn){
         
         
         if(divideBtn == vetor_trfcadastrados[i][0]){ //CASO O NÚMERO DE IDENTIFICAÇÃO DO BTN DA TAREFA SEJA IGUAL AO ID DE CADA PROJETO, É ADICIONADO O BOTÃO NA DIV CORRESPONDENTE
-            
+            console.log(vetor_trfcadastrados[i][1]);
             document.getElementById('trf_cadastradas_prj'+divideBtn+'').innerHTML += vetor_trfcadastrados[i][1];//ADICIONA OS BOTÕES DAS TAREFAS NAS DIV'S DOS PROJETOS CORRESPONDENTES
         }    
 }
    }else{
        document.getElementById('trf_cadastradas_prj'+divideBtn+'').remove() //CASO TENHA CONTEÚDO NA DIV, ELE É ELIMINADO. ISSO FOI FEITO PARA CRIAR O RECUO.
-       add_prj_menu_esquerdo();//ADICIONA NOVAMENTE A DIV DO PROJETO
+       carregaTabelaProjeto();//ADICIONA NOVAMENTE A DIV DO PROJETO
    }
 }
 /*///////////////////////////////////////////////////////////////////////////////////////*/
@@ -1175,7 +1238,7 @@ function carregaDatalistProjetos(){
                 }
                 outputDatalistProjetoCadastarefa(vetor_DatalistProjetos);
                
-                
+               
         }      
     }
 }
@@ -1226,7 +1289,7 @@ function getNomeProjeto(){
         if(xhrGetProjeto.readyState == 4){
             if(xhrGetProjeto.status == 200){
                 json = JSON.parse(xhrGetProjeto.responseText);
-                console.log(json);
+                //console.log(json);
                 id_prj = document.getElementById("id_prj").innerHTML;
                 for(i =0; i<json.length;i++){
                     if(id_prj == json[i]['prj_id']){
@@ -1241,6 +1304,28 @@ function getNomeProjeto(){
     
 }
 
+function getAllTasks(){
+    codTarefa = document.getElementById("codTarefa").value;
+    
+    urlGetTarefa = 'http://localhost:8000/task/?format=json';
+    
+    xhrGetTarefa = new XMLHttpRequest();
+    xhrGetTarefa.open('GET', urlGetTarefa, true);
+    
+    xhrGetTarefa.onreadystatechange = function(){
+        if(xhrGetTarefa.readyState == 4){
+            if(xhrGetTarefa.status == 200){
+                
+                vetor_tarefa =  JSON.parse(xhrGetTarefa.responseText); 
+               
+            }
+        }  
+        vetorTrfCadastrados(null,vetor_tarefa)    
+    }
+    xhrGetTarefa.send();
+    
+}
+
 function getTarefa(){
     codTarefa = document.getElementById("codTarefa").value;
     
@@ -1252,10 +1337,12 @@ function getTarefa(){
     xhrGetTarefa.onreadystatechange = function(){
         if(xhrGetTarefa.readyState == 4){
             if(xhrGetTarefa.status == 200){
-                preencheCamposCadasTarefa(JSON.parse(xhrGetTarefa.responseText));     
+                preencheCamposCadasTarefa(JSON.parse(xhrGetTarefa.responseText));   
+               
                 getNomeProjeto();
             }
-        }      
+        }  
+          
     }
     xhrGetTarefa.send();
     
