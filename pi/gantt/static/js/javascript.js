@@ -1,7 +1,7 @@
 /*WINDOW.ONLOAD*/
 
 window.onload = function(){
-    add_prj_menu_esquerdo();
+    getAllProjects();
     getAllTasks();
 }
 
@@ -555,23 +555,48 @@ function preencheCamposCadasProjeto(json){
 
 }
 
+function getAllProjects(){
+    
+    urlGetProjeto = 'http://localhost:8000/project/?format=json'
+    
+    xhrGetProjeto = new XMLHttpRequest();
+    json = '';
+    xhrGetProjeto.open('GET', urlGetProjeto, true);
+    xhrGetProjeto.onreadystatechange = function(){
+        if(xhrGetProjeto.readyState == 4){
+            if(xhrGetProjeto.status == 200){
+                json = (JSON.parse(xhrGetProjeto.responseText));
+            }
+        }      
+        add_prj_menu_esquerdo(json);
+    }
+    xhrGetProjeto.send();
+}
+
 function getProjeto(){
     codProjeto = document.getElementById("codProjeto").value;
     
     urlGetProjeto = 'http://localhost:8000/project/'+codProjeto+'/?format=json'
     
     xhrGetProjeto = new XMLHttpRequest();
-    
+   if(urlGetProjeto == 'http://localhost:8000/project/'+codProjeto+'/?format=json'){
     xhrGetProjeto.open('GET', urlGetProjeto, true);
     xhrGetProjeto.onreadystatechange = function(){
         if(xhrGetProjeto.readyState == 4){
             if(xhrGetProjeto.status == 200){
                 preencheCamposCadasProjeto(JSON.parse(xhrGetProjeto.responseText));     
                 
+            }else if(xhrGetProjeto.status == 404){
+
             }
         }      
+        
     }
     xhrGetProjeto.send();
+}else{
+
+}
+   
 
 }
 
@@ -1046,20 +1071,12 @@ function limparCamposCadasProjeto(){
     mudaCor.value = cor.value;
 }
 
-function add_prj_menu_esquerdo(){
+
+
+function add_prj_menu_esquerdo(jsonprj){
     document.getElementById("prj_cadastrados").innerHTML = ''; 
     vetor_prjcadastrados = [];
-
-    urlProjetos = 'http://localhost:8000/project/?format=json';
-
-    xhrBtnProjeto = new XMLHttpRequest();
-    xhrBtnProjeto.open('GET', urlProjetos, true);
     
-    xhrBtnProjeto.onreadystatechange = function(){     
-        if(xhrBtnProjeto.readyState == 4){
-            if(xhrBtnProjeto.status == 200){
-                json = (JSON.parse(xhrBtnProjeto.responseText));
-
                 for(i = 0;i<json.length;i++){
 
                     /*CARREGA VETOR PARA CADASTRAR PROJETO NO MENU LATERAL ESQUERDO */
@@ -1080,12 +1097,10 @@ function add_prj_menu_esquerdo(){
                     document.getElementById("prj_cadastrados").appendChild(novaDivTrf);//ADICIONA A DIV ABAIXO DO PROJETO CRIADO
                     //////////////////////////////////    
 
-            }
-        }
-    }
+                    }
+        
+    
     vetorTrfCadastrados(json, null); 
-}
-    xhrBtnProjeto.send();
 
 }
 
@@ -1165,9 +1180,6 @@ function vetorTrfCadastrados(vetor_projeto, vetor_tarefa){
     if(vetor_tarefa != null){
         recebe_vetortarefa = vetor_tarefa;
     }
-    
-    console.log(recebe_vetortarefa);
-    console.log(recebe_vetorprojeto);
 if(recebe_vetorprojeto != '' && recebe_vetortarefa != ''){
   for(i=0;i<recebe_vetorprojeto.length;i++){//VARREDURA NOS PROJETOS CADASTRADOS
        recebeCodPrj = recebe_vetorprojeto[i]['prj_id'];  //SELECIONA O CODIGO DO PROJETO    
@@ -1183,15 +1195,14 @@ if(recebe_vetorprojeto != '' && recebe_vetortarefa != ''){
            }        
        }    
    }
-    console.log(vetor_trfcadastrados);//VERIFICA INTEGRIDADE DO VETOR  
+    //console.log(vetor_trfcadastrados);//VERIFICA INTEGRIDADE DO VETOR  
 }
 }
 ///FUNÇÃO ATRIBUÍDA PARA O BTN PROJETO NO MENU LATERAL ESQUERDO
 
 function expandeTrf(nomeBtn){
     divideBtn = nomeBtn.substr(7);//REMOVE E DEIXA APENAS O NÚMERO DE IDENTIFICAÇÃO DO BOTÃO DE CADA TAREFA "btn_trf'num exemplo'"
-    console.log("teste: "+divideBtn+"");
-    console.log(vetor_trfcadastrados);
+    
     selecionaDiv = document.getElementById('trf_cadastradas_prj'+divideBtn+'').textContent;//SELECIONA A DIV DE CADA PROJETO E VERIFICA SE TEM CONTEÚDO DENTRO
     if(selecionaDiv == ''){//CASO NÃO TENHA CONTEÚDO
        
