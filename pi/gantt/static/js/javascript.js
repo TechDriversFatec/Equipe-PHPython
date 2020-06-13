@@ -1,7 +1,7 @@
 /*WINDOW.ONLOAD*/
 
 
-window.onload = carregaGantt;
+// window.onload = carregaGantt;
 
 /*/////////////*/
 
@@ -847,7 +847,7 @@ function menuDropdown_menusuperior() {
 
 
 /*VISUALIZAÇÃO DO GRÁFICO GANTT*/
-
+window.onload = carregaGantt;
 function carregaGantt() {
     tasks = [
         {
@@ -941,6 +941,22 @@ function carregaGantt() {
         date_format: 'YYYY-MM-DD',
         custom_popup_html: null
     });
+
+}
+
+
+function copyToClipBoard() {
+
+    var dummy = document.createElement('input'),
+    text = document.URL;
+
+    document.body.appendChild(dummy);
+    dummy.value = text;
+    dummy.select();
+
+    document.execCommand('copy');
+    alert('Link Copiado')
+    document.body.removeChild(dummy);
 
 }
 
