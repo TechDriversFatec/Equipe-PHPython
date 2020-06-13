@@ -739,7 +739,6 @@ function clicaProjeto(){
     }
     xhrAbreProjeto.send();
     
-    carregaTabelaProjeto_add_prj_menu_esquerdo();
     
    
    
@@ -1042,11 +1041,15 @@ function limparCamposCadasProjeto(){
     mudaCor.value = cor.value;
 }
 
+
+
 function carregaTabelaProjeto_add_prj_menu_esquerdo(){
+    document.getElementById("prj_cadastrados").innerHTML = ''; 
     urlTabelaProjeto = 'http://localhost:8000/project/?format=json'
     
     codProjeto = parseInt(document.getElementById("codProjeto").value);
     vetor_tabelaProjeto = [];
+    vetor_prjcadastrados = [];
     xhrTabelaProjeto = new XMLHttpRequest();
     xhrTabelaProjeto.open('GET', urlTabelaProjeto, true);
     
@@ -1208,9 +1211,34 @@ function preencheCamposCadasTarefa(json){
     document.getElementById("dt_inicioTarefa").value = json.trf_datainicial;
     document.getElementById("dt_finalTarefa").value = json.trf_datafinal;
     document.getElementById("dt_prazoTarefa").value = json.trf_prazo;
-    document.getElementById("entregavel").value = json.trf_entregavel;
+    document.getElementById("entregavel").checked = json.trf_entregavel;
     document.getElementById("id_prj").innerHTML = json.fk_prj_id;
 
+}
+
+function getNomeProjeto(){
+    urlProjeto = 'http://localhost:8000/project/?format=json';
+
+    xhrGetProjeto = new XMLHttpRequest();
+    xhrGetProjeto.open('GET', urlProjeto, true);
+    
+    xhrGetProjeto.onreadystatechange = function(){
+        if(xhrGetProjeto.readyState == 4){
+            if(xhrGetProjeto.status == 200){
+                json = JSON.parse(xhrGetProjeto.responseText);
+                console.log(json);
+                id_prj = document.getElementById("id_prj").innerHTML;
+                for(i =0; i<json.length;i++){
+                    if(id_prj == json[i]['prj_id']){
+                        document.getElementById("selecionaProjeto").value = json[i]['prj_nome'];
+                             
+                    }
+                }
+            }
+        }      
+    }
+    xhrGetProjeto.send();
+    
 }
 
 function getTarefa(){
@@ -1225,7 +1253,7 @@ function getTarefa(){
         if(xhrGetTarefa.readyState == 4){
             if(xhrGetTarefa.status == 200){
                 preencheCamposCadasTarefa(JSON.parse(xhrGetTarefa.responseText));     
-                
+                getNomeProjeto();
             }
         }      
     }
@@ -1238,11 +1266,11 @@ function postTarefa(){
    dt_inicioTarefa =  document.getElementById("dt_inicioTarefa").value;
    dt_finalTarefa = document.getElementById("dt_finalTarefa").value;
    dt_prazoTarefa = document.getElementById("dt_prazoTarefa").value;
-   entregavel = document.getElementById("entregavel").value;
+   entregavel = document.getElementById("entregavel").checked;
    interdependencia = document.getElementById("interdependencia").value;
    
    id_prj = document.getElementById("id_prj").innerHTML;
-   id_prj = "http://localhost:8000/project/"+id_prj+"/";
+   
    
     console.log(nomeTarefa, interdependencia, dt_inicioTarefa, dt_finalTarefa, dt_prazoTarefa, entregavel, id_prj);
     
@@ -1293,11 +1321,15 @@ function putTarefa(){
     dt_inicioTarefa =  document.getElementById("dt_inicioTarefa").value;
     dt_finalTarefa = document.getElementById("dt_finalTarefa").value;
     dt_prazoTarefa = document.getElementById("dt_prazoTarefa").value;
-    entregavel = document.getElementById("entregavel").value;
+    entregavel = document.getElementById("entregavel").checked;
+
+    interdependencia = document.getElementById("interdependencia").value;
+   
+   id_prj = document.getElementById("id_prj").innerHTML;
     
     xhrPutTarefa = new XMLHttpRequest();
    
-    xhrPutTarefa.open("PUT", xhrPutTarefa, true);
+    xhrPutTarefa.open("PUT", urlPutTarefa, true);
     xhrPutTarefa.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhrPutTarefa.setRequestHeader("X-CSRFToken", csrftoken)
     xhrPutTarefa.send(JSON.stringify({
@@ -1306,8 +1338,9 @@ function putTarefa(){
         'trf_datafinal': dt_finalTarefa,
         'trf_prazo': dt_prazoTarefa,
         'trf_entregavel': entregavel,
-        //'trf_interdependencia': ,
-        //'fk_prj_id':
+        'trf_interdependencia': interdependencia,
+        'trf_color': '#000000',
+        'fk_prj_id': id_prj
        }));
 
     mudaBotao =  document.getElementById("btn_atualizarCadasTarefa");
@@ -1316,7 +1349,7 @@ function putTarefa(){
     desabilitaCamposTarefa();
     
     }
-
+getTarefa();
     
 }
 
@@ -1329,7 +1362,10 @@ function deleteTarefa(){
     dt_inicioTarefa =  document.getElementById("dt_inicioTarefa").value;
     dt_finalTarefa = document.getElementById("dt_finalTarefa").value;
     dt_prazoTarefa = document.getElementById("dt_prazoTarefa").value;
-    entregavel = document.getElementById("entregavel").value;
+    entregavel = document.getElementById("entregavel");
+    interdependencia = document.getElementById("interdependencia").value;
+   
+   id_prj = document.getElementById("id_prj").innerHTML;
 
     xhrDeleteTarefa = new XMLHttpRequest();
    
@@ -1342,8 +1378,9 @@ function deleteTarefa(){
         'trf_datafinal': dt_finalTarefa,
         'trf_prazo': dt_prazoTarefa,
         'trf_entregavel': entregavel,
-        //'trf_interdependencia': ,
-       // 'fk_prj_id':
+        'trf_interdependencia': interdependencia,
+        'trf_color': '#000000',
+        'fk_prj_id': id_prj
        }));
 
        desabilitaHabilitaBtnExcluirTarefa();

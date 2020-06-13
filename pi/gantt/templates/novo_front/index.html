@@ -224,7 +224,7 @@
                  <button type="button" id="codAnteriorCadasTarefa" class="btn_shadow1_1" onclick="recuarCodTarefa()"></button>
                  <button type="button" id="codPosteriorCadasTarefa" class="btn_shadow1" onclick="avancarCodTarefa()"></button>
                 <br><br>
-               <label for="selecionaProjeto">Selecione o projeto: <input disabled="true" autocomplete="off" id="selecionaProjeto" onblur="carregaDatalistProjetos()" type="text" list="listaProjetos" name="fk_prj_id"></label>
+               <label for="selecionaProjeto">Selecione o projeto: <input disabled="true" autocomplete="off" id="selecionaProjeto" onblur="carregaDatalistProjetos()" onchange="carregaDatalistProjetos()" onclick="value=''" type="text" list="listaProjetos" name="fk_prj_id"></label>
                   <datalist id="listaProjetos">
                       
                   </datalist>

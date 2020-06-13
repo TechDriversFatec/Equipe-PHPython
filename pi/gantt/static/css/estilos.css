@@ -706,17 +706,28 @@
     height: 15px;
 }
 
-#cadastro_tarefa  #btn_novotarefa{
+#cadastro_tarefa  #btn_novatarefa{
     width: 100px;
+    margin-left: 5px;
 }
 #cadastro_tarefa  #btn_salvartarefa{
     width: 100px;
     margin-left: 5px;
 }
-#cadastro_tarefa  #btn_cancelarCadasTarefa{
+#cadastro_tarefa #btn_atualizarCadasTarefa{
     width: 100px;
     margin-left: 5px;
 }
+#cadastro_tarefa #btn_excluirCadasTarefa{
+    width: 100px;
+    margin-left: 5px;
+}
+
+#cadastro_tarefa  #btn_cancelarCadasTarefa{
+    width: 100px;
+    
+}
+
 
 
 
