@@ -59,8 +59,6 @@ function getPessoa(){
         desabilitaRecuoCodPessoa();
 
     }else{
-
-
     urlGetPessoa = 'http://localhost:8000/person/'+codPessoa+'/?format=json';
     
     xhrGetPessoa = new XMLHttpRequest();
@@ -170,9 +168,7 @@ function putPessoa(){
   
     desabilitaCamposPessoa();
     
-    }
-
-    
+}
     
 }
 
@@ -200,6 +196,7 @@ function deletePessoa(){
 
     xhrDeletePessoa.send();
     recuarCodPessoa();
+   
  
     
 }
@@ -250,7 +247,7 @@ function clicaPessoas(){
                 }
 
                
-            }
+            }else if(xhrAbrePessoa.status == 404){}
 
             
         }
@@ -329,7 +326,7 @@ function cancelarCadasPessoa(){
 }
 
 function recuarCodPessoa(){ 
-    urlRecuaPessoa = 'http://localhost:8000/person/?format=json'
+    urlRecuaPessoa = 'http://localhost:8000/person/?format=json';
     
     codPessoa = parseInt(document.getElementById("codPessoa").value);
     vetor_pessoa = [];
@@ -344,6 +341,8 @@ function recuarCodPessoa(){
                     vetor_pessoa.push(json[i]['pes_id']);
                     
                 }
+                
+                
                  
                  menorvalor = vetor_pessoa.length;
                  for(i=0;i<vetor_pessoa.length;i++){
@@ -370,11 +369,13 @@ function recuarCodPessoa(){
                 
                 
                 habilitaAvancoCodPessoa();
+
                 getPessoa();
                 
             }else if(xhrRecuarCod.status == 404){ }
         
             }
+            
             
         }  
     
@@ -430,7 +431,6 @@ function avancarCodPessoa(){
 
 function desabilitaBtnAtualizarPessoa(){
     document.getElementById("btn_atualizarCadasPessoa").disabled = true;
- 
    mudaBotao =  document.getElementById("btn_atualizarCadasPessoa");
     mudaBotao.style.backgroundColor = "gray";
 
@@ -804,35 +804,22 @@ function deleteProjeto(){
     cor = document.getElementById("corProjeto").value;
 
     xhrDeleteProjeto = new XMLHttpRequest();
-   
+    xhrDeleteProjeto.open("DELETE", urlDeleteProjeto, true);
+    xhrDeleteProjeto.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhrDeleteProjeto.setRequestHeader("X-CSRFToken", csrftoken)
+       
     xhrDeleteProjeto.onload = function () {
         if(xhrDeleteProjeto.readyState == 4){
             if(xhrDeleteProjeto.status == 204){
-                
-                
                 carregaTabelaProjeto();
-                recuarCodProjeto();
-               
+                recuarCodProjeto();          
             }
         }
         
     }
 
-    xhrDeleteProjeto.open("DELETE", urlDeleteProjeto, true);
-    xhrDeleteProjeto.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xhrDeleteProjeto.setRequestHeader("X-CSRFToken", csrftoken)
-    xhrDeleteProjeto.send(JSON.stringify({
-        'prj_id': codProjeto,
-        'prj_nome': nomeProjeto, 
-        'prj_escopo': escopo, 
-        'prj_datainicio': dt_inicio,
-        'prj_prazoentrega': dt_prazo,
-        'prj_color': cor
-       }));
-
-       
-      
-       for(i = 0; i< vetor_prjcadastrados.length;i++){
+    xhrDeleteProjeto.send();
+    for(i = 0; i< vetor_prjcadastrados.length;i++){
            if(codProjeto == vetor_prjcadastrados[i][0]){
                       
             vetor_prjcadastrados.splice([i],1);
@@ -1324,9 +1311,6 @@ function expandeTrf(nomeBtn){
 ////DATALIST
 function carregaDatalistProjetos(){
     
-   
-    
-    
         urlGetProjeto = 'http://localhost:8000/project/?format=json';
 
     xhrCarregaDatalistProjeto = new XMLHttpRequest();
@@ -1348,13 +1332,10 @@ function carregaDatalistProjetos(){
                 outputDatalistProjetoCadastarefa(vetor_DatalistProjetos);
                
                
-        }      
+        }else if(xhrCarregaDatalistProjeto.status == 404){}
     }
 }
     xhrCarregaDatalistProjeto.send();
-    
-    
-
     
     }
 
@@ -1398,7 +1379,7 @@ function getNomeProjeto(){
         if(xhrGetProjeto.readyState == 4){
             if(xhrGetProjeto.status == 200){
                 json = JSON.parse(xhrGetProjeto.responseText);
-                //console.log(json);
+                 
                 id_prj = document.getElementById("id_prj").innerHTML;
                 for(i =0; i<json.length;i++){
                     if(id_prj == json[i]['prj_id']){
@@ -1440,29 +1421,41 @@ function getAllTasks(){
 function getTarefa(){
     codTarefa = document.getElementById("codTarefa").value;
     
+    if(codTarefa == "undefined"){
+        document.getElementById("codTarefa").value = 0;
+        limparCamposCadasTarefa();
+        desabilitaAvancoCodTarefa();
+        desabilitaBtnAtualizarTarefa();
+        desabilitaBtnCancelarTarefa();
+        desabilitaBtnGravaTarefa();
+        desabilitaBtnExcluirTarefa();
+        desabilitaCamposTarefa();
+        desabilitaRecuoCodTarefa();
+
+    }else{
+
     urlGetTarefa = 'http://localhost:8000/task/'+codTarefa+'/?format=json';
     
     xhrGetTarefa = new XMLHttpRequest();
     if(urlGetTarefa == 'http://localhost:8000/task/'+codTarefa+'/?format=json'){
-   
-    xhrGetTarefa.open('GET', urlGetTarefa, true);
     
-    xhrGetTarefa.onreadystatechange = function(){
-        if(xhrGetTarefa.readyState == 4){
-            if(xhrGetTarefa.status == 200){
-                preencheCamposCadasTarefa(JSON.parse(xhrGetTarefa.responseText));   
-               
-                getNomeProjeto();
-            }else if(xhrGetTarefa.status == 404){
+        xhrGetTarefa.open('GET', urlGetTarefa, true);
+            
+            xhrGetTarefa.onreadystatechange = function(){
+                if(xhrGetTarefa.readyState == 4){
+                    if(xhrGetTarefa.status == 200){
+                        preencheCamposCadasTarefa(JSON.parse(xhrGetTarefa.responseText));   
+                    
+                        getNomeProjeto();
+                    }else if(xhrGetTarefa.status == 404){
 
+                    }
+                }  
+                
             }
-        }  
-          
+            xhrGetTarefa.send();
     }
-    xhrGetTarefa.send();
-}else{
-
-}
+    }
 }
 
 function postTarefa(){
@@ -1481,6 +1474,19 @@ function postTarefa(){
     xhrPostTarefa.open("POST", urlPostTarefa, true);
     xhrPostTarefa.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhrPostTarefa.setRequestHeader("X-CSRFToken", csrftoken)
+
+    xhrPostTarefa.onload = function(){
+        if(xhrPostTarefa.readyState == 4){
+            if(xhrPostTarefa.status == 201){
+                
+                getTarefa();
+                
+                
+            }
+        }
+    
+
+    }
     xhrPostTarefa.send(JSON.stringify({
          'trf_id': codTarefa,
          'trf_name': nomeTarefa, 
@@ -1492,19 +1498,15 @@ function postTarefa(){
          'trf_color': '#000000',
          'fk_prj_id': id_prj
         }));
-    
-    
-        getTarefa();
-
-       
-        
+         
         desabilitaCamposTarefa();
         habilitaBtnNovaTarefa();
         desabilitaBtnGravaTarefa();
         desabilitaBtnCancelarTarefa();
         habilitaRecuoCodTarefa();
-        desabilitaHabilitaBtnExcluirTarefa();
+        habilitaBtnExcluirTarefa();
         habilitaBtnAtualizarTarefa();
+        getProjeto();
    
 }
 
@@ -1534,6 +1536,19 @@ function putTarefa(){
     xhrPutTarefa.open("PUT", urlPutTarefa, true);
     xhrPutTarefa.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhrPutTarefa.setRequestHeader("X-CSRFToken", csrftoken)
+
+    xhrPutTarefa.onload = function(){
+        if(xhrPutTarefa.readyState == 4){
+            if(xhrPutTarefa.status == 200){
+                
+                getTarefa();
+               
+                
+            }
+        }
+    
+
+    }
     xhrPutTarefa.send(JSON.stringify({
         'trf_id': codTarefa,
         'trf_name': nomeTarefa, 
@@ -1552,7 +1567,7 @@ function putTarefa(){
     desabilitaCamposTarefa();
     
     }
-getTarefa();
+
     
 }
 
@@ -1571,29 +1586,18 @@ function deleteTarefa(){
    id_prj = document.getElementById("id_prj").innerHTML;
 
     xhrDeleteTarefa = new XMLHttpRequest();
-   
     xhrDeleteTarefa.open("DELETE", urlDeleteTarefa, true);
     xhrDeleteTarefa.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhrDeleteTarefa.setRequestHeader("X-CSRFToken", csrftoken)
-    xhrDeleteTarefa.send(JSON.stringify({
-        'trf_id': codTarefa,
-        'trf_name': nomeTarefa, 
-        'trf_datainicial': dt_inicioTarefa, 
-        'trf_datafinal': dt_finalTarefa,
-        'trf_prazo': dt_prazoTarefa,
-        'trf_entregavel': entregavel,
-        'trf_interdependencia': interdependencia,
-        'trf_color': '#000000',
-        'fk_prj_id': id_prj
-       }));
-
-       desabilitaHabilitaBtnExcluirTarefa();
-
-       if(document.getElementById("codProjeto").value == 0){
+    xhrDeleteTarefa.send(); 
+    
+    getProjeto();
+    if(document.getElementById("codProjeto").value == 0){
         limparCamposCadasProjeto();
         habilitaBtnAtualizarProjeto();
-    }  
-      
+    }
+     
+    
 }
 ///////////////////////FINISH: GET - POST - PUT - DELETE //////////////////////////////////////////////////////////
 
@@ -1625,19 +1629,24 @@ function clicaTarefa(){
                         maiorvalor = json[i]['trf_id'];
                     }              
                 }
-                
-                if(maiorvalor >= 1){
-                   
+                if(maiorvalor == 0){
+                    document.getElementById("codTarefa").value = 0;
+                    limparCamposCadasTarefa();
+                    desabilitaAvancoCodTarefa();
+                    desabilitaBtnAtualizarTarefa();
+                    desabilitaBtnCancelarTarefa();
+                    desabilitaBtnGravaTarefa();
+                    desabilitaBtnExcluirTarefa();
+                    habilitaBtnNovaTarefa();
+                    desabilitaCamposTarefa();
+                    desabilitaRecuoCodTarefa();
+                }else{
                     document.getElementById("codTarefa").value = maiorvalor;
                     habilitaRecuoCodTarefa();
                     getTarefa();
-                    
-                }else{
-                    document.getElementById("codTarefa").value = 0;
-                    desabilitaRecuoCodTarefa();
-                    desabilitaAvancoCodTarefa();
                 }
-            }
+
+            }else if(xhrAbreTarefa.status == 404){}
 
             
         }
@@ -1652,11 +1661,7 @@ function clicaTarefa(){
     habilitaBtnNovaTarefa();
     desabilitaBtnGravaTarefa();
     desabilitaAvancoCodTarefa();
-    //desabilitaHabilitaBtnExcluirTarefa();
-    
-    
-    
- 
+    //desabilitaHabilitaBtnExcluirTarefa(); 
 }
 
 function novaTarefa(){
@@ -1700,7 +1705,7 @@ habilitaBtnGravarTarefa();
 desabilitaAvancoCodTarefa();
 desabilitaRecuoCodTarefa();
 limparCamposCadasTarefa();
-desabilitaHabilitaBtnExcluirTarefa();
+desabilitaBtnExcluirTarefa();
 desabilitaBtnAtualizarTarefa();
 xhrNovaTarefa.send();
 }
@@ -1708,15 +1713,15 @@ xhrNovaTarefa.send();
 function cancelarCadasTarefa(){
     codTarefa = parseInt(document.getElementById("codTarefa").value);
     document.getElementById("codTarefa").value = codTarefa - 1;
-    getTarefa();
+    
     desabilitaCamposTarefa();
     
     desabilitaBtnGravaTarefa();
     desabilitaBtnCancelarTarefa();
     habilitaRecuoCodTarefa();
-    
+    getTarefa();
     habilitaBtnNovaTarefa();
-    desabilitaHabilitaBtnExcluirTarefa();
+    habilitaBtnExcluirTarefa();
     habilitaBtnAtualizarTarefa();
    
 }
@@ -1743,7 +1748,7 @@ function carregaDataListInterdepedencia(){
 
 
 function recuarCodTarefa(){
-    urlRecuaTarefa = 'http://localhost:8000/task/?format=json'
+    urlRecuaTarefa = 'http://localhost:8000/task/?format=json';
     
     codTarefa = parseInt(document.getElementById("codTarefa").value);
     
@@ -1770,14 +1775,13 @@ function recuarCodTarefa(){
                 }    
 
                 }
-                   count = 0;
-                      document.getElementById("codTarefa").value = codTarefa;   
+                document.getElementById("codTarefa").value = codTarefa;   
                 if(codTarefa == menorvalor){
                     desabilitaRecuoCodTarefa();
                 }
                 habilitaAvancoCodTarefa();
                 getTarefa();
-                }
+                }else if(xhrRecuarCod.status == 404){}
             }
         }
     
@@ -1815,14 +1819,14 @@ function avancarCodTarefa(){
                 }    
 
                 }
-                   count = 0;
+                   
                       document.getElementById("codTarefa").value = codTarefa;   
                 if(codTarefa == maiorvalor){
                     desabilitaAvancoCodTarefa();
                 }
                 habilitaRecuoCodTarefa();
                 getTarefa();
-                }
+                }else if(xhrAvancarTarefa.status == 404){}
             }
         }
     
@@ -1955,120 +1959,18 @@ function habilitaBtnAtualizarTarefa(){
         document.getElementById("btn_atualizarCadasTarefa").disabled = false;
      mudaBotao =  document.getElementById("btn_atualizarCadasTarefa");
      mudaBotao.style.backgroundColor = "#698FEB";
-      
- 
  }
 
-function desabilitaHabilitaBtnExcluirTarefa(){
-    if(document.getElementById("codTarefa").value == ""+0+""){
-        document.getElementById("btn_excluirCadasTarefa").disabled = true;
+ function desabilitaBtnExcluirTarefa(){
+    document.getElementById("btn_excluirCadasTarefa").disabled = true;
     mudaBotao =  document.getElementById("btn_excluirCadasTarefa");
-     mudaBotao.style.backgroundColor = "gray";
-    }else{
-        document.getElementById("btn_excluirCadasTarefa").disabled = false;
+    mudaBotao.style.backgroundColor = "gray";
+}
+
+function habilitaBtnExcluirTarefa(){
+    document.getElementById("btn_excluirCadasTarefa").disabled = false;
     mudaBotao =  document.getElementById("btn_excluirCadasTarefa");
         mudaBotao.style.backgroundColor = "#698FEB";
-    }
-
-}
-
-
-function gravarTarefa(){
-    codProjetoSelecionado = '';
-    trf_id = document.getElementById("codTarefa");
-    selecionaProjeto = document.getElementById("selecionaProjeto").value;
-    
-    for(i = 0; i< vetor_projeto.length;i++){
-        
-        if(selecionaProjeto == vetor_projeto[i][1]){
-            fk_prj_id = vetor_projeto[i][0];
-        }
-       
-    }
-        
-    trf_interdependencia = document.getElementById("interdependencia");
-    trf_nometarefa = document.getElementById("nomeTarefa");
-    trf_datainicial = document.getElementById("dt_inicioTarefa");
-    trf_datafinal = document.getElementById("dt_finalTarefa");
-    trf_prazo = document.getElementById("dt_prazoTarefa");
-    trf_entregavel = document.getElementById("entregavel");
-    
-    tarefa = [trf_id.value, trf_nometarefa.value, trf_datainicial.value, trf_datafinal.value, trf_prazo.value, trf_interdependencia.value, trf_entregavel.value, fk_prj_id];
-    
-    vetor_tarefa.push(tarefa);
-    console.log(vetor_tarefa);
-    
-    
-    jsonCadastroTarefa();
-    desabilitaCamposTarefa();
-    habilitaBtnNovaTarefa();
-    desabilitaBtnGravaTarefa();
-    desabilitaBtnCancelarTarefa();
-    habilitaRecuoCodTarefa();
-    buscaValoresTarefa();     
-    habilitaDesabilitaBtnExcluirTarefa();
-    carregaDataListInterdepedencia();
-    vetorTrfCadastrados();
-    
-}
-
-function jsonCadastroTarefa(){
-    jsonTarefa = [];
-    for(i=0;i<vetor_tarefa.length;i++){
-        jsonTarefa.push({
-           'trf_id': vetor_tarefa[i][0],
-            'trf_nometarefa': vetor_tarefa[i][1],
-            'trf_datainicial': vetor_tarefa[i][2],
-            'trf_datafinal': vetor_tarefa[i][3],
-            'trf_prazo': vetor_tarefa[i][4],
-            'trf_interdependencia': vetor_tarefa[i][5],
-            'trf_entregavel': vetor_tarefa[i][6],
-            'fk_prj_id': vetor_tarefa[i][7]
-        });
-    }
-    console.log(jsonTarefa);
-}
-
-function excluirCadasTarefa(){
-    codAtual = parseInt(document.getElementById("codTarefa").value);
-    
-    codTarefaMaior = 0;  
-    
-    for(i = 0; i<vetor_tarefa.length;i++){
-        
-        if(codAtual == vetor_tarefa[i][0]){
-            
-            vetor_tarefa.splice([i],1); 
-            console.log(vetor_tarefa);
-        }
-       
-    }
-    for(x=0;x<vetor_tarefa.length;x++){
-        if(vetor_tarefa[x][0] > codTarefaMaior){
-            codTarefaMaior = vetor_tarefa[x][0];    
-        }     
-    }
-    
-    if(vetor_tarefa.length < 1){
-        document.getElementById("codTarefa").value = 0;
-          desabilitaRecuoCodTarefa();
-    }else{
-        document.getElementById("codTarefa").value = codTarefaMaior;
-    }
-   
-    buscaValoresTarefa();
-    desabilitaAvancoCodTarefa();   
-    
-    if(document.getElementById("codTarefa").value <= 1){
-        desabilitaRecuoCodTarefa();
-    }
-    
-    habilitaDesabilitaBtnExcluirTarefa();
-    
-    if(document.getElementById("codTarefa").value == 0){
-        limparCamposCadasTarefa();
-    }
-    vetorTrfCadastrados();
 }
 
 /*///////////////////////////////////////*/
