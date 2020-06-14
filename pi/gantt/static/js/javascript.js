@@ -1330,7 +1330,7 @@ function carregaDatalistProjetos(){
                     
                 }
                 outputDatalistProjetoCadastarefa(vetor_DatalistProjetos);
-               
+                outputDatalistInterdependenciaCadastarefa(vetor_DatalistProjetos, null);
                
         }else if(xhrCarregaDatalistProjeto.status == 404){}
     }
@@ -1342,20 +1342,97 @@ function carregaDatalistProjetos(){
 
 
 
-function outputDatalistProjetoCadastarefa(vetor_projetos)
+function outputDatalistProjetoCadastarefa(vetor_DatalistProjetos)
 {
     nomeprojeto = document.getElementById("selecionaProjeto").value;
     
-    for(i = 0; i<vetor_projetos.length;i++){
+    for(i = 0; i<vetor_DatalistProjetos.length;i++){
         
-        if(nomeprojeto == vetor_projetos[i][1]){
+        if(nomeprojeto == vetor_DatalistProjetos[i][1]){
            
-            document.getElementById("id_prj").innerHTML = ""+vetor_projetos[i][0]+"";
+            document.getElementById("id_prj").innerHTML = ""+vetor_DatalistProjetos[i][0]+"";
         }
 
     }
+
+   
    
 }
+
+function carregaDatalistInterdependencia(){
+    
+    urlGetTarefas = 'http://localhost:8000/task/?format=json';
+
+xhrCarregaDatalistInterdependencia = new XMLHttpRequest();
+vetor_DatalistInterdependencia = [];
+xhrCarregaDatalistInterdependencia.open("GET", urlGetTarefas, true);
+xhrCarregaDatalistInterdependencia.onreadystatechange = function(){
+    if(xhrCarregaDatalistInterdependencia.readyState == 4){
+        if(xhrCarregaDatalistInterdependencia.status == 200){
+           json = JSON.parse(xhrCarregaDatalistInterdependencia.responseText);     
+           
+            for(i = 0; i<json.length; i++){
+               
+                linha = [json[i]['fk_prj_id'],json[i]['trf_id'], json[i]['trf_name']];
+                vetor_DatalistInterdependencia.push(linha);
+                
+                
+            }
+            outputDatalistInterdependenciaCadastarefa(null, vetor_DatalistInterdependencia);
+           
+           
+    }else if(xhrCarregaDatalistInterdependencia.status == 404){}
+}
+}
+xhrCarregaDatalistInterdependencia.send();
+
+}
+
+recebe_projetos = [];
+recebe_interdependencias = []
+function outputDatalistInterdependenciaCadastarefa(vetor_projetos, vetor_tarefas)
+{
+    
+    vetor_trfcadastrados = [];
+    if(vetor_projetos != null){
+        recebe_projetos = vetor_projetos;
+    }
+    if(vetor_tarefas != null){
+        recebe_interdependencias = vetor_tarefas;
+    }
+
+    console.log(recebe_projetos);
+    console.log(recebe_interdependencias);
+
+
+    id_prj = document.getElementById("id_prj").innerHTML;
+    
+//nomeInterdependencia = document.getElementById("interdependencia").value;
+
+for(i = 0; i<recebe_projetos.length;i++){
+    document.getElementById("listaInterdependencia").innerHTML = '';
+    for(x=0 ; x<recebe_interdependencias.length;x++){
+
+        if(id_prj == recebe_interdependencias[x][0]){
+
+            document.getElementById("listaInterdependencia").innerHTML += "<option value='"+recebe_interdependencias[x][2]+"'>";
+       
+        }
+    }          
+}
+
+nomeinterdependencia = document.getElementById("interdependencia").value;
+
+for(i=0;i<recebe_interdependencias.length;i++){
+    if(nomeinterdependencia == recebe_interdependencias[i][2]){
+           
+        document.getElementById("id_interdependencia").innerHTML = ""+recebe_interdependencias[i][1]+"";
+    }
+}
+
+
+}
+
 
 ///////////
 
@@ -1366,6 +1443,8 @@ function preencheCamposCadasTarefa(json){
     document.getElementById("dt_prazoTarefa").value = json.trf_prazo;
     document.getElementById("entregavel").checked = json.trf_entregavel;
     document.getElementById("id_prj").innerHTML = json.fk_prj_id;
+    document.getElementById("id_interdependencia").innerHTML = json.trf_interdependencia;
+    
 
 }
 
@@ -1387,7 +1466,8 @@ function getNomeProjeto(){
                              
                     }
                 }
-            }
+                getAllProjects(); 
+            }else if(xhrGetProjeto.status == 404){}
         }      
     }
     xhrGetProjeto.send();
@@ -1408,6 +1488,20 @@ function getAllTasks(){
             if(xhrGetTarefa.status == 200){
                 
                 vetor_tarefa = JSON.parse(xhrGetTarefa.responseText); 
+
+                id_interdependencia = document.getElementById("id_interdependencia").innerHTML;
+                        
+                
+                for(i=0;i<vetor_tarefa.length;i++){
+                    
+
+                    if(vetor_tarefa[i]['trf_id'] == id_interdependencia){
+                        console.log(vetor_tarefa[i]['trf_name']);
+                    document.getElementById("interdependencia").value = vetor_tarefa[i]['trf_name'];
+                    }else if(id_interdependencia == 0){
+                        document.getElementById("interdependencia").value = '';
+                    }
+                }
                
             }else if(xhrGetTarefa.status == 404){
 
@@ -1445,12 +1539,16 @@ function getTarefa(){
                 if(xhrGetTarefa.readyState == 4){
                     if(xhrGetTarefa.status == 200){
                         preencheCamposCadasTarefa(JSON.parse(xhrGetTarefa.responseText));   
-                    
+                        
                         getNomeProjeto();
-                    }else if(xhrGetTarefa.status == 404){
+                        getAllTasks();
+                                   
+                    }else if(xhrGetTarefa.status == 404){}
 
-                    }
-                }  
+                    
+                }
+                
+             
                 
             }
             xhrGetTarefa.send();
@@ -1465,7 +1563,7 @@ function postTarefa(){
    dt_finalTarefa = document.getElementById("dt_finalTarefa").value;
    dt_prazoTarefa = document.getElementById("dt_prazoTarefa").value;
    entregavel = document.getElementById("entregavel").checked;
-   interdependencia = document.getElementById("interdependencia").value;
+   interdependencia = document.getElementById("id_interdependencia").innerHTML;
    
    id_prj = document.getElementById("id_prj").innerHTML;
   
@@ -1591,7 +1689,7 @@ function deleteTarefa(){
     xhrDeleteTarefa.setRequestHeader("X-CSRFToken", csrftoken)
     xhrDeleteTarefa.send(); 
     
-    getProjeto();
+    getTarefa();
     if(document.getElementById("codProjeto").value == 0){
         limparCamposCadasProjeto();
         habilitaBtnAtualizarProjeto();
