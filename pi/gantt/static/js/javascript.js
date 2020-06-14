@@ -5,9 +5,6 @@ window.onload = function(){
     getAllTasks();
 }
 
-// window.onload = carregaGantt;
-
-/*/////////////*/
 
 
 
@@ -2797,8 +2794,9 @@ function periodo_ano(){
 
 
 /*VISUALIZAÇÃO DO GRÁFICO GANTT*/
-window.onload = carregaGantt;
-function carregaGantt() {
+/*
+function carregaGantt(){
+   
     tasks = [
   {
     id: 'Task 1',
@@ -2880,36 +2878,17 @@ function carregaGantt() {
   
     
     var gantt = new Gantt("#gantt", tasks, {
-        header_height: 50,
-        column_width: 30,
-        step: 24,
-        view_modes: ['Quarter Day', 'Half Day', 'Day', 'Week', 'Month'],
-        bar_height: 20,
-        bar_corner_radius: 3,
-        arrow_curve: 5,
-        padding: 18,
-        view_mode: 'Day',
-        date_format: 'YYYY-MM-DD',
-        custom_popup_html: null
-    });
-
-}
-
-
-function copyToClipBoard() {
-
-    var dummy = document.createElement('input'),
-    text = document.URL;
-
-    document.body.appendChild(dummy);
-    dummy.value = text;
-    dummy.select();
-
-    document.execCommand('copy');
-    alert('Link Copiado')
-    document.body.removeChild(dummy);
-
-}
-
-
-
+    header_height: 50,
+    column_width: 30,
+    step: 24,
+    view_modes: ['Quarter Day', 'Half Day', 'Day', 'Week', 'Month'],
+    bar_height: 20,
+    bar_corner_radius: 3,
+    arrow_curve: 5,
+    padding: 18,
+    view_mode: 'Day',   
+    date_format: 'YYYY-MM-DD',
+    custom_popup_html: null
+});
+    
+}*/
