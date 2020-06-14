@@ -2075,6 +2075,328 @@ function habilitaBtnExcluirTarefa(){
 
 /*DISTRIBUIÇÃO DE PESSOAS AOS PROJETOS*///////////////////////////////
 
+/*GET AND POST - API*////////////////////////////////////////////////////////////////////
+
+////DATALIST
+function carregaDatalistProjetosDistr(){
+    
+    urlGetProjeto = 'http://localhost:8000/project/?format=json';
+
+xhrCarregaDatalistProjeto = new XMLHttpRequest();
+vetor_DatalistProjetos = [];
+xhrCarregaDatalistProjeto.open("GET", urlGetProjeto, true);
+xhrCarregaDatalistProjeto.onreadystatechange = function(){
+    if(xhrCarregaDatalistProjeto.readyState == 4){
+        if(xhrCarregaDatalistProjeto.status == 200){
+           json = JSON.parse(xhrCarregaDatalistProjeto.responseText);     
+           document.getElementById("listaProjetos_distribuicao").innerHTML = '';
+            for(i = 0; i<json.length; i++){
+                document.getElementById("listaProjetos_distribuicao").innerHTML += "<option value='"+json[i]['prj_nome']+"'>";
+                
+                linha = [json[i]['prj_id'], json[i]['prj_nome']];
+                vetor_DatalistProjetos.push(linha);
+                
+                
+            }
+            outputDatalistProjetoCadasDistr(vetor_DatalistProjetos);
+            outputDatalistTarefasDistr(vetor_DatalistProjetos, null);
+           
+    }else if(xhrCarregaDatalistProjeto.status == 404){}
+}
+}
+xhrCarregaDatalistProjeto.send();
+
+}
+
+
+
+
+function outputDatalistProjetoCadasDistr(vetor_DatalistProjetos)
+{
+nomeprojeto = document.getElementById("selecionaProjeto_distribuicao").value;
+
+for(i = 0; i<vetor_DatalistProjetos.length;i++){
+    
+    if(nomeprojeto == vetor_DatalistProjetos[i][1]){
+       
+        document.getElementById("id_prjDistr").innerHTML = ""+vetor_DatalistProjetos[i][0]+"";
+    }
+
+}
+
+
+
+}
+
+function carregaDatalistTarefas(){
+
+urlGetTarefas = 'http://localhost:8000/task/?format=json';
+
+xhrCarregaDatalistTarefas = new XMLHttpRequest();
+vetor_DatalistTarefas = [];
+xhrCarregaDatalistTarefas.open("GET", urlGetTarefas, true);
+xhrCarregaDatalistTarefas.onreadystatechange = function(){
+if(xhrCarregaDatalistTarefas.readyState == 4){
+    if(xhrCarregaDatalistTarefas.status == 200){
+       json = JSON.parse(xhrCarregaDatalistTarefas.responseText);     
+       
+        for(i = 0; i<json.length; i++){
+           
+            linha = [json[i]['fk_prj_id'],json[i]['trf_id'], json[i]['trf_name']];
+            vetor_DatalistTarefas.push(linha);
+            
+            
+        }
+        outputDatalistTarefasDistr(null, vetor_DatalistTarefas);
+       
+       
+}else if(xhrCarregaDatalistTarefas.status == 404){}
+}
+}
+xhrCarregaDatalistTarefas.send();
+
+}
+
+recebe_projetos = [];
+recebe_tarefas = []
+function outputDatalistTarefasDistr(vetor_projetos, vetor_tarefas)
+{
+
+vetor_trfcadastrados = [];
+if(vetor_projetos != null){
+    recebe_projetos = vetor_projetos;
+}
+if(vetor_tarefas != null){
+    recebe_tarefas = vetor_tarefas;
+}
+
+console.log(recebe_projetos);
+console.log(recebe_tarefas);
+
+
+id_trfDistr = document.getElementById("id_trfDistr").innerHTML;
+
+//nomeInterdependencia = document.getElementById("interdependencia").value;
+
+for(i = 0; i<recebe_projetos.length;i++){
+document.getElementById("listaTarefa_distribuicao").innerHTML = '';
+for(x=0 ; x<recebe_tarefas.length;x++){
+
+    if(id_trfDistr == recebe_tarefas[x][0]){
+
+        document.getElementById("listaTarefa_distribuicao").innerHTML += "<option value='"+recebe_tarefas[x][2]+"'>";
+   
+    }
+}          
+}
+
+nometarefas = document.getElementById("listaTarefa").value;
+
+for(i=0;i<recebe_tarefas.length;i++){
+if(nometarefas == recebe_tarefas[i][2]){
+       
+    document.getElementById("id_trfDistr").innerHTML = ""+recebe_tarefas[i][1]+"";
+}
+}
+}
+
+
+///////////
+
+function preencheCamposCadasDistribuicao(json){
+document.getElementById("id_trfDistr").innerHTML = json.fk_trf_id;
+document.getElementById("id_pesDistr").innerHTML = json.fk_pes_id;
+}
+
+
+function getDistr(){
+    codDistribuicao = document.getElementById("codDistribuicao").value;
+
+if(codDistribuicao == "undefined"){
+    document.getElementById("codDistribuicao").value = 0;
+    limparCamposCadasDistribuicao();
+    desabilitaAvancoCodDistribuicao();
+    desabilitaBtnAtualizarDistribuicao();
+    desabilitaBtnCancelarDistribuicao();
+    desabilitaBtnGravaDistribuicao();
+    desabilitaBtnExcluirDistribuicao();
+    desabilitaCamposDistribuicao();
+    desabilitaRecuoCodDistribuicao();
+
+}else{
+
+urlGetDistribuicao = 'http://localhost:8000/task/'+codTarefa+'/?format=json';
+
+xhrGetTarefa = new XMLHttpRequest();
+if(urlGetTarefa == 'http://localhost:8000/task/'+codTarefa+'/?format=json'){
+
+    xhrGetTarefa.open('GET', urlGetTarefa, true);
+        
+        xhrGetTarefa.onreadystatechange = function(){
+            if(xhrGetTarefa.readyState == 4){
+                if(xhrGetTarefa.status == 200){
+                    preencheCamposCadasTarefa(JSON.parse(xhrGetTarefa.responseText));   
+                    
+                    getNomeProjeto();
+                    getAllTasks();
+                               
+                }else if(xhrGetTarefa.status == 404){}
+
+                
+            }
+            
+         
+            
+        }
+        xhrGetTarefa.send();
+}
+}
+}
+
+function postTarefa(){
+codTarefa = document.getElementById("codTarefa").value;
+nomeTarefa =  document.getElementById("nomeTarefa").value;
+dt_inicioTarefa =  document.getElementById("dt_inicioTarefa").value;
+dt_finalTarefa = document.getElementById("dt_finalTarefa").value;
+dt_prazoTarefa = document.getElementById("dt_prazoTarefa").value;
+entregavel = document.getElementById("entregavel").checked;
+interdependencia = document.getElementById("id_interdependencia").innerHTML;
+
+id_prj = document.getElementById("id_prj").innerHTML;
+
+xhrPostTarefa = new XMLHttpRequest();
+urlPostTarefa = 'http://localhost:8000/task/?format=json';
+xhrPostTarefa.open("POST", urlPostTarefa, true);
+xhrPostTarefa.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+xhrPostTarefa.setRequestHeader("X-CSRFToken", csrftoken)
+
+xhrPostTarefa.onload = function(){
+    if(xhrPostTarefa.readyState == 4){
+        if(xhrPostTarefa.status == 201){
+            
+            getTarefa();
+            
+            
+        }
+    }
+
+
+}
+xhrPostTarefa.send(JSON.stringify({
+     'trf_id': codTarefa,
+     'trf_name': nomeTarefa, 
+     'trf_datainicial': dt_inicioTarefa, 
+     'trf_datafinal': dt_finalTarefa,
+     'trf_prazo': dt_prazoTarefa,
+     'trf_entregavel': entregavel,
+     'trf_interdependencia': interdependencia,
+     'trf_color': '#000000',
+     'fk_prj_id': id_prj
+    }));
+     
+    desabilitaCamposTarefa();
+    habilitaBtnNovaTarefa();
+    desabilitaBtnGravaTarefa();
+    desabilitaBtnCancelarTarefa();
+    habilitaRecuoCodTarefa();
+    habilitaBtnExcluirTarefa();
+    habilitaBtnAtualizarTarefa();
+    getProjeto();
+
+}
+
+function putTarefa(){
+if(document.getElementById("nomeTarefa").readOnly == true){
+    habilitaCamposTarefa();
+    mudaBotao =  document.getElementById("btn_atualizarCadasTarefa");
+    mudaBotao.style.backgroundColor = "green";
+
+}else{
+    codTarefa = document.getElementById("codTarefa").value;
+
+urlPutTarefa = 'http://localhost:8000/task/'+codTarefa+'/?format=json'
+
+nomeTarefa =  document.getElementById("nomeTarefa").value;
+dt_inicioTarefa =  document.getElementById("dt_inicioTarefa").value;
+dt_finalTarefa = document.getElementById("dt_finalTarefa").value;
+dt_prazoTarefa = document.getElementById("dt_prazoTarefa").value;
+entregavel = document.getElementById("entregavel").checked;
+
+interdependencia = document.getElementById("interdependencia").value;
+
+id_prj = document.getElementById("id_prj").innerHTML;
+
+xhrPutTarefa = new XMLHttpRequest();
+
+xhrPutTarefa.open("PUT", urlPutTarefa, true);
+xhrPutTarefa.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+xhrPutTarefa.setRequestHeader("X-CSRFToken", csrftoken)
+
+xhrPutTarefa.onload = function(){
+    if(xhrPutTarefa.readyState == 4){
+        if(xhrPutTarefa.status == 200){
+            
+            getTarefa();
+           
+            
+        }
+    }
+
+
+}
+xhrPutTarefa.send(JSON.stringify({
+    'trf_id': codTarefa,
+    'trf_name': nomeTarefa, 
+    'trf_datainicial': dt_inicioTarefa, 
+    'trf_datafinal': dt_finalTarefa,
+    'trf_prazo': dt_prazoTarefa,
+    'trf_entregavel': entregavel,
+    'trf_interdependencia': interdependencia,
+    'trf_color': '#000000',
+    'fk_prj_id': id_prj
+   }));
+
+mudaBotao =  document.getElementById("btn_atualizarCadasTarefa");
+mudaBotao.style.backgroundColor = "#698FEB";
+
+desabilitaCamposTarefa();
+
+}
+
+
+}
+
+function deleteTarefa(){
+recuarCodTarefa();
+codTarefa = document.getElementById("codTarefa").value;
+urlDeleteTarefa = 'http://localhost:8000/task/'+codTarefa+'/?format=json'
+
+nomeTarefa =  document.getElementById("nomeTarefa").value;
+dt_inicioTarefa =  document.getElementById("dt_inicioTarefa").value;
+dt_finalTarefa = document.getElementById("dt_finalTarefa").value;
+dt_prazoTarefa = document.getElementById("dt_prazoTarefa").value;
+entregavel = document.getElementById("entregavel");
+interdependencia = document.getElementById("interdependencia").value;
+
+id_prj = document.getElementById("id_prj").innerHTML;
+
+xhrDeleteTarefa = new XMLHttpRequest();
+xhrDeleteTarefa.open("DELETE", urlDeleteTarefa, true);
+xhrDeleteTarefa.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+xhrDeleteTarefa.setRequestHeader("X-CSRFToken", csrftoken)
+xhrDeleteTarefa.send(); 
+
+getTarefa();
+if(document.getElementById("codProjeto").value == 0){
+    limparCamposCadasProjeto();
+    habilitaBtnAtualizarProjeto();
+}
+ 
+
+}
+///////////////////////FINISH: GET - POST - PUT - DELETE //////////////////////////////////////////////////////////
+
+
 
 function distribuiPessoas(){
    

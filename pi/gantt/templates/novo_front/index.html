@@ -274,22 +274,26 @@
                   <datalist id="listaProjetos_distribuicao">
                       
                   </datalist>
+                  <label id="id_prjDistr">TESTE</label>
                <br>
             <label for="listaTarefa">Selecione a Tarefa: <input autocomplete="off" disabled="true" id="listaTarefa" type="text" list="listaTarefa_distribuicao" name="fk_trf_id" oninput="carregaDatalistPessoas_distribuicao()"></label>
                   <datalist id="listaTarefa_distribuicao">
                       
                   </datalist>
+                  <label id="id_trfDistr">TESTE</label>
                <br>
             <label for="listaPessoa">Selecione a Pessoa: <input autocomplete="off" disabled="true" id="listaPessoa" type="text" list="listaPessoa_distribuicao" name="fk_pes_id"></label>
                   <datalist id="listaPessoa_distribuicao">
                       
                   </datalist>
+                  <label id="id_pesDistr">TESTE</label>
                <br>
-            <button id="btn_novadistribuicao" type="submit" class="btn_shadow2" onclick="novaDistribuicao()">Novo</button>       
-               <button id="btn_salvardistribuicao" type="submit" class="btn_shadow2" onclick="gravarDistribuicao()">Gravar</button>
-                      <button id="btn_cancelarDistribuicao" type="submit" class="btn_shadow2" onclick="cancelarCadasDistribuicao()">Cancelar</button>
-                     <button id="btn_excluirDistribuicao" type="submit" class="btn_shadow2" onclick="excluirDistribuicao()">Excluir</button>
-        </div>
+               <button id="btn_novadistribuicao" type="submit" class="btn_shadow2" onclick="novaDistribuicao()">Novo</button>       
+               <button id="btn_salvardistribuicao" type="submit" class="btn_shadow2" onclick="postDistribuicao()">Gravar</button>
+               <button id="btn_atualizarCadasDistribuicao" type="submit" class="btn_shadow2" onclick="putDistribuicao()">Atualizar</button>
+               <button id="btn_excluirCadasDistribuicao" type="submit" class="btn_shadow2" onclick="deleteDistribuicao()">Excluir</button>
+                <button id="btn_cancelarCadasDistribuicao" type="submit" class="btn_shadow2" onclick="cancelarCadasDistribuicao()">Cancelar</button>
+                 </div>
         
         <br><br>
         
