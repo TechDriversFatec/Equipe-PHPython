@@ -40,47 +40,89 @@ function preencheCamposCadasPessoa(json){
     document.getElementById("contato").value = json.pes_contato;
 }
 
-function getPessoa(value){
+
+
+function getPessoa(){
     codPessoa = document.getElementById("codPessoa").value;
     
-    urlGetPessoa = 'http://localhost:8000/person/'+codPessoa+'/?format=json'
     
-    xhrGet = new XMLHttpRequest();
-    xhrGet.open('GET', urlGetPessoa, true);
 
-    xhrGet.onreadystatechange = function(){
-        if(xhrGet.readyState == 4){
-            if(xhrGet.status == 200){
-                preencheCamposCadasPessoa(JSON.parse(xhrGet.responseText));     
+    if(codPessoa == "undefined"){
+        document.getElementById("codPessoa").value = 0;
+        limparCamposCadasPessoa();
+        desabilitaAvancoCodPessoa();
+        desabilitaBtnAtualizarPessoa();
+        desabilitaBtnCancelarPessoa();
+        desabilitaBtnGravaPessoa();
+        desabilitaBtnExcluirPessoa();
+        desabilitaCamposPessoa();
+        desabilitaRecuoCodPessoa();
+
+    }else{
+
+
+    urlGetPessoa = 'http://localhost:8000/person/'+codPessoa+'/?format=json';
+    
+    xhrGetPessoa = new XMLHttpRequest();
+    xhrGetPessoa.open('GET', urlGetPessoa, true);
+   
+   if(urlGetPessoa == 'http://localhost:8000/person/'+codPessoa+'/?format=json'){
+    xhrGetPessoa.onreadystatechange = function(){
+        if(xhrGetPessoa.readyState == 4){
+            if(xhrGetPessoa.status == 200){
+                preencheCamposCadasPessoa(JSON.parse(xhrGetPessoa.responseText));     
+               
+                
+            
+            }else if(xhrGetPessoa.status == 404){
+
             }
         }      
     }
-    xhrGet.send();
+    xhrGetPessoa.send();
+   }
+}
 }
 
 function postPessoa(){
-   
+    codPessoa = document.getElementById("codPessoa").value;
     nomePessoa = document.getElementById("nomePessoa").value;
     contato = document.getElementById("contato").value;
     
 
-     xhrPost = new XMLHttpRequest();
+     xhrPostPessoa = new XMLHttpRequest();
     urlPostPessoa = 'http://localhost:8000/person/?format=json';
-    xhrPost.open("POST", urlPostPessoa, true);
-    xhrPost.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xhrPost.setRequestHeader("X-CSRFToken", csrftoken)
-    xhrPost.send(JSON.stringify({ 'pes_nome': nomePessoa, 'pes_contato': contato }));
+    xhrPostPessoa.open("POST", urlPostPessoa, true);
+    xhrPostPessoa.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhrPostPessoa.setRequestHeader("X-CSRFToken", csrftoken)
+    
+    xhrPostPessoa.onload = function(){
+        if(xhrPostPessoa.readyState == 4){
+            if(xhrPostPessoa.status == 201){
+                
+                getPessoa();
+                carregaTabelaPessoa();
+                
+            }
+        }
+    
 
-    carregaTabelaPessoa();
+    }
+
+    xhrPostPessoa.send(JSON.stringify({
+        'pes_id': codPessoa,
+        'pes_nome': nomePessoa, 
+        'pes_contato': contato 
+    }));
+
+    
     desabilitaCamposPessoa();
     habilitaBtnNovaPessoa();
     desabilitaBtnGravaPessoa();
     desabilitaBtnCancelarPessoa();
     habilitaRecuoCodPessoa();
-    desabilitaHabilitaBtnExcluirPessoa();
-   
-    
-  
+    habilitaBtnExcluirPessoa();
+    habilitaBtnAtualizarPessoa();
     
 }
 
@@ -98,60 +140,80 @@ function putPessoa(){
     nomePessoa = document.getElementById("nomePessoa").value;
     contato = document.getElementById("contato").value;
 
-    xhr = new XMLHttpRequest();
+    xhrPutPessoa = new XMLHttpRequest();
    
-    xhr.open("PUT", urlPutPessoa, true);
-    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xhr.setRequestHeader("X-CSRFToken", csrftoken)
-    xhr.send(JSON.stringify({'pes_nome': nomePessoa, 'pes_contato': contato }));
+    xhrPutPessoa.open("PUT", urlPutPessoa, true);
+    xhrPutPessoa.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhrPutPessoa.setRequestHeader("X-CSRFToken", csrftoken)
+    xhrPutPessoa.onload = function(){
+        if(xhrPutPessoa.readyState == 4){
+            if(xhrPutPessoa.status == 200){
+                
+                getPessoa();
+                carregaTabelaPessoa();
+                
+            }
+        }
+    
+
+    }
+
+    xhrPutPessoa.send(JSON.stringify({
+    'pes_id': codPessoa,
+    'pes_nome': nomePessoa, 
+    'pes_contato': contato  
+}));
 
     
     mudaBotao =  document.getElementById("btn_atualizarCadasPessoa");
     mudaBotao.style.backgroundColor = "#698FEB";
-    getPessoa();
+  
     desabilitaCamposPessoa();
     
     }
 
-    carregaTabelaPessoa();
+    
     
 }
 
 function deletePessoa(){
-    
-    codPessoa = document.getElementById("codPessoa").value;
-    urlDeletePessoa = 'http://localhost:8000/person/'+codPessoa+'/?format=json'
-
-    nomePessoa = document.getElementById("nomePessoa").value;
-    contato = document.getElementById("contato").value;
-
-    xhrDelete = new XMLHttpRequest();
    
-    xhrDelete.open("DELETE", urlDeletePessoa, true);
-    xhrDelete.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xhrDelete.setRequestHeader("X-CSRFToken", csrftoken)
-    xhrDelete.send(JSON.stringify({'pes_nome': nomePessoa, 'pes_contato': contato }));
+    codPessoa = document.getElementById("codPessoa").value;
+    urlDeletePessoa = 'http://localhost:8000/person/'+codPessoa+'';              
+    xhrDeletePessoa = new XMLHttpRequest();
+    xhrDeletePessoa.open("DELETE", urlDeletePessoa, true);
+    xhrDeletePessoa.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhrDeletePessoa.setRequestHeader("X-CSRFToken", csrftoken)
+    vetor_pessoa = [];
+
+    xhrDeletePessoa.onload = function () {
+        if(xhrDeletePessoa.readyState == 4){
+            if(xhrDeletePessoa.status == 204){
+                
+                
+                carregaTabelaPessoa();
+                
+            }
+        }
+        
+    }
+
+    xhrDeletePessoa.send();
     recuarCodPessoa();
+ 
     
-
-    carregaTabelaPessoa();
-    
-    desabilitaHabilitaBtnExcluirPessoa();
-    
-
 }
+
+
+
+ 
 ///////////////////////FINISH: GET - POST - PUT - DELETE //////////////////////////////////////////////////////////
 function clicaPessoas(){
-    
     document.getElementById("menu_superior").classList.remove("show");   
     codPessoaAtual = 0;
-    
     dialogCadastro = document.getElementById("abreCadastroPessoas");
-
     dialogCadastro.showModal();
-    
-    
-
+ 
     urlAbrePessoa = 'http://localhost:8000/person/?format=json'
 
     xhrAbrePessoa = new XMLHttpRequest();
@@ -170,15 +232,24 @@ function clicaPessoas(){
                     }              
                 }
                 
-                if(maiorvalor >= 1){
+                if(maiorvalor == 0){
+                    document.getElementById("codPessoa").value = 0;
+                    limparCamposCadasPessoa();
+                    desabilitaAvancoCodPessoa();
+                    desabilitaBtnAtualizarPessoa();
+                    desabilitaBtnCancelarPessoa();
+                    desabilitaBtnGravaPessoa();
+                    desabilitaBtnExcluirPessoa();
+                    habilitaBtnNovaPessoa();
+                    desabilitaCamposPessoa();
+                    desabilitaRecuoCodPessoa();
+                }else{
                     document.getElementById("codPessoa").value = maiorvalor;
                     habilitaRecuoCodPessoa();
                     getPessoa();
-                }else{
-                    document.getElementById("codPessoa").value = 0;
-                    desabilitaRecuoCodPessoa();
-                    desabilitaAvancoCodPessoa();
                 }
+
+               
             }
 
             
@@ -197,7 +268,7 @@ function clicaPessoas(){
     habilitaBtnNovaPessoa();
     desabilitaBtnGravaPessoa();
     desabilitaAvancoCodPessoa();
-    desabilitaHabilitaBtnExcluirPessoa();
+    
     carregaTabelaPessoa();
   
 }
@@ -253,7 +324,7 @@ function cancelarCadasPessoa(){
     habilitaRecuoCodPessoa();
     getPessoa();
     habilitaBtnNovaPessoa();
-    desabilitaHabilitaBtnExcluirPessoa();
+    habilitaBtnExcluirPessoa();
     habilitaBtnAtualizarPessoa();
 }
 
@@ -268,6 +339,7 @@ function recuarCodPessoa(){
         if(xhrRecuarCod.readyState == 4){
             if(xhrRecuarCod.status == 200){
                 json = (JSON.parse(xhrRecuarCod.responseText));
+
                 for(i = 0;i<json.length;i++){
                     vetor_pessoa.push(json[i]['pes_id']);
                     
@@ -283,21 +355,32 @@ function recuarCodPessoa(){
                     menorvalor = vetor_pessoa[i]; 
                 }    
 
+                
                 }
-                   count = 0;
-                      document.getElementById("codPessoa").value = codPessoa;   
+                   
+                   
+                      document.getElementById("codPessoa").value = codPessoa; 
+                      
+                
                 if(codPessoa == menorvalor){
                     desabilitaRecuoCodPessoa();
                 }
+
+               
+                
+                
                 habilitaAvancoCodPessoa();
                 getPessoa();
-                }
+                
+            }else if(xhrRecuarCod.status == 404){ }
+        
             }
-        }
+            
+        }  
     
 
         xhrRecuarCod.send();
-
+       
 }
 
 function avancarCodPessoa(){ 
@@ -307,10 +390,10 @@ function avancarCodPessoa(){
     vetor_pessoa = [];
     xhrAvancarPessoa = new XMLHttpRequest();
     xhrAvancarPessoa.open('GET', urlAvancaPessoa, true);
-    xhr.onreadystatechange = function(){     
-        if(xhr.readyState == 4){
-            if(xhr.status == 200){
-                json = (JSON.parse(xhr.responseText));
+    xhrAvancarPessoa.onreadystatechange = function(){     
+        if(xhrAvancarPessoa.readyState == 4){
+            if(xhrAvancarPessoa.status == 200){
+                json = (JSON.parse(xhrAvancarPessoa.responseText));
                 for(i = 0;i<json.length;i++){
                     vetor_pessoa.push(json[i]['pes_id']);
                     
@@ -328,19 +411,19 @@ function avancarCodPessoa(){
                 }    
 
                 }
-                   count = 0;
+                   
                       document.getElementById("codPessoa").value = codPessoa;   
                 if(codPessoa == maiorvalor){
                     desabilitaAvancoCodPessoa();
                 }
                 habilitaRecuoCodPessoa();
                 getPessoa();
-                }
+                }else if(xhrAvancarPessoa.status == 404){ }
             }
         }
     
 
-xhr.send();
+        xhrAvancarPessoa.send();
 
 }
 
@@ -444,24 +527,18 @@ function desabilitaBtnNovaPessoa(){
 
 }
 
+
 function desabilitaBtnExcluirPessoa(){
     document.getElementById("btn_excluirCadasPessoa").disabled = true;
     mudaBotao =  document.getElementById("btn_excluirCadasPessoa");
      mudaBotao.style.backgroundColor = "gray";
 }
 
-function desabilitaHabilitaBtnExcluirPessoa(){
-    if(document.getElementById("codPessoa").value == ""+0+""){
-        document.getElementById("btn_excluirCadasPessoa").disabled = true;
-    mudaBotao =  document.getElementById("btn_excluirCadasPessoa");
-     mudaBotao.style.backgroundColor = "gray";
-    }else{
-        document.getElementById("btn_excluirCadasPessoa").disabled = false;
+function habilitaBtnExcluirPessoa(){
+    document.getElementById("btn_excluirCadasPessoa").disabled = false;
     mudaBotao =  document.getElementById("btn_excluirCadasPessoa");
         mudaBotao.style.backgroundColor = "#698FEB";
-    }
 }
-
 
 function desabilitaBtnGravaPessoa(){
   
@@ -500,13 +577,13 @@ function carregaTabelaPessoa(){
     
     codPessoa = parseInt(document.getElementById("codPessoa").value);
     vetor_TabelaCadasPessoa = [];
-    xhrTable = new XMLHttpRequest();
-    xhrTable.open('GET', url, true);
+    xhrTabelaPessoa = new XMLHttpRequest();
+    xhrTabelaPessoa.open('GET', url, true);
     
-    xhrTable.onreadystatechange = function(){     
-        if(xhrTable.readyState == 4){
-            if(xhrTable.status == 200){
-                json = (JSON.parse(xhrTable.responseText));
+    xhrTabelaPessoa.onreadystatechange = function(){     
+        if(xhrTabelaPessoa.readyState == 4){
+            if(xhrTabelaPessoa.status == 200){
+                json = (JSON.parse(xhrTabelaPessoa.responseText));
                 for(i = 0;i<json.length;i++){
 
                     linhaTabelaPessoas = "<tr><td>"+json[i]['pes_id']+"</td><td>"+json[i]['pes_nome']+"</td><td>"+json[i]['pes_contato']+"</td></tr>";
@@ -518,7 +595,7 @@ function carregaTabelaPessoa(){
             }
            
         }
-        getPessoa();
+        
         document.getElementById("corpoTabelaPessoas").innerHTML = '';
     
     for(i = 0; i < vetor_TabelaCadasPessoa.length;i++){
@@ -526,15 +603,10 @@ function carregaTabelaPessoa(){
         
     }    
     }
-    getPessoa();
-    xhrTable.send();
-    
 
-    
+    xhrTabelaPessoa.send();
+        
 }
-
-
-
 
 /*/////////////////////////////////////////////////*/
 
@@ -560,12 +632,15 @@ function getAllProjects(){
     urlGetProjeto = 'http://localhost:8000/project/?format=json'
     
     xhrGetProjeto = new XMLHttpRequest();
+    
     json = '';
     xhrGetProjeto.open('GET', urlGetProjeto, true);
     xhrGetProjeto.onreadystatechange = function(){
         if(xhrGetProjeto.readyState == 4){
             if(xhrGetProjeto.status == 200){
                 json = (JSON.parse(xhrGetProjeto.responseText));
+            }else if(xhrGetProjeto.status == 404){
+
             }
         }      
         add_prj_menu_esquerdo(json);
@@ -576,6 +651,19 @@ function getAllProjects(){
 function getProjeto(){
     codProjeto = document.getElementById("codProjeto").value;
     
+
+    if(codPessoa == "undefined"){
+        document.getElementById("codPessoa").value = 0;
+        limparCamposCadasPessoa();
+        desabilitaAvancoCodPessoa();
+        desabilitaBtnAtualizarPessoa();
+        desabilitaBtnCancelarPessoa();
+        desabilitaBtnGravaPessoa();
+        desabilitaBtnExcluirPessoa();
+        desabilitaCamposPessoa();
+        desabilitaRecuoCodPessoa();
+
+    }else{
     urlGetProjeto = 'http://localhost:8000/project/'+codProjeto+'/?format=json'
     
     xhrGetProjeto = new XMLHttpRequest();
@@ -585,7 +673,7 @@ function getProjeto(){
         if(xhrGetProjeto.readyState == 4){
             if(xhrGetProjeto.status == 200){
                 preencheCamposCadasProjeto(JSON.parse(xhrGetProjeto.responseText));     
-                
+                getAllProjects();
             }else if(xhrGetProjeto.status == 404){
 
             }
@@ -594,10 +682,11 @@ function getProjeto(){
     }
     xhrGetProjeto.send();
 }else{
+    
 
 }
    
-
+    }
 }
 
 function postProjeto(){
@@ -615,7 +704,21 @@ function postProjeto(){
     xhrPostProjeto.open("POST", urlPostProjeto, true);
     xhrPostProjeto.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhrPostProjeto.setRequestHeader("X-CSRFToken", csrftoken)
+    xhrPostProjeto.onload = function(){
+        if(xhrPostProjeto.readyState == 4){
+            if(xhrPostProjeto.status == 201){
+                
+                getProjeto();
+                carregaTabelaProjeto();
+                
+                
+            }
+        }
+    
+
+    }
     xhrPostProjeto.send(JSON.stringify({
+         'prj_id': codProjeto,
          'prj_nome': nomeProjeto, 
          'prj_escopo': escopo, 
          'prj_datainicio': dt_inicio,
@@ -624,21 +727,14 @@ function postProjeto(){
         }));
     
     
-        carregaTabelaProjeto();
-        getProjeto();
-
-        
         desabilitaCamposProjeto();
         habilitaBtnNovoProjeto();
         desabilitaBtnGravaProjeto();
         desabilitaBtnCancelarProjeto();
         habilitaRecuoCodProjeto();
-        desabilitaHabilitaBtnExcluirProjeto();
+        habilitaBtnExcluirProjeto();
         habilitaBtnAtualizarProjeto();
-
-        
-
-     
+   
 }
 
 function putProjeto(){
@@ -664,12 +760,26 @@ function putProjeto(){
     xhrPutProjeto.open("PUT", urlPutProjeto, true);
     xhrPutProjeto.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhrPutProjeto.setRequestHeader("X-CSRFToken", csrftoken)
+    xhrPutProjeto.onload = function(){
+        if(xhrPutProjeto.readyState == 4){
+            if(xhrPutProjeto.status == 200){
+                
+                getProjeto();
+                carregaTabelaProjeto();
+                
+                
+            }
+        }
+    
+
+    }   
     xhrPutProjeto.send(JSON.stringify({
-        'prj_nome': nomeProjeto, 
-        'prj_escopo': escopo, 
-        'prj_datainicio': dt_inicio,
-        'prj_prazoentrega': dt_prazo,
-        'prj_color': cor
+        'prj_id': codProjeto,
+         'prj_nome': nomeProjeto, 
+         'prj_escopo': escopo, 
+         'prj_datainicio': dt_inicio,
+         'prj_prazoentrega': dt_prazo,
+         'prj_color': cor
        }));
 
     mudaBotao =  document.getElementById("btn_atualizarCadasProjeto");
@@ -679,7 +789,7 @@ function putProjeto(){
     
     }
 
-    carregaTabelaProjeto();
+    
 }
 
 function deleteProjeto(){
@@ -695,10 +805,24 @@ function deleteProjeto(){
 
     xhrDeleteProjeto = new XMLHttpRequest();
    
+    xhrDeleteProjeto.onload = function () {
+        if(xhrDeleteProjeto.readyState == 4){
+            if(xhrDeleteProjeto.status == 204){
+                
+                
+                carregaTabelaProjeto();
+                recuarCodProjeto();
+               
+            }
+        }
+        
+    }
+
     xhrDeleteProjeto.open("DELETE", urlDeleteProjeto, true);
     xhrDeleteProjeto.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhrDeleteProjeto.setRequestHeader("X-CSRFToken", csrftoken)
     xhrDeleteProjeto.send(JSON.stringify({
+        'prj_id': codProjeto,
         'prj_nome': nomeProjeto, 
         'prj_escopo': escopo, 
         'prj_datainicio': dt_inicio,
@@ -707,9 +831,7 @@ function deleteProjeto(){
        }));
 
        
-       
-       desabilitaHabilitaBtnExcluirProjeto();
-
+      
        for(i = 0; i< vetor_prjcadastrados.length;i++){
            if(codProjeto == vetor_prjcadastrados[i][0]){
                       
@@ -751,16 +873,23 @@ function clicaProjeto(){
                     }              
                 }
                 
-                if(maiorvalor >= 1){
-                   
+                if(maiorvalor == 0){
+                    document.getElementById("codProjeto").value = 0;
+                    limparCamposCadasProjeto();
+                    desabilitaAvancoCodProjeto();
+                    desabilitaBtnAtualizarProjeto();
+                    desabilitaBtnCancelarProjeto();
+                    desabilitaBtnGravaProjeto();
+                    desabilitaBtnExcluirProjeto();
+                    habilitaBtnNovaProjeto();
+                    desabilitaCamposProjeto();
+                    desabilitaRecuoCodProjeto();
+                }else{
                     document.getElementById("codProjeto").value = maiorvalor;
                     habilitaRecuoCodProjeto();
                     getProjeto();
-                }else{
-                    document.getElementById("codProjeto").value = 0;
-                    desabilitaRecuoCodProjeto();
-                    desabilitaAvancoCodProjeto();
                 }
+
             }
 
             
@@ -779,9 +908,9 @@ function clicaProjeto(){
     habilitaBtnNovoProjeto();
     desabilitaBtnGravaProjeto();
     desabilitaAvancoCodProjeto();
-    desabilitaHabilitaBtnExcluirProjeto();
     
-
+    
+    carregaTabelaProjeto();
     }
 
 function novoProjeto(){
@@ -819,7 +948,7 @@ function novoProjeto(){
     desabilitaAvancoCodProjeto();
     desabilitaRecuoCodProjeto();
     limparCamposCadasProjeto();
-    desabilitaHabilitaBtnExcluirProjeto();
+    desabilitaBtnExcluirProjeto();
     desabilitaBtnAtualizarProjeto();
     xhrNovoProjeto.send();
         
@@ -838,7 +967,7 @@ function cancelarCadasProjeto(){
     habilitaRecuoCodProjeto();
     
     habilitaBtnNovoProjeto();
-    desabilitaHabilitaBtnExcluirProjeto();
+    habilitaBtnExcluirProjeto();
     habilitaBtnAtualizarProjeto();
 }
 
@@ -870,14 +999,16 @@ function recuarCodProjeto(){
                 }    
 
                 }
-                   count = 0;
+                  
                       document.getElementById("codProjeto").value = codProjeto;   
                 if(codProjeto == menorvalor){
                     desabilitaRecuoCodProjeto();
                 }
                 habilitaAvancoCodProjeto();
-                carregaTabelaProjeto();
-                }
+                getProjeto();
+                }else if(xhrRecuarCod.status == 404){ }
+        
+            
             }
         }
     
@@ -914,14 +1045,15 @@ function avancarCodProjeto(){
                 }    
 
                 }
-                   count = 0;
+                   
                       document.getElementById("codProjeto").value = codProjeto;   
                 if(codProjeto == maiorvalor){
                     desabilitaAvancoCodProjeto();
                 }
                 habilitaRecuoCodProjeto();
                 getProjeto();
-                }
+                }else if(xhrAvancarProjeto.status == 404){ }
+            
             }
         }
     
@@ -1032,17 +1164,16 @@ function desabilitaBtnNovoProjeto(){
     }
 }
 
-function desabilitaHabilitaBtnExcluirProjeto(){
-    if(document.getElementById("codProjeto").value == ""+0+""){
-        document.getElementById("btn_excluirCadasProjeto").disabled = true;
+function desabilitaBtnExcluirProjeto(){
+    document.getElementById("btn_excluirCadasProjeto").disabled = true;
     mudaBotao =  document.getElementById("btn_excluirCadasProjeto");
      mudaBotao.style.backgroundColor = "gray";
-    }else{
-        document.getElementById("btn_excluirCadasProjeto").disabled = false;
+}
+
+function habilitaBtnExcluirProjeto(){
+    document.getElementById("btn_excluirCadasProjeto").disabled = false;
     mudaBotao =  document.getElementById("btn_excluirCadasProjeto");
         mudaBotao.style.backgroundColor = "#698FEB";
-    }
-
 }
 
 function desabilitaBtnGravaProjeto(){
@@ -1105,67 +1236,31 @@ function add_prj_menu_esquerdo(jsonprj){
 }
 
 function carregaTabelaProjeto(){
-    document.getElementById("prj_cadastrados").innerHTML = ''; 
+
     urlTabelaProjeto = 'http://localhost:8000/project/?format=json'
-    
     codProjeto = parseInt(document.getElementById("codProjeto").value);
     vetor_tabelaProjeto = [];
-    
     xhrTabelaProjeto = new XMLHttpRequest();
     xhrTabelaProjeto.open('GET', urlTabelaProjeto, true);
-    
     xhrTabelaProjeto.onreadystatechange = function(){     
         if(xhrTabelaProjeto.readyState == 4){
             if(xhrTabelaProjeto.status == 200){
                 json = (JSON.parse(xhrTabelaProjeto.responseText));
-
-                
+                         
                 for(i = 0;i<json.length;i++){
-
                     linhaTabelaProjeto = ["<tr><td>"+json[i]['prj_id']+"</td><td>"+json[i]['prj_nome']+"</td><td>"+json[i]['prj_datainicio']+"</td><td>"+json[i]['prj_prazoentrega']+"</td><td bgcolor="+json[i]['prj_color']+"></td></tr>"];
-                    vetor_tabelaProjeto.push(linhaTabelaProjeto); 
-
-                    /*CARREGA VETOR PARA CADASTRAR PROJETO NO MENU LATERAL ESQUERDO */
-                    add_btn_prj_menu_esquerdo = [json[i]['prj_id'],"<button id='btn_prj"+json[i]['prj_id']+"' onClick='expandeTrf(this.id)' class='btn_shadow1' style='background-color:"+json[i]['prj_color']+"' >"+json[i]['prj_nome']+"</button>"]; //CRIA VALOR PARA ADICIONAR NA DIV "prj_cadastrados"
-                    vetor_prjcadastrados.push(add_btn_prj_menu_esquerdo);//ADICIONA LINHA PARA CRIAÇÃO DO BTN DE PROJETO
-                    ///////////////////
-                
+                    vetor_tabelaProjeto.push(linhaTabelaProjeto);                  
                 }
-                
-                /*ENVIA PROJETO AO MENU LATERAL ESQUERDO*/
-                document.getElementById("prj_cadastrados").innerHTML = ''; //ZERA DIV PARA NOVOS BUTTONS
-                for(i = 0; i<vetor_prjcadastrados.length;i++){ // VARREDURA DO VETOR CRIADO COM OS INSERTS PARA A DIV
-                document.getElementById("prj_cadastrados").innerHTML +=  vetor_prjcadastrados[i][1];//ADICIONA OS INSERTS NA DIV 
-                    
-                novaDivTrf = document.createElement("div");//CRIA NOVA DIV PARA RECEBER TAREFAS CORRESPONDENTES AO PROJETO CRIADO
-                    
-                novaDivTrf.id = "trf_cadastradas_prj"+vetor_prjcadastrados[i][0]+"";//NOME DA DIV PARA RECEBER AS TAREFAS
-                   
-                document.getElementById("prj_cadastrados").appendChild(novaDivTrf);//ADICIONA A DIV ABAIXO DO PROJETO CRIADO
-                //////////////////////////////////    
-
-                }
-    
-                
-             
-
-            }
-           
-        }
-        getProjeto();
-        add_prj_menu_esquerdo();
+            }else if(xhrTabelaProjeto.status == 404){}
+            
+            }    
         document.getElementById("corpoTabelaProjeto").innerHTML = '';
-    
+        
     for(i = 0; i < vetor_tabelaProjeto.length;i++){
          document.getElementById("corpoTabelaProjeto").innerHTML += vetor_tabelaProjeto[i];
-        
     }   
-    
-    }
-    getProjeto();
+}
     xhrTabelaProjeto.send();
-     
-    
 }
 /*EXPANDE TAREFAS MENU CENTRAL ESQUERDO*/
 
@@ -1180,6 +1275,7 @@ function vetorTrfCadastrados(vetor_projeto, vetor_tarefa){
     if(vetor_tarefa != null){
         recebe_vetortarefa = vetor_tarefa;
     }
+
 if(recebe_vetorprojeto != '' && recebe_vetortarefa != ''){
   for(i=0;i<recebe_vetorprojeto.length;i++){//VARREDURA NOS PROJETOS CADASTRADOS
        recebeCodPrj = recebe_vetorprojeto[i]['prj_id'];  //SELECIONA O CODIGO DO PROJETO    
@@ -1187,6 +1283,7 @@ if(recebe_vetorprojeto != '' && recebe_vetortarefa != ''){
             if(recebeCodPrj == recebe_vetortarefa[x]['fk_prj_id']){//VALIDA O CODIGO DO PROJETO DO CADASTRO DE PROJETO AO CODIGO DO PROJETO NO CADASTRO DE TAREFA E CRIA UM VETOR PARA INSERIR NA DIV CRIADA.
                 
                codTrf = recebe_vetortarefa[x]['trf_id']; //CODIGO DA TAREFA - TABELA TAREFA
+              
                recebeNomeTrf = recebe_vetortarefa[x]['trf_name']; //NOME DA TAREFA - TABELA TAREFA            
                corProjeto = recebe_vetorprojeto[i]['prj_color']; //COR DO PROJETO - TABELA PROJETO                   
                add_btn_trf_menu_esquerdo = [recebeCodPrj,"<button id='btn_trf"+codTrf+"' onClick='dadosTarefa()' class='btn_shadow3' style='border-color:"+corProjeto+"'>"+recebeNomeTrf+"</button>"]; // CRIA LINHA PARA NOVOS BOTÕES DE TAREFAS, ABAIXO DO PROJETO CORRESPONDENTE
@@ -1195,28 +1292,29 @@ if(recebe_vetorprojeto != '' && recebe_vetortarefa != ''){
            }        
        }    
    }
-    //console.log(vetor_trfcadastrados);//VERIFICA INTEGRIDADE DO VETOR  
+   //console.log(vetor_trfcadastrados);//VERIFICA INTEGRIDADE DO VETOR  
 }
 }
 ///FUNÇÃO ATRIBUÍDA PARA O BTN PROJETO NO MENU LATERAL ESQUERDO
 
 function expandeTrf(nomeBtn){
-    divideBtn = nomeBtn.substr(7);//REMOVE E DEIXA APENAS O NÚMERO DE IDENTIFICAÇÃO DO BOTÃO DE CADA TAREFA "btn_trf'num exemplo'"
     
+    divideBtn = nomeBtn.substr(7);//REMOVE E DEIXA APENAS O NÚMERO DE IDENTIFICAÇÃO DO BOTÃO DE CADA TAREFA "btn_trf'num exemplo'"
+   
     selecionaDiv = document.getElementById('trf_cadastradas_prj'+divideBtn+'').textContent;//SELECIONA A DIV DE CADA PROJETO E VERIFICA SE TEM CONTEÚDO DENTRO
     if(selecionaDiv == ''){//CASO NÃO TENHA CONTEÚDO
        
         for(i=0;i<vetor_trfcadastrados.length;i++){//FAZ VARREDURA NOS BOTÕES DAS TAREFAS
-        
+       
         
         if(divideBtn == vetor_trfcadastrados[i][0]){ //CASO O NÚMERO DE IDENTIFICAÇÃO DO BTN DA TAREFA SEJA IGUAL AO ID DE CADA PROJETO, É ADICIONADO O BOTÃO NA DIV CORRESPONDENTE
-            console.log(vetor_trfcadastrados[i][1]);
+            
             document.getElementById('trf_cadastradas_prj'+divideBtn+'').innerHTML += vetor_trfcadastrados[i][1];//ADICIONA OS BOTÕES DAS TAREFAS NAS DIV'S DOS PROJETOS CORRESPONDENTES
         }    
-}
+        }
    }else{
        document.getElementById('trf_cadastradas_prj'+divideBtn+'').remove() //CASO TENHA CONTEÚDO NA DIV, ELE É ELIMINADO. ISSO FOI FEITO PARA CRIAR O RECUO.
-       carregaTabelaProjeto();//ADICIONA NOVAMENTE A DIV DO PROJETO
+       add_prj_menu_esquerdo();//ADICIONA NOVAMENTE A DIV DO PROJETO
    }
 }
 /*///////////////////////////////////////////////////////////////////////////////////////*/
@@ -1321,20 +1419,22 @@ function getAllTasks(){
     urlGetTarefa = 'http://localhost:8000/task/?format=json';
     
     xhrGetTarefa = new XMLHttpRequest();
+    
     xhrGetTarefa.open('GET', urlGetTarefa, true);
     
     xhrGetTarefa.onreadystatechange = function(){
         if(xhrGetTarefa.readyState == 4){
             if(xhrGetTarefa.status == 200){
                 
-                vetor_tarefa =  JSON.parse(xhrGetTarefa.responseText); 
+                vetor_tarefa = JSON.parse(xhrGetTarefa.responseText); 
                
+            }else if(xhrGetTarefa.status == 404){
+
             }
         }  
         vetorTrfCadastrados(null,vetor_tarefa)    
     }
     xhrGetTarefa.send();
-    
 }
 
 function getTarefa(){
@@ -1343,6 +1443,8 @@ function getTarefa(){
     urlGetTarefa = 'http://localhost:8000/task/'+codTarefa+'/?format=json';
     
     xhrGetTarefa = new XMLHttpRequest();
+    if(urlGetTarefa == 'http://localhost:8000/task/'+codTarefa+'/?format=json'){
+   
     xhrGetTarefa.open('GET', urlGetTarefa, true);
     
     xhrGetTarefa.onreadystatechange = function(){
@@ -1351,15 +1453,20 @@ function getTarefa(){
                 preencheCamposCadasTarefa(JSON.parse(xhrGetTarefa.responseText));   
                
                 getNomeProjeto();
+            }else if(xhrGetTarefa.status == 404){
+
             }
         }  
           
     }
     xhrGetTarefa.send();
-    
+}else{
+
+}
 }
 
 function postTarefa(){
+   codTarefa = document.getElementById("codTarefa").value;
    nomeTarefa =  document.getElementById("nomeTarefa").value;
    dt_inicioTarefa =  document.getElementById("dt_inicioTarefa").value;
    dt_finalTarefa = document.getElementById("dt_finalTarefa").value;
@@ -1368,17 +1475,14 @@ function postTarefa(){
    interdependencia = document.getElementById("interdependencia").value;
    
    id_prj = document.getElementById("id_prj").innerHTML;
-   
-   
-    console.log(nomeTarefa, interdependencia, dt_inicioTarefa, dt_finalTarefa, dt_prazoTarefa, entregavel, id_prj);
-    
-
+  
     xhrPostTarefa = new XMLHttpRequest();
     urlPostTarefa = 'http://localhost:8000/task/?format=json';
     xhrPostTarefa.open("POST", urlPostTarefa, true);
     xhrPostTarefa.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhrPostTarefa.setRequestHeader("X-CSRFToken", csrftoken)
     xhrPostTarefa.send(JSON.stringify({
+         'trf_id': codTarefa,
          'trf_name': nomeTarefa, 
          'trf_datainicial': dt_inicioTarefa, 
          'trf_datafinal': dt_finalTarefa,
@@ -1431,6 +1535,7 @@ function putTarefa(){
     xhrPutTarefa.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhrPutTarefa.setRequestHeader("X-CSRFToken", csrftoken)
     xhrPutTarefa.send(JSON.stringify({
+        'trf_id': codTarefa,
         'trf_name': nomeTarefa, 
         'trf_datainicial': dt_inicioTarefa, 
         'trf_datafinal': dt_finalTarefa,
@@ -1471,6 +1576,7 @@ function deleteTarefa(){
     xhrDeleteTarefa.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhrDeleteTarefa.setRequestHeader("X-CSRFToken", csrftoken)
     xhrDeleteTarefa.send(JSON.stringify({
+        'trf_id': codTarefa,
         'trf_name': nomeTarefa, 
         'trf_datainicial': dt_inicioTarefa, 
         'trf_datafinal': dt_finalTarefa,

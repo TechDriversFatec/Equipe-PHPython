@@ -2,13 +2,13 @@ from django.db import models
 
 
 class tb_Pessoa(models.Model):
-    pes_id = models.AutoField('id', primary_key=True)
+    pes_id = models.IntegerField('id', primary_key=True)
     pes_nome = models.CharField('Nome', max_length=90)
     pes_contato = models.BigIntegerField('Contato')
 
 
 class tb_Projeto(models.Model):
-    prj_id = models.AutoField('id', primary_key=True)
+    prj_id = models.IntegerField('id', primary_key=True)
     prj_nome = models.CharField('Nome', max_length=60)
     prj_escopo = models.CharField('Escopo', max_length=119)
     prj_datainicio = models.DateField('Data Inicio')
@@ -17,7 +17,7 @@ class tb_Projeto(models.Model):
 
 
 class tb_Tarefa(models.Model):
-    trf_id = models.AutoField('id', primary_key=True)
+    trf_id = models.IntegerField('id', primary_key=True)
     trf_name = models.CharField('nome', max_length=120, default='')
     trf_datainicial = models.DateField('Data Inicial')
     trf_datafinal = models.DateField('Data Final', null=True)
