@@ -18,7 +18,7 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
         )
 
 
-class TaskSerializer(serializers.HyperlinkedModelSerializer):
+class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = tb_Tarefa
         fields = (
@@ -28,7 +28,9 @@ class TaskSerializer(serializers.HyperlinkedModelSerializer):
             'trf_datafinal',
             'trf_prazo',
             'trf_interdependencia',
-            'trf_entregavel'
+            'trf_entregavel',
+            'trf_color',
+            'fk_prj_id'
         )
 
 
