@@ -1,10 +1,13 @@
 /*
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
-
 */
-@import url(./frappe-gantt.css);
 
+
+*{
+	width: 0px;
+	padding: 0px;
+}
 
 /*DEFININDO A CLASS BORDER BOX-SHADOW*/
 
@@ -87,8 +90,6 @@
 /**/
 /*///////////////////////////////////*/
 
-/*///////////////////////////////////*/
-
 
 /*TELA PADRÃO DE CADASTROS - DIALOG*/
 
@@ -98,8 +99,7 @@
   border-color: #698FEB;
   border-radius:0px 20px 0px 20px;
     width: 600px;
-    height: 550px;
-  
+    height: 600px;
 }
 
 .abreCadastro #btn_fechar{
@@ -251,7 +251,61 @@
     
 }
 
+/*MENU DROPDOWN CADASTRO DE PROJETO */
 
+/**/
+.dropdown_prj {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content_prj {
+  display: none;
+  position: absolute;
+  background-color: white;
+  border-style: inset;
+  border-width: 5px;
+  border-color: #698FEB;
+  border-radius:0px 20px 0px 20px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  width: 220px;
+  height: 350px;
+}
+
+
+
+.dropdown-content_prj #cadastro_projeto{
+    width: 220px;
+    height: 300px;
+    
+}
+
+.dropdown-content_prj #cadastro_projeto input{
+    width: 200px;
+    margin-left: 5px;
+    margin-bottom: 6px;
+    
+}
+
+.dropdown-content_prj #cadastro_projeto label{
+    margin-left: 5px;
+    
+}
+
+.dropdown-content_prj #cadastro_projeto #btn_salvarprojeto{
+   margin-left: 30px;
+    margin-top: -5px;
+}
+
+.dropdown-content_prj #cadastro_projeto #btn_limparCadasProjeto{
+    width: 80px;
+    margin-left: 5px;
+    
+}
+
+.show {display: block;}
+/**/
 
 
 #top_central #imgbtn_trf{
@@ -266,6 +320,57 @@
 
 
 
+/*MENU DROPDOWN CADASTRO DE TAREFA*/
+
+/**/
+.dropdown_trf {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content_trf {
+  display: none;
+  position: absolute;
+  background-color: white;
+  border-style: inset;
+  border-width: 5px;
+  border-color: #698FEB;
+  border-radius:0px 20px 0px 20px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  width: 220px;
+  height: 350px;
+}
+
+
+
+.dropdown-content_trf #cadastro_tarefa{
+    width: 220px;
+    height: 300px;
+    
+}
+
+.dropdown-content_trf #cadastro_tarefa input{
+    width: 200px;
+    
+    margin-left: 5px;
+    margin-bottom: 9px;
+    
+}
+
+.dropdown-content_trf #cadastro_tarefa label{
+    margin-left: 5px;
+    
+    
+}
+
+.dropdown-content_trf #cadastro_tarefa #btn_salvartarefa{
+   margin-left: 30px;
+   
+}
+
+.show {display: block;}
+/**/
 
 
 
@@ -278,6 +383,62 @@
     margin-left: -50px;
     
 }
+
+
+/*MENU DROPDOWN CADASTRO DE PESSOA*/
+
+/**/
+.dropdown_pessoas {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content_pessoas{
+  display: none;
+  position: absolute;
+  background-color: white;
+  border-style: inset;
+  border-width: 5px;
+  border-color: #698FEB;
+  border-radius:0px 20px 0px 20px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  width: 220px;
+  height: 350px;
+}
+
+
+
+.dropdown-content_pessoas #cadastro_pessoas{
+    width: 220px;
+    height: 300px;
+    
+}
+
+.dropdown-content_pessoas #cadastro_pessoas input{
+    width: 200px;
+    
+    margin-left: 5px;
+    margin-bottom: 9px;
+    
+}
+
+.dropdown-content_pessoas #cadastro_pessoas label{
+    margin-left: 5px;
+    
+    
+}
+
+.dropdown-content_pessoas #cadastro_pessoas #btn_salvarpessoa{
+   margin-left: 30px;
+   
+}
+
+.show {display: block;}
+/**/
+
+
+
 
 
 
@@ -293,25 +454,26 @@
 
 
 
-#top_central #btn_salvarprojeto{
-    margin-top: 10px;
-    width: 80px;
-}
+
+/*    !*margin-top: 10px;*!*/
+/*    !*width: 80px;*!*/
+/*}*/
 
 /*///////////////////////////////////*/
+
 
 /*DEFININDO O ESTILO DAS COLUNAS CENTRAIS*/
 
 #central{
     
-	width: 1248px;
+	width: 1310px;
 	display: flex;
 	flex-wrap: wrap;    
 	margin-top: 3px;
 }
 
 #left_center{
-	overflow: auto;
+	
 	width: 180px;
 	height: 380px;
     justify-content: flex-start;
@@ -331,7 +493,7 @@
     margin-left: 15px;
 }
 
-#center {
+#center #iframeCentral{
     margin-left: 20px;
 	width: 856px;
 	height: 380px;
@@ -345,15 +507,14 @@
 
 #right_center{
     justify-content: flex-end;
-    
-	width: 180px;
+    margin-left: 890px;
+	width: 200px;
 	height: 380px;
 	
 }
 
 #right_center #btn_pessoas{
     margin-left: 25px;
-    
 }
 
 #right_center #pessoas_top #pessoas_list{
@@ -457,23 +618,18 @@
     width: 200px;
 }
 #cadastro_projeto #btn_novoprojeto{
-    width: 80px;
+    width: 100px;
 }
 #cadastro_projeto #btn_salvarprojeto{
-    width: 80px;
-    margin-left: 5px;
-}
-#cadastro_projeto #btn_atualizarCadasProjeto{
-    width: 80px;
-    margin-left: 5px;
-}
-
-#cadastro_projeto #btn_excluirCadasProjeto{
-    width: 80px;
+    width: 100px;
     margin-left: 5px;
 }
 #cadastro_projeto #btn_cancelarCadasProjeto{
-    width: 80px;
+    width: 100px;
+    margin-left: 5px;
+}
+#cadastro_projeto #btn_excluirCadasProjeto{
+    width: 100px;
     
 }
 
@@ -522,24 +678,18 @@
     
 }
 #cadastroPessoas #btn_novapessoa{
-    width: 80px;
+    width: 100px;
 }
 #cadastroPessoas #btn_salvarpessoa{
-    width: 80px;
-    margin-left: 5px;
-}
-
-#cadastroPessoas #btn_atualizarCadasPessoa{
-    width: 80px;
-    margin-left: 5px;
-}
-
-#cadastroPessoas #btn_excluirCadasPessoa{
-    width: 80px;
+    width: 100px;
     margin-left: 5px;
 }
 #cadastroPessoas #btn_cancelarCadasPessoa{
-    width: 80px;
+    width: 100px;
+    margin-left: 5px;
+}
+#cadastroPessoas #btn_excluirCadasPessoa{
+    width: 100px;
     
 }
 
@@ -576,18 +726,18 @@
     width: 100px;
 }
 
-#distribuicaoPessoas #selecionaProjeto_distribuicao{
-     width: 250px;
+#distribuicaoPessoas #selecionaProjeto{
+    width: 200px;
     margin-bottom: 10px;
 }
 
 #distribuicaoPessoas #listaTarefa{
-    width: 250px;
+    width: 200px;
      margin-bottom: 10px;
 }
 
 #distribuicaoPessoas #listaPessoa{
-    width: 250px;
+    width: 200px;
 }
 
 #TableDistribuicao{
@@ -648,6 +798,7 @@
 
 /*////////////////////////////////////*/
 
+
 /*CADASTRO TAREFA*/
 
 #cadastro_tarefa{
@@ -706,38 +857,19 @@
     height: 15px;
 }
 
-#cadastro_tarefa  #btn_novatarefa{
+#cadastro_tarefa  #btn_novotarefa{
     width: 100px;
-    margin-left: 5px;
 }
 #cadastro_tarefa  #btn_salvartarefa{
     width: 100px;
     margin-left: 5px;
 }
-#cadastro_tarefa #btn_atualizarCadasTarefa{
-    width: 100px;
-    margin-left: 5px;
-}
-#cadastro_tarefa #btn_excluirCadasTarefa{
-    width: 100px;
-    margin-left: 5px;
-}
-
 #cadastro_tarefa  #btn_cancelarCadasTarefa{
     width: 100px;
-    
+    margin-left: 5px;
 }
-
 
 
 
 
 /*////////////////////////////////////*/
-
-
-/*CUSTOM GANTT*/
-
-
-.tcolor .bar {
-  fill: #0d0; 
-}

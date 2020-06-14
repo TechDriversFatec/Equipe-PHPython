@@ -7,7 +7,7 @@ admin.autodiscover()
 router = routers.DefaultRouter()
 router.register(r'project', views.ProjectsViewSet)
 router.register(r'task', views.TaskViewSet)
-router.register(r'persons', views.PersonViewSet)
+router.register(r'person', views.PersonViewSet)
 router.register(r'distribute', views.PersonViewSet)
 
 
