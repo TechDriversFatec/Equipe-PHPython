@@ -105,7 +105,7 @@ as seguintes informações básicas: id, nome e contato;
 **4ª ENTREGA**
 
 - (REQ-5) O Gerente pode visualizar as tarefas de cada projeto. Cada tarefa deve estar atrelada a necessariamente um projeto;
-- (REQ-6) O Gerente pode incluir e excluir usuários para cada projeto através do django admin;
+- (REQ-6) O Gerente pode incluir e excluir usuários para cada projeto através da interface;
 - (REQ-7) O Gerente pode incluir um usuário em uma ou mais tarefas se esse usuário fizer parte do projeto relacionado a tarefa;
 - (REQ-8) O Gerente e o Usuário podem visualizar quais pessoas fazem parte de cada projeto e tarefa diretamente no gráfico;
 - (REQ-12) O Gerente e o usuário podem visualizar diferentes cores para os projetos para diferencia-los;
