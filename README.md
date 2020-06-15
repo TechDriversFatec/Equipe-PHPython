@@ -90,32 +90,29 @@ as seguintes informações básicas: id, nome e contato;
 
 **3ª ENTREGA**
 
-- (REQ-6) O Gerente pode incluir e excluir usuários para cada projeto (2 sprints);
-- (REQ-7) O Gerente pode incluir um usuário em uma ou mais tarefas se esse usuário fizer parte do projeto relacionado a tarefa (2 sprints);
+- (REQ-6) O Gerente pode incluir e excluir usuários para cada projeto através do django admin;
+- (REQ-7) O Gerente pode incluir um usuário em uma ou mais tarefas se esse usuário fizer parte do projeto relacionado a tarefa através do django admin;
 - (REQ-9) O Gerente pode criar, alterar, visualizar ou excluir um cadastro de projeto através de um menu;
 - (REQ-10) O Gerente pode criar, alterar, visualizar ou excluir um cadastro de tarefa através de um menu;
 - (REQ-11) O Gerente pode criar, alterar, visualizar ou excluir um cadastro de pessoa através de um menu;
-- (REQ-12) O Gerente e o usuário podem visualizar os projetos e tarefas por diferença de cor no gráfico de gantt (2 sprints);
-- (REQ-13) O Gerente pode fazer alterações na visualização do gráfico de forma dinâmica direto no gráfico de gantt. As seguintes alterações podem ser feitas:
-visualizar por período de dia, semana, mês ou ano, escolher quais projetos e tarefas serão exibidos, alterar o período, duração, data de inicio e fim
-de cada tarefa (2 sprints);
+- (REQ-12) O Gerente e o usuário podem cadastrar diferentes cores para os projetos para diferencia-los;;
 
 **4ª ENTREGA**
 
 - (REQ-5) O Gerente pode visualizar as tarefas de cada projeto. Cada tarefa deve estar atrelada a necessariamente um projeto;
-- (REQ-6) O Gerente pode incluir e excluir usuários para cada projeto (2 sprints);
-- (REQ-7) O Gerente pode incluir um usuário em uma ou mais tarefas se esse usuário fizer parte do projeto relacionado a tarefa (2 sprints);
+- (REQ-6) O Gerente pode incluir e excluir usuários para cada projeto através do django admin;
+- (REQ-7) O Gerente pode incluir um usuário em uma ou mais tarefas se esse usuário fizer parte do projeto relacionado a tarefa;
 - (REQ-8) O Gerente e o Usuário podem visualizar quais pessoas fazem parte de cada projeto e tarefa diretamente no gráfico;
-- (REQ-12) O Gerente e o usuário podem visualizar os projetos e tarefas por diferença de cor no gráfico de gantt (2 sprints);
+- (REQ-12) O Gerente e o usuário podem visualizar diferentes cores para os projetos para diferencia-los;
+- (REQ-14) O Gerente e o Usuário podem salvar as alterações feitas no gráfico de gantt;
 - (REQ-13) O Gerente pode fazer alterações na visualização do gráfico de forma dinâmica direto no gráfico de gantt. As seguintes alterações podem ser feitas:
-visualizar por período de dia, semana, mês ou ano, escolher quais projetos e tarefas serão exibidos, alterar o período, duração, data de inicio e fim
-de cada tarefa (2 sprints);
-- (REQ-14) O Gerente e o Usuário podem salvar as alterações feitas no gráfico de gantt (2 sprints);
-- (REQ-15) O Gerente pode compartilhar uma imagem com os usuários através de um botão de compartilhamento;
+visualizar por período de dia, semana, mês ou ano, alterar o período, duração, data de inicio e fim
+de cada tarefa;
 
 
 **5ª ENTREGA**
 
+- (REQ-15) O Gerente pode compartilhar uma imagem com os usuários através de um botão de compartilhamento;
 - (REQ-16) O Gerente pode criar novos gráficos através de um menu e alternar entre a visualização deles;
 - (REQ-17) O Gerente pode excluir gráficos através de uma lista de gráficos;
 - (REQ-18) O Gerente pode visualizar o histórico de alterações salvas de cada gráfico;
@@ -140,6 +137,7 @@ em um intervalo de tempo.
 - (REQ-29) Usuários podem alterar um gráfico de gantt simultaneamente desde que pertença ao projeto em que vai alterar;
 - (REQ-30) Usuário pode acessar aba de HELP para tirar dúvidas;
 - (REQ-31) Usuário pode reportar um erro;
+- (REQ-32) Usuário pode escolher quais projetos e tarefas serão exibidos no gráfico de gantt
 
 #### Diagrama de Casos de Uso
 
