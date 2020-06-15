@@ -17,6 +17,14 @@
 [Apresentação](https://youtu.be/losLuFm8Eqk)
 <iframe width="560" height="315" src="https://www.youtube.com/embed/eVWRJgfRgmc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+Além dos itens que foram expostos na apresentação, vale ressaltar que foram feitos bem mais ações "por baixo dos panos", bem como transoformar o back-end em
+API, integração dos botões do front end e remodelação do banco de dados.
+
+Para acessar o projeto em produção:
+[Gantt Planner](https://pi-gantt-planner.herokuapp.com)
+
+Obs: Para melhor compatibilidade de navegador com a aplicação, é sugerido utilizar o Navegador Google Chrome.
+
 
 **WIKI:** 
 
