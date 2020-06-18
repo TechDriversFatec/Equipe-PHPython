@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import tb_Tarefa, tb_Pessoa, tb_Projeto, tb_Dev_Trf
+from .models import tb_Tarefa, tb_Pessoa, tb_Projeto, tb_Dev_Trf, tb_pes_Trf
 # Register your models here.
 
 
@@ -40,5 +40,6 @@ admin.site.register(tb_Tarefa, TarefaAdmin)
 admin.site.register(tb_Pessoa, PessoaAdmin)
 admin.site.register(tb_Projeto, ProjetoAdmin)
 admin.site.register(tb_Dev_Trf)
+admin.site.register(tb_pes_Trf)
 
 

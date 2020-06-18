@@ -1,4 +1,4 @@
-from .models import tb_Projeto, tb_Tarefa, tb_Pessoa, tb_Dev_Trf
+from .models import tb_Projeto, tb_Tarefa, tb_Pessoa, tb_pes_Trf
 from rest_framework import serializers
 
 
@@ -44,11 +44,11 @@ class PersonSerializer(serializers.HyperlinkedModelSerializer):
         )
 
 
-class DistributeSerializer(serializers.HyperlinkedModelSerializer):
+class DistributeSerializer(serializers.ModelSerializer):
     class Meta:
-        model = tb_Dev_Trf
+        model = tb_pes_Trf
         fields = (
+            'pes_trf_id',
             'fk_pes_id',
             'fk_trf_id',
-            'fk_prj_id'
         )

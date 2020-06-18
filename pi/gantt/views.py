@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse
-from .models import tb_Tarefa, tb_Projeto, tb_Pessoa
+from .models import tb_Tarefa, tb_Projeto, tb_Pessoa, tb_pes_Trf
 from django.views.decorators.clickjacking import xframe_options_exempt
 from .forms import PostProjeto, PostTarefa, PostPessoa, PostDistr, tb_Dev_Trf
 from django.shortcuts import redirect
@@ -156,5 +156,5 @@ class PersonViewSet(viewsets.ModelViewSet):
 
 
 class DistributeViewSet(viewsets.ModelViewSet):
-    queryset = tb_Dev_Trf.objects.all()
+    queryset = tb_pes_Trf.objects.all()
     serializer_class = DistributeSerializer
