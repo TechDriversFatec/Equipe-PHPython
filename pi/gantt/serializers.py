@@ -1,11 +1,15 @@
-from .models import tb_Projeto, tb_Tarefa, tb_Pessoa, tb_pes_Trf
+from .models import (
+    tb_Projeto,
+    tb_Tarefa,
+    tb_Pessoa,
+    tb_pes_Trf,
+    tb_hab_pes,
+    tb_habilidades
+)
 from rest_framework import serializers
 
 
-
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
-    # url = serializers.SerializerMethodField()
-
     class Meta:
         model = tb_Projeto
         fields = (
@@ -41,7 +45,10 @@ class PersonSerializer(serializers.HyperlinkedModelSerializer):
         fields = (
             'pes_id',
             'pes_nome',
-            'pes_contato'
+            'pes_contato',
+            'pes_salario',
+            'pes_faltas',
+            'pes_hrs_disponivel'
         )
 
 
@@ -52,4 +59,23 @@ class DistributeSerializer(serializers.ModelSerializer):
             'pes_trf_id',
             'fk_pes_id',
             'fk_trf_id',
+        )
+
+
+class HabilidadeDistSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = tb_hab_pes
+        fields = (
+            'pes_trf_id',
+            'fk_pes_id',
+            'fk_hab_id'
+        )
+
+
+class HabilidadeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = tb_habilidades
+        fields = (
+            'hab_id',
+            'hab_nome'
         )

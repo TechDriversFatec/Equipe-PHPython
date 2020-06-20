@@ -8,8 +8,9 @@ router = routers.DefaultRouter()
 router.register(r'project', views.ProjectsViewSet)
 router.register(r'task', views.TaskViewSet)
 router.register(r'person', views.PersonViewSet)
+router.register(r'habilidades', views.HabilidadesViewSet)
 router.register(r'distribute', views.DistributeViewSet)
-
+router.register(r'distributehab', views.HabilidadeDistViewSet)
 
 urlpatterns = [
     url(r'request', views.index_page, name='home'),
