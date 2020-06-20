@@ -25,6 +25,7 @@ class tb_Tarefa(models.Model):
     trf_interdependencia = models.IntegerField('Interdenpencia', null=True, default=0)
     trf_entregavel = models.BooleanField('Entregavel', default=False)
     trf_color = models.CharField('cor', max_length=16, default='')
+    trf_progresso = models.IntegerField('progresso', default=0, null=True)
     fk_prj_id = models.ForeignKey(tb_Projeto, on_delete=models.CASCADE)
 
     def __str__(self):
