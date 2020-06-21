@@ -14,6 +14,15 @@ class tb_Projeto(models.Model):
     prj_datainicio = models.DateField('Data Inicio')
     prj_prazoentrega = models.DateField('Prazo de Entrega')
     prj_color = models.CharField('Cor', max_length=60, default='')
+    prj_cost = models.DecimalField(
+        'Custo',
+        default=0,
+        null=True,
+        max_digits=19,
+        decimal_places=8
+    )
+    prj_hrs_dev = models.IntegerField('Horas Desenvolvimento', default=0, null=True)
+    prj_progresso = models.IntegerField('Progresso', default=0, null=True)
 
 
 class tb_Tarefa(models.Model):

@@ -2,7 +2,6 @@ from .models import tb_Projeto, tb_Tarefa, tb_Pessoa, tb_pes_Trf
 from rest_framework import serializers
 
 
-
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
     # url = serializers.SerializerMethodField()
 
@@ -14,7 +13,10 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
             'prj_datainicio',
             'prj_prazoentrega',
             'prj_escopo',
-            'prj_color'
+            'prj_color',
+            'prj_cost',
+            'prj_hrs_dev',
+            'prj_progresso'
         )
 
 
