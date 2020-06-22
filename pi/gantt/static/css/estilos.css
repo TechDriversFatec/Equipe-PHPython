@@ -81,8 +81,10 @@
 
 .styleWord1 {
     color: #698FEB;
-    font-weight: 500;
+    
     font-family: monospace;
+    font-size: 11px;
+    margin-left: -10px;
 }
 /**/
 /*///////////////////////////////////*/
@@ -392,6 +394,8 @@
 
 
 
+
+
 /*///////////////////////////////////*/
 
 #bottom_central{
@@ -628,23 +632,28 @@
 }
 
 #distribuicaoPessoas  #btn_novadistribuicao{
-    width: 100px;
+    width: 80px;
     margin-top: 10px;
 }
 #distribuicaoPessoas  #btn_salvardistribuicao{
-    width: 100px;
-    margin-left: 5px;
-}
-#distribuicaoPessoas  #btn_cancelarDistribuicao{
-    width: 100px;
+    width: 80px;
     margin-left: 5px;
 }
 
-#distribuicaoPessoas  #btn_excluirDistribuicao{
-    width: 100px;
+#distribuicaoPessoas  #btn_atualizarCadasDistribuicao{
+    width: 80px;
     margin-left: 5px;
 }
 
+#distribuicaoPessoas  #btn_excluirCadasDistribuicao{
+    width: 80px;
+    margin-left: 5px;
+}
+
+#distribuicaoPessoas  #btn_cancelarCadasDistribuicao{
+    width: 80px;
+    margin-left: 5px;
+}
 
 /*////////////////////////////////////*/
 

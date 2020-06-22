@@ -1,3 +1,7 @@
+#
+from rest_framework.views import APIView
+#
+
 from django.shortcuts import render, HttpResponse
 from .models import (
     tb_Tarefa,
@@ -158,31 +162,37 @@ def save_dist(request):
     return redirect('home')
 
 
-class ProjectsViewSet(viewsets.ModelViewSet):
+class ProjectsViewSet(viewsets.ModelViewSet, APIView):
     queryset = tb_Projeto.objects.all()
     serializer_class = ProjectSerializer
+    permission_classes = ()
 
 
-class TaskViewSet(viewsets.ModelViewSet):
+class TaskViewSet(viewsets.ModelViewSet, APIView):
     queryset = tb_Tarefa.objects.all()
     serializer_class = TaskSerializer
+    permission_classes = ()
 
 
-class PersonViewSet(viewsets.ModelViewSet):
+class PersonViewSet(viewsets.ModelViewSet, APIView):
     queryset = tb_Pessoa.objects.all()
     serializer_class = PersonSerializer
+    permission_classes = ()
 
 
-class DistributeViewSet(viewsets.ModelViewSet):
+class DistributeViewSet(viewsets.ModelViewSet, APIView):
     queryset = tb_pes_Trf.objects.all()
     serializer_class = DistributeSerializer
+    permission_classes = ()
 
 
-class HabilidadeDistViewSet(viewsets.ModelViewSet):
+class HabilidadeDistViewSet(viewsets.ModelViewSet, APIView):
     queryset = tb_hab_pes.objects.all()
     serializer_class = HabilidadeDistSerializer
+    permission_classes = ()
 
 
-class HabilidadesViewSet(viewsets.ModelViewSet):
+class HabilidadesViewSet(viewsets.ModelViewSet, APIView):
     queryset = tb_habilidades.objects.all()
     serializer_class = HabilidadeDistSerializer
+    permission_classes = ()
