@@ -430,6 +430,7 @@
 
 #cadastro_projeto #codProjeto{
    width: 100px;
+   margin-bottom: 5px;
    
     
 }
@@ -437,28 +438,62 @@
 #cadastro_projeto #codAnteriorCadasProjeto{
     width: 30px;
     margin-left: 5px;
+    margin-bottom: 5px;
 }
 
 #cadastro_projeto #codPosteriorCadasProjeto{
     width: 30px;
     margin-left: 5px;
+    margin-bottom: 5px;
+}
+
+#cadastro_projeto #lb_progresso{
+    margin-left: 10px;
+    margin-bottom: 5px;
     
 }
 
+#cadastro_projeto #progresso{
+    width: 100px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+
+
+
 #cadastro_projeto #nomeProjeto{
    width: 200px;
+   margin-bottom: 10px;
 }
 #cadastro_projeto #escopo{
     width: 200px;
+    margin-bottom: 10px;
 }
 #cadastro_projeto #dt_inicioProjeto{
-    width: 150px;
+    width: 130px;
+    margin-bottom: 10px;
 }
 #cadastro_projeto #dt_prazoProjeto{
-    width: 150px;
+    width: 130px;
+    margin-bottom: 10px;
 }
+
+#cadastro_projeto #custo{
+    width: 90px;
+    margin-bottom: 10px;
+ }
+
+ #cadastro_projeto #horas_desenvolvimento{
+    width: 90px;
+    margin-bottom: 10px;
+ }
+
+ 
+
 #cadastro_projeto #corProjeto{
     width: 200px;
+    margin-bottom: 10px;
 }
 #cadastro_projeto #btn_novoprojeto{
     width: 80px;
@@ -508,11 +543,37 @@
 
 #cadastroPessoas{
     width: 500px;
-    margin-left: 40px;
+    margin-left: 45px;
 }
 
-#cadastroPessoas input{
-    width: 250px;
+#cadastroPessoas #codPessoa{
+    width: 50px;
+}
+
+#cadastroPessoas #nomePessoa{
+    width: 200px;
+}
+
+#cadastroPessoas #contato{
+    width: 100px;
+}
+
+#cadastroPessoas #salario{
+    width: 100px;
+}
+
+#cadastroPessoas #lb_faltas{
+    margin-left: 20px;
+}
+#cadastroPessoas #lb_horas_disponiveis{
+    margin-left: 20px;
+}
+
+#cadastroPessoas #faltas{
+    margin-left: 10px;
+}
+#cadastroPessoas #horas_disponiveis{
+    margin-left: 10px;
 }
 
 #cadastroPessoas #codAnteriorCadasPessoa{

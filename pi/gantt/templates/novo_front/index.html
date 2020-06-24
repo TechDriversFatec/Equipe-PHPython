@@ -122,17 +122,36 @@
                  <label  for="codProjeto">Código projeto: <input readonly="true" id="codProjeto" type="text" name="prj_id"></label>
                  <button type="button" id="codAnteriorCadasProjeto" class="btn_shadow1_1" onclick="recuarCodProjeto()"></button>
                  <button type="button" id="codPosteriorCadasProjeto" class="btn_shadow1" onclick="avancarCodProjeto()"></button>
-                                  <br><br>
+                 <label id="lb_progresso">Progresso % :</label>
+                <select id="progresso" name="prj_progresso">
+                    <option>0</option>
+                    <option>10</option>
+                    <option>20</option>
+                    <option>30</option>
+                    <option>40</option>
+                    <option>50</option>
+                    <option>60</option>
+                    <option>70</option>
+                    <option>80</option>
+                    <option>90</option>
+                    <option>100</option>
+                </select>                
+                <br><br>
                 <label for="nomeProjeto">Nome projeto: <input autocomplete="off" id="nomeProjeto" readonly="true" type="text" name="prj_nome"></label>
                   
                   <label for="escopo">Escopo: <input autocomplete="off" id="escopo" readonly="true" type="text" name="prj_escopo"></label>
-                  <br><br>
+                  <br>
                   <label for="dt_inicioProjeto">Data Início: <input readonly="true" id="dt_inicioProjeto" type="date" name="prj_datainicio"></label>
                   
                   <label for="dt_prazoProjeto">Prazo Entrega: <input readonly="true" id="dt_prazoProjeto" type="date" name="prj_prazo"></label>
-                    <br><br>
+                  <br>
+                
+                  <label for="custo">Custo Projeto: <input readonly="true" id="custo" type="number" name="prj_cost"></label>
+                  
+                  <label for="horas_desenvolvimento">Horas Desenvolvimento: <input readonly="true" id="horas_desenvolvimento" type="number" name="prj_hrs_dev"></label>
+                  <br>
                   <label for="corProjeto">Cor do projeto: <input disabled="true" id="corProjeto" type="color" name="prj_cor"></label>
-                    <br><br>
+                  <br>
                   <button id="btn_novoprojeto" type="submit" class="btn_shadow2" onclick="novoProjeto()">Novo</button>
                 
                       <button id="btn_salvarprojeto" type="submit" class="btn_shadow2" onclick="postProjeto()">Gravar</button>
@@ -180,9 +199,15 @@
             <button type="button" disabled="true" id="codAnteriorCadasPessoa" class="btn_shadow1_1" onclick="recuarCodPessoa()"></button>
                  <button type="button" disabled="true" id="codPosteriorCadasPessoa" class="btn_shadow1" onclick="avancarCodPessoa()"></button>
             <br><br>
-            <label for='nomePessoa'>Nome da pessoa: </label><input readonly="true" autocomplete="off" type='text' id='nomePessoa' name="nomePessoa" name="pes_nome">
+            <label for='nomePessoa'>Nome: </label><input readonly="true" required="required" autocomplete="off" type='text' id='nomePessoa' name="nomePessoa" name="pes_nome">
+            
+            <label for='contato'>Contato: </label><input readonly="true" required="required" autocomplete="off" type='text' id='contato' name="pes_contato">
             <br><br>
-            <label for='contato'>Contato: </label><input readonly="true" autocomplete="off" type='text' id='contato' name="pes_contato">
+            <label for='salario'>Salário: </label><input readonly="true" autocomplete="off" type='number' required="required" maxlength="15" placeholder="R$" id='salario' name="pes_salario">
+            
+            <label id='lb_faltas'>Faltas: <label id="faltas" name="pes_faltas">0</label></label>
+            <label id='lb_horas_disponiveis'>Horas Disponíveis: <label id="horas_disponiveis" name="pes_hrs_disponivel">0</label></label>
+            
             <br><br>
         
             <button id="btn_novapessoa" type="submit" class="btn_shadow2" onclick="novaPessoa()">Novo</button>       
@@ -193,7 +218,7 @@
             
         </div>
         
-        <br><br><br>
+        <br><br>
         <div id='TablePessoas'>
             
             <table border=1>
@@ -277,19 +302,19 @@
             <button type="button" id="codAnteriorDistribuicao" class="btn_shadow1_1" onclick="recuarCodDistribuicao()"></button>
                  <button type="button" id="codPosteriorDistribuicao" class="btn_shadow1" onclick="avancarCodDistribuicao()"></button>
                 <br><br>
-              <label for="selecionaProjeto_distribuicao">Selecione o projeto: <input autocomplete="off" id="selecionaProjeto_distribuicao" type="text" disabled="true" list="listaProjetos_distribuicao" onselect="dt_projetos_distribuicao();" onblur="dt_projetos_distribuicao();" onclick="value=''"></label>
+              <label for="selecionaProjeto_distribuicao">Selecione o projeto: <input disabled="true" autocomplete="off" id="selecionaProjeto_distribuicao" type="text" disabled="true" list="listaProjetos_distribuicao" onselect="dt_projetos_distribuicao();" onblur="dt_projetos_distribuicao();" onfocus="dt_projetos_distribuicao();" onclick="value=''"></label>
                   <datalist id="listaProjetos_distribuicao">
                       
                   </datalist>
                   <label id="id_prjDistr">0</label>
                <br>
-            <label for="listaTarefa">Selecione a Tarefa: <input autocomplete="off" disabled="true" id="listaTarefa" type="text" list="listaTarefa_distribuicao" name="fk_trf_id" onselect="dt_tarefas_distribuicao();" onfocus="dt_pessoas_distribuicao();"></label>
+            <label for="listaTarefa">Selecione a Tarefa: <input autocomplete="off" disabled="true" id="listaTarefa" type="text" list="listaTarefa_distribuicao" name="fk_trf_id" onselect="dt_tarefas_distribuicao();" onblur="dt_tarefas_distribuicao();"  onfocus="dt_tarefas_distribuicao();" onclick="value=''"></label>
                   <datalist id="listaTarefa_distribuicao">
                       
                   </datalist>
                   <label id="id_trfDistr">0</label>
                <br>
-            <label for="listaPessoa">Selecione a Pessoa: <input autocomplete="off" disabled="true" id="listaPessoa" type="text" list="listaPessoa_distribuicao" name="fk_pes_id"></label>
+            <label for="listaPessoa">Selecione a Pessoa: <input autocomplete="off" disabled="true" id="listaPessoa" type="text" list="listaPessoa_distribuicao" name="fk_pes_id" onselect="dt_pessoas_distribuicao();" onblur="dt_pessoas_distribuicao();" onfocus="dt_pessoas_distribuicao();" onclick="value=''"></label>
                   <datalist id="listaPessoa_distribuicao">
                       
                   </datalist>
