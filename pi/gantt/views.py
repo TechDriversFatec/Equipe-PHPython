@@ -194,5 +194,5 @@ class HabilidadeDistViewSet(viewsets.ModelViewSet, APIView):
 
 class HabilidadesViewSet(viewsets.ModelViewSet, APIView):
     queryset = tb_habilidades.objects.all()
-    serializer_class = HabilidadeDistSerializer
+    serializer_class = HabilidadeSerializer
     permission_classes = ()
