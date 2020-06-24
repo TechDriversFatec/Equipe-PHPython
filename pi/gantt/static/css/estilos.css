@@ -79,12 +79,24 @@
     
 }
 
+.btn_shadow4_1{
+    width: 150px;
+    height: 35px;
+    border-radius: 6px;
+    background-color: white;
+    border-style: none;
+    color: #698FEB;
+    font-weight: 500;
+    font-family: monospace;
+    box-shadow: 0px 0px 5px #698FEB;
+    
+}
+
+
 .styleWord1 {
     color: #698FEB;
-    
+    font-weight: 450;
     font-family: monospace;
-    font-size: 11px;
-    margin-left: -10px;
 }
 /**/
 /*///////////////////////////////////*/
@@ -103,6 +115,7 @@
     height: 550px;
   
 }
+
 
 .abreCadastro #btn_fechar{
     margin-top: 10px;
@@ -123,6 +136,40 @@
      margin-top: -30px;
 }
 
+
+
+/*///////////////////////////////////*/
+
+/*TELA DIALOG DENTRO DE DIALOG*/
+
+.abreCadastro_1{
+    border-style: inset;
+  border-width: 5px;
+  border-color: rgb(83, 97, 129);
+  border-radius:0px 20px 0px 20px;
+    width: 400px;
+    height: 350px;
+  
+}
+.abreCadastro_1 #btn_fechar_1{
+    margin-top: 10px;
+     margin-left: 310px;
+     width: 70px;
+}
+
+#bloco_superior_1{
+     width: 390px;
+    height: 50px;
+    margin-left: 5px;
+     margin-top: 10px;
+}
+
+#bloco_superior_1 h1{
+    width: 300px;
+    margin-left: 5px;
+     margin-top: -30px;
+     font-size: 15px;
+}
 
 
 /*///////////////////////////////////*/
@@ -417,6 +464,62 @@
 
 /*///////////////////////////////////*/
 
+/*CADASTRO DE HABILIDADES*/
+
+#CadastroHabilidades #lb_nome_habilidade{
+    margin-left: 20px;
+}
+
+#CadastroHabilidades #nome_habilidade{
+    margin-left: 20px;
+}
+
+#CadastroHabilidades #btn_gravarHabilidade{
+    width: 100px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+#habilidades_cadastradas #lista_habilidades_cadastradas{
+    width: 350px;
+    height: 200px;
+    margin-left: 20px;
+}
+
+
+/*//////////////////////////////////////////*/
+
+/*INCLUIR HABILIDADES*/
+
+#InclusaoHabilidades #lb_nome_pessoa{
+    margin-left: 20px;
+}
+
+#InclusaoHabilidades #nome_pessoa{
+    margin-left: 20px;
+    width: 200px;
+}
+
+#InclusaoHabilidades #lb_seleciona_nome_habilidade{
+    margin-left: 20px;
+}
+
+#InclusaoHabilidades #seleciona_nome_habilidade{
+    margin-left: 20px;
+    width: 200px;
+}
+
+#InclusaoHabilidades #btn_gravarInclusao{
+    width: 100px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+#InclusaoHabilidades #btn_mostrarInclusoesCadastradas{
+    width: 100px;
+   
+}
+
+/*//////////////////////////////////////////*/
 
 /*CADASTRO PROJETO*/
 
@@ -540,6 +643,9 @@
 
 /*CADASTRO DE PESSOAS*/
 
+#btn_cadasHabilidades{
+    margin-left: 250px;
+}
 
 #cadastroPessoas{
     width: 500px;
@@ -753,6 +859,15 @@
     width: 30px;
     margin-left: 5px;
     
+}
+
+#cadastro_tarefa #lb_progressotarefa{
+    margin-left: 10px;
+}
+
+#cadastro_tarefa #progressotarefa{
+    width: 80px;
+    margin-left: 10px;
 }
 
 #cadastro_tarefa #nomeTarefa{
