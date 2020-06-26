@@ -69,7 +69,7 @@ class HabilidadeDistSerializer(serializers.ModelSerializer):
     class Meta:
         model = tb_hab_pes
         fields = (
-            'pes_trf_id',
+            'pes_hab_id',
             'fk_pes_id',
             'fk_hab_id'
         )

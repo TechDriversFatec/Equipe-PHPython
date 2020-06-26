@@ -92,6 +92,16 @@
     
 }
 
+/*BOTÃO CRIADO PARA O RELATÓRIO - BTN PROJETOS*/
+.btn_shadow4_2{
+    width: 270px;
+    height: 35px;
+    border-style: none;
+    font-weight: 500;
+    font-family: monospace;
+    display: inline;    
+}
+
 
 .styleWord1 {
     color: #698FEB;
@@ -169,6 +179,20 @@
     margin-left: 5px;
      margin-top: -30px;
      font-size: 15px;
+}
+
+
+/*///////////////////////////////////*/
+
+/*TELA DIALOG - DASHBOARD*/
+
+.abreDialogDashboard{
+    border-style: inset;
+  border-width: 5px;
+  border-color: rgb(83, 97, 129);
+  border-radius:0px 20px 0px 20px;
+    width: 1200px;
+    height: 550px;
 }
 
 
@@ -472,7 +496,10 @@
 
 #CadastroHabilidades #nome_habilidade{
     margin-left: 20px;
+    
 }
+
+
 
 #CadastroHabilidades #btn_gravarHabilidade{
     width: 100px;
@@ -481,10 +508,21 @@
 }
 
 #habilidades_cadastradas #lista_habilidades_cadastradas{
-    width: 350px;
-    height: 200px;
-    margin-left: 20px;
+    width: 400px;
+    height: 300px;
+    margin-left: 10px;
+    margin-top: 10px;
+    overflow: auto;
+
 }
+
+#habilidades_cadastradas #lista_habilidades_cadastradas .class_habilidades{
+    margin-left: 20px;
+    margin-top: 15px;
+    display: inline-block;
+    font-family: monospace;
+}
+
 
 
 /*//////////////////////////////////////////*/
@@ -515,9 +553,32 @@
     margin-right: 30px;
 }
 #InclusaoHabilidades #btn_mostrarInclusoesCadastradas{
-    width: 100px;
-   
+    width: 140px;
+
 }
+
+#cadastrados_pes_hab #nome_pessoa_1{
+    margin-left: 20px;
+    width: 200px;
+}
+
+#cadastrados_pes_hab #lista_pessoas_habilidades{
+    width: 400px;
+    height: 300px;
+    margin-left: 10px;
+    margin-top: 10px;
+    overflow: auto;
+
+}
+
+#cadastrados_pes_hab #lista_pessoas_habilidades .class_habilidades{
+    margin-left: 20px;
+    margin-top: 15px;
+    display: inline-block;
+    font-family: monospace;
+}
+
+
 
 /*//////////////////////////////////////////*/
 
@@ -919,6 +980,98 @@
 
 /*////////////////////////////////////*/
 
+/*RELATÓRIO*/
+
+#draganddrop_projetos{
+    width: 595px;
+    height: 200px;
+}
+
+#draganddrop_projetos #rel_projetos{
+    width: 270px;
+    height: 300px;
+    margin-left: 10px;
+    float: left;
+}
+
+#draganddrop_projetos #rel_projetos #projetos_cadastrados{
+    border-color: #68BAE8;
+    border-style: dashed;
+    width: 270px;
+    height: 280px;
+    overflow: auto;
+}
+
+
+
+#draganddrop_projetos #escolhe_projetos{
+    width: 270px;
+    height: 300px;
+    margin-left: 10px;
+    float: right;
+}
+
+#draganddrop_projetos #escolhe_projetos #projetos_dashboard{
+    border-color: #68BAE8;
+    border-style: dashed;
+    width: 270px;
+    height: 280px;
+    overflow: auto;
+}
+
+
+
+
+#abreRelatorio #btn_dashboard{
+    float: right;
+    margin-top: 50px;
+}
+
+/*DASHBOARD*/
+
+#dashboard_projetos{
+    border-color: #698FEB;
+    border-style: groove;
+    width: 1070px;
+    height: 500px;
+    float: right;
+    overflow: auto;
+    margin-top: -80px;
+}
+
+#dashboard_projetos .view_projeto{
+    border-color: coral;
+    border-style: groove;
+    width: 1050px;
+    height: 200px;
+    float: right;
+    
+    overflow: auto;
+    margin-right: 5px;
+}
+
+#dashboard_projetos .view_projeto .class_dados_projeto{
+    margin-left: 30px;
+}
+
+#dashboard_projetos .view_projeto .class_dados_projeto #lb_dados_projeto{
+    width: 700px;
+}
+
+#dashboard_projetos .view_projeto .class_dados_tarefa{
+    margin-left: 60px;
+}
+
+#dashboard_projetos .view_projeto .class_dados_pessoa{
+    margin-left: 100px;
+}
+
+
+#abreDashboard #btn_fechardashboard{
+    float: right;
+    width: 70px;
+}
+/*////////////////////////////////////*/
 
 /*CUSTOM GANTT*/
 

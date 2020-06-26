@@ -13,8 +13,10 @@
       <script type="text/javascript" src="{% static 'js/frappe-gantt.min.js' %}"></script>
       <script type="text/javascript" src="{% static 'js/dialog-polyfill.js' %}"></script>  
          <script type="text/javascript" src="{% static 'js/pi_cadastros.js' %}"></script>
+         <script type="text/javascript" src="{% static 'js/pi_relatorio.js' %}"></script>
          <script type="text/javascript" src="{% static 'js/pi_view.js' %}"></script>
          <script type="text/javascript" src="{% static 'js/pi_gantt.js' %}"></script>
+         
         </head>
 <body>
 	<div id="top" class="boxShadow1">
@@ -47,7 +49,7 @@
           <img id="imgbtn_pessoas" src="{% static 'images/img_pessoas.png' %}" onclick="clicaDistribuicao()" class="dropbtn_pessoas">
               
         
-        <img id="imgbtn_download" src="{% static 'images/img_download.png' %}">
+        <img id="imgbtn_download" src="{% static 'images/img_relatorio.png' %}" onclick="clicaRelatorio();">
         <button id="btn_salvarplanning" class="btn_shadow2" onclick="ganttProjetos()">SALVAR</button>    
         
     </div>
@@ -62,11 +64,7 @@
 
                 </div>
                 
-                <!--<button id="btn_expandetarefa" class="btn_shadow1" onclick="expandeProjetos()"></button>
-                <div id="col_tarefas">
-                    
-                </div>
--->
+               
 			</div>
 
 			<div id="center" class="box">
@@ -108,8 +106,8 @@
             <button id="btn6" class="btn_shadow4" onclick="periodo_ano()">ANO</button> 
     </div>
     
-     <!------------------------------------------------------------->
-    <!--- CADASTRO DE PESSOAS --------------------------------------->
+
+    <!---CADASTRO DE PESSOAS-->
     <dialog id="abreCadastroPessoas" class="abreCadastro" role="dialog"> 
         <div id="bloco_superior" class="boxShadow1">
                <button id="btn_fechar" class="btn_shadow2" onclick="fecharCadastroPessoa()">[X]Fechar</button>
@@ -119,7 +117,7 @@
        <button id="btn_cadasHabilidades" type="button" onclick="cadastrarHabilidades();" class="btn_shadow4_1">Cadastrar Habilidades</button> 
        <button id="btn_incluirHabilidades" type="button" onclick="incluirHabilidades();" class="btn_shadow4_1">Incluir Habilidades</button>
         <br><br>
-                <!--CADASTRAR HABILIDADES-------->
+                <!--CADASTRAR HABILIDADES-->
                 <dialog id="abreCadastroHabilidades" role="dialog" class="abreCadastro_1">
                     <div id="bloco_superior_1" class="boxShadow1">
                         <button id="btn_fechar_1" class="btn_shadow2" onclick="fecharCadastroHabilidade()">[X]Fechar</button>
@@ -142,9 +140,9 @@
                             </dialog>
 
                 </dialog>
-                <!--------------------------->
+               
 
-                <!--INCLUIR HABILIDADES-------->
+                <!--INCLUIR HABILIDADES-->
                 <dialog id="abreInclusaoHabilidades" role="dialog" class="abreCadastro_1">
                         <div id="bloco_superior_1" class="boxShadow1">
                             <button id="btn_fechar_1" class="btn_shadow2" onclick="fecharInclusaoHabilidade()">[X]Fechar</button>
@@ -153,19 +151,35 @@
                         <div id="InclusaoHabilidades">
                             <br><br><br>
                             <label id="lb_nome_pessoa">Selecione a pessoa: </label>
-                            <select id="nome_pessoa"></select>
+                            <select id="nome_pessoa" onselect="selectPessoas()">
+
+                            </select>
                             <br>
                             <br>
                             <label id="lb_seleciona_nome_habilidade">Selecione a habilidade: </label>
-                            <select id="seleciona_nome_habilidade"></select>
+                            <select id="seleciona_nome_habilidade" >
+
+                            </select>
                             <br><br><br>
-                            <button id="btn_gravarInclusao" type="submit" class="btn_shadow2" >Gravar</button>
-                            <button id="btn_mostrarInclusoesCadastradas" type="submit" class="btn_shadow2">Mostrar cadastrados</button>
+                            <button id="btn_gravarInclusao" type="submit" class="btn_shadow2" onclick="gravarPessoaHabilidade()">Gravar</button>
+                            <button id="btn_mostrarInclusoesCadastradas" type="submit" class="btn_shadow2" onclick="mostrarPessoasHabilidades()">Mostrar cadastrados</button>
                         </div>
+                        <dialog id="cadastrados_pes_hab" role="dialog" class="abreCadastro_1">
+                            <button id="btn_fechar_1_1" class="btn_shadow2" onclick="fecharPessoasHabilidades()">[X]Fechar</button>
+                            <br><br>
+                            <label id="lb_nome_pessoa_1">Selecione a pessoa: </label>
+                            <select id="nome_pessoa_1" onselect="selectPessoas()" onchange="get_pessoas_habilidades()">
+
+                            </select>
+                            <div id="lista_pessoas_habilidades">
+
+                            </div>
+
+                        </dialog>
             
             
                     </dialog>
-                <!--------------------------->
+     
        <div id='cadastroPessoas'>
            
           
@@ -216,7 +230,7 @@
    </dialog>
 
    
-     <!------------------------------------------------------------->
+  
     
     <!--CADASTRO DE PROJETO -->
             <dialog id="abreCadastroProjeto" class="abreCadastro"> 
@@ -293,7 +307,7 @@
                  
               
             </dialog>
-<!------------------------------------------------------------->
+
     
 <!--CADASTRO DE TAREFA -->
             <dialog id="abreCadastroTarefa" class="abreCadastro"> 
@@ -353,7 +367,7 @@
                 </div>
           </dialog>
             
-     <!------------------------------------------------------------->
+    
     
     
      <!--DISTRIBUIR PESSOAS AOS PROJETOS -->
@@ -420,9 +434,52 @@
         
        
     </dialog>
+
+    <!--RELATÓRIO - TELA INICIAL-->
+
+    <dialog id="abreRelatorio" class="abreCadastro">
+        <div id="bloco_superior" class="boxShadow1">
+            <button id="btn_fechar" class="btn_shadow2" onclick="fecharRelatorio()">[X]Fechar</button>
+         <h1 class="styleWord1">Relatório</h1>       
+        </div>
+    <br><br><br>
+        <div id="draganddrop_projetos">
+            
+                <div id="rel_projetos">
+                        <label>Projetos cadastrados:</label>
+                        <div id="projetos_cadastrados" ondrop="return dragDrop(event)" ondragover="return dragOver(event)">
+
+                        </div>
+
+                </div>
+                
+                <div id="escolhe_projetos">
+                        <label>Projetos para Dashboard:</label>
+                        <div id="projetos_dashboard" ondrop="return dragDrop(event)" ondragover="return dragOver(event)">
+
+                        </div>
+                </div>
+        </div>
+        <br><br>
+        <button id="btn_dashboard" type="submit" class="btn_shadow2" onclick="gerarDashboard();">Gerar Dashboard</button>
+        
+                <!--RELATÓRIO - DASHBOARD-->
+            <dialog id="abreDashboard" role="dialog" class="abreDialogDashboard">
+                    <button id="btn_fechardashboard" class="btn_shadow2" onclick="fecharDashboard();">[X]Fechar</button>
+                    <img id="img_graficodashboard" src="{% static 'images/img_graficodashboard.png' %}">
+                    <div id="dashboard_projetos">
+                        <!--DINAMICO-->
+                        
+                        <!--DINAMICO-->
+                    </div>
+                    
+                </dialog>
+                
+
+    </dialog>
+
     
     
-    <!------------------------------------------------------------->
 </body>
 
 
