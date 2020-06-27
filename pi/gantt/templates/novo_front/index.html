@@ -11,12 +11,13 @@
     
     
       <script type="text/javascript" src="{% static 'js/frappe-gantt.min.js' %}"></script>
-      <script type="text/javascript" src="{% static 'js/dialog-polyfill.js' %}"></script>  
+      <script type="text/javascript" src="{% static 'js/dialog-polyfill.js' %}"></script> 
+      <script type="text/javascript" src="{% static 'js/pi_urls_api.js' %}"></script> 
          <script type="text/javascript" src="{% static 'js/pi_cadastros.js' %}"></script>
          <script type="text/javascript" src="{% static 'js/pi_relatorio.js' %}"></script>
          <script type="text/javascript" src="{% static 'js/pi_view.js' %}"></script>
          <script type="text/javascript" src="{% static 'js/pi_gantt.js' %}"></script>
-         
+         <script type="text/javascript" src="{% static 'js/pi_windowonload.js' %}"></script>
         </head>
 <body>
 	<div id="top" class="boxShadow1">
@@ -32,7 +33,7 @@
         </div>
 
          <h1>Gantt Planner - by PHPython</h1>
-        <img id="imgbtn_play" src="{% static 'images/img_play.png' %}">
+         <button id="btn_salvarplanning" class="btn_shadow2">SALVAR</button>   
         <button id="btn_compartilhar" class="btn_shadow2" onclick="pegaDIalog()">COMPARTILHAR</button>
 	</div>
     
@@ -50,7 +51,8 @@
               
         
         <img id="imgbtn_download" src="{% static 'images/img_relatorio.png' %}" onclick="clicaRelatorio();">
-        <button id="btn_salvarplanning" class="btn_shadow2" onclick="ganttProjetos()">SALVAR</button>    
+        <img id="imgbtn_play" onclick="ganttProjetos()" src="{% static 'images/img_play.png' %}">
+         
         
     </div>
 
@@ -75,7 +77,7 @@
 			<div id="right_center" class="box">
                 
                 <div id="pessoas_top">
-                    <button id="btn_pessoas" class="btn_shadow2" onclick="expandePessoas()">PESSOAS</button>
+                    <button id="btn_pessoas" class="btn_shadow2" onclick="expandePessoas()">PESSOAS / HORAS DISPONÍVEIS</button>
                     <div id="pessoas_list" class="boxShadow1"> 
                         
                     </div>
@@ -86,13 +88,13 @@
                     <div id="datas_list" class="boxShadow1"> 
                         <br>
                         <label class="styleWord1">PRAZO: </label>
-                        <label id="dt_prazo" class="styleWord1"></label>
+                        <label id="dt_prazo" class="styleWord1_2"></label>
                         <br><br>
                         <label class="styleWord1">INICIO:</label>
-                        <label id="dt_inicial" class="styleWord1"></label>
+                        <label id="dt_inicial" class="styleWord1_2"></label>
                         <br><br>
                         <label class="styleWord1">FINAL:</label>
-                        <label id="dt_final" class="styleWord1"></label>
+                        <label id="dt_final" class="styleWord1_2"></label>
                         
                     </div>
                 </div>
@@ -200,9 +202,9 @@
            <br><br>
        
            <button id="btn_novapessoa" type="submit" class="btn_shadow2" onclick="novaPessoa()">Novo</button>       
-           <button id="btn_salvarpessoa" type="submit" class="btn_shadow2" onclick="postPessoa()">Gravar</button>
-           <button id="btn_atualizarCadasPessoa" type="submit" class="btn_shadow2" onclick="putPessoa()">Atualizar</button>
-           <button id="btn_excluirCadasPessoa"  type="submit" class="btn_shadow2" onclick="deletePessoa()">Excluir</button>
+           <button id="btn_salvarpessoa" type="submit" class="btn_shadow2" onclick="postPessoa(), getPessoas_paramenupessoas()">Gravar</button>
+           <button id="btn_atualizarCadasPessoa" type="submit" class="btn_shadow2" onclick="putPessoa(), getPessoas_paramenupessoas()">Atualizar</button>
+           <button id="btn_excluirCadasPessoa"  type="submit" class="btn_shadow2" onclick="deletePessoa(), getPessoas_paramenupessoas()">Excluir</button>
            <button id="btn_cancelarCadasPessoa" type="submit" class="btn_shadow2" onclick="cancelarCadasPessoa()">Cancelar</button>
            
        </div>
@@ -337,17 +339,16 @@
                 </select>                
                 <br><br>
                 
-               <label for="selecionaProjeto">Selecione o projeto: <input disabled="true" autocomplete="off" id="selecionaProjeto" onselect="carregaDatalistProjetos();" onfocus="carregaDatalistInterdependencia();" onblur="carregaDatalistProjetos();" onclick="value=''" type="text" list="listaProjetos" name="fk_prj_id"></label>
-                  <datalist id="listaProjetos">
+               <label for="listaProjetos">Selecione o projeto:</label>
+                  <select id="listaProjetos" disabled="true" onselect="carregaDatalistProjetos()" onchange="carregaDatalistInterdependencia()">
                       
-                  </datalist>
-                  <label id="id_prj">0</label>
+                  </select>
                <br>
-               <label for="interdependencia">Interdependencia: <input autocomplete="off" disabled="true" onblur="outputDatalistInterdependenciaCadastarefa()" id="interdependencia" type="text" list="listaInterdependencia" name="trf_interdependencia"></label>
-                  <datalist id="listaInterdependencia">
+               <label for="listaInterdependencia">Interdependencia: </label>
+                  <select id="listaInterdependencia" disabled="true">
                       
-                  </datalist>
-                  <label id="id_interdependencia">0</label>
+                  </select>
+
                <br>
                 <label for="nomeTarefa">Nome tarefa: <input autocomplete="off" id="nomeTarefa" readonly="true" type="text" name="trf_nometarefa"></label>
                <br>
@@ -387,19 +388,19 @@
                   <datalist id="listaProjetos_distribuicao">
                       
                   </datalist>
-                  <label id="id_prjDistr">0</label>
+                  <label hidden id="id_prjDistr">0</label>
                <br>
             <label for="listaTarefa">Selecione a Tarefa: <input autocomplete="off" disabled="true" id="listaTarefa" type="text" list="listaTarefa_distribuicao" name="fk_trf_id" onselect="dt_tarefas_distribuicao();" onblur="dt_tarefas_distribuicao();"  onfocus="dt_tarefas_distribuicao();" onclick="value=''"></label>
                   <datalist id="listaTarefa_distribuicao">
                       
                   </datalist>
-                  <label id="id_trfDistr">0</label>
+                  <label hidden id="id_trfDistr">0</label>
                <br>
             <label for="listaPessoa">Selecione a Pessoa: <input autocomplete="off" disabled="true" id="listaPessoa" type="text" list="listaPessoa_distribuicao" name="fk_pes_id" onselect="dt_pessoas_distribuicao();" onblur="dt_pessoas_distribuicao();" onfocus="dt_pessoas_distribuicao();" onclick="value=''"></label>
                   <datalist id="listaPessoa_distribuicao">
                       
                   </datalist>
-                  <label id="id_pesDistr">0</label>
+                  <label hidden id="id_pesDistr">0</label>
                <br>
                <button id="btn_novadistribuicao" type="submit" class="btn_shadow2" onclick="novaDistribuicao()">Novo</button>       
                <button id="btn_salvardistribuicao" type="submit" class="btn_shadow2" onclick="postDistribuicao()">Gravar</button>

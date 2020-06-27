@@ -3,39 +3,6 @@
 /**ESTE ARQUIVO JAVASCRIPT FOI PROJETADO PARA TRATAR APENAS CADASTROS*/
 
 
-
-/*WINDOW.ONLOAD*/
-
-window.onload = function(){
-    getAllProjects();
-    getAllTasks();
-    
-}
-
-
-////////////////////////////
-
-/////*URLS*/////////////////////////////////////
-
-
-/*GET - POST - PUT - DELETE*/
-//**CADASTRO DE PESSOAS*////
-URLGETPESSOAS = 'http://localhost:8000/person/';
-//**CADASTRO DE PROJETOS*////
-URLGETPROJETOS = 'http://localhost:8000/project/';
-//**CADASTRO DE TAREFAS*////
-URLGETTAREFAS = 'http://localhost:8000/task/';
-//**CADASTRO DE DISTRIBUICAO DE PESSOAS EM TAREFAS*////
-URLGETDISTRIBUICAO = 'http://localhost:8000/distribute/';
-//**CADASTRO DE HABILIDADES*////
-URLGETHABILIDADES = 'http://localhost:8000/habilidades/';
-//**CADASTRO DE DISTRIBUICAO DE HABILIDADES*////
-URLGETDISTRHABILIDADES = 'http://localhost:8000/distributehab/';
-
-
-
-/*/////////////*/
-
 /*ADQUIRE O CSRF_TOKEN DO CACHE DO NAVEGADOR*/
 function getCookie(name) {
     cookieValue = null;
@@ -418,7 +385,7 @@ function getPessoa(){
         if(xhrGetPessoa.readyState == 4){
             if(xhrGetPessoa.status == 200){
                 preencheCamposCadasPessoa(JSON.parse(xhrGetPessoa.responseText));     
-               
+                
                 
             
             }else if(xhrGetPessoa.status == 404){
@@ -439,6 +406,9 @@ function postPessoa(){
     faltas = document.getElementById("faltas").innerHTML;
     horas_disponiveis = document.getElementById("horas_disponiveis").innerHTML;
 
+    if(nomePessoa == '' || contato == '' || salario == ''){
+        alert("Todos os campos devem ser preenchidos!!");
+    }else{
     xhrPostPessoa = new XMLHttpRequest();
     xhrPostPessoa.open("POST", URLGETPESSOAS, true);
     xhrPostPessoa.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -470,7 +440,7 @@ function postPessoa(){
     habilitaRecuoCodPessoa();
     habilitaBtnExcluirPessoa();
     habilitaBtnAtualizarPessoa();
-    
+}
 }
 
 function putPessoa(){
@@ -487,42 +457,44 @@ function putPessoa(){
         salario = document.getElementById("salario").value;
         faltas = document.getElementById("faltas").innerHTML;
         horas_disponiveis = document.getElementById("horas_disponiveis").innerHTML;
+        if(nomePessoa == '' || contato == '' || salario == ''){
+            alert("Todos os campos devem ser preenchidos!!");
+        }else{
+            xhrPutPessoa = new XMLHttpRequest();
+        
+            xhrPutPessoa.open("PUT", URLGETPESSOAS+codPessoa+'/', true);
+            xhrPutPessoa.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhrPutPessoa.setRequestHeader("X-CSRFToken", csrftoken);
+            xhrPutPessoa.setRequestHeader("withCredentials", 'True');
+            xhrPutPessoa.onload = function(){
+                if(xhrPutPessoa.readyState == 4){
+                    if(xhrPutPessoa.status == 200){    
+                        getPessoa();
+                        carregaTabelaPessoa();
+                        
+                    }
+                }
+            
 
-    xhrPutPessoa = new XMLHttpRequest();
-   
-    xhrPutPessoa.open("PUT", URLGETPESSOAS+codPessoa+'/', true);
-    xhrPutPessoa.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xhrPutPessoa.setRequestHeader("X-CSRFToken", csrftoken);
-    xhrPutPessoa.setRequestHeader("withCredentials", 'True');
-    xhrPutPessoa.onload = function(){
-        if(xhrPutPessoa.readyState == 4){
-            if(xhrPutPessoa.status == 200){    
-                getPessoa();
-                carregaTabelaPessoa();
-                
             }
+
+            xhrPutPessoa.send(JSON.stringify({
+                'pes_id': codPessoa,
+                'pes_nome': nomePessoa, 
+                'pes_contato': contato,
+                'pes_salario': salario,
+                'pes_faltas': faltas,
+                'pes_hrs_disponivel': horas_disponiveis
+            }));
+
+            
+            mudaBotao =  document.getElementById("btn_atualizarCadasPessoa");
+            mudaBotao.style.backgroundColor = "#698FEB";
+        
+            desabilitaCamposPessoa();
+            
         }
-    
-
     }
-
-    xhrPutPessoa.send(JSON.stringify({
-        'pes_id': codPessoa,
-        'pes_nome': nomePessoa, 
-        'pes_contato': contato,
-        'pes_salario': salario,
-        'pes_faltas': faltas,
-        'pes_hrs_disponivel': horas_disponiveis
-    }));
-
-    
-    mudaBotao =  document.getElementById("btn_atualizarCadasPessoa");
-    mudaBotao.style.backgroundColor = "#698FEB";
-  
-    desabilitaCamposPessoa();
-    
-}
-    
 }
 
 function deletePessoa(){
@@ -1059,7 +1031,9 @@ function postProjeto(){
     custo = document.getElementById("custo").value;
     horas_desen = document.getElementById("horas_desenvolvimento").value;
     
-    console.log(progressoprojeto);
+    if(nomeProjeto == '' || escopo == '' || dt_inicio == '' || dt_prazo == '' || custo == '' || horas_desen == '' ){
+        alert("Todos os campos devem ser preenchidos!!");
+    }else{
 
     xhrPostProjeto = new XMLHttpRequest();
     
@@ -1100,7 +1074,7 @@ function postProjeto(){
         habilitaRecuoCodProjeto();
         habilitaBtnExcluirProjeto();
         habilitaBtnAtualizarProjeto();
-   
+    }
 }
 
 function putProjeto(){
@@ -1122,6 +1096,9 @@ function putProjeto(){
     custo = document.getElementById("custo").value;
     horas_desen = document.getElementById("horas_desenvolvimento").value;
     
+    if(nomeProjeto == '' || escopo == '' || dt_inicio == '' || dt_prazo == '' || custo == '' || horas_desen == '' ){
+        alert("Todos os campos devem ser preenchidos!!");
+    }else{
 
     xhrPutProjeto = new XMLHttpRequest();
    
@@ -1161,7 +1138,7 @@ function putProjeto(){
     
     }
 
-    
+}
 }
 
 function deleteProjeto(){
@@ -1681,142 +1658,80 @@ function expandeTrf(nomeBtn){
 /*GET AND POST - API*////////////////////////////////////////////////////////////////////
 
 ////DATALIST
+
 function carregaDatalistProjetos(){
-    
 
     xhrCarregaDatalistProjeto = new XMLHttpRequest();
-    vetor_DatalistProjetos = [];
     xhrCarregaDatalistProjeto.open("GET", URLGETPROJETOS, true);
     xhrCarregaDatalistProjeto.onreadystatechange = function(){
         if(xhrCarregaDatalistProjeto.readyState == 4){
             if(xhrCarregaDatalistProjeto.status == 200){
-               json = JSON.parse(xhrCarregaDatalistProjeto.responseText);     
-               document.getElementById("listaProjetos").innerHTML = '';
-                for(i = 0; i<json.length; i++){
-                    document.getElementById("listaProjetos").innerHTML += "<option value='"+json[i]['prj_nome']+"'>";
-                    
-                    linha = [json[i]['prj_id'], json[i]['prj_nome']];
-                    vetor_DatalistProjetos.push(linha);
-                    
-                    
-                }
-                outputDatalistProjetoCadastarefa(vetor_DatalistProjetos);
-                outputDatalistInterdependenciaCadastarefa(vetor_DatalistProjetos, null);
-               
-        }else if(xhrCarregaDatalistProjeto.status == 404){}
-    }
-}
-    xhrCarregaDatalistProjeto.send();
-    
-    }
+            
+            json_datalist_projetos = JSON.parse(xhrCarregaDatalistProjeto.responseText);
+            
+            
+            document.getElementById("listaProjetos").innerHTML = '';
+            linhaOption = "<option></option>"
+            document.getElementById("listaProjetos").innerHTML += linhaOption;
 
+            for(i=0;i<json_datalist_projetos.length;i++){
+                linhaOption = "<option>"+json_datalist_projetos[i]['prj_nome']+"</option>"
+                document.getElementById("listaProjetos").innerHTML += linhaOption;
+            }
 
+            selectDadosProjetos(json_datalist_projetos);
 
-
-function outputDatalistProjetoCadastarefa(vetor_DatalistProjetos)
-{
-    nomeprojeto = document.getElementById("selecionaProjeto").value;
-    
-    for(i = 0; i<vetor_DatalistProjetos.length;i++){
-        
-        if(nomeprojeto == vetor_DatalistProjetos[i][1]){
-           
-            document.getElementById("id_prj").innerHTML = ""+vetor_DatalistProjetos[i][0]+"";
+            }else if(xhrCarregaDatalistProjeto.status == 404){}
         }
-
-    }
-
-   
-   
 }
+xhrCarregaDatalistProjeto.send();
+}
+
+recebe_dados_projetos = [];
+function selectDadosProjetos(json_datalist_projetos){
+    if(json_datalist_projetos != null){
+        recebe_dados_projetos = json_datalist_projetos;
+    }
+}
+
 
 function carregaDatalistInterdependencia(){
-    
 
-xhrCarregaDatalistInterdependencia = new XMLHttpRequest();
-vetor_DatalistInterdependencia = [];
-xhrCarregaDatalistInterdependencia.open("GET", URLGETTAREFAS, true);
-xhrCarregaDatalistInterdependencia.onreadystatechange = function(){
-    if(xhrCarregaDatalistInterdependencia.readyState == 4){
-        if(xhrCarregaDatalistInterdependencia.status == 200){
-           json = JSON.parse(xhrCarregaDatalistInterdependencia.responseText);     
-           
-            for(i = 0; i<json.length; i++){
-               
-                linha = [json[i]['fk_prj_id'],json[i]['trf_id'], json[i]['trf_name']];
-                vetor_DatalistInterdependencia.push(linha);
-                
-                
+    cod_projeto_datalist = '';
+    xhrCarregaDatalistInterdependencia = new XMLHttpRequest();
+    xhrCarregaDatalistInterdependencia.open("GET", URLGETTAREFAS, true);
+    xhrCarregaDatalistInterdependencia.onreadystatechange = function(){
+        if(xhrCarregaDatalistInterdependencia.readyState == 4){
+            if(xhrCarregaDatalistInterdependencia.status == 200){
+            json_datalist_interdependencia = JSON.parse(xhrCarregaDatalistInterdependencia.responseText);
+            nomeprojetodatalist = document.getElementById("listaProjetos").value;
+            for(i=0;i<recebe_dados_projetos.length;i++){
+                if(nomeprojetodatalist == recebe_dados_projetos[i]['prj_nome']){
+                    cod_projeto_datalist = recebe_dados_projetos[i]['prj_id'];
+                }
             }
-            outputDatalistInterdependenciaCadastarefa(null, vetor_DatalistInterdependencia);
-           
-           
-    }else if(xhrCarregaDatalistInterdependencia.status == 404){}
-}
+
+            document.getElementById("listaInterdependencia").innerHTML = '';
+            linhaOption = "<option></option>"
+            document.getElementById("listaInterdependencia").innerHTML += linhaOption;
+            
+                for(i=0;i<json_datalist_interdependencia.length;i++){
+                    console.log(json_datalist_interdependencia);
+                    if(cod_projeto_datalist == json_datalist_interdependencia[i]['fk_prj_id']){
+                        
+                    linhaOption = "<option>"+json_datalist_interdependencia[i]['trf_name']+"</option>"
+                    document.getElementById("listaInterdependencia").innerHTML += linhaOption;
+                    }
+                }
+            }else if(xhrCarregaDatalistInterdependencia.status == 404){}
+        }
 }
 xhrCarregaDatalistInterdependencia.send();
 
 }
-
-recebe_projetos = [];
-recebe_interdependencias = []
-function outputDatalistInterdependenciaCadastarefa(vetor_projetos, vetor_tarefas)
-{
-    
-    vetor_trfcadastrados = [];
-    if(vetor_projetos != null){
-        recebe_projetos = vetor_projetos;
-    }
-    if(vetor_tarefas != null){
-        recebe_interdependencias = vetor_tarefas;
-    }
-
-    
-
-
-    id_prj = document.getElementById("id_prj").innerHTML;
-    
-//nomeInterdependencia = document.getElementById("interdependencia").value;
-
-for(i = 0; i<recebe_projetos.length;i++){
-    document.getElementById("listaInterdependencia").innerHTML = '';
-    for(x=0 ; x<recebe_interdependencias.length;x++){
-
-        if(id_prj == recebe_interdependencias[x][0]){
-
-            document.getElementById("listaInterdependencia").innerHTML += "<option value='"+recebe_interdependencias[x][2]+"'>";
-       
-        }
-    }          
-}
-
-nomeinterdependencia = document.getElementById("interdependencia").value;
-
-for(i=0;i<recebe_interdependencias.length;i++){
-    if(nomeinterdependencia == recebe_interdependencias[i][2]){
-           
-        document.getElementById("id_interdependencia").innerHTML = ""+recebe_interdependencias[i][1]+"";
-    }
-}
-
-
-}
-
-
 ///////////
 
-function preencheCamposCadasTarefa(json){
-    document.getElementById("nomeTarefa").value = json.trf_name; 
-    document.getElementById("dt_inicioTarefa").value = json.trf_datainicial;
-    document.getElementById("dt_finalTarefa").value = json.trf_datafinal;
-    document.getElementById("dt_prazoTarefa").value = json.trf_prazo;
-    document.getElementById("entregavel").checked = json.trf_entregavel;
-    document.getElementById("id_prj").innerHTML = json.fk_prj_id;
-    document.getElementById("id_interdependencia").innerHTML = json.trf_interdependencia;
-    document.getElementById("progressotarefa").value = json.trf_progresso;
-    
 
-}
 
 function getNomeProjeto(){
     
@@ -1827,14 +1742,14 @@ function getNomeProjeto(){
         if(xhrGetProjeto.readyState == 4){
             if(xhrGetProjeto.status == 200){
                 json = JSON.parse(xhrGetProjeto.responseText);
-                 
+               /*  
                 id_prj = document.getElementById("id_prj").innerHTML;
                 for(i =0; i<json.length;i++){
                     if(id_prj == json[i]['prj_id']){
                         document.getElementById("selecionaProjeto").value = json[i]['prj_nome'];
                              
                     }
-                }
+                }*/
                 getAllProjects(); 
             }else if(xhrGetProjeto.status == 404){}
         }      
@@ -1854,23 +1769,8 @@ function getAllTasks(){
     xhrGetTarefa.onreadystatechange = function(){
         if(xhrGetTarefa.readyState == 4){
             if(xhrGetTarefa.status == 200){
-                
                 vetor_tarefa = JSON.parse(xhrGetTarefa.responseText); 
-
-                id_interdependencia = document.getElementById("id_interdependencia").innerHTML;
-                        
-                
-                for(i=0;i<vetor_tarefa.length;i++){
-                    
-
-                    if(vetor_tarefa[i]['trf_id'] == id_interdependencia){
-                       // console.log(vetor_tarefa[i]['trf_name']);
-                    document.getElementById("interdependencia").value = vetor_tarefa[i]['trf_name'];
-                    }else if(id_interdependencia == 0){
-                        document.getElementById("interdependencia").value = '';
-                    }
-                }
-               
+                select_dados_tarefas(vetor_tarefa);
             }else if(xhrGetTarefa.status == 404){
 
             }
@@ -1878,6 +1778,15 @@ function getAllTasks(){
         vetorTrfCadastrados(null,vetor_tarefa)    
     }
     xhrGetTarefa.send();
+}
+
+recebe_dados_tarefas = [];
+function select_dados_tarefas(vetor_tarefa){
+
+    if(vetor_tarefa != null){
+        recebe_dados_tarefas = vetor_tarefa;
+    }
+
 }
 
 function getTarefa(){
@@ -1898,12 +1807,47 @@ function getTarefa(){
         xhrGetTarefa = new XMLHttpRequest();
     
         xhrGetTarefa.open('GET', URLGETTAREFAS+codTarefa, true);
-            
+        
+        
             xhrGetTarefa.onreadystatechange = function(){
                 if(xhrGetTarefa.readyState == 4){
                     if(xhrGetTarefa.status == 200){
-                        preencheCamposCadasTarefa(JSON.parse(xhrGetTarefa.responseText));   
                         
+                        json_get_tarefa = JSON.parse(xhrGetTarefa.responseText);
+                        
+                       
+                        nome_tarefa_interdependencia = '';
+                        nome_projeto_interdependencia = '';
+                        for(i=0;i<recebe_dados_tarefas.length;i++){
+                            if(json_get_tarefa['trf_interdependencia'] == recebe_dados_tarefas[i]['trf_id']){
+                                
+                                nome_tarefa_interdependencia = recebe_dados_tarefas[i]['trf_name'];
+                                
+                            }
+                        }
+                        
+
+                        for(i=0;i<recebe_dados_projetos.length;i++){
+                            if(json_get_tarefa['fk_prj_id'] == recebe_dados_projetos[i]['prj_id']){
+                                nome_projeto_interdependencia = recebe_dados_projetos[i]['prj_nome'];
+                            }
+                        }
+
+                        
+                        document.getElementById('listaInterdependencia').value = nome_tarefa_interdependencia;
+                        document.getElementById("nomeTarefa").value = json_get_tarefa['trf_name']; 
+                        document.getElementById("dt_inicioTarefa").value = json_get_tarefa['trf_datainicial'];
+                        document.getElementById("dt_finalTarefa").value = json_get_tarefa['trf_datafinal'];
+                        document.getElementById("dt_prazoTarefa").value = json_get_tarefa['trf_prazo'];
+                        document.getElementById("entregavel").checked =  json_get_tarefa['trf_entregavel'];
+                        document.getElementById("listaProjetos").value = nome_projeto_interdependencia;
+                        
+                        
+                        document.getElementById("progressotarefa").value = json_get_tarefa['trf_progresso'];
+                        
+                       
+                        
+
                         getNomeProjeto();
                         getAllTasks();
 
@@ -1922,118 +1866,169 @@ function getTarefa(){
 }
 
 function postTarefa(){
-   codTarefa = document.getElementById("codTarefa").value;
-   nomeTarefa =  document.getElementById("nomeTarefa").value;
-   dt_inicioTarefa =  document.getElementById("dt_inicioTarefa").value;
-   dt_finalTarefa = document.getElementById("dt_finalTarefa").value;
-   dt_prazoTarefa = document.getElementById("dt_prazoTarefa").value;
-   entregavel = document.getElementById("entregavel").checked;
-   interdependencia = document.getElementById("id_interdependencia").innerHTML;
-   progressotarefa = document.getElementById("progressotarefa").value;
-    
-   
-   id_prj = document.getElementById("id_prj").innerHTML;
-  
-    xhrPostTarefa = new XMLHttpRequest();
-    xhrPostTarefa.open("POST", URLGETTAREFAS, true);
-    xhrPostTarefa.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xhrPostTarefa.setRequestHeader("X-CSRFToken", csrftoken);
-    xhrPostTarefa.setRequestHeader("withCredentials", 'True');
 
-    xhrPostTarefa.onload = function(){
-        if(xhrPostTarefa.readyState == 4){
-            if(xhrPostTarefa.status == 201){
-                
-                getTarefa();
-                
-                
+    cod_interdependencia_datalist = '';
+    cod_pessoa_datalist = '';
+   
+    nome_projeto_datalist = document.getElementById("listaProjetos").value;
+    nome_interdependencia_datalist = document.getElementById("listaInterdependencia").value;
+    codTarefa = document.getElementById("codTarefa").value;
+    nomeTarefa =  document.getElementById("nomeTarefa").value;
+    dt_inicioTarefa =  document.getElementById("dt_inicioTarefa").value;
+    dt_finalTarefa = document.getElementById("dt_finalTarefa").value;
+    dt_prazoTarefa = document.getElementById("dt_prazoTarefa").value;
+    entregavel = document.getElementById("entregavel").checked;
+    progressotarefa = document.getElementById("progressotarefa").value;
+
+    if(nome_projeto_datalist == '' || nomeTarefa == '' || dt_inicioTarefa == '' || dt_finalTarefa == '' || dt_prazoTarefa == '' || progressotarefa == '' ){
+
+        alert("Todos os campos devem ser preenchidos!!");
+    }else{
+
+            for(i=0;i<recebe_dados_projetos.length;i++){
+                if(nome_projeto_datalist == recebe_dados_projetos[i]['prj_nome']){
+                    cod_pessoa_datalist = recebe_dados_projetos[i]['prj_id'];
+                }
             }
-        }
-    
 
-    }
-    xhrPostTarefa.send(JSON.stringify({
-         "trf_id": codTarefa,
-         "trf_name": nomeTarefa,
-         "trf_datainicial": dt_inicioTarefa,
-         "trf_datafinal": dt_finalTarefa,
-         "trf_prazo": dt_prazoTarefa,
-         "trf_interdependencia": interdependencia,
-         "trf_entregavel": entregavel,
-         "trf_progresso": progressotarefa,
-         "trf_color": "#000000",
-         "fk_prj_id": id_prj
-        }));
-         
-        desabilitaCamposTarefa();
-        habilitaBtnNovaTarefa();
-        desabilitaBtnGravaTarefa();
-        desabilitaBtnCancelarTarefa();
-        habilitaRecuoCodTarefa();
-        habilitaBtnExcluirTarefa();
-        habilitaBtnAtualizarTarefa();
-        getProjeto();
-   
+            for(i=0;i<recebe_dados_tarefas.length;i++){
+                 if(nome_interdependencia_datalist == recebe_dados_tarefas[i]['trf_name']){
+                        cod_interdependencia_datalist = recebe_dados_tarefas[i]['trf_id'];
+                }else if(nome_interdependencia_datalist == ''){
+                    cod_interdependencia_datalist = 0;
+                }
+            }
+            
+            xhrPostTarefa = new XMLHttpRequest();
+            xhrPostTarefa.open("POST", URLGETTAREFAS, true);
+            xhrPostTarefa.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhrPostTarefa.setRequestHeader("X-CSRFToken", csrftoken);
+            xhrPostTarefa.setRequestHeader("withCredentials", 'True');
+
+            xhrPostTarefa.onload = function(){
+                if(xhrPostTarefa.readyState == 4){
+                    if(xhrPostTarefa.status == 201){
+                        json_get_tarefas = JSON.parse(xhrPostTarefa.responseText);
+                        
+                        getTarefa();
+                        
+                        
+                    }
+                }
+            
+
+            }
+            xhrPostTarefa.send(JSON.stringify({
+                "trf_id": codTarefa,
+                "trf_name": nomeTarefa,
+                "trf_datainicial": dt_inicioTarefa,
+                "trf_datafinal": dt_finalTarefa,
+                "trf_prazo": dt_prazoTarefa,
+                "trf_interdependencia": cod_interdependencia_datalist,
+                "trf_entregavel": entregavel,
+                "trf_progresso": progressotarefa,
+                "trf_color": "#000000",
+                "fk_prj_id": cod_pessoa_datalist
+                }));
+                
+                desabilitaCamposTarefa();
+                habilitaBtnNovaTarefa();
+                desabilitaBtnGravaTarefa();
+                desabilitaBtnCancelarTarefa();
+                habilitaRecuoCodTarefa();
+                habilitaBtnExcluirTarefa();
+                habilitaBtnAtualizarTarefa();
+                getProjeto();
+            }
 }
 
 function putTarefa(){
+
     if(document.getElementById("nomeTarefa").readOnly == true){
         habilitaCamposTarefa();
         
         mudaBotao =  document.getElementById("btn_atualizarCadasTarefa");
         mudaBotao.style.backgroundColor = "green";
+        carregaDatalistInterdependencia();
 
     }else{
+
+        cod_interdependencia_datalist = '';
+        cod_pessoa_datalist = '';
+    
+        nome_projeto_datalist = document.getElementById("listaProjetos").value;
+        nome_interdependencia_datalist = document.getElementById("listaInterdependencia").value;
         codTarefa = document.getElementById("codTarefa").value;
         nomeTarefa =  document.getElementById("nomeTarefa").value;
         dt_inicioTarefa =  document.getElementById("dt_inicioTarefa").value;
         dt_finalTarefa = document.getElementById("dt_finalTarefa").value;
         dt_prazoTarefa = document.getElementById("dt_prazoTarefa").value;
         entregavel = document.getElementById("entregavel").checked;
-        interdependencia = document.getElementById("id_interdependencia").innerHTML;
         progressotarefa = document.getElementById("progressotarefa").value;
-    
+
+        if(nome_projeto_datalist == '' || nomeTarefa == '' || dt_inicioTarefa == '' || dt_finalTarefa == '' || dt_prazoTarefa == '' || progressotarefa == '' ){
+
+            alert("Todos os campos devem ser preenchidos!!");
+        }else{
+        
    
-    xhrPutTarefa = new XMLHttpRequest();
-   
-    xhrPutTarefa.open("PUT", URLGETTAREFAS+codTarefa+'/', true);
-    xhrPutTarefa.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xhrPutTarefa.setRequestHeader("X-CSRFToken", csrftoken);
-    xhrPutTarefa.setRequestHeader("withCredentials", 'True');
-    xhrPutTarefa.onload = function(){
-        if(xhrPutTarefa.readyState == 4){
-            if(xhrPutTarefa.status == 200){
-                
-                getTarefa();
-                
-                
+            for(i=0;i<recebe_dados_projetos.length;i++){
+                if(nome_projeto_datalist == recebe_dados_projetos[i]['prj_nome']){
+                    cod_pessoa_datalist = recebe_dados_projetos[i]['prj_id'];
+                }
+            }
+
+            for(i=0;i<recebe_dados_tarefas.length;i++){
+                if(nome_interdependencia_datalist == recebe_dados_tarefas[i]['trf_name']){
+                        cod_interdependencia_datalist = recebe_dados_tarefas[i]['trf_id'];
+                }else if(nome_interdependencia_datalist == ''){
+
+                    cod_interdependencia_datalist = 0;
+                }
+            }
+            console.log(cod_interdependencia_datalist);
+            console.log(cod_pessoa_datalist);
+
+            xhrPutTarefa = new XMLHttpRequest();
+        
+            xhrPutTarefa.open("PUT", URLGETTAREFAS+codTarefa+'/', true);
+            xhrPutTarefa.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhrPutTarefa.setRequestHeader("X-CSRFToken", csrftoken);
+            xhrPutTarefa.setRequestHeader("withCredentials", 'True');
+            xhrPutTarefa.onload = function(){
+                if(xhrPutTarefa.readyState == 4){
+                    if(xhrPutTarefa.status == 200){
+                        
+                        getTarefa();
+                        
+                        
+                    }
+                }
+            
+
+            }   
+            xhrPutTarefa.send(JSON.stringify({
+                "trf_id": codTarefa,
+                "trf_name": nomeTarefa,
+                "trf_datainicial": dt_inicioTarefa,
+                "trf_datafinal": dt_finalTarefa,
+                "trf_prazo": dt_prazoTarefa,
+                "trf_interdependencia": cod_interdependencia_datalist,
+                "trf_entregavel": entregavel,
+                "trf_progresso": progressotarefa,
+                "trf_color": "#000000",
+                "fk_prj_id": cod_pessoa_datalist
+            }));
+
+            mudaBotao =  document.getElementById("btn_atualizarCadasTarefa");
+            mudaBotao.style.backgroundColor = "#698FEB";
+            
+            desabilitaCamposTarefa();
+        
+
             }
         }
-    
-
-    }   
-    xhrPutTarefa.send(JSON.stringify({
-        "trf_id": codTarefa,
-        "trf_name": nomeTarefa,
-        "trf_datainicial": dt_inicioTarefa,
-        "trf_datafinal": dt_finalTarefa,
-        "trf_prazo": dt_prazoTarefa,
-        "trf_interdependencia": interdependencia,
-        "trf_entregavel": entregavel,
-        "trf_progresso": progressotarefa,
-        "trf_color": "000000",
-        "fk_prj_id": id_prj
-       }));
-
-    mudaBotao =  document.getElementById("btn_atualizarCadasTarefa");
-    mudaBotao.style.backgroundColor = "#698FEB";
-    
-    desabilitaCamposTarefa();
-   
-
-    }
-
-    
+            
 }
 
 
@@ -2046,14 +2041,23 @@ function deleteTarefa(){
     xhrDeleteTarefa.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhrDeleteTarefa.setRequestHeader("X-CSRFToken", csrftoken);
     xhrDeleteTarefa.setRequestHeader("withCredentials", 'True');
+    xhrDeleteTarefa.onload = function () {
+        if(xhrDeleteTarefa.readyState == 4){
+            if(xhrDeleteTarefa.status == 204){
+                getTarefa();
+                         
+            }
+        }
+        
+    }
     xhrDeleteTarefa.send(); 
     
-    getTarefa();
+    
     if(document.getElementById("codTarefa").value == 0){
         limparCamposCadasTarefa();
         habilitaBtnAtualizarTarefa();
     }
-     
+            
     
 }
 ///////////////////////FINISH: GET - POST - PUT - DELETE //////////////////////////////////////////////////////////
@@ -2093,7 +2097,12 @@ function clicaTarefa(){
                 }else{
                     document.getElementById("codTarefa").value = maiorvalor;
                     habilitaRecuoCodTarefa();
+                    
+                    carregaDatalistProjetos();
+                    
                     getTarefa();
+                    
+                   
                 }
 
             }else if(xhrAbreTarefa.status == 404){}
@@ -2102,9 +2111,10 @@ function clicaTarefa(){
         }
         
     }
+    
     xhrAbreTarefa.send();
     
-    carregaDatalistProjetos();
+    
     habilitaAvancoCodTarefa();
     habilitaRecuoCodTarefa();
     desabilitaBtnCancelarTarefa();
@@ -2112,6 +2122,7 @@ function clicaTarefa(){
     desabilitaBtnGravaTarefa();
     desabilitaAvancoCodTarefa();
     //desabilitaHabilitaBtnExcluirTarefa(); 
+    
 }
 
 function novaTarefa(){
@@ -2312,8 +2323,8 @@ function desabilitaBtnCancelarTarefa(){
 }
 
 function habilitaCamposTarefa(){
-    document.getElementById("selecionaProjeto").disabled = false;
-    document.getElementById("interdependencia").disabled = false;   
+    document.getElementById("listaProjetos").disabled = false;
+    document.getElementById("listaInterdependencia").disabled = false;   
     document.getElementById("nomeTarefa").readOnly = false;
     document.getElementById("dt_inicioTarefa").readOnly = false;
     document.getElementById("dt_finalTarefa").readOnly = false;
@@ -2325,8 +2336,8 @@ function habilitaCamposTarefa(){
 
 function desabilitaCamposTarefa(){
     limparCamposCadasTarefa();
-    document.getElementById("selecionaProjeto").disabled = true; 
-    document.getElementById("interdependencia").disabled = true; 
+    document.getElementById("listaProjetos").disabled = true; 
+    document.getElementById("listaInterdependencia").disabled = true; 
     document.getElementById("nomeTarefa").readOnly = true;
     document.getElementById("dt_inicioTarefa").readOnly = true;
     document.getElementById("dt_finalTarefa").readOnly = true;
@@ -2365,8 +2376,8 @@ function habilitaBtnGravarTarefa(){
 }
 
 function limparCamposCadasTarefa(){
-    document.getElementById("selecionaProjeto").value = '';
-    document.getElementById("interdependencia").value = '';
+    document.getElementById("listaProjetos").value = '';
+    document.getElementById("listaInterdependencia").value = '';
     document.getElementById("nomeTarefa").value = '';
     document.getElementById("dt_inicioTarefa").value = '';
      document.getElementById("dt_finalTarefa").value = '';

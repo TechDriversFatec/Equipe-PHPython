@@ -16,7 +16,8 @@ function ganttProjetos(){
     xhrGetProjeto.onreadystatechange = function(){
         if(xhrGetProjeto.readyState == 4){
             if(xhrGetProjeto.status == 200){
-                jsonProjetosGantt = (JSON.parse(xhrGetProjeto.responseText));                         
+                jsonProjetosGantt = (JSON.parse(xhrGetProjeto.responseText)); 
+
             }else if(xhrGetProjeto.status == 404){
 
             }
@@ -62,17 +63,38 @@ function carregaGantt(jsonProjetosGantt, jsonTarefasGantt){
             recebe_tarefaGantt = jsonTarefasGantt;
         }
         
+        
+
+        
+        vetor_preparaProjetos = [];
+        nomeInterdependencia = '';
 
         if(recebe_projetoGantt != ''){
             if(recebe_tarefaGantt != ''){
-        tasks = []; //PREPARO DE VETOR PARA RECEBER JSON
+                
+
+        for(i=0; i<recebe_projetoGantt.length;i++){
+            for(x=0;x<recebe_tarefaGantt.length;x++){
+                if(recebe_tarefaGantt[x]['trf_id'] == recebe_tarefaGantt[x]['trf_interdependencia']){
+                    nomeInterdependencia = recebe_tarefaGantt[x]['trf_name'];
+                }
+
+                if(recebe_tarefaGantt[x]['fk_prj_id'] == recebe_projetoGantt[i]['prj_id']){
+                    
+                    linha = [recebe_tarefaGantt[x]['trf_id'], recebe_tarefaGantt[x]['trf_name'],recebe_tarefaGantt[x]['trf_datainicial'], recebe_tarefaGantt[x]['trf_datafinal'], recebe_tarefaGantt[x]['trf_interdependencia'] ];
+                    vetor_preparaProjetos.push(linha);
+                }
+            }
+        }
+        tasks = []; //CRIA VETOR PARA RECEBER JSON
     
-        for(i = 0; i< recebe_tarefaGantt.length;i++){ //FAZ A VARREDURA NO VETOR PARA CRIAR JSON
+        for(i = 0; i< vetor_preparaProjetos.length;i++){ //FAZ A VARREDURA NO VETOR PARA CRIAR JSON
             tasks.push({ //CARREGA O JSON COM AS INFORMAÇÕES NECESSÁRIAS PARA CARREGAR O GRÁFICO GANTT
-                'id': 'Task'+recebe_tarefaGantt[i]['trf_id'],
-                'name': recebe_tarefaGantt[i]['trf_name'],
-                'start': recebe_tarefaGantt[i]['trf_datainicial'],
-                'end': recebe_tarefaGantt[i]['trf_datafinal'],
+                'id': 'Task'+vetor_preparaProjetos[i][0],
+                'name': vetor_preparaProjetos[i][1],
+                'start': vetor_preparaProjetos[i][2],
+                'end': vetor_preparaProjetos[i][3],
+                'dependencies': 'Task'+vetor_preparaProjetos[i][4],
                 'progress': 20,       
                 'custom_class': 'tcolor'                     
             });

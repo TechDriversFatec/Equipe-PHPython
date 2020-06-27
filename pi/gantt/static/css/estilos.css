@@ -92,6 +92,12 @@
     
 }
 
+.styleWord1_2{
+    color: #698FEB;
+    font-weight: 200;
+    font-family: monospace;
+}
+
 /*BOTÃO CRIADO PARA O RELATÓRIO - BTN PROJETOS*/
 .btn_shadow4_2{
     width: 270px;
@@ -103,7 +109,7 @@
 }
 
 
-.styleWord1 {
+.styleWord1{
     color: #698FEB;
     font-weight: 450;
     font-family: monospace;
@@ -263,19 +269,18 @@
     font-family: chandas;
 }
 
-
-#top #imgbtn_play{
-    justify-content: flex-end;
-    width: 30px;
-    height: 30px;
-    margin-top: 18px;
-    margin-left: 620px;
-}
-
 #top #btn_compartilhar{
     justify-content: flex-end;
     margin-top: 9px;
     margin-left: 20px;
+}
+
+#top #btn_salvarplanning{
+    justify-content: flex-end;
+    margin-top: 10px;
+    width: 110px;
+   margin-left: 500px;
+    
 }
 
 
@@ -320,7 +325,7 @@
     height: 30px;
     margin-top: 13px;
     margin-right: 85px;
-    margin-left: -100px;
+    margin-left: -85px;
     
 }
 
@@ -364,12 +369,16 @@
     
 }
 
-
-
-#top_central #btn_salvarprojeto{
-    margin-top: 10px;
-    width: 80px;
+#top_central #imgbtn_play{
+    justify-content: flex-end;
+    width: 30px;
+    height: 30px;
+    margin-top: 15px;
+    
+    
 }
+
+
 
 /*///////////////////////////////////*/
 
@@ -435,16 +444,18 @@
     margin-left: 27px;
     margin-top: 3px;
     overflow:auto;
-    
+}
+
+#right_center #pessoas_top #pessoas_list #lb_pessoa_hd{ 
+    width: 130px;
+    margin-left: 5px;
+    margin-top: 10px;
     
 }
 
-#right_center #pessoas_top #pessoas_list label{
-    margin-left: 50px;
-    width: 80px;
-    overflow:auto;
-    display: inline-grid;
-    
+#right_center #pessoas_top #pessoas_list #lb_pessoa_hd #lb_horasdispo_pes{
+    color: red;
+
 }
 
 #right_center #btn_datas{
@@ -460,9 +471,26 @@
 }
 
 #right_center #datas #datas_list label{
-    margin-left: 10px;
+    margin-left: 5px;
 }
 
+#right_center #datas #datas_list #dt_prazo{
+    font-size: 12px;
+    margin-left: -5px;
+    color: red;
+}
+
+#right_center #datas #datas_list #dt_inicial{
+    font-size: 12px;
+    margin-left: -5px;
+    color: red;
+}
+
+#right_center #datas #datas_list #dt_final{
+    font-size: 12px;
+    margin-left: -5px;
+    color: red;
+}
 
 
 
@@ -895,8 +923,13 @@
 }
 
 
-#cadastro_tarefa #selecionaProjeto{
+#cadastro_tarefa #listaProjetos{
      width: 250px;
+    margin-bottom: 10px;
+}
+
+#cadastro_tarefa #listaInterdependencia{
+    width: 250px;
     margin-bottom: 10px;
 }
 
@@ -1030,40 +1063,70 @@
 /*DASHBOARD*/
 
 #dashboard_projetos{
-    border-color: #698FEB;
-    border-style: groove;
     width: 1070px;
     height: 500px;
     float: right;
     overflow: auto;
-    margin-top: -80px;
+    margin-top: -70px;
 }
 
 #dashboard_projetos .view_projeto{
-    border-color: coral;
-    border-style: groove;
-    width: 1050px;
-    height: 200px;
-    float: right;
-    
+    border-style: inset;
+    border-width: 2px;
+    border-radius:0px 20px 0px 20px;
+    border-style: outset;
+    width: 1030px;
+    height: 300px;
     overflow: auto;
     margin-right: 5px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-optical-sizing: inherit;
+}
+
+#dashboard_projetos .class_nome_projeto{
+    width: 700px;
+    font-size: 25px;
+    margin-left: 50px;
+    
+}
+
+#dashboard_projetos #div_cor_projeto{
+    width: 15px;
+    height: 15px;
+    margin-top: 5px;
+    margin-left: 10px;
+    
+    
 }
 
 #dashboard_projetos .view_projeto .class_dados_projeto{
-    margin-left: 30px;
+    margin-left: 60px;
+    margin-top: 10px;
+    font-size: 13px;
 }
 
 #dashboard_projetos .view_projeto .class_dados_projeto #lb_dados_projeto{
     width: 700px;
+    margin-top: 10px;
+    font-size: 13px;
 }
 
 #dashboard_projetos .view_projeto .class_dados_tarefa{
     margin-left: 60px;
+    margin-top: 10px;
+    font-size: 13px;
+}
+
+#dashboard_projetos .view_projeto .class_dados_tarefa #lb_nome_tarefa_dashboard{
+    font-weight: 600;
 }
 
 #dashboard_projetos .view_projeto .class_dados_pessoa{
     margin-left: 100px;
+    margin-top: 10px;
+    font-size: 13px;
 }
 
 
