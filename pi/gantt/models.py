@@ -8,6 +8,7 @@ class tb_Pessoa(models.Model):
     pes_salario = models.DecimalField('Salario', max_digits=19, decimal_places=8, default=0)
     pes_faltas = models.IntegerField('Faltas', default=0, null=True)
     pes_hrs_disponivel = models.IntegerField('Hrs Disponiveis', default=0, null=True)
+    pes_hrs_disponivel_ano = models.IntegerField('Hrs Disponiveis por Ano', default=0, null=True)
 
 
 class tb_Projeto(models.Model):

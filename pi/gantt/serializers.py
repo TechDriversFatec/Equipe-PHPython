@@ -91,4 +91,5 @@ class HoursFreeSerializer(serializers.Serializer):
     horas_atribuidas = serializers.IntegerField()
     horas_totais = serializers.IntegerField()
     horas_restante = serializers.IntegerField()
-
+    horas_totais_ano = serializers.IntegerField()
+    horas_restante_ano = serializers.IntegerField()
