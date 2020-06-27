@@ -11,6 +11,7 @@ router.register(r'person', views.PersonViewSet)
 router.register(r'habilidades', views.HabilidadesViewSet)
 router.register(r'distribute', views.DistributeViewSet)
 router.register(r'distributehab', views.HabilidadeDistViewSet)
+router.register(r'hoursfree', views.HoursFreeSet, basename='freehours')
 
 urlpatterns = [
     url(r'request', views.index_page, name='home'),
