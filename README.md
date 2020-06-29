@@ -25,7 +25,7 @@ Além dos itens que foram expostos na apresentação, vale ressaltar que foram f
 
 **Vídeo de apresentação do Projeto (5ª Entrega)**
 
-[Apresentação](https://youtu.be/losLuFm8Eqk)
+[Apresentação](https://youtu.be/QbBc3mReSTo)
 <iframe width="560" height="315" src="https://www.youtube.com/embed/eVWRJgfRgmc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 Após a reunião com o Cadu, reavaliamos o que seria real prioridade e deixamos por não atender ao requisito 32. 
