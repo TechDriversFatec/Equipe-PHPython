@@ -31,6 +31,9 @@ Além dos itens que foram expostos na apresentação, vale ressaltar que foram f
 Após a reunião com o Cadu, reavaliamos o que seria real prioridade e deixamos por não atender ao requisito 32. 
 - (REQ-32) Usuário pode escolher quais projetos e tarefas serão exibidos no gráfico de gantt
 
+Atendemos ao seguinte requisito além do que estava na sprint:
+- (REQ-25) Gerente pode gerar relatórios de pessoas com os seguintes dados: Horas livres, salário, carga horária, projetos e tarefas que participa/participou
+em um intervalo de tempo.
 
 **Para acessar o projeto em produção:** [Gantt Planner](https://pi-gantt-planner.herokuapp.com)
 
@@ -145,8 +148,6 @@ as seguintes informações: horas disponíveis, salário, férias, carga horári
 - (REQ-30) Usuário pode acessar aba de HELP para tirar dúvidas;
 - (REQ-31) Usuário pode reportar um erro
 
-- (REQ-25) Gerente pode gerar relatórios de pessoas com os seguintes dados: Horas livres, salário, carga horária, projetos e tarefas que participa/participou
-em um intervalo de tempo.
 
 **6ª ENTREGA (FINAL)**
 
