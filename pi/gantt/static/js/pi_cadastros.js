@@ -2031,6 +2031,23 @@ function putTarefa(){
             
 }
 
+// dsajidasdiasdias
+function putAtualizaTarefa(tarefa){
+    xhrPutTarefa = new XMLHttpRequest();
+        
+    xhrPutTarefa.open("PUT", URLGETTAREFAS+tarefa.trf_id+'/', true);
+    xhrPutTarefa.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhrPutTarefa.setRequestHeader("X-CSRFToken", csrftoken);
+    xhrPutTarefa.setRequestHeader("withCredentials", 'True');
+    xhrPutTarefa.send(JSON.stringify(tarefa));
+}
+
+
+
+// dasjiasjidsajidsaijd
+
+
+
 
 function deleteTarefa(){
     recuarCodTarefa();

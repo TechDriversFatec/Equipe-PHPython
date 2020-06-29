@@ -49,11 +49,22 @@ function ganttTarefas(){
    
 }
 
+function createColorFill(projectId, color) {
+    const style = document.createElement("style")
+    style.className = "colorFill"
+    style.innerHTML = `.tcolor-${projectId} .bar { fill: ${color}}`
+    document.head.appendChild(style)
+}
+
+function clearColorFill(){
+    document.querySelectorAll(".colorFill").forEach(document.head.removeChild)
+}
+
 recebe_projetoGantt = [];
 recebe_tarefaGantt = []
+
 function carregaGantt(jsonProjetosGantt, jsonTarefasGantt){
-        
-    
+
         vetor_gantt = [];
 
         if(jsonProjetosGantt != null){
@@ -72,8 +83,10 @@ function carregaGantt(jsonProjetosGantt, jsonTarefasGantt){
         if(recebe_projetoGantt != ''){
             if(recebe_tarefaGantt != ''){
                 
-
+        clearColorFill()
+        
         for(i=0; i<recebe_projetoGantt.length;i++){
+            createColorFill(recebe_projetoGantt[i]['prj_id'], recebe_projetoGantt[i]['prj_color'])
             for(x=0;x<recebe_tarefaGantt.length;x++){
                 if(recebe_tarefaGantt[x]['trf_id'] == recebe_tarefaGantt[x]['trf_interdependencia']){
                     nomeInterdependencia = recebe_tarefaGantt[x]['trf_name'];
@@ -96,11 +109,47 @@ function carregaGantt(jsonProjetosGantt, jsonTarefasGantt){
                 'end': vetor_preparaProjetos[i][3],
                 'dependencies': 'Task'+vetor_preparaProjetos[i][4],
                 'progress': 20,       
-                'custom_class': 'tcolor'                     
+                'custom_class': 'tcolor-'+vetor_preparaProjetos[i][0]                     
             });
+
         }
         //console.log("TASKS: "+tasks+""); //TESTE DE INTEGRIDADE
-       gantt = new Gantt("#gantt", tasks); //ENVIO DE DADOS PARA O GRÁFICO GANTT
+        var gantt = new Gantt('#gantt', tasks, {
+            on_click: function (task) {
+                console.log(task);
+            },
+            on_date_change: function(task, start, end) {
+                console.log(recebe_tarefaGantt)
+                console.log(task, start, end);
+                const trf_id = parseInt(task.id.replace("Task",""))
+                const tarefa = recebe_tarefaGantt.filter(_ => _.trf_id == trf_id)[0]
+                tarefa.trf_datainicial = start.toISOString().split("T")[0]
+                tarefa.trf_datafinal = end.toISOString().split("T")[0]
+                putAtualizaTarefa(tarefa)
+                /*
+                JSON.stringify({
+                    "trf_id": codTarefa,
+                    "trf_name": nomeTarefa,
+                    "trf_datainicial": dt_inicioTarefa,
+                    "trf_datafinal": dt_finalTarefa,
+                    "trf_prazo": dt_prazoTarefa,
+                    "trf_interdependencia": cod_interdependencia_datalist,
+                    "trf_entregavel": entregavel,
+                    "trf_progresso": progressotarefa,
+                    "trf_color": "#000000",
+                    "fk_prj_id": cod_pessoa_datalist
+                }
+                */
+                
+            },
+            on_progress_change: function(task, progress) {
+                console.log(task, progress);
+            },
+            on_view_change: function(mode) {
+                console.log(mode);
+            }
+        });
+       
 
     }
 
