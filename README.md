@@ -32,8 +32,7 @@ Após a reunião com o Cadu, reavaliamos o que seria real prioridade e deixamos 
 - (REQ-32) Usuário pode escolher quais projetos e tarefas serão exibidos no gráfico de gantt
 
 
-####Para acessar o projeto em produção:
-[Gantt Planner](https://pi-gantt-planner.herokuapp.com)
+**Para acessar o projeto em produção:** [Gantt Planner](https://pi-gantt-planner.herokuapp.com)
 
 
 
