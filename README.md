@@ -22,6 +22,16 @@ Além dos itens que foram expostos na apresentação, vale ressaltar que foram f
 - Integração dos botões do front end e 
 - remodelação do banco de dados.
 
+
+**Vídeo de apresentação do Projeto (5ª Entrega)**
+
+[Apresentação](https://youtu.be/losLuFm8Eqk)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/eVWRJgfRgmc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+Após a reunião com o Cadu, reavaliamos o que seria real prioridade e deixamos por não atender ao requisito 32. 
+- (REQ-32) Usuário pode escolher quais projetos e tarefas serão exibidos no gráfico de gantt
+
+
 Para acessar o projeto em produção:
 [Gantt Planner](https://pi-gantt-planner.herokuapp.com)
 
@@ -135,8 +145,7 @@ as seguintes informações: horas disponíveis, salário, férias, carga horári
 - (REQ-22) Gerente e Usuário podem pesquisar cadastros de Projetos, Tarefas e Pessoas;
 - (REQ-23) Gerente pode visualizar todas as pessoas com horas livres sem filtro, com filtro de projetos ou com filtro de tarefas em um intervalo de tempo;
 - (REQ-30) Usuário pode acessar aba de HELP para tirar dúvidas;
-- (REQ-31) Usuário pode reportar um erro;
-- (REQ-32) Usuário pode escolher quais projetos e tarefas serão exibidos no gráfico de gantt
+- (REQ-31) Usuário pode reportar um erro
 
 
 **6ª ENTREGA (FINAL)**
