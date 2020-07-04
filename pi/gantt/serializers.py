@@ -4,7 +4,8 @@ from .models import (
     tb_Pessoa,
     tb_pes_Trf,
     tb_hab_pes,
-    tb_habilidades
+    tb_habilidades,
+
 )
 from rest_framework import serializers
 
@@ -82,3 +83,13 @@ class HabilidadeSerializer(serializers.ModelSerializer):
             'hab_id',
             'hab_nome'
         )
+
+
+class HoursFreeSerializer(serializers.Serializer):
+    pes_id = serializers.IntegerField()
+    pessoa = serializers.CharField()
+    horas_atribuidas = serializers.IntegerField()
+    horas_totais = serializers.IntegerField()
+    horas_restante = serializers.IntegerField()
+    horas_totais_ano = serializers.IntegerField()
+    horas_restante_ano = serializers.IntegerField()
