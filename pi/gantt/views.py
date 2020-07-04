@@ -1,5 +1,6 @@
 #
 from rest_framework.views import APIView
+from rest_framework.response import Response
 #
 
 from django.shortcuts import render, HttpResponse
@@ -27,7 +28,8 @@ from .serializers import (
     PersonSerializer,
     DistributeSerializer,
     HabilidadeDistSerializer,
-    HabilidadeSerializer
+    HabilidadeSerializer,
+    HoursFreeSerializer
 )
 
 
@@ -195,4 +197,49 @@ class HabilidadeDistViewSet(viewsets.ModelViewSet, APIView):
 class HabilidadesViewSet(viewsets.ModelViewSet, APIView):
     queryset = tb_habilidades.objects.all()
     serializer_class = HabilidadeSerializer
+    permission_classes = ()
+
+
+class HoursFreeSet(viewsets.ModelViewSet):
+    model = tb_pes_Trf
+
+    def list(self, request,  *args, **kwargs):
+        queryset = tb_pes_Trf.objects.raw('''
+            select
+       gtp.pes_id,
+       task.trf_id,
+       dist.pes_trf_id,
+       gtp.pes_nome as pessoa,
+       SUM(Cast ((
+        JulianDay(trf_datafinal) - JulianDay(trf_datainicial)
+        ) * 8 As Integer )) as horas_atribuidas,
+       gtp.pes_hrs_disponivel as horas_totais,
+       gtp.pes_hrs_disponivel_ano as horas_totais_ano,
+       gtp.pes_hrs_disponivel - SUM(Cast ((
+        JulianDay(trf_datafinal) - JulianDay(trf_datainicial)
+        ) * 8 As Integer )) as horas_restante,
+       gtp.pes_hrs_disponivel_ano - SUM(Cast ((
+        JulianDay(trf_datafinal) - JulianDay(trf_datainicial)
+        ) * 8 As Integer )) as horas_restante_ano
+from
+     gantt_tb_pes_trf dist join gantt_tb_tarefa task on dist.fk_trf_id_id = task.trf_id
+    join gantt_tb_pessoa gtp on dist.fk_pes_id_id = gtp.pes_id group by pessoa
+
+        ''')
+        data_prosseced = []
+        for query in queryset:
+
+            data = {
+                'pes_id': query.pes_id,
+                'pessoa': query.pessoa,
+                'horas_atribuidas': query.horas_atribuidas,
+                'horas_totais': query.horas_totais,
+                'horas_restante': query.horas_restante,
+                'horas_totais_ano': query.horas_totais_ano,
+                'horas_restante_ano': query.horas_restante_ano
+            }
+            data_prosseced.append(data)
+        print(data_prosseced)
+        serializer_class = HoursFreeSerializer(list(data_prosseced), many=True)
+        return Response(serializer_class.data)
     permission_classes = ()

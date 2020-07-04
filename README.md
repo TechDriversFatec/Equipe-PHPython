@@ -22,10 +22,21 @@ Além dos itens que foram expostos na apresentação, vale ressaltar que foram f
 - Integração dos botões do front end e 
 - remodelação do banco de dados.
 
-Para acessar o projeto em produção:
-[Gantt Planner](https://pi-gantt-planner.herokuapp.com)
 
-Obs: Para melhor compatibilidade de navegador com a aplicação, é sugerido utilizar o Navegador Google Chrome.
+**Vídeo de apresentação do Projeto (5ª Entrega)**
+
+[Apresentação](https://youtu.be/QbBc3mReSTo)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/eVWRJgfRgmc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+Após a reunião com o Cadu, reavaliamos o que seria real prioridade e deixamos por não atender ao requisito 32. 
+- (REQ-32) Usuário pode escolher quais projetos e tarefas serão exibidos no gráfico de gantt
+
+Atendemos ao seguinte requisito além do que estava na sprint:
+- (REQ-25) Gerente pode gerar relatórios de pessoas com os seguintes dados: Horas livres, salário, carga horária, projetos e tarefas que participa/participou
+em um intervalo de tempo.
+
+**Para acessar o projeto em produção:** [Gantt Planner](https://pi-gantt-planner.herokuapp.com)
+
 
 
 **WIKI:** 
@@ -135,24 +146,14 @@ as seguintes informações: horas disponíveis, salário, férias, carga horári
 - (REQ-22) Gerente e Usuário podem pesquisar cadastros de Projetos, Tarefas e Pessoas;
 - (REQ-23) Gerente pode visualizar todas as pessoas com horas livres sem filtro, com filtro de projetos ou com filtro de tarefas em um intervalo de tempo;
 - (REQ-30) Usuário pode acessar aba de HELP para tirar dúvidas;
-- (REQ-31) Usuário pode reportar um erro;
-- (REQ-32) Usuário pode escolher quais projetos e tarefas serão exibidos no gráfico de gantt
+- (REQ-31) Usuário pode reportar um erro
 
 
 **6ª ENTREGA (FINAL)**
 
-- (REQ-15) O Gerente pode compartilhar uma imagem com os usuários através de um botão de compartilhamento;
 - (REQ-16) O Gerente pode criar novos gráficos através de um menu e alternar entre a visualização deles;
 - (REQ-17) O Gerente pode excluir gráficos através de uma lista de gráficos;
-- (REQ-18) O Gerente pode visualizar o histórico de alterações salvas de cada gráfico;
-- (REQ-24) Gerente e Usuário podem visualizar uma escala "Nervouser", que é quando uma pessoa está a muitas horas em um projeto. Essa escala existe para
-que não haja problemas de motivação.
-- (REQ-25) Gerente pode gerar relatórios de pessoas com os seguintes dados: Horas livres, salário, carga horária, projetos e tarefas que participa/participou
-em um intervalo de tempo.
-- (REQ-26) Gerente pode gerar relatórios de Projetos com os seguintes dados: Horas trabalhadas por pessoa, progresso, prazos;
-- (REQ-27) Gerente pode subdividir uma tarefa em duas novas;
-- (REQ-28) Gerente pode baixar qualquer um dos relatórios;
-- (REQ-29) Usuários podem alterar um gráfico de gantt simultaneamente desde que pertença ao projeto em que vai alterar;
+
 
 
 

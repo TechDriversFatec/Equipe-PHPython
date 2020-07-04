@@ -8,6 +8,7 @@ class tb_Pessoa(models.Model):
     pes_salario = models.DecimalField('Salario', max_digits=19, decimal_places=8, default=0)
     pes_faltas = models.IntegerField('Faltas', default=0, null=True)
     pes_hrs_disponivel = models.IntegerField('Hrs Disponiveis', default=0, null=True)
+    pes_hrs_disponivel_ano = models.IntegerField('Hrs Disponiveis por Ano', default=0, null=True)
 
 
 class tb_Projeto(models.Model):
@@ -62,14 +63,17 @@ class tb_pes_Trf(models.Model):
 
 
 class tb_habilidades(models.Model):
-    hab_id = models.IntegerField('id', primary_key=True)
+    hab_id = models.AutoField('id', primary_key=True)
     hab_nome = models.CharField('habilidade', max_length=120)
 
 
 class tb_hab_pes(models.Model):
-    pes_trf_id = models.IntegerField('id', primary_key=True)
+    pes_hab_id = models.AutoField('id', primary_key=True)
     fk_pes_id = models.ForeignKey(tb_Pessoa, on_delete=models.CASCADE)
     fk_hab_id = models.ForeignKey(tb_habilidades, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = (("fk_pes_id", "fk_hab_id"),)
 
 class tbTeste(models.Model):
     teste = models.CharField(max_length=1)

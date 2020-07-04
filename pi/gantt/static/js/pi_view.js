@@ -126,3 +126,34 @@ function dadosProjeto(IdBtn){
   xhrGetDadosProjeto.send();
 
 }
+
+/**INFORMAÇÕES DE PESSOAS MENU LATERAL DIREITO */
+
+
+//pessoas_list
+
+
+
+function getPessoas_paramenupessoas(){
+
+    xhrGetPessoas_menulateraldireito = new XMLHttpRequest();
+    xhrGetPessoas_menulateraldireito.open('GET', URLGETPESSOAS, true);
+
+    xhrGetPessoas_menulateraldireito.onreadystatechange = function(){
+      if(xhrGetPessoas_menulateraldireito.readyState == 4){
+        if(xhrGetPessoas_menulateraldireito.status == 200){
+
+          json_get_pessoas_menulateralesquerdo = JSON.parse(xhrGetPessoas_menulateraldireito.responseText);
+          document.getElementById("pessoas_list").innerHTML = '';
+          for(i=0;i<json_get_pessoas_menulateralesquerdo.length;i++){
+            linhaMenuLateralDireito = "<label id='lb_pessoa_hd' class='styleWord1'>"+json_get_pessoas_menulateralesquerdo[i]['pes_nome']+": <label id='lb_horasdispo_pes' class='styleWord1_2'>"+json_get_pessoas_menulateralesquerdo[i]['pes_hrs_disponivel']+"</label></label><br><br>";
+            document.getElementById("pessoas_list").innerHTML += linhaMenuLateralDireito;
+
+          }
+
+        }
+      }
+    }
+    xhrGetPessoas_menulateraldireito.send();
+
+}

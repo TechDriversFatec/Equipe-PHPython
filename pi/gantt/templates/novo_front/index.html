@@ -11,10 +11,13 @@
     
     
       <script type="text/javascript" src="{% static 'js/frappe-gantt.min.js' %}"></script>
-      <script type="text/javascript" src="{% static 'js/dialog-polyfill.js' %}"></script>  
+      <script type="text/javascript" src="{% static 'js/dialog-polyfill.js' %}"></script> 
+      <script type="text/javascript" src="{% static 'js/pi_urls_api.js' %}"></script> 
          <script type="text/javascript" src="{% static 'js/pi_cadastros.js' %}"></script>
+         <script type="text/javascript" src="{% static 'js/pi_relatorio.js' %}"></script>
          <script type="text/javascript" src="{% static 'js/pi_view.js' %}"></script>
          <script type="text/javascript" src="{% static 'js/pi_gantt.js' %}"></script>
+         <script type="text/javascript" src="{% static 'js/pi_windowonload.js' %}"></script>
         </head>
 <body>
 	<div id="top" class="boxShadow1">
@@ -24,12 +27,13 @@
                 <a href="#novo_gantt_planner">Novo Gantt Planner</a>
                 <a href="#abrir_gantt_planner">Abrir Gantt Planner</a>
                   <a href="#" onclick="clicaPessoas()">Pessoas</a>
+                
                
               </div>
         </div>
 
          <h1>Gantt Planner - by PHPython</h1>
-        <img id="imgbtn_play" src="{% static 'images/img_play.png' %}">
+         <button id="btn_salvarplanning" class="btn_shadow2">SALVAR</button>   
         <button id="btn_compartilhar" class="btn_shadow2" onclick="pegaDIalog()">COMPARTILHAR</button>
 	</div>
     
@@ -46,8 +50,9 @@
           <img id="imgbtn_pessoas" src="{% static 'images/img_pessoas.png' %}" onclick="clicaDistribuicao()" class="dropbtn_pessoas">
               
         
-        <img id="imgbtn_download" src="{% static 'images/img_download.png' %}">
-        <button id="btn_salvarplanning" class="btn_shadow2" onclick="ganttProjetos()">SALVAR</button>    
+        <img id="imgbtn_download" src="{% static 'images/img_relatorio.png' %}" onclick="clicaRelatorio();">
+        <img id="imgbtn_play" onclick="ganttProjetos()" src="{% static 'images/img_play.png' %}">
+         
         
     </div>
 
@@ -61,11 +66,7 @@
 
                 </div>
                 
-                <!--<button id="btn_expandetarefa" class="btn_shadow1" onclick="expandeProjetos()"></button>
-                <div id="col_tarefas">
-                    
-                </div>
--->
+               
 			</div>
 
 			<div id="center" class="box">
@@ -76,7 +77,7 @@
 			<div id="right_center" class="box">
                 
                 <div id="pessoas_top">
-                    <button id="btn_pessoas" class="btn_shadow2" onclick="expandePessoas()">PESSOAS</button>
+                    <button id="btn_pessoas" class="btn_shadow2" onclick="expandePessoas()">PESSOAS / HORAS DISPONÍVEIS</button>
                     <div id="pessoas_list" class="boxShadow1"> 
                         
                     </div>
@@ -87,13 +88,13 @@
                     <div id="datas_list" class="boxShadow1"> 
                         <br>
                         <label class="styleWord1">PRAZO: </label>
-                        <label id="dt_prazo" class="styleWord1"></label>
+                        <label id="dt_prazo" class="styleWord1_2"></label>
                         <br><br>
                         <label class="styleWord1">INICIO:</label>
-                        <label id="dt_inicial" class="styleWord1"></label>
+                        <label id="dt_inicial" class="styleWord1_2"></label>
                         <br><br>
                         <label class="styleWord1">FINAL:</label>
-                        <label id="dt_final" class="styleWord1"></label>
+                        <label id="dt_final" class="styleWord1_2"></label>
                         
                     </div>
                 </div>
@@ -107,7 +108,131 @@
             <button id="btn6" class="btn_shadow4" onclick="periodo_ano()">ANO</button> 
     </div>
     
-     <!------------------------------------------------------------->
+
+    <!---CADASTRO DE PESSOAS-->
+    <dialog id="abreCadastroPessoas" class="abreCadastro" role="dialog"> 
+        <div id="bloco_superior" class="boxShadow1">
+               <button id="btn_fechar" class="btn_shadow2" onclick="fecharCadastroPessoa()">[X]Fechar</button>
+            <h1 class="styleWord1">Cadastro de Pessoas</h1> 
+        </div>
+       <br> 
+       <button id="btn_cadasHabilidades" type="button" onclick="cadastrarHabilidades();" class="btn_shadow4_1">Cadastrar Habilidades</button> 
+       <button id="btn_incluirHabilidades" type="button" onclick="incluirHabilidades();" class="btn_shadow4_1">Incluir Habilidades</button>
+        <br><br>
+                <!--CADASTRAR HABILIDADES-->
+                <dialog id="abreCadastroHabilidades" role="dialog" class="abreCadastro_1">
+                    <div id="bloco_superior_1" class="boxShadow1">
+                        <button id="btn_fechar_1" class="btn_shadow2" onclick="fecharCadastroHabilidade()">[X]Fechar</button>
+                    <h1 class="styleWord1">Cadastro de Habilidades</h1> 
+                </div>
+                    <div id="CadastroHabilidades">
+                        <br><br><br>
+                        <label id="lb_nome_habilidade" for="nome_habilidade">Nome habilidade: <input id="nome_habilidade" autocomplete="off" type='text' name="hab_nome"></label>
+                        <br><br><br>
+                        <button id="btn_gravarHabilidade" type="submit" class="btn_shadow2" onclick="gravarHabilidade();" >Gravar</button>
+                        <button id="btn_mostrarHabilidades" type="submit" class="btn_shadow2" onclick="mostrarHabilidades();">Mostrar habilidades</button>
+                    </div>
+                            <dialog id="habilidades_cadastradas" role="dialog" class="abreCadastro_1">
+                                <button id="btn_fechar_1_1" class="btn_shadow2" onclick="fecharListaHabilidades()">[X]Fechar</button>
+                   
+                                <div id="lista_habilidades_cadastradas">
+
+                                </div>
+
+                            </dialog>
+
+                </dialog>
+               
+
+                <!--INCLUIR HABILIDADES-->
+                <dialog id="abreInclusaoHabilidades" role="dialog" class="abreCadastro_1">
+                        <div id="bloco_superior_1" class="boxShadow1">
+                            <button id="btn_fechar_1" class="btn_shadow2" onclick="fecharInclusaoHabilidade()">[X]Fechar</button>
+                        <h1 class="styleWord1">Inclusão de Habilidades</h1> 
+                    </div>
+                        <div id="InclusaoHabilidades">
+                            <br><br><br>
+                            <label id="lb_nome_pessoa">Selecione a pessoa: </label>
+                            <select id="nome_pessoa" onselect="selectPessoas()">
+
+                            </select>
+                            <br>
+                            <br>
+                            <label id="lb_seleciona_nome_habilidade">Selecione a habilidade: </label>
+                            <select id="seleciona_nome_habilidade" >
+
+                            </select>
+                            <br><br><br>
+                            <button id="btn_gravarInclusao" type="submit" class="btn_shadow2" onclick="gravarPessoaHabilidade()">Gravar</button>
+                            <button id="btn_mostrarInclusoesCadastradas" type="submit" class="btn_shadow2" onclick="mostrarPessoasHabilidades()">Mostrar cadastrados</button>
+                        </div>
+                        <dialog id="cadastrados_pes_hab" role="dialog" class="abreCadastro_1">
+                            <button id="btn_fechar_1_1" class="btn_shadow2" onclick="fecharPessoasHabilidades()">[X]Fechar</button>
+                            <br><br>
+                            <label id="lb_nome_pessoa_1">Selecione a pessoa: </label>
+                            <select id="nome_pessoa_1" onselect="selectPessoas()" onchange="get_pessoas_habilidades()">
+
+                            </select>
+                            <div id="lista_pessoas_habilidades">
+
+                            </div>
+
+                        </dialog>
+            
+            
+                    </dialog>
+     
+       <div id='cadastroPessoas'>
+           
+          
+           <label for='codPessoa'>Código: </label><input readonly="true" type='text' id='codPessoa' name="pes_id" name="pes_id">
+           <button type="button" disabled="true" id="codAnteriorCadasPessoa" class="btn_shadow1_1" onclick="recuarCodPessoa()"></button>
+                <button type="button" disabled="true" id="codPosteriorCadasPessoa" class="btn_shadow1" onclick="avancarCodPessoa()"></button>
+           
+                <br><br>
+           <label for='nomePessoa'>Nome: </label><input readonly="true" required="required" autocomplete="off" type='text' id='nomePessoa' name="nomePessoa" name="pes_nome">
+           
+           <label for='contato'>Contato: </label><input readonly="true" required="required" autocomplete="off" type='text' id='contato' name="pes_contato">
+           <br><br>
+           <label for='salario'>Salário: </label><input readonly="true" autocomplete="off" type='number' required="required" maxlength="15" placeholder="R$" id='salario' name="pes_salario">
+           
+           <label id='lb_faltas'>Faltas: <label id="faltas" name="pes_faltas">0</label></label>
+           <label id='lb_horas_disponiveis'>Horas Disponíveis: <label id="horas_disponiveis" name="pes_hrs_disponivel">0</label></label>
+           
+           <br><br>
+       
+           <button id="btn_novapessoa" type="submit" class="btn_shadow2" onclick="novaPessoa()">Novo</button>       
+           <button id="btn_salvarpessoa" type="submit" class="btn_shadow2" onclick="postPessoa(), getPessoas_paramenupessoas()">Gravar</button>
+           <button id="btn_atualizarCadasPessoa" type="submit" class="btn_shadow2" onclick="putPessoa(), getPessoas_paramenupessoas()">Atualizar</button>
+           <button id="btn_excluirCadasPessoa"  type="submit" class="btn_shadow2" onclick="deletePessoa(), getPessoas_paramenupessoas()">Excluir</button>
+           <button id="btn_cancelarCadasPessoa" type="submit" class="btn_shadow2" onclick="cancelarCadasPessoa()">Cancelar</button>
+           
+       </div>
+      <div id='TablePessoas'>
+           
+           <table border=1>
+                   <thead>
+                       <caption>Pessoas cadastradas:</caption>
+                       <tr>
+                       <th>Código</th><th>Nome</th><th>Contato</th>
+                       </tr>
+                 </thead>
+                   <tbody id="corpoTabelaPessoas">
+                       
+                      
+                   
+
+
+                   </tbody>
+
+       
+           </table>
+       </div>
+       
+   </dialog>
+
+   
+  
     
     <!--CADASTRO DE PROJETO -->
             <dialog id="abreCadastroProjeto" class="abreCadastro"> 
@@ -122,17 +247,36 @@
                  <label  for="codProjeto">Código projeto: <input readonly="true" id="codProjeto" type="text" name="prj_id"></label>
                  <button type="button" id="codAnteriorCadasProjeto" class="btn_shadow1_1" onclick="recuarCodProjeto()"></button>
                  <button type="button" id="codPosteriorCadasProjeto" class="btn_shadow1" onclick="avancarCodProjeto()"></button>
-                                  <br><br>
+                 <label id="lb_progressoprojeto">Progresso % :</label>
+                <select id="progressoprojeto" name="prj_progresso" disabled="true">
+                    <option>0</option>
+                    <option>10</option>
+                    <option>20</option>
+                    <option>30</option>
+                    <option>40</option>
+                    <option>50</option>
+                    <option>60</option>
+                    <option>70</option>
+                    <option>80</option>
+                    <option>90</option>
+                    <option>100</option>
+                </select>                
+                <br><br>
                 <label for="nomeProjeto">Nome projeto: <input autocomplete="off" id="nomeProjeto" readonly="true" type="text" name="prj_nome"></label>
                   
                   <label for="escopo">Escopo: <input autocomplete="off" id="escopo" readonly="true" type="text" name="prj_escopo"></label>
-                  <br><br>
+                  <br>
                   <label for="dt_inicioProjeto">Data Início: <input readonly="true" id="dt_inicioProjeto" type="date" name="prj_datainicio"></label>
                   
                   <label for="dt_prazoProjeto">Prazo Entrega: <input readonly="true" id="dt_prazoProjeto" type="date" name="prj_prazo"></label>
-                    <br><br>
+                  <br>
+                
+                  <label for="custo">Custo Projeto: <input readonly="true" id="custo" type="number" name="prj_cost"></label>
+                  
+                  <label for="horas_desenvolvimento">Horas Desenvolvimento: <input readonly="true" id="horas_desenvolvimento" type="number" name="prj_hrs_dev"></label>
+                  <br>
                   <label for="corProjeto">Cor do projeto: <input disabled="true" id="corProjeto" type="color" name="prj_cor"></label>
-                    <br><br>
+                  <br>
                   <button id="btn_novoprojeto" type="submit" class="btn_shadow2" onclick="novoProjeto()">Novo</button>
                 
                       <button id="btn_salvarprojeto" type="submit" class="btn_shadow2" onclick="postProjeto()">Gravar</button>
@@ -165,58 +309,7 @@
                  
               
             </dialog>
-            
-     <!------------------------------------------------------------->
-    <!--- CADASTRO DE PESSOAS -->
-    <dialog id="abreCadastroPessoas" class="abreCadastro" role="dialog"> 
-         <div id="bloco_superior" class="boxShadow1">
-                <button id="btn_fechar" class="btn_shadow2" onclick="fecharCadastroPessoa()">[X]Fechar</button>
-             <h1 class="styleWord1">Cadastro de Pessoas</h1>        </div>
-        <br><br>
-        <div id='cadastroPessoas'>
-            
-           
-            <label for='codPessoa'>Código: </label><input readonly="true" type='text' id='codPessoa' name="pes_id" name="pes_id">
-            <button type="button" disabled="true" id="codAnteriorCadasPessoa" class="btn_shadow1_1" onclick="recuarCodPessoa()"></button>
-                 <button type="button" disabled="true" id="codPosteriorCadasPessoa" class="btn_shadow1" onclick="avancarCodPessoa()"></button>
-            <br><br>
-            <label for='nomePessoa'>Nome da pessoa: </label><input readonly="true" autocomplete="off" type='text' id='nomePessoa' name="nomePessoa" name="pes_nome">
-            <br><br>
-            <label for='contato'>Contato: </label><input readonly="true" autocomplete="off" type='text' id='contato' name="pes_contato">
-            <br><br>
-        
-            <button id="btn_novapessoa" type="submit" class="btn_shadow2" onclick="novaPessoa()">Novo</button>       
-            <button id="btn_salvarpessoa" type="submit" class="btn_shadow2" onclick="postPessoa()">Gravar</button>
-            <button id="btn_atualizarCadasPessoa" type="submit" class="btn_shadow2" onclick="putPessoa()">Atualizar</button>
-            <button id="btn_excluirCadasPessoa"  type="submit" class="btn_shadow2" onclick="deletePessoa()">Excluir</button>
-            <button id="btn_cancelarCadasPessoa" type="submit" class="btn_shadow2" onclick="cancelarCadasPessoa()">Cancelar</button>
-            
-        </div>
-        
-        <br><br><br>
-        <div id='TablePessoas'>
-            
-            <table border=1>
-                    <thead>
-                        <caption>Pessoas cadastradas:</caption>
-                        <tr>
-                        <th>Código</th><th>Nome</th><th>Contato</th>
-                        </tr>
-                  </thead>
-                    <tbody id="corpoTabelaPessoas">
-                        
-                       
-                    
 
-
-                    </tbody>
-
-        
-            </table>
-        </div>
-        
-    </dialog>
- <!------------------------------------------------------------->
     
 <!--CADASTRO DE TAREFA -->
             <dialog id="abreCadastroTarefa" class="abreCadastro"> 
@@ -230,18 +323,32 @@
                 <label  for="codTarefa">Código: <input readonly="true" id="codTarefa" type="text" name="trf_id"></label>
                  <button type="button" id="codAnteriorCadasTarefa" class="btn_shadow1_1" onclick="recuarCodTarefa()"></button>
                  <button type="button" id="codPosteriorCadasTarefa" class="btn_shadow1" onclick="avancarCodTarefa()"></button>
+                 <label id="lb_progressotarefa">Progresso % :</label>
+                <select id="progressotarefa" name="prj_progresso" disabled="true">
+                    <option>0</option>
+                    <option>10</option>
+                    <option>20</option>
+                    <option>30</option>
+                    <option>40</option>
+                    <option>50</option>
+                    <option>60</option>
+                    <option>70</option>
+                    <option>80</option>
+                    <option>90</option>
+                    <option>100</option>
+                </select>                
                 <br><br>
-               <label for="selecionaProjeto">Selecione o projeto: <input disabled="true" autocomplete="off" id="selecionaProjeto" onselect="carregaDatalistProjetos();" onfocus="carregaDatalistInterdependencia();" onblur="carregaDatalistProjetos();" onclick="value=''" type="text" list="listaProjetos" name="fk_prj_id"></label>
-                  <datalist id="listaProjetos">
+                
+               <label for="listaProjetos">Selecione o projeto:</label>
+                  <select id="listaProjetos" disabled="true" onselect="carregaDatalistProjetos()" onchange="carregaDatalistInterdependencia()">
                       
-                  </datalist>
-                  <label id="id_prj">0</label>
+                  </select>
                <br>
-               <label for="interdependencia">Interdependencia: <input autocomplete="off" disabled="true" onblur="outputDatalistInterdependenciaCadastarefa()" id="interdependencia" type="text" list="listaInterdependencia" name="trf_interdependencia"></label>
-                  <datalist id="listaInterdependencia">
+               <label for="listaInterdependencia">Interdependencia: </label>
+                  <select id="listaInterdependencia" disabled="true">
                       
-                  </datalist>
-                  <label id="id_interdependencia">0</label>
+                  </select>
+
                <br>
                 <label for="nomeTarefa">Nome tarefa: <input autocomplete="off" id="nomeTarefa" readonly="true" type="text" name="trf_nometarefa"></label>
                <br>
@@ -261,7 +368,7 @@
                 </div>
           </dialog>
             
-     <!------------------------------------------------------------->
+    
     
     
      <!--DISTRIBUIR PESSOAS AOS PROJETOS -->
@@ -277,23 +384,23 @@
             <button type="button" id="codAnteriorDistribuicao" class="btn_shadow1_1" onclick="recuarCodDistribuicao()"></button>
                  <button type="button" id="codPosteriorDistribuicao" class="btn_shadow1" onclick="avancarCodDistribuicao()"></button>
                 <br><br>
-              <label for="selecionaProjeto_distribuicao">Selecione o projeto: <input autocomplete="off" id="selecionaProjeto_distribuicao" type="text" disabled="true" list="listaProjetos_distribuicao" onselect="dt_projetos_distribuicao();" onblur="dt_projetos_distribuicao();" onclick="value=''"></label>
+              <label for="selecionaProjeto_distribuicao">Selecione o projeto: <input disabled="true" autocomplete="off" id="selecionaProjeto_distribuicao" type="text" disabled="true" list="listaProjetos_distribuicao" onselect="dt_projetos_distribuicao();" onblur="dt_projetos_distribuicao();" onfocus="dt_projetos_distribuicao();" onclick="value=''"></label>
                   <datalist id="listaProjetos_distribuicao">
                       
                   </datalist>
-                  <label id="id_prjDistr">0</label>
+                  <label hidden id="id_prjDistr">0</label>
                <br>
-            <label for="listaTarefa">Selecione a Tarefa: <input autocomplete="off" disabled="true" id="listaTarefa" type="text" list="listaTarefa_distribuicao" name="fk_trf_id" onselect="dt_tarefas_distribuicao();" onfocus="dt_pessoas_distribuicao();"></label>
+            <label for="listaTarefa">Selecione a Tarefa: <input autocomplete="off" disabled="true" id="listaTarefa" type="text" list="listaTarefa_distribuicao" name="fk_trf_id" onselect="dt_tarefas_distribuicao();" onblur="dt_tarefas_distribuicao();"  onfocus="dt_tarefas_distribuicao();" onclick="value=''"></label>
                   <datalist id="listaTarefa_distribuicao">
                       
                   </datalist>
-                  <label id="id_trfDistr">0</label>
+                  <label hidden id="id_trfDistr">0</label>
                <br>
-            <label for="listaPessoa">Selecione a Pessoa: <input autocomplete="off" disabled="true" id="listaPessoa" type="text" list="listaPessoa_distribuicao" name="fk_pes_id"></label>
+            <label for="listaPessoa">Selecione a Pessoa: <input autocomplete="off" disabled="true" id="listaPessoa" type="text" list="listaPessoa_distribuicao" name="fk_pes_id" onselect="dt_pessoas_distribuicao();" onblur="dt_pessoas_distribuicao();" onfocus="dt_pessoas_distribuicao();" onclick="value=''"></label>
                   <datalist id="listaPessoa_distribuicao">
                       
                   </datalist>
-                  <label id="id_pesDistr">0</label>
+                  <label hidden id="id_pesDistr">0</label>
                <br>
                <button id="btn_novadistribuicao" type="submit" class="btn_shadow2" onclick="novaDistribuicao()">Novo</button>       
                <button id="btn_salvardistribuicao" type="submit" class="btn_shadow2" onclick="postDistribuicao()">Gravar</button>
@@ -328,9 +435,52 @@
         
        
     </dialog>
+
+    <!--RELATÓRIO - TELA INICIAL-->
+
+    <dialog id="abreRelatorio" class="abreCadastro">
+        <div id="bloco_superior" class="boxShadow1">
+            <button id="btn_fechar" class="btn_shadow2" onclick="fecharRelatorio()">[X]Fechar</button>
+         <h1 class="styleWord1">Relatório</h1>       
+        </div>
+    <br><br><br>
+        <div id="draganddrop_projetos">
+            
+                <div id="rel_projetos">
+                        <label>Projetos cadastrados:</label>
+                        <div id="projetos_cadastrados" ondrop="return dragDrop(event)" ondragover="return dragOver(event)">
+
+                        </div>
+
+                </div>
+                
+                <div id="escolhe_projetos">
+                        <label>Projetos para Dashboard:</label>
+                        <div id="projetos_dashboard" ondrop="return dragDrop(event)" ondragover="return dragOver(event)">
+
+                        </div>
+                </div>
+        </div>
+        <br><br>
+        <button id="btn_dashboard" type="submit" class="btn_shadow2" onclick="gerarDashboard();">Gerar Dashboard</button>
+        
+                <!--RELATÓRIO - DASHBOARD-->
+            <dialog id="abreDashboard" role="dialog" class="abreDialogDashboard">
+                    <button id="btn_fechardashboard" class="btn_shadow2" onclick="fecharDashboard();">[X]Fechar</button>
+                    <img id="img_graficodashboard" src="{% static 'images/img_graficodashboard.png' %}">
+                    <div id="dashboard_projetos">
+                        <!--DINAMICO-->
+                        
+                        <!--DINAMICO-->
+                    </div>
+                    
+                </dialog>
+                
+
+    </dialog>
+
     
     
-    <!------------------------------------------------------------->
 </body>
 
 
