@@ -74,6 +74,16 @@ function carregaGantt(jsonProjetosGantt, jsonTarefasGantt){
             recebe_tarefaGantt = jsonTarefasGantt;
         }
         
+        checked_project = [];
+        for(i=0;i<recebe_projetoGantt.length;i++){
+            
+            if(document.getElementById("cb_prj"+recebe_projetoGantt[i]['prj_id']+"").checked){
+                checked_project.push(recebe_projetoGantt[i]['prj_id']);
+            }
+        }
+         
+        
+        
         
 
         
@@ -83,9 +93,11 @@ function carregaGantt(jsonProjetosGantt, jsonTarefasGantt){
         if(recebe_projetoGantt != ''){
             if(recebe_tarefaGantt != ''){
                 
-        clearColorFill()
+       // clearColorFill()
         
         for(i=0; i<recebe_projetoGantt.length;i++){
+            for(y=0;y<checked_project.length;y++){
+                if(checked_project[y] == recebe_projetoGantt[i]['prj_id']){
             createColorFill(recebe_projetoGantt[i]['prj_id'], recebe_projetoGantt[i]['prj_color'])
             for(x=0;x<recebe_tarefaGantt.length;x++){
                 if(recebe_tarefaGantt[x]['trf_id'] == recebe_tarefaGantt[x]['trf_interdependencia']){
@@ -99,6 +111,9 @@ function carregaGantt(jsonProjetosGantt, jsonTarefasGantt){
                 }
             }
         }
+        }
+    }
+    if(vetor_preparaProjetos != ''){
         tasks = []; //CRIA VETOR PARA RECEBER JSON
     
         for(i = 0; i< vetor_preparaProjetos.length;i++){ //FAZ A VARREDURA NO VETOR PARA CRIAR JSON
@@ -114,7 +129,7 @@ function carregaGantt(jsonProjetosGantt, jsonTarefasGantt){
 
         }
         //console.log("TASKS: "+tasks+""); //TESTE DE INTEGRIDADE
-        var gantt = new Gantt('#gantt', tasks, {
+         gantt = new Gantt('#gantt', tasks, {
             on_click: function (task) {
                 console.log(task);
             },
@@ -155,26 +170,29 @@ function carregaGantt(jsonProjetosGantt, jsonTarefasGantt){
 
         }
 }
-
+}
 /*MUDANÇA DE PREÍODOS GANTT*/
 
 // Quarter Day, Half Day, Day, Week, Month 
 
 
 function periodo_dia(){
-    
+    gantt = new Gantt('#gantt', tasks);
     gantt.change_view_mode('Day'); // MUDANÇA DE PERÍODO PARA DIA
 }
 
 function periodo_semana(){
+    gantt = new Gantt('#gantt', tasks);
     gantt.change_view_mode('Week');// MUDANÇA DE PERÍODO PARA SEMANA
 }
 
 function periodo_mes(){
+    gantt = new Gantt('#gantt', tasks);
     gantt.change_view_mode('Month');// MUDANÇA DE PERÍODO PARA MÊS
 }
 
 function periodo_ano(){
+    gantt = new Gantt('#gantt', tasks);
     gantt.change_view_mode('Year');// MUDANÇA DE PERÍODO PARA ANO
 }
 
