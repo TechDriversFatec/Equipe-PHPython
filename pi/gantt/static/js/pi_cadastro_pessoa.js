@@ -47,6 +47,7 @@ function getHabilidade(){
 
                     linha = "<label class='class_habilidades' id='habilidade"+json_habilidades[i]['hab_id']+"'>"+json_habilidades[i]['hab_nome']+" <button id='btn_delHab"+json_habilidades[i]['hab_id']+"' onclick='deleteHabilidade(this.id)'>X</button> </label>";
                    document.getElementById("lista_habilidades_cadastradas").innerHTML += linha;
+                   
                }
             
             }else if(xhrGetHabilidade.status == 404){
@@ -78,7 +79,7 @@ function gravarHabilidade(){
         if(xhrPostHabilidade.readyState == 4){
             if(xhrPostHabilidade.status == 201){
                 getHabilidade();
-                
+                alert("Habilidade cadastrada com sucesso!!");
             }
         }
     }
@@ -270,6 +271,7 @@ function gravarPessoaHabilidade(){
     xhrGravarPessoaHabilidade.onreadystatechange = function(){
         if(xhrGravarPessoaHabilidade.readyState == 4){
             if(xhrGravarPessoaHabilidade.status == 201){
+                alert("Cadastro efetuado com sucesso!!");
                 
             }else if(xhrGravarPessoaHabilidade.status == 400){
                 alert("Pessoa já possui habilidade.");
@@ -338,6 +340,9 @@ function preencheCamposCadasPessoa(json){
     document.getElementById("nomePessoa").value = json.pes_nome; 
     document.getElementById("contato").value = json.pes_contato;
     document.getElementById("salario").value = json.pes_salario;
+    document.getElementById("faltas").value = json.pes_faltas;
+    document.getElementById("horas_disponiveis").value = json.pes_hrs_disponivel;
+
 }
 
 
@@ -366,7 +371,7 @@ function getPessoa(){
         if(xhrGetPessoa.readyState == 4){
             if(xhrGetPessoa.status == 200){
                 preencheCamposCadasPessoa(JSON.parse(xhrGetPessoa.responseText));     
-                
+                getPessoas_paramenupessoas();
                 
             
             }else if(xhrGetPessoa.status == 404){
@@ -384,10 +389,10 @@ function postPessoa(){
     nomePessoa = document.getElementById("nomePessoa").value;
     contato = document.getElementById("contato").value;
     salario = document.getElementById("salario").value;
-    faltas = document.getElementById("faltas").innerHTML;
-    horas_disponiveis = document.getElementById("horas_disponiveis").innerHTML;
+    faltas = document.getElementById("faltas").value;
+    horas_disponiveis = document.getElementById("horas_disponiveis").value;
 
-    if(nomePessoa == '' || contato == '' || salario == ''){
+    if(nomePessoa == '' || contato == '' || salario == '' || faltas == '' || horas_disponiveis == '' ){
         alert("Todos os campos devem ser preenchidos!!");
     }else{
     xhrPostPessoa = new XMLHttpRequest();
@@ -436,9 +441,9 @@ function putPessoa(){
         nomePessoa = document.getElementById("nomePessoa").value;
         contato = document.getElementById("contato").value;
         salario = document.getElementById("salario").value;
-        faltas = document.getElementById("faltas").innerHTML;
-        horas_disponiveis = document.getElementById("horas_disponiveis").innerHTML;
-        if(nomePessoa == '' || contato == '' || salario == ''){
+        faltas = document.getElementById("faltas").value;
+        horas_disponiveis = document.getElementById("horas_disponiveis").value;
+        if(nomePessoa == '' || contato == '' || salario == '' || faltas == '' || horas_disponiveis == '' ){
             alert("Todos os campos devem ser preenchidos!!");
         }else{
             xhrPutPessoa = new XMLHttpRequest();
@@ -812,6 +817,8 @@ function habilitaCamposPessoa(){
      document.getElementById("nomePessoa").readOnly = false;
     document.getElementById("contato").readOnly = false;
     document.getElementById("salario").readOnly = false;
+    document.getElementById("faltas").readOnly = false;
+    document.getElementById("horas_disponiveis").readOnly = false;
     
   
 }
@@ -821,6 +828,8 @@ function desabilitaCamposPessoa(){
     document.getElementById("nomePessoa").readOnly = true;
     document.getElementById("contato").readOnly = true;
     document.getElementById("salario").readOnly = true;
+    document.getElementById("faltas").readOnly = true;
+    document.getElementById("horas_disponiveis").readOnly = true;
     
     
 }
@@ -871,6 +880,9 @@ function limparCamposCadasPessoa(){
     document.getElementById("nomePessoa").value = '';
     document.getElementById("contato").value = '';
     document.getElementById("salario").value = '';
+    document.getElementById("faltas").value = '';
+    document.getElementById("horas_disponiveis").value = '';
+
     
 }
 

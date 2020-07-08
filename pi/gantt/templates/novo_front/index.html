@@ -5,6 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=8;FF=3;OtherUA=4" />
 
 	<title>PI - PHPYTHON - GANTT</title>	
 	<link rel="stylesheet" type="text/css" href="{% static 'css/estilos.css' %}">
@@ -200,8 +201,8 @@
            <br><br>
            <label for='salario'>Salário: </label><input readonly="true" autocomplete="off" type='number' required="required" maxlength="15" placeholder="R$" id='salario' name="pes_salario">
            
-           <label id='lb_faltas'>Faltas: <label id="faltas" name="pes_faltas">0</label></label>
-           <label id='lb_horas_disponiveis'>Horas Disponíveis: <label id="horas_disponiveis" name="pes_hrs_disponivel">0</label></label>
+           <label for='faltas'>Faltas: <input readonly="true" required="required" autocomplete="off" type='text' id="faltas"></label>
+           <label for='horas_disponiveis'>Horas Disponíveis: <input readonly="true" required="required" autocomplete="off" type='text' id="horas_disponiveis"></label>
            
            <br><br>
        

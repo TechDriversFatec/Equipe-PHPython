@@ -9,6 +9,12 @@
 /*DEFININDO A CLASS BORDER BOX-SHADOW*/
 
 /**/
+
+label{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 13px;
+}
+
 .boxShadow1{
 	box-shadow: 0px 2px 5px #888888;
 }
@@ -617,8 +623,9 @@
 /*CADASTRO PROJETO*/
 
 #cadastro_projeto{
-    width: 580px;
-    margin-left: 15px;
+    margin-top: -25px;
+    width: 575px;
+    margin-left: 20px;
     display: block;
     
 }
@@ -663,7 +670,7 @@
    margin-bottom: 10px;
 }
 #cadastro_projeto #escopo{
-    width: 200px;
+    width: 170px;
     margin-bottom: 10px;
 }
 #cadastro_projeto #dt_inicioProjeto{
@@ -713,9 +720,9 @@
 }
 
 #listaProjeto{
-    margin-top: 30px;
+    margin-top: 10px;
     width: 550px;
-    height: 200px;
+    height: 130px;
     overflow: auto;
 }
 
@@ -727,7 +734,7 @@
 
 #listaProjeto table caption{
     width: 200px;
-    margin-left: -30px;
+    text-align: left;
 }
 
 
@@ -761,18 +768,11 @@
     width: 100px;
 }
 
-#cadastroPessoas #lb_faltas{
-    margin-left: 20px;
-}
-#cadastroPessoas #lb_horas_disponiveis{
-    margin-left: 20px;
-}
-
 #cadastroPessoas #faltas{
-    margin-left: 10px;
+    width: 30px;
 }
 #cadastroPessoas #horas_disponiveis{
-    margin-left: 10px;
+    width: 30px;
 }
 
 #cadastroPessoas #codAnteriorCadasPessoa{
@@ -855,9 +855,9 @@
 }
 
 #TableDistribuicao{
-    margin-top: 10px;
-    width: 600px;
-    height: 200px;
+    
+    width: 610px;
+    height: 150px;
     overflow: auto;
 }
 
@@ -868,7 +868,8 @@
 }
 
 #TableDistribuicao caption{
-    width: 160px;
+    width: 300px;
+    text-align: left;
 }
 
 .col1{
