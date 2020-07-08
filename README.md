@@ -206,7 +206,7 @@ onde essas informações são idealmente dispostas de forma a não sobrecarregar
 
 ## BANCO DE DADOS
 
-![diagrama-uml](/uploads/f547a6f6bcda4157bb54774714b1ae40/diagrama-uml.jpeg)
+![d5514521-baf5-4d43-93fd-014b8a9deb53](/uploads/dd3c26d97593ce1d28dd568bfaa779aa/d5514521-baf5-4d43-93fd-014b8a9deb53.jpeg)
 
 ## TECNOLOGIAS UTILIZADAS
 
