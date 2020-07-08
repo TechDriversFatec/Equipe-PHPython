@@ -604,7 +604,7 @@ function add_prj_menu_esquerdo(jsonprj){
                 for(i = 0;i<json.length;i++){
 
                     /*CARREGA VETOR PARA CADASTRAR PROJETO NO MENU LATERAL ESQUERDO */
-                    add_btn_prj_menu_esquerdo = [json[i]['prj_id'],"<button id='btn_prj"+json[i]['prj_id']+"' onClick='expandeTrf(this.id);dadosProjeto(this.id)' class='btn_shadow1' style='background-color:"+json[i]['prj_color']+"' >"+json[i]['prj_nome']+"</button><input id='cb_prj"+json[i]['prj_id']+"' type='checkbox'> "]; //CRIA VALOR PARA ADICIONAR NA DIV "prj_cadastrados"
+                    add_btn_prj_menu_esquerdo = [json[i]['prj_id'],"<button id='btn_prj"+json[i]['prj_id']+"' onClick='expandeTrf(this.id);dadosProjeto(this.id)' class='btn_shadow1' style='background-color:"+json[i]['prj_color']+"' >"+json[i]['prj_nome']+"</button><input id='cb_prj"+json[i]['prj_id']+"' style='margin-left: -1px' type='checkbox' > "]; //CRIA VALOR PARA ADICIONAR NA DIV "prj_cadastrados"
                     vetor_prjcadastrados.push(add_btn_prj_menu_esquerdo);//ADICIONA LINHA PARA CRIAÇÃO DO BTN DE PROJETO
                     ///////////////////
 

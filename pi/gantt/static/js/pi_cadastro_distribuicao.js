@@ -10,256 +10,120 @@
 
 /*GET AND POST - API*////////////////////////////////////////////////////////////////////
 
-////DATALIST////////////////////////////////////////////
+////INÍCIO DATALIST////////////////////////////////////////////
+
 
 function dt_projetos_distribuicao(){
-    document.getElementById('listaTarefa').value = '';
 
-    xhr_dt_projetos_distribuicao = new XMLHttpRequest();
-    vetor_dt_projetos_distribuicao = [];
-    xhr_dt_projetos_distribuicao.open("GET", URLGETPROJETOS, true);
-    xhr_dt_projetos_distribuicao.onreadystatechange = function(){
-        if(xhr_dt_projetos_distribuicao.readyState == 4){
-            if(xhr_dt_projetos_distribuicao.status == 200){
-               json = JSON.parse(xhr_dt_projetos_distribuicao.responseText);     
-               document.getElementById("listaProjetos_distribuicao").innerHTML = '';
-                for(i = 0; i<json.length; i++){
-                    document.getElementById("listaProjetos_distribuicao").innerHTML += "<option value='"+json[i]['prj_nome']+"'>";
-                    
-                    linha = [json[i]['prj_id'], json[i]['prj_nome']];
-                    vetor_dt_projetos_distribuicao.push(linha);
-                    
-                    
+    xhr_dt_getProjetos = new XMLHttpRequest();
+    xhr_dt_getProjetos.open('GET', URLGETPROJETOS, true);
+
+    xhr_dt_getProjetos.onreadystatechange = function(){
+        if(xhr_dt_getProjetos.readyState == 4){
+            if(xhr_dt_getProjetos.status == 200){
+                json_dt_getProjetos = JSON.parse(xhr_dt_getProjetos.responseText);
+              
+                document.getElementById('selecionaProjeto_distribuicao').innerHTML = '';
+                document.getElementById('selecionaProjeto_distribuicao').innerHTML = '<option></option>';
+                for(i=0;i<json_dt_getProjetos.length;i++){
+                    linha = '<option>'+json_dt_getProjetos[i]['prj_nome']+'</option>';
+                    document.getElementById('selecionaProjeto_distribuicao').innerHTML += linha;
                 }
-                outputDatalistProjetos(vetor_dt_projetos_distribuicao);
                 
-                
-               
-        }else if(xhr_dt_projetos_distribuicao.status == 404){}
-    }
-}
-xhr_dt_projetos_distribuicao.send();
-    
-    }
+                select_tb_projeto(json_dt_getProjetos);
 
-
-
-
-function outputDatalistProjetos(vetor_dt_projetos_distribuicao)
-{
-    
-    nomeprojeto = document.getElementById("selecionaProjeto_distribuicao").value;
-    
-    for(i = 0; i<vetor_dt_projetos_distribuicao.length;i++){
-        
-        if(nomeprojeto == vetor_dt_projetos_distribuicao[i][1]){
-            
-            document.getElementById("id_prjDistr").innerHTML = ""+vetor_dt_projetos_distribuicao[i][0]+"";
+            }
         }
-
     }
-    
-    dt_tarefas_distribuicao();
-    
+    xhr_dt_getProjetos.send();
+
+}
+
+
+recebe_tb_projeto = [];
+function select_tb_projeto(json_dt_getProjetos){
+
+    if(json_dt_getProjetos != null){
+        recebe_tb_projeto = json_dt_getProjetos;
+    }
+
 }
 
 function dt_tarefas_distribuicao(){
-    
-xhr_dt_tarefas_distribuicao = new XMLHttpRequest();
-vetor_tarefas_distr = [];
-xhr_dt_tarefas_distribuicao.open("GET", URLGETTAREFAS, true);
-xhr_dt_tarefas_distribuicao.onreadystatechange = function(){
-    if(xhr_dt_tarefas_distribuicao.readyState == 4){
-        if(xhr_dt_tarefas_distribuicao.status == 200){
-           json = JSON.parse(xhr_dt_tarefas_distribuicao.responseText);     
-           
-            for(i = 0; i<json.length; i++){
-               
-                linha = [json[i]['fk_prj_id'],json[i]['trf_id'], json[i]['trf_name']];
-                vetor_tarefas_distr.push(linha);
-                
-                
-            }
 
-                id_prjDistr = document.getElementById("id_prjDistr").innerHTML;
+    hr_dt_getTarefas = new XMLHttpRequest();
+    hr_dt_getTarefas.open('GET', URLGETTAREFAS, true);
+
+    hr_dt_getTarefas.onreadystatechange = function(){
+        if(hr_dt_getTarefas.readyState == 4){
+            if(hr_dt_getTarefas.status == 200){
+                json_dt_getTarefas = JSON.parse(hr_dt_getTarefas.responseText);
+               
+                nome_projeto = document.getElementById('selecionaProjeto_distribuicao').value;
                 
-                //nomeInterdependencia = document.getElementById("interdependencia").value;
-                document.getElementById("listaTarefa_distribuicao").innerHTML = '';
-                for(i = 0; i<vetor_tarefas_distr.length;i++){
-                    
-                        if(id_prjDistr == vetor_tarefas_distr[i][0]){
-                            
-                            document.getElementById("listaTarefa_distribuicao").innerHTML += "<option value='"+vetor_tarefas_distr[i][2]+"'>";
-                            //console.log("<option value='"+vetor_tarefas_distr[i][2]+"'>");
-                        }                           
+                document.getElementById('listaTarefa').innerHTML = '';
+                document.getElementById('listaTarefa').innerHTML = '<option></option>';
+                for(i=0;i<json_dt_getTarefas.length;i++){
+                    for(x=0;x<recebe_tb_projeto.length;x++){
+                        if(recebe_tb_projeto[x]['prj_nome'] == nome_projeto){
+                            cod_projeto = recebe_tb_projeto[x]['prj_id'];
+                            if(json_dt_getTarefas[i]['fk_prj_id'] == cod_projeto){
+                            linha = '<option>'+json_dt_getTarefas[i]['trf_name']+'</option>';
+                            document.getElementById('listaTarefa').innerHTML += linha;
+                        }
+                    }
+                    }
                 }
-                nome_tarefa = document.getElementById("listaTarefa").value;
-                
-                for(i = 0; i<vetor_tarefas_distr.length;i++){                  
-                        
-                    if(nome_tarefa == vetor_tarefas_distr[i][2]){
-                       
-                        document.getElementById("id_trfDistr").innerHTML = ""+vetor_tarefas_distr[i][1]+"";
-                    }               
-                        
+                select_tb_tarefas(json_dt_getTarefas);
+                console.log(json_dt_getTarefas);
             }
-
-               
-            
-         
-           
-           
-    }else if(xhr_dt_tarefas_distribuicao.status == 404){}
-}
-}
-xhr_dt_tarefas_distribuicao.send();
-
+        }
+    }
+    hr_dt_getTarefas.send();
 }
 
+recebe_tb_tarefas = [];
+function select_tb_tarefas(json_dt_getTarefas){
+
+    if(json_dt_getTarefas != null){
+        recebe_tb_tarefas = json_dt_getTarefas;
+    }
+
+}
 
 function dt_pessoas_distribuicao(){
-    
+    hr_dt_getPessoas = new XMLHttpRequest();
+    hr_dt_getPessoas.open('GET', URLGETPESSOAS, true);
 
-    xhr_dt_pessoas_distribuicao = new XMLHttpRequest();
-    
-    document.getElementById("listaPessoa_distribuicao").innerHTML = '';
-    xhr_dt_pessoas_distribuicao.open("GET", URLGETPESSOAS, true);
-    xhr_dt_pessoas_distribuicao.onreadystatechange = function(){
-        if(xhr_dt_pessoas_distribuicao.readyState == 4){
-            if(xhr_dt_pessoas_distribuicao.status == 200){
-               json = JSON.parse(xhr_dt_pessoas_distribuicao.responseText);     
+    hr_dt_getPessoas.onreadystatechange = function(){
+        if(hr_dt_getPessoas.readyState == 4){
+            if(hr_dt_getPessoas.status == 200){
+                json_dt_getPessoas = JSON.parse(hr_dt_getPessoas.responseText);
                
-                for(i = 0; i<json.length; i++){
-                    document.getElementById("listaPessoa_distribuicao").innerHTML += "<option value='"+json[i]['pes_nome']+"'>";                  
+                document.getElementById('listaPessoa').innerHTML = '';
+                document.getElementById('listaPessoa').innerHTML = '<option></option>';
+                for(i=0;i<json_dt_getPessoas.length;i++){
+                    linha = '<option>'+json_dt_getPessoas[i]['pes_nome']+'</option>';
+                    document.getElementById('listaPessoa').innerHTML += linha;
                 }
 
-                nome_pessoa = document.getElementById("listaPessoa").value;
-               
-                for(i = 0; i<json.length;i++){
-                    if(nome_pessoa == json[i]['pes_nome']){                      
-                        document.getElementById("id_pesDistr").innerHTML = ""+json[i]['pes_id']+"";
-                    } 
-                }
-                
-       }else if(xhr_dt_pessoas_distribuicao.status == 404){}
-    }
-    }
-    xhr_dt_pessoas_distribuicao.send();
-    
-    }
-
-
-
-
-
-////DATALIST////////////////////////////////////////////
-
-
-///CÓDIGO DO PROJETO RECUPERADO A PARTIR DO GETALLTASKS_DISTRIBUICAO
-function getNomeProjeto_Distribuicao(codProjeto){
-
-    document.getElementById("id_prjDistr").innerHTML = codProjeto;
-    xhrgetNomeProjeto_Distribuicao = new XMLHttpRequest();
-    xhrgetNomeProjeto_Distribuicao.open('GET', URLGETPROJETOS, true);
-    
-    xhrgetNomeProjeto_Distribuicao.onreadystatechange = function(){
-        if(xhrgetNomeProjeto_Distribuicao.readyState == 4){
-            if(xhrgetNomeProjeto_Distribuicao.status == 200){
-                json_projetos_distribuicao = JSON.parse(xhrgetNomeProjeto_Distribuicao.responseText);
-                 
-                id_prjDistr = document.getElementById("id_prjDistr").innerHTML;
-                for(i =0; i<json_projetos_distribuicao.length;i++){
-                    if(id_prjDistr == json_projetos_distribuicao[i]['prj_id']){
-                        document.getElementById("selecionaProjeto_distribuicao").value = json_projetos_distribuicao[i]['prj_nome'];
-                             
-                    }
-                }
+                select_tb_pessoas(json_dt_getPessoas);
             
-                carregaTabelaDistribuicao(null, null, json_projetos_distribuicao);
-            }else if(xhrgetNomeProjeto_Distribuicao.status == 404){}
-        }      
-    }
-    xhrgetNomeProjeto_Distribuicao.send();
-    
-}
-
-function getAllTasks_Distribuicao(){
-    xhrgetAllTasks_Distribuicao = new XMLHttpRequest();
-    
-    xhrgetAllTasks_Distribuicao.open('GET', URLGETTAREFAS, true);
-    
-    xhrgetAllTasks_Distribuicao.onreadystatechange = function(){
-        if(xhrgetAllTasks_Distribuicao.readyState == 4){
-            if(xhrgetAllTasks_Distribuicao.status == 200){
-                
-                json_tarefas_distribuicao = JSON.parse(xhrgetAllTasks_Distribuicao.responseText); 
-
-                id_trfDistr = document.getElementById("id_trfDistr").innerHTML;
-                        
-                carregaTabelaDistribuicao(null, json_tarefas_distribuicao, null);
-                for(i=0;i<json_tarefas_distribuicao.length;i++){
-                    
-
-                    if(json_tarefas_distribuicao[i]['trf_id'] == id_trfDistr){
-                       // console.log(json_tarefas_distribuicao[i]['trf_name']);
-                    document.getElementById("listaTarefa").value = json_tarefas_distribuicao[i]['trf_name'];
-
-                    //EXPORTANDO CODPROJETO PARA GETNOMEPROJETO_DISTRIBUICAO
-                    codProjeto = json_tarefas_distribuicao[i]['fk_prj_id'];
-                    getNomeProjeto_Distribuicao(codProjeto);
-                    
-                
-                    }else if(id_trfDistr == 0){
-                        document.getElementById("listaTarefa").value = '';
-                    }
-
-                    
-                }
-
-                
-
-            }else if(xhrgetAllTasks_Distribuicao.status == 404){
-
             }
-        }  
-       
-    }
-    xhrgetAllTasks_Distribuicao.send();
-}
-
-function getAllPeople_distribuicao(){
-    xhr_get_all_people_distribuicao = new XMLHttpRequest();
-    xhr_get_all_people_distribuicao.open('GET', URLGETPESSOAS, true);
-    id_pesDistr = document.getElementById("id_pesDistr").innerHTML;
-    console.log(id_pesDistr);
-    xhr_get_all_people_distribuicao.onreadystatechange = function(){
-    if(xhr_get_all_people_distribuicao.readyState == 4){
-        if(xhr_get_all_people_distribuicao.status == 200){
-            
-            json_people_distribuicao = JSON.parse(xhr_get_all_people_distribuicao.responseText); 
-            carregaTabelaDistribuicao(json_people_distribuicao, null, null);
-            for(i=0;i<json_people_distribuicao.length;i++){
-                
-               
-                if(json_people_distribuicao[i]['pes_id'] == id_pesDistr){
-                   // console.log(json_people_distribuicao[i]['trf_name']);
-                document.getElementById("listaPessoa").value = json_people_distribuicao[i]['pes_nome'];
-                }else if(id_pesDistr == 0){
-                    document.getElementById("listaPessoa").value = '';
-                }
-            }
-           
-        }else if(xhr_get_all_people_distribuicao.status == 404){
-
         }
-    }  
-   
     }
-xhr_get_all_people_distribuicao.send();
+    hr_dt_getPessoas.send();
+}
+recebe_tb_pessoas = [];
+function select_tb_pessoas(json_dt_getPessoas){
 
+    if(json_dt_getPessoas != null){
+        recebe_tb_pessoas = json_dt_getPessoas;
+    }
 }
 
 
+//// FIM DATALIST////////////////////////////////////////////
 
 function getDistribuicao(){
    codDistribuicao = document.getElementById('codDistribuicao').value;
@@ -282,14 +146,35 @@ function getDistribuicao(){
             xhrGetDistribuicao.onreadystatechange = function(){
                 if(xhrGetDistribuicao.readyState == 4){
                     if(xhrGetDistribuicao.status == 200){
-                          
+                        cod_projeto = '';  
                         json_distribuicao = JSON.parse(xhrGetDistribuicao.responseText);
                         
-                        document.getElementById("id_trfDistr").innerHTML = ""+json_distribuicao['fk_trf_id']+"";
-                        document.getElementById("id_pesDistr").innerHTML = ""+json_distribuicao['fk_pes_id']+"";
-                         
-                        getAllTasks_Distribuicao();
-                        getAllPeople_distribuicao();
+                        
+
+                        for(i=0;i<recebe_tb_pessoas.length;i++){
+                            if(recebe_tb_pessoas[i]['pes_id'] == json_distribuicao['fk_pes_id']){
+                                document.getElementById('listaPessoa').innerHTML = '';
+                                document.getElementById('listaPessoa').innerHTML += '<option>'+recebe_tb_pessoas[i]['pes_nome']+'</option>';
+                            }
+                        }
+
+                        
+                        for(i=0;i<recebe_tb_tarefas.length;i++){
+                            if(recebe_tb_tarefas[i]['trf_id'] == json_distribuicao['fk_trf_id']){
+                                document.getElementById('listaTarefa').innerHTML = '';
+                                document.getElementById('listaTarefa').innerHTML += '<option>'+recebe_tb_tarefas[i]['trf_name']+'</option>';
+                                cod_projeto = recebe_tb_tarefas[i]['fk_prj_id'];
+                            }
+                        }
+
+                        for(i=0;i<recebe_tb_projeto.length;i++){
+                            if(recebe_tb_projeto[i]['prj_id'] == cod_projeto){
+                                document.getElementById('selecionaProjeto_distribuicao').innerHTML = '';
+                                document.getElementById('selecionaProjeto_distribuicao').innerHTML += '<option>'+recebe_tb_projeto[i]['prj_nome']+'</option>';
+                            }
+                        }
+                        
+
                         carregaTabelaDistribuicao();
                         
                         
@@ -309,8 +194,26 @@ function getDistribuicao(){
 
 function postDistribuicao(){
    codPesTrf = document.getElementById('codDistribuicao').value;
-   codTarefaDistr = document.getElementById('id_trfDistr').innerHTML;
-   codPessoaDistr = document.getElementById('id_pesDistr').innerHTML;
+   nome_tarefa = '';
+   nome_pessoa = '';
+   nome_tarefa = document.getElementById('listaTarefa').value;
+   nome_pessoa = document.getElementById('listaPessoa').value;
+  
+   console.log(nome_tarefa);
+   console.log(nome_pessoa);
+
+
+   for(i=0;i<recebe_tb_tarefas.length;i++){
+        if(nome_tarefa == recebe_tb_tarefas[i]['trf_name']){
+            cod_tarefa = recebe_tb_tarefas[i]['trf_id'];
+        }
+   }
+
+   for(i=0;i<recebe_tb_pessoas.length;i++){
+    if(nome_pessoa == recebe_tb_pessoas[i]['pes_nome']){
+        cod_pessoa = recebe_tb_pessoas[i]['pes_id'];
+        }
+    }
    
    
   
@@ -340,6 +243,7 @@ function postDistribuicao(){
                 habilitaBtnCancelarDistribuicao();
                 desabilitaBtnExcluirDistribuicao();
                 desabilitaRecuoCodDistribuicao();
+                alert("Pessoa já inclusa nesta tarefa!");
                 
             }
         }
@@ -348,9 +252,14 @@ function postDistribuicao(){
     }
     xhrPostDistribuicao.send(JSON.stringify({
          'pes_trf_id': codPesTrf,
-         'fk_pes_id': codPessoaDistr,
-         'fk_trf_id': codTarefaDistr       
+         'fk_pes_id': cod_pessoa,
+         'fk_trf_id': cod_tarefa       
         }));
+
+        console.log("codigo send distribuicao: "+codPesTrf);
+        console.log("codigo send tarefa: "+cod_tarefa);
+        console.log("codigo send pessoa: "+cod_pessoa);
+       
          
        
 }
@@ -360,12 +269,25 @@ function putDistribuicao(){
         habilitaCamposDistribuicao();
         mudaBotao =  document.getElementById("btn_atualizarCadasDistribuicao");
         mudaBotao.style.backgroundColor = "green";
+        dt_projetos_distribuicao();
+        limparCamposCadasDistribuicao();
 
     }else{
         codPesTrf = document.getElementById('codDistribuicao').value;
-        codTarefaDistr = document.getElementById('id_trfDistr').innerHTML;
-        codPessoaDistr = document.getElementById('id_pesDistr').innerHTML;
-        
+        nome_tarefa = document.getElementById('listaTarefa').value;
+        nome_pessoa = document.getElementById('listaPessoa').value;
+
+        for(i=0;i<recebe_tb_tarefas.length;i++){
+            if(nome_tarefa == recebe_tb_tarefas[i]['trf_name']){
+                cod_tarefa = recebe_tb_tarefas[i]['trf_id'];
+            }
+       }
+    
+       for(i=0;i<recebe_tb_pessoas.length;i++){
+        if(nome_pessoa == recebe_tb_pessoas[i]['pes_nome']){
+            cod_pessoa = recebe_tb_pessoas[i]['pes_id'];
+            }
+        }
             
         xhrPutDistribuicao = new XMLHttpRequest();
     
@@ -383,8 +305,8 @@ function putDistribuicao(){
      }
         xhrPutDistribuicao.send(JSON.stringify({
             'pes_trf_id': codPesTrf,
-            'fk_pes_id': codPessoaDistr,
-            'fk_trf_id': codTarefaDistr 
+            'fk_pes_id':  cod_pessoa,
+            'fk_trf_id': cod_tarefa 
         }));
 
         mudaBotao =  document.getElementById("btn_atualizarCadasDistribuicao");
@@ -422,6 +344,10 @@ function clicaDistribuicao(){
     dialogPolyfill.registerDialog(dialogCadastro);
     dialogCadastro.showModal();
 
+    dt_projetos_distribuicao();
+    dt_tarefas_distribuicao();
+    dt_pessoas_distribuicao();
+
     xhrAbreDistribuicao = new XMLHttpRequest();
     xhrAbreDistribuicao.open('GET', URLGETDISTRIBUICAO, true);
     xhrAbreDistribuicao.onreadystatechange = function(){
@@ -452,6 +378,7 @@ function clicaDistribuicao(){
                     getDistribuicao();
                     habilitaRecuoCodDistribuicao();
                     
+                    
                 }
 
             }else if(xhrAbreDistribuicao.status == 404){}
@@ -462,8 +389,7 @@ function clicaDistribuicao(){
     }
     xhrAbreDistribuicao.send();
     
-    dt_projetos_distribuicao();
-  
+    
     habilitaAvancoCodDistribuicao();
     habilitaRecuoCodDistribuicao();
     desabilitaBtnCancelarDistribuicao();
@@ -505,6 +431,8 @@ function novaDistribuicao(){
     xhrNovaDistribuicao.send();
 }
 
+dt_projetos_distribuicao();
+
 habilitaCamposDistribuicao();
 habilitaBtnCancelarDistribuicao();
 desabilitaBtnNovaDistribuicao();
@@ -536,27 +464,6 @@ function cancelarCadasDistribuicao(){
    
    
 }
-
-/*
-
-
-function carregaDataListInterdepedencia(){
-    
-     document.getElementById("listaInterdependencia").innerHTML = '';
-    
-    if(vetor_tarefa.length == 0){
-        document.getElementById("listaInterdependencia").innerHTML += "<option value=' '>";
-    }
-    for(i =0; i< vetor_tarefa.length;i++){
-        
-        document.getElementById("listaInterdependencia").innerHTML += "<option value='"+vetor_tarefa[i][1]+"'>";
-        
-        
-    }
-    
-    
-}*/
-
 
 function recuarCodDistribuicao(){
     codDistribuicao = parseInt(document.getElementById("codDistribuicao").value);
@@ -596,6 +503,8 @@ function recuarCodDistribuicao(){
     
 
         xhrRecuarCodDistribuicao.send();
+
+        
         
 
 }
@@ -773,21 +682,9 @@ function habilitaBtnExcluirDistribuicao(){
 }
 
 
-recebe_projetos_distribuicao = [];
-recebe_tarefas_distribuicao = [];
-recebe_pessoas_distribuicao = [];
 
-function carregaTabelaDistribuicao(json_people_distribuicao,json_tarefas_distribuicao,json_projetos_distribuicao){
 
-    if(json_people_distribuicao != null){
-        recebe_pessoas_distribuicao = json_people_distribuicao;
-    }
-    if(json_tarefas_distribuicao != null){
-        recebe_tarefas_distribuicao = json_tarefas_distribuicao;
-    }
-    if(json_projetos_distribuicao != null){
-        recebe_projetos_distribuicao = json_projetos_distribuicao;
-    }
+function carregaTabelaDistribuicao(){
 
     nomePessoa = '';
     nomeTarefa = '';
@@ -805,21 +702,21 @@ function carregaTabelaDistribuicao(json_people_distribuicao,json_tarefas_distrib
             if(xhrTabelaDistribuicao.status == 200){
                 json_tabela_distribuicao = (JSON.parse(xhrTabelaDistribuicao.responseText));                 
                 for(i = 0; i< json_tabela_distribuicao.length;i++){
-                    for(x = 0; x < recebe_pessoas_distribuicao.length;x++){
-                        if(json_tabela_distribuicao[i]['fk_pes_id'] == recebe_pessoas_distribuicao[x]['pes_id']){
-                            nomePessoa = recebe_pessoas_distribuicao[x]['pes_nome'];        
+                    for(x = 0; x < recebe_tb_pessoas.length;x++){
+                        if(json_tabela_distribuicao[i]['fk_pes_id'] == recebe_tb_pessoas[x]['pes_id']){
+                            nomePessoa = recebe_tb_pessoas[x]['pes_nome'];        
                         }
                     }
-                    for(x = 0; x < recebe_tarefas_distribuicao.length;x++){
-                        if(json_tabela_distribuicao[i]['fk_trf_id'] == recebe_tarefas_distribuicao[x]['trf_id']){
-                            nomeTarefa = recebe_tarefas_distribuicao[x]['trf_name']; 
-                            codProjeto = recebe_tarefas_distribuicao[x]['fk_prj_id'];
+                    for(x = 0; x < recebe_tb_tarefas.length;x++){
+                        if(json_tabela_distribuicao[i]['fk_trf_id'] == recebe_tb_tarefas[x]['trf_id']){
+                            nomeTarefa = recebe_tb_tarefas[x]['trf_name']; 
+                            codProjeto = recebe_tb_tarefas[x]['fk_prj_id'];
                             
-                            for(z = 0; z< recebe_projetos_distribuicao.length;z++){
+                            for(z = 0; z< recebe_tb_projeto.length;z++){
                                 
-                                if(codProjeto == recebe_projetos_distribuicao[z]['prj_id']){
-                                    corProjeto = recebe_projetos_distribuicao[z]['prj_color'];
-                                    nomeProjeto = recebe_projetos_distribuicao[z]['prj_nome'];
+                                if(codProjeto == recebe_tb_projeto[z]['prj_id']){
+                                    corProjeto = recebe_tb_projeto[z]['prj_color'];
+                                    nomeProjeto = recebe_tb_projeto[z]['prj_nome'];
                                    
                                 }
                             }

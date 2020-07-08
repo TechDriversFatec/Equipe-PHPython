@@ -401,6 +401,8 @@
 	
 }
 
+
+
 #central #left_center #col_tarefas{
     height: 350px;
     width: 170px;
@@ -414,13 +416,15 @@
 }
 
 #center {
+    overflow: auto;
     margin-left: 20px;
 	width: 856px;
-	height: 380px;
+	height: 370px;
 	border-style: solid;
 	border-width: 2px;
 	border-color: #68BAE8;
     justify-content: center;
+    
 }
 
 
@@ -843,7 +847,7 @@
 
 #distribuicaoPessoas #listaTarefa{
     width: 250px;
-     margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 #distribuicaoPessoas #listaPessoa{

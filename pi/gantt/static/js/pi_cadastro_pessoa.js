@@ -91,9 +91,9 @@ function gravarHabilidade(){
 }
 
 
-function deleteHabilidade(btn_id){
-    console.log(btn_id);
-    novo_id = btn_id.substr(10);
+function deleteHabilidade(btn_id_hab){
+    console.log(btn_id_hab);
+    novo_id = btn_id_hab.substr(10);
 
     
 
@@ -286,9 +286,9 @@ function gravarPessoaHabilidade(){
     }
 }
 
-function deletePessoaHabilidade(btn_id){
+function deletePessoaHabilidade(btn_id_pes_hab){
   
-    novo_id = btn_id.substr(10);
+    novo_id = btn_id_pes_hab.substr(10);
 
     
 

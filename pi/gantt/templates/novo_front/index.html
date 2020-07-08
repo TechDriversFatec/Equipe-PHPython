@@ -388,23 +388,23 @@
             <button type="button" id="codAnteriorDistribuicao" class="btn_shadow1_1" onclick="recuarCodDistribuicao()"></button>
                  <button type="button" id="codPosteriorDistribuicao" class="btn_shadow1" onclick="avancarCodDistribuicao()"></button>
                 <br><br>
-              <label for="selecionaProjeto_distribuicao">Selecione o projeto: <input disabled="true" autocomplete="off" id="selecionaProjeto_distribuicao" type="text" disabled="true" list="listaProjetos_distribuicao" onselect="dt_projetos_distribuicao();" onblur="dt_projetos_distribuicao();" onfocus="dt_projetos_distribuicao();" onclick="value=''"></label>
-                  <datalist id="listaProjetos_distribuicao">
+              <label for="selecionaProjeto_distribuicao">Selecione o projeto: </label>
+                  <select id="selecionaProjeto_distribuicao" disabled="true" onselect="dt_projetos_distribuicao()" onclick="dt_tarefas_distribuicao()">  
                       
-                  </datalist>
-                  <label hidden id="id_prjDistr">0</label>
+                  </select>
+                  
                <br>
-            <label for="listaTarefa">Selecione a Tarefa: <input autocomplete="off" disabled="true" id="listaTarefa" type="text" list="listaTarefa_distribuicao" name="fk_trf_id" onselect="dt_tarefas_distribuicao();" onblur="dt_tarefas_distribuicao();"  onfocus="dt_tarefas_distribuicao();" onclick="value=''"></label>
-                  <datalist id="listaTarefa_distribuicao">
+            <label>Selecione a Tarefa: </label>
+                  <select id="listaTarefa" onclick="dt_pessoas_distribuicao()" disabled="true">
                       
-                  </datalist>
-                  <label hidden id="id_trfDistr">0</label>
+                  </select>
+                  
                <br>
-            <label for="listaPessoa">Selecione a Pessoa: <input autocomplete="off" disabled="true" id="listaPessoa" type="text" list="listaPessoa_distribuicao" name="fk_pes_id" onselect="dt_pessoas_distribuicao();" onblur="dt_pessoas_distribuicao();" onfocus="dt_pessoas_distribuicao();" onclick="value=''"></label>
-                  <datalist id="listaPessoa_distribuicao">
+            <label for="listaPessoa">Selecione a Pessoa: </label>
+                  <select id="listaPessoa" disabled="true">
                       
-                  </datalist>
-                  <label hidden id="id_pesDistr">0</label>
+                  </select>
+                  
                <br>
                <button id="btn_novadistribuicao" type="submit" class="btn_shadow2" onclick="novaDistribuicao()">Novo</button>       
                <button id="btn_salvardistribuicao" type="submit" class="btn_shadow2" onclick="postDistribuicao()">Gravar</button>
