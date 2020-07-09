@@ -241,5 +241,5 @@ from
             data_prosseced.append(data)
         print(data_prosseced)
         serializer_class = HoursFreeSerializer(list(data_prosseced), many=True)
-        return Response(serializer_class.data)
+        return HttpResponse(serializer_class.data)
     permission_classes = ()
