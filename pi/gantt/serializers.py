@@ -38,7 +38,7 @@ class TaskSerializer(serializers.ModelSerializer):
             'trf_interdependencia',
             'trf_entregavel',
             'trf_progresso',
-            'trf_color',
+
             'fk_prj_id'
         )
 
