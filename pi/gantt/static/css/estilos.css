@@ -9,28 +9,49 @@
 /*DEFININDO A CLASS BORDER BOX-SHADOW*/
 
 /**/
-
 label{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 13px;
 }
 
 .boxShadow1{
-	box-shadow: 0px 2px 5px #888888;
+    box-shadow: 0px 2px 5px #888888;
+}
+
+.div_shadow{
+    width: 150px;
+    border-radius: 6px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #666666;
+    box-shadow: 0px 0px 5px #698FEB;
+}
+
+.btn_shadow0{
+    width: 120px;
+    height: 35px;
+    border-style: none;
+    color: white;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+    background-position: right;
+    background-repeat: no-repeat;
+    background-image: url(../images/seta1.png);
+    display:inline;
+    border-width: 0px;
 }
 
 .btn_shadow1{
     width: 150px;
     height: 35px;
     border-radius: 6px;
-    background-color: #698FEB;
     color: white;
     font-weight: 500;
-    font-family: monospace;
-    box-shadow: 0px 0px 5px #698FEB;
-    background-image: url(../images/seta1.png);
+    font-family: 'Montserrat', sans-serif;
     background-position: right;
     background-repeat: no-repeat;
+    background-image: url(../images/seta1.png);
+    display:inline;
 }
 
 .btn_shadow1_1{
@@ -40,7 +61,7 @@ label{
     background-color: #698FEB;
     color: white;
     font-weight: 500;
-    font-family: monospace;
+    font-family: 'Montserrat', sans-serif;
     box-shadow: 0px 0px 5px #698FEB;
     background-image: url(../images/seta2.png);
     background-position: right;
@@ -49,12 +70,13 @@ label{
 
 .btn_shadow2{
     width: 150px;
-    height: 35px;
+    min-height: 35px;
+    height: fit-content;  
     border-radius: 6px;
     background-color: #698FEB;
     color: white;
     font-weight: 500;
-    font-family: sans-serif;
+    font-family: 'Montserrat', sans-serif;
     box-shadow: 0px 0px 5px #698FEB;
 }
 
@@ -67,21 +89,22 @@ label{
     font-weight: 500;
     font-family: monospace;
     box-shadow: 0px 0px 5px #698FEB;
-    background-image: url(../images/olho2.png);
     background-position: right;
     background-repeat: no-repeat;
     margin-bottom: 2px;
 }
 
 .btn_shadow4{
-    width: 150px;
+    width: 35px;
     height: 35px;
     border-radius: 6px;
     background-color: white;
     color: #698FEB;
     font-weight: 500;
-    font-family: monospace;
+    font-family: 'Montserrat', sans-serif;
     box-shadow: 0px 0px 5px #698FEB;
+    margin-top: 12px;
+    margin-right: 5px;
     
 }
 
@@ -102,6 +125,8 @@ label{
     color: #698FEB;
     font-weight: 200;
     font-family: monospace;
+    padding: 10px;
+    margin-top: 5px;
 }
 
 /*BOTÃO CRIADO PARA O RELATÓRIO - BTN PROJETOS*/
@@ -110,16 +135,19 @@ label{
     height: 35px;
     border-style: none;
     font-weight: 500;
-    font-family: monospace;
+    font-family: 'Montserrat', sans-serif;
     display: inline;    
 }
 
 
 .styleWord1{
+    padding-top: 5px;
+    padding: 5px;
     color: #698FEB;
     font-weight: 450;
-    font-family: monospace;
+    font-family: 'Montserrat', sans-serif;
 }
+
 /**/
 /*///////////////////////////////////*/
 
@@ -146,10 +174,11 @@ label{
 }
 
 #bloco_superior{
-     width: 590px;
-    height: 60px;
+    width: 590px;
+    min-height: 60px;
+    height: auto;
     margin-left: 5px;
-     margin-top: 10px;
+    margin-top: 20px;
 }
 
 #bloco_superior h1{
@@ -272,19 +301,19 @@ label{
     width: 350px;
     font-size: 1.2vw;
     
-    font-family: chandas;
+    font-family: 'Montserrat', sans-serif;
 }
 
 #top #btn_compartilhar{
     justify-content: flex-end;
-    margin-top: 9px;
-    margin-left: 20px;
+    margin: 10px;
+    width: 100px;
 }
 
 #top #btn_salvarplanning{
     justify-content: flex-end;
     margin-top: 10px;
-    width: 110px;
+    width: 180px;
    margin-left: 500px;
     
 }
@@ -309,7 +338,7 @@ label{
     justify-content: flex-start;
     width: 200px;
     font-size: 1.2vw;
-    font-family: chandas;
+    font-family: 'Montserrat', sans-serif;
     margin-right: 350px;
     margin-left: 30px;
     margin-top: 15px;
@@ -320,7 +349,7 @@ label{
 
 
 #top_central #btn_salvarplanning{
-    margin-top: 9px;
+    margin-top: 10px;
     width: 80px;
     margin-left: -20px;
 }
@@ -348,7 +377,15 @@ label{
     
 }
 
-
+#imgbtn_close{
+    width: 30px;
+    height: 30px; 
+    display: inline;  
+    margin-right: 10px;
+    position: absolute;
+    top: 4%; 
+    left: 85%;
+}
 
 
 
@@ -380,6 +417,7 @@ label{
     width: 30px;
     height: 30px;
     margin-top: 15px;
+    margin-left: 40px;
     
     
 }
@@ -454,6 +492,7 @@ label{
     margin-left: 27px;
     margin-top: 3px;
     overflow:auto;
+    padding-top: 20px;
 }
 
 #right_center #pessoas_top #pessoas_list #lb_pessoa_hd{ 
@@ -518,10 +557,9 @@ label{
 }
 
 #bottom_central #btn6{
-    margin-left: 8px;
+    margin-left: 10px;
     margin-top: 8px;
     justify-content: center;
-    margin-left: 50px;
 }
 
 /*///////////////////////////////////*/
@@ -558,7 +596,7 @@ label{
     margin-left: 20px;
     margin-top: 15px;
     display: inline-block;
-    font-family: monospace;
+    font-family: 'Montserrat', sans-serif;
 }
 
 
@@ -613,7 +651,7 @@ label{
     margin-left: 20px;
     margin-top: 15px;
     display: inline-block;
-    font-family: monospace;
+    font-family: 'Montserrat', sans-serif;
 }
 
 
@@ -744,12 +782,14 @@ label{
 /*CADASTRO DE PESSOAS*/
 
 #btn_cadasHabilidades{
-    margin-left: 250px;
+    margin-left: 10px;
+    display: inline;
 }
 
 #cadastroPessoas{
-    width: 500px;
+    width: 200px;
     margin-left: 45px;
+    display: inline;
 }
 
 #cadastroPessoas #codPessoa{
@@ -1072,7 +1112,7 @@ label{
     height: 500px;
     float: right;
     overflow: auto;
-    margin-top: -70px;
+    margin-top: +70px;
 }
 
 #dashboard_projetos .view_projeto{
@@ -1086,7 +1126,7 @@ label{
     margin-right: 5px;
     margin-left: 5px;
     margin-bottom: 5px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-optical-sizing: inherit;
 }
 
@@ -1149,7 +1189,8 @@ label{
     background-color: white;
     border-style: inset;
     border-color: #698FEB;
-    border-width: 4px;
-    
+    border-width: 2px;
+    padding-left: 10px;
     border-style: outset;
+    border-radius: 7px;
 }

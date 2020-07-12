@@ -601,27 +601,25 @@ function add_prj_menu_esquerdo(jsonprj){
     document.getElementById("prj_cadastrados").innerHTML = ''; 
     vetor_prjcadastrados = [];
     
-                for(i = 0;i<json.length;i++){
+    for(i = 0;i<json.length;i++){
 
-                    /*CARREGA VETOR PARA CADASTRAR PROJETO NO MENU LATERAL ESQUERDO */
-                    add_btn_prj_menu_esquerdo = [json[i]['prj_id'],"<button id='btn_prj"+json[i]['prj_id']+"' onClick='expandeTrf(this.id);dadosProjeto(this.id)' class='btn_shadow1' style='background-color:"+json[i]['prj_color']+"' >"+json[i]['prj_nome']+"</button><input id='cb_prj"+json[i]['prj_id']+"' style='margin-left: -1px' type='checkbox' > "]; //CRIA VALOR PARA ADICIONAR NA DIV "prj_cadastrados"
-                    vetor_prjcadastrados.push(add_btn_prj_menu_esquerdo);//ADICIONA LINHA PARA CRIAÇÃO DO BTN DE PROJETO
-                    ///////////////////
-
-                }
-                    /*ENVIA PROJETO AO MENU LATERAL ESQUERDO*/
-                    document.getElementById("prj_cadastrados").innerHTML = ''; //ZERA DIV PARA NOVOS BUTTONS
-                    for(i = 0; i<vetor_prjcadastrados.length;i++){ // VARREDURA DO VETOR CRIADO COM OS INSERTS PARA A DIV
-                    document.getElementById("prj_cadastrados").innerHTML +=  vetor_prjcadastrados[i][1];//ADICIONA OS INSERTS NA DIV 
-                        
-                    novaDivTrf = document.createElement("div");//CRIA NOVA DIV PARA RECEBER TAREFAS CORRESPONDENTES AO PROJETO CRIADO
-                        
-                    novaDivTrf.id = "trf_cadastradas_prj"+vetor_prjcadastrados[i][0]+"";//NOME DA DIV PARA RECEBER AS TAREFAS
-                    
-                    document.getElementById("prj_cadastrados").appendChild(novaDivTrf);//ADICIONA A DIV ABAIXO DO PROJETO CRIADO
-                    //////////////////////////////////    
-
-                    }
+        /*CARREGA VETOR PARA CADASTRAR PROJETO NO MENU LATERAL ESQUERDO */
+        add_btn_prj_menu_esquerdo = [json[i]['prj_id'],"<div class='div_shadow' style='background-color:"+json[i]['prj_color']+"'><input id='cb_prj"+json[i]['prj_id']+"' type='checkbox' ><button id='btn_prj"+json[i]['prj_id']+"' onClick='expandeTrf(this.id);dadosProjeto(this.id);'class='btn_shadow0' style='background-color:"+json[i]['prj_color']+"'>"+json[i]['prj_nome']+"</button></div> "]; //CRIA VALOR PARA ADICIONAR NA DIV "prj_cadastrados"
+        vetor_prjcadastrados.push(add_btn_prj_menu_esquerdo);//ADICIONA LINHA PARA CRIAÇÃO DO BTN DE PROJETO
+        ///////////////////
+    }
+        /*ENVIA PROJETO AO MENU LATERAL ESQUERDO*/
+        document.getElementById("prj_cadastrados").innerHTML = ''; //ZERA DIV PARA NOVOS BUTTONS
+    for(i = 0; i<vetor_prjcadastrados.length;i++){ // VARREDURA DO VETOR CRIADO COM OS INSERTS PARA A DIV
+        document.getElementById("prj_cadastrados").innerHTML +=  vetor_prjcadastrados[i][1];//ADICIONA OS INSERTS NA DIV 
+            
+        novaDivTrf = document.createElement("div");//CRIA NOVA DIV PARA RECEBER TAREFAS CORRESPONDENTES AO PROJETO CRIADO
+            
+        novaDivTrf.id = "trf_cadastradas_prj"+vetor_prjcadastrados[i][0]+"";//NOME DA DIV PARA RECEBER AS TAREFAS
+        
+        document.getElementById("prj_cadastrados").appendChild(novaDivTrf);//ADICIONA A DIV ABAIXO DO PROJETO CRIADO
+        //////////////////////////////////    
+    }
         
                   
     vetorTrfCadastrados(json, null); 

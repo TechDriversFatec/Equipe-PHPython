@@ -9,7 +9,7 @@
 
 	<title>PI - PHPYTHON - GANTT</title>	
 	<link rel="stylesheet" type="text/css" href="{% static 'css/estilos.css' %}">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     
       <script type="text/javascript" src="{% static 'js/frappe-gantt.min.js' %}"></script>
       <script type="text/javascript" src="{% static 'js/dialog-polyfill.js' %}"></script> 
@@ -29,41 +29,44 @@
        <div class="dropdown_menusuperior">
           <img id="imgbtn_menusuperior" src="{% static 'images/btn_menu_superior.png' %}" onclick="menuDropdown_menusuperior()" class="dropbtn_menusuperior">
               <div id="menu_superior" class="dropdown-content_menusuperior">
-                <a href="#novo_gantt_planner">Novo Gantt Planner</a>
-                <a href="#abrir_gantt_planner">Abrir Gantt Planner</a>
-                  <a href="#" onclick="clicaPessoas()">Pessoas</a>
+                <a href="#" onclick="clicaProjeto()">Cadastro de Projeto</a>
+                <a href="#" onclick="clicaTarefa()">Cadastro de Tarefa</a>
+                <a href="#" onclick="clicaPessoas()">Cadastro de Pessoa</a>
+                <a href="#" onclick="clicaRelatorio()">Criar Relatório</a>
                 
                
               </div>
         </div>
 
          <h1>Gantt Planner - by PHPython</h1>
-         <button id="btn_salvarplanning" class="btn_shadow2">SALVAR</button>   
-        <button id="btn_compartilhar" class="btn_shadow2" onclick="pegaDIalog()">COMPARTILHAR</button>
+         <button id="btn_salvarplanning" data-toggle="tooltip" data-placement="bottom" title="Você pode reportar um erro através do formulário" class="btn_shadow2 center"
+                onclick="location.href='https://login.microsoftonline.com/common/oauth2/authorize?response_mode=form_post&response_type=id_token+code&scope=openid&msafed=0&nonce=2caac479-8424-49d9-90a2-b8622fdf3b62.637301023233603373&state=https%3A%2F%2Fforms.office.com%2FPages%2FResponsePage.aspx%3Fid%3DveJyzyt6g0e96znVewf3b9b4_yDtk8tHonR2N6BOkalUQzlUT1oxWTczME5SWkVINUxXOUpSVFIwSy4u&client_id=c9a559d2-7aab-4f13-a6ed-e7e9c52aec87&redirect_uri=https%3a%2f%2fforms.office.com%2fauth%2fsignin'">REPORTAR ERROS</button>   
+        <button id="btn_compartilhar" data-toggle="tooltip" data-placement="bottom" title="Como utilizar o Gantt Planner - Acesse o Guia"
+                class="btn_shadow2" onclick="location.href='https://gitlab.com/felipemessibraga/pi-phpython/-/wikis/Como-utilizar%3F'">AJUDA</button>
 	</div>
     
     <div id="top_central" class="boxShadow1">
         <h1 contenteditable="true" id="nomePlanner">Nome Planejamento</h1>
-        
-        
-         <img id="imgbtn_prj" src="{% static 'images/img_prj.png' %}" onclick="clicaProjeto()">
-        
-         <img id="imgbtn_trf" src="{% static 'images/img_trf.png' %}" onclick="clicaTarefa()" class="dropbtn_trf">
-              
-        
-         
-          <img id="imgbtn_pessoas" src="{% static 'images/img_pessoas.png' %}" onclick="clicaDistribuicao()" class="dropbtn_pessoas">
-              
-        
-        <img id="imgbtn_download" src="{% static 'images/img_relatorio.png' %}" onclick="clicaRelatorio();">
-        <img id="imgbtn_play" onclick="ganttProjetos()" src="{% static 'images/img_play.png' %}">
-         
-        
+        <div>
+            <button id="btn6" class="btn_shadow4" onclick="periodo_dia()"
+            data-toggle="tooltip" data-placement="bottom" title="Visualizar o gráfico por DIA" >D</button>
+            <button id="btn6" class="btn_shadow4" onclick="periodo_semana()"
+            data-toggle="tooltip" data-placement="bottom" title="Visualizar o gráfico por SEMANA" >S</button>
+            <button id="btn6" class="btn_shadow4" onclick="periodo_mes()"
+            data-toggle="tooltip" data-placement="bottom" title="Visualizar o gráfico por MÊS" >M</button>
+            <button id="btn6" class="btn_shadow4" onclick="periodo_ano()"
+            data-toggle="tooltip" data-placement="bottom" title="Visualizar o gráfico por ANO" >A</button> 
+        </div>
+
+
+        <img id="imgbtn_play" onclick="ganttProjetos()" src="{% static 'images/img_play.png' %}"
+        data-toggle="tooltip" data-placement="bottom" title="Atualizar a visualização do gráfico de gantt" >          
     </div>
+    
 
 	<div  id="central">
 	
-			<div id="left_center" class="box">
+			<div id="left_center">
                 
                 <div id="prj_cadastrados">
                     
@@ -82,43 +85,36 @@
 			<div id="right_center" class="box">
                 
                 <div id="pessoas_top">
-                    <button id="btn_pessoas" class="btn_shadow2" onclick="expandePessoas()">PESSOAS / HORAS DISPONÍVEIS</button>
+                    <button id="btn_pessoas" class="btn_shadow2" onclick="expandePessoas()">HORAS DISPONÍVEIS</button>
                     <div id="pessoas_list" class="boxShadow1"> 
                         
                     </div>
                 </div>
                 
                 <div id="datas">
-                    <button id="btn_datas" class="btn_shadow2">DATAS</button>
+                    <button id="btn_datas" class="btn_shadow2">DATAS (Prazos)</button>
                     <div id="datas_list" class="boxShadow1"> 
                         <br>
-                        <label class="styleWord1">PRAZO: </label>
+                        <label class="styleWord1"><strong>Prazo:</strong></label>
                         <label id="dt_prazo" class="styleWord1_2"></label>
                         <br><br>
-                        <label class="styleWord1">INICIO:</label>
+                        <label class="styleWord1"><strong>Início:</strong></label>
                         <label id="dt_inicial" class="styleWord1_2"></label>
                         <br><br>
-                        <label class="styleWord1">FINAL:</label>
+                        <label class="styleWord1"><strong>Final:</strong></label>
                         <label id="dt_final" class="styleWord1_2"></label>
                         
                     </div>
                 </div>
                  
 			</div>
-	</div>
-    <div id="bottom_central" class="boxShadow1">
-            <button id="btn6" class="btn_shadow4" onclick="periodo_dia()">DIA</button>
-            <button id="btn6" class="btn_shadow4" onclick="periodo_semana()">SEMANA</button>
-            <button id="btn6" class="btn_shadow4" onclick="periodo_mes()">MÊS</button>
-            <button id="btn6" class="btn_shadow4" onclick="periodo_ano()">ANO</button> 
-    </div>
-    
+	</div>  
 
-    <!---CADASTRO DE PESSOAS-->
+    <!--CADASTRO DE PESSOAS-->
     <dialog id="abreCadastroPessoas" class="abreCadastro" role="dialog"> 
         <div id="bloco_superior" class="boxShadow1">
-               <button id="btn_fechar" class="btn_shadow2" onclick="fecharCadastroPessoa()">[X]Fechar</button>
             <h1 class="styleWord1">Cadastro de Pessoas</h1> 
+            <img id="imgbtn_close" src="{% static 'images/close.png' %}" onclick="fecharCadastroPessoa()">
         </div>
        <br> 
        <button id="btn_cadasHabilidades" type="button" onclick="cadastrarHabilidades();" class="btn_shadow4_1">Cadastrar Habilidades</button> 
@@ -127,9 +123,9 @@
                 <!--CADASTRAR HABILIDADES-->
                 <dialog id="abreCadastroHabilidades" role="dialog" class="abreCadastro_1">
                     <div id="bloco_superior_1" class="boxShadow1">
-                        <button id="btn_fechar_1" class="btn_shadow2" onclick="fecharCadastroHabilidade()">[X]Fechar</button>
-                    <h1 class="styleWord1">Cadastro de Habilidades</h1> 
-                </div>
+                        <h1 class="styleWord1">Cadastro de Habilidades</h1>
+                        <img id="imgbtn_close" src="{% static 'images/close.png' %}" onclick="fecharCadastroHabilidade()"> 
+                    </div>
                     <div id="CadastroHabilidades">
                         <br><br><br>
                         <label id="lb_nome_habilidade" for="nome_habilidade">Nome habilidade: <input id="nome_habilidade" autocomplete="off" type='text' name="hab_nome"></label>
@@ -137,22 +133,18 @@
                         <button id="btn_gravarHabilidade" type="submit" class="btn_shadow2" onclick="gravarHabilidade();" >Gravar</button>
                         <button id="btn_mostrarHabilidades" type="submit" class="btn_shadow2" onclick="mostrarHabilidades();">Mostrar habilidades</button>
                     </div>
-                            <dialog id="habilidades_cadastradas" role="dialog" class="abreCadastro_1">
-                                <button id="btn_fechar_1_1" class="btn_shadow2" onclick="fecharListaHabilidades()">[X]Fechar</button>
-                   
-                                <div id="lista_habilidades_cadastradas">
-
-                                </div>
-
-                            </dialog>
-
+                    <dialog id="habilidades_cadastradas" role="dialog" class="abreCadastro_1">
+                        <img id="imgbtn_close" src="{% static 'images/close.png' %}" onclick="fecharListaHabilidades()">                   
+                        <div id="lista_habilidades_cadastradas">
+                        </div>
+                    </dialog>
                 </dialog>
                
 
                 <!--INCLUIR HABILIDADES-->
                 <dialog id="abreInclusaoHabilidades" role="dialog" class="abreCadastro_1">
-                        <div id="bloco_superior_1" class="boxShadow1">
-                            <button id="btn_fechar_1" class="btn_shadow2" onclick="fecharInclusaoHabilidade()">[X]Fechar</button>
+                    <div id="bloco_superior_1" class="boxShadow1">
+                        <img id="imgbtn_close" src="{% static 'images/close.png' %}" onclick="fecharInclusaoHabilidade()">
                         <h1 class="styleWord1">Inclusão de Habilidades</h1> 
                     </div>
                         <div id="InclusaoHabilidades">
@@ -172,7 +164,7 @@
                             <button id="btn_mostrarInclusoesCadastradas" type="submit" class="btn_shadow2" onclick="mostrarPessoasHabilidades()">Mostrar cadastrados</button>
                         </div>
                         <dialog id="cadastrados_pes_hab" role="dialog" class="abreCadastro_1">
-                            <button id="btn_fechar_1_1" class="btn_shadow2" onclick="fecharPessoasHabilidades()">[X]Fechar</button>
+                            <img id="imgbtn_close" src="{% static 'images/close.png' %}" onclick="fecharPessoasHabilidades()">
                             <br><br>
                             <label id="lb_nome_pessoa_1">Selecione a pessoa: </label>
                             <select id="nome_pessoa_1" onselect="selectPessoas()" onchange="get_pessoas_habilidades()">
@@ -242,53 +234,54 @@
     <!--CADASTRO DE PROJETO -->
             <dialog id="abreCadastroProjeto" class="abreCadastro"> 
          <div id="bloco_superior" class="boxShadow1">
-                <button id="btn_fechar" class="btn_shadow2" onclick="fecharCadastroProjeto()">[X]Fechar</button>
-             <h1 class="styleWord1">Cadastro de Projeto</h1>        </div>
+            <h1 class="styleWord1">Cadastro de Projeto</h1> 
+            <img id="imgbtn_close" src="{% static 'images/close.png' %}" onclick="fecharCadastroProjeto()">      
+        </div>
+
         <br><br>
-                
+                   
+        <div id="cadastro_projeto">
             
-             <div id="cadastro_projeto">
-                 
-                 <label  for="codProjeto">Código projeto: <input readonly="true" id="codProjeto" type="text" name="prj_id"></label>
-                 <button type="button" id="codAnteriorCadasProjeto" class="btn_shadow1_1" onclick="recuarCodProjeto()"></button>
-                 <button type="button" id="codPosteriorCadasProjeto" class="btn_shadow1" onclick="avancarCodProjeto()"></button>
-                 <label id="lb_progressoprojeto">Progresso % :</label>
-                <select id="progressoprojeto" name="prj_progresso" disabled="true">
-                    <option>0</option>
-                    <option>10</option>
-                    <option>20</option>
-                    <option>30</option>
-                    <option>40</option>
-                    <option>50</option>
-                    <option>60</option>
-                    <option>70</option>
-                    <option>80</option>
-                    <option>90</option>
-                    <option>100</option>
-                </select>                
-                <br><br>
-                <label for="nomeProjeto">Nome projeto: <input autocomplete="off" id="nomeProjeto" readonly="true" type="text" name="prj_nome"></label>
-                  
-                  <label for="escopo">Escopo: <input autocomplete="off" id="escopo" readonly="true" type="text" name="prj_escopo"></label>
-                  <br>
-                  <label for="dt_inicioProjeto">Data Início: <input readonly="true" id="dt_inicioProjeto" type="date" name="prj_datainicio"></label>
-                  
-                  <label for="dt_prazoProjeto">Prazo Entrega: <input readonly="true" id="dt_prazoProjeto" type="date" name="prj_prazo"></label>
-                  <br>
-                
-                  <label for="custo">Custo Projeto: <input readonly="true" id="custo" type="number" name="prj_cost"></label>
-                  
-                  <label for="horas_desenvolvimento">Horas Desenvolvimento: <input readonly="true" id="horas_desenvolvimento" type="number" name="prj_hrs_dev"></label>
-                  <br>
-                  <label for="corProjeto">Cor do projeto: <input disabled="true" id="corProjeto" type="color" name="prj_cor"></label>
-                  <br>
-                  <button id="btn_novoprojeto" type="submit" class="btn_shadow2" onclick="novoProjeto()">Novo</button>
-                
-                      <button id="btn_salvarprojeto" type="submit" class="btn_shadow2" onclick="postProjeto()">Gravar</button>
-                      <button id="btn_atualizarCadasProjeto" type="submit" class="btn_shadow2" onclick="putProjeto()">Atualizar</button>
-                     <button id="btn_excluirCadasProjeto" type="submit" class="btn_shadow2" onclick="deleteProjeto()">Excluir</button>
-                     <button id="btn_cancelarCadasProjeto" type="submit" class="btn_shadow2" onclick="cancelarCadasProjeto()">Cancelar</button>
-                </div>
+            <label  for="codProjeto">Código projeto: <input readonly="true" id="codProjeto" type="text" name="prj_id"></label>
+            <button type="button" id="codAnteriorCadasProjeto" class="btn_shadow1_1" onclick="recuarCodProjeto()"></button>
+            <button type="button" id="codPosteriorCadasProjeto" class="btn_shadow1" onclick="avancarCodProjeto()"></button>
+            <label id="lb_progressoprojeto">Progresso % :</label>
+        <select id="progressoprojeto" name="prj_progresso" disabled="true">
+            <option>0</option>
+            <option>10</option>
+            <option>20</option>
+            <option>30</option>
+            <option>40</option>
+            <option>50</option>
+            <option>60</option>
+            <option>70</option>
+            <option>80</option>
+            <option>90</option>
+            <option>100</option>
+        </select>                
+        <br><br>
+        <label for="nomeProjeto">Nome projeto: <input autocomplete="off" id="nomeProjeto" readonly="true" type="text" name="prj_nome"></label>
+            
+            <label for="escopo">Escopo: <input autocomplete="off" id="escopo" readonly="true" type="text" name="prj_escopo"></label>
+            <br>
+            <label for="dt_inicioProjeto">Data Início: <input readonly="true" id="dt_inicioProjeto" type="date" name="prj_datainicio"></label>
+            
+            <label for="dt_prazoProjeto">Prazo Entrega: <input readonly="true" id="dt_prazoProjeto" type="date" name="prj_prazo"></label>
+            <br>
+        
+            <label for="custo">Custo Projeto: <input readonly="true" id="custo" type="number" name="prj_cost"></label>
+            
+            <label for="horas_desenvolvimento">Horas Desenvolvimento: <input readonly="true" id="horas_desenvolvimento" type="number" name="prj_hrs_dev"></label>
+            <br>
+            <label for="corProjeto">Cor do projeto: <input disabled="true" id="corProjeto" type="color" name="prj_cor"></label>
+            <br>
+            <button id="btn_novoprojeto" type="submit" class="btn_shadow2" onclick="novoProjeto()">Novo</button>
+        
+                <button id="btn_salvarprojeto" type="submit" class="btn_shadow2" onclick="postProjeto()">Gravar</button>
+                <button id="btn_atualizarCadasProjeto" type="submit" class="btn_shadow2" onclick="putProjeto()">Atualizar</button>
+                <button id="btn_excluirCadasProjeto" type="submit" class="btn_shadow2" onclick="deleteProjeto()">Excluir</button>
+                <button id="btn_cancelarCadasProjeto" type="submit" class="btn_shadow2" onclick="cancelarCadasProjeto()">Cancelar</button>
+        </div>
                
                 <div id='listaProjeto'>
             
@@ -319,8 +312,8 @@
 <!--CADASTRO DE TAREFA -->
             <dialog id="abreCadastroTarefa" class="abreCadastro"> 
          <div id="bloco_superior" class="boxShadow1">
-                <button id="btn_fechar" class="btn_shadow2" onclick="fecharCadastroTarefa()">[X]Fechar</button>
-             <h1 class="styleWord1">Cadastro de Tarefa</h1>        
+            <img id="imgbtn_close" src="{% static 'images/close.png' %}" onclick="fecharCadastroTarefa()"> 
+            <h1 class="styleWord1">Cadastro de Tarefa</h1>        
          </div>
         <br><br>
                 
@@ -380,7 +373,7 @@
     
     <dialog id="distribuiPessoas" class="abreCadastro"> 
          <div id="bloco_superior" class="boxShadow1">
-                <button id="btn_fechar" class="btn_shadow2" onclick="fecharCadastroDistribuicao()">[X]Fechar</button>
+                <img id="imgbtn_close" src="{% static 'images/close.png' %}" onclick="fecharCadastroDistribuicao()">  
              <h1 class="styleWord1">Distribuição Pessoas </h1>       
         </div>
         <br><br>
@@ -445,8 +438,8 @@
 
     <dialog id="abreRelatorio" class="abreCadastro">
         <div id="bloco_superior" class="boxShadow1">
-            <button id="btn_fechar" class="btn_shadow2" onclick="fecharRelatorio()">[X]Fechar</button>
-         <h1 class="styleWord1">Relatório</h1>       
+            <img id="imgbtn_close" src="{% static 'images/close.png' %}" onclick="fecharRelatorio()"> 
+            <h1 class="styleWord1">Relatório</h1>       
         </div>
     <br><br><br>
         <div id="draganddrop_projetos">
@@ -471,7 +464,7 @@
         
                 <!--RELATÓRIO - DASHBOARD-->
             <dialog id="abreDashboard" role="dialog" class="abreDialogDashboard">
-                    <button id="btn_fechardashboard" class="btn_shadow2" onclick="fecharDashboard();">[X]Fechar</button>
+                    <img id="imgbtn_close" src="{% static 'images/close.png' %}" onclick="fecharDashboard()"> 
                     <img id="img_graficodashboard" src="{% static 'images/img_graficodashboard.png' %}">
                     <div id="dashboard_projetos">
                         <!--DINAMICO-->
