@@ -57,10 +57,13 @@
             <button id="btn6" class="btn_shadow4" onclick="periodo_ano()"
             data-toggle="tooltip" data-placement="bottom" title="Visualizar o gráfico por ANO" >A</button> 
         </div>
-
-
-        <img id="imgbtn_play" onclick="ganttProjetos()" src="{% static 'images/img_play.png' %}"
-        data-toggle="tooltip" data-placement="bottom" title="Atualizar a visualização do gráfico de gantt" >          
+        <div class="div_icon">
+            <img id="imgbtn_icon" onclick="clicaDistribuicao()" src="{% static 'images/img_pessoas.png' %}"
+            data-toggle="tooltip" data-placement="bottom" title="Atualizar a visualização do gráfico de gantt" >
+            <img id="imgbtn_icon" onclick="ganttProjetos()" src="{% static 'images/img_play.png' %}"
+            data-toggle="tooltip" data-placement="bottom" title="Atualizar a visualização do gráfico de gantt" >    
+        </div>
+      
     </div>
     
 

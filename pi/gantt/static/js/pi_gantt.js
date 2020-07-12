@@ -171,8 +171,7 @@ function carregaGantt(jsonProjetosGantt, jsonTarefasGantt){
             
         }
         //console.log("TASKS: "+tasks+""); //TESTE DE INTEGRIDADE
-         gantt = new Gantt('#gantt', tasks, { 
-             
+         gantt = new Gantt('#gantt', tasks, {  
             on_click: function (task) {
                 console.log(task);
             },
@@ -219,7 +218,7 @@ function carregaGantt(jsonProjetosGantt, jsonTarefasGantt){
                 }
 
 
-                    split_dt_final_tarefa = dt_final_tarefa.split('-');
+                split_dt_final_tarefa = dt_final_tarefa.split('-');
                 reverse_dt_final_tarefa = split_dt_final_tarefa.reverse();
                 join_dt_final_tarefa = reverse_dt_final_tarefa.join('-');
 

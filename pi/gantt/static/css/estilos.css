@@ -336,7 +336,7 @@ label{
 
 #top_central h1{
     justify-content: flex-start;
-    width: 200px;
+    width: 150px;
     font-size: 1.2vw;
     font-family: 'Montserrat', sans-serif;
     margin-right: 350px;
@@ -412,14 +412,15 @@ label{
     
 }
 
-#top_central #imgbtn_play{
+#top_central .div_icon{
+    margin-left: 40px;
+}
+#top_central #imgbtn_icon{
     justify-content: flex-end;
     width: 30px;
     height: 30px;
     margin-top: 15px;
-    margin-left: 40px;
-    
-    
+    margin-left: 10px;
 }
 
 
