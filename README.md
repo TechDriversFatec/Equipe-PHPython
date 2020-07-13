@@ -9,7 +9,7 @@
 ----------------------------------------------------------------
 
 ### 6ª Entrega (Final)
-[![gantt-planner](/uploads/1f44a19197c230ea69c14027013392a1/miniatura.PNG)](http://www.youtube.com/watch?v=sePaF3FJYkg "GANTT PLANNER - PHPython")
+[![gantt-planner](/uploads/1dd27ec46e5cb20d56ac7f2f23998036/by_PHPython.png)](http://www.youtube.com/watch?v=sePaF3FJYkg "GANTT PLANNER - PHPython")
 
 [vídeo da Apresentação da 6ª entrega](https://youtu.be/sePaF3FJYkg)
 
