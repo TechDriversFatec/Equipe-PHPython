@@ -5,6 +5,7 @@
 
 /**TELA INICIAL - RELATÓRIO */
 function clicaRelatorio(){
+    document.getElementById("menu_superior").classList.remove("show");
     dialogCadastro = document.getElementById("abreRelatorio");
     dialogPolyfill.registerDialog(dialogCadastro);
     dialogCadastro.showModal();

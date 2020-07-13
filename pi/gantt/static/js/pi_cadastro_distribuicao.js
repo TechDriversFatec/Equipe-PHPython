@@ -340,6 +340,7 @@ function deleteDistribuicao(){
 /*CADASTRO DE DISTRIBUICAO DE PESSOAS EM TAREFAS*/////////////////////////////
 
 function clicaDistribuicao(){
+    document.getElementById("menu_superior").classList.remove("show");
     dialogCadastro = document.getElementById("distribuiPessoas");
     dialogPolyfill.registerDialog(dialogCadastro);
     dialogCadastro.showModal();

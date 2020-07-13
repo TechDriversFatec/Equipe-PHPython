@@ -432,6 +432,7 @@ function deleteTarefa(){
 vetor_tarefa = [];
 
 function clicaTarefa(){
+    document.getElementById("menu_superior").classList.remove("show");
     dialogCadastro = document.getElementById("abreCadastroTarefa");
     dialogPolyfill.registerDialog(dialogCadastro);
     dialogCadastro.showModal();

@@ -236,7 +236,7 @@ function deleteProjeto(){
 
 
 function clicaProjeto(){
-    
+    document.getElementById("menu_superior").classList.remove("show");
     dialogCadastro = document.getElementById("abreCadastroProjeto");
     dialogPolyfill.registerDialog(dialogCadastro);
     dialogCadastro.showModal();

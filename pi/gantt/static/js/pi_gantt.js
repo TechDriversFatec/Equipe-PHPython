@@ -104,10 +104,20 @@ function select_pessoas_gantt(json_gantt_pessoas){
     }
 }
 
+function cores_tarefas(){
+    document.getElementsByTagName('style').innerHTML = '';
+       for(i=0;i<vetor_preparaProjetos.length;i++){
+           
+          linha = '.tcolor-'+vetor_preparaProjetos[i][0]+' .bar {fill: '+vetor_preparaProjetos[i][6]+'}';
+           document.querySelector('style').innerHTML += linha;         
+        }
+}
+
 recebe_projetoGantt = [];
 recebe_tarefaGantt = []
 
 function carregaGantt(jsonProjetosGantt, jsonTarefasGantt){
+    
 
         vetor_gantt = [];
 
@@ -174,6 +184,9 @@ function carregaGantt(jsonProjetosGantt, jsonTarefasGantt){
          gantt = new Gantt('#gantt', tasks, {  
             on_click: function (task) {
                 console.log(task);
+                document.querySelector('style').innerHTML = '';
+                
+                cores_tarefas();
             },
             on_date_change: function(task, start, end) {
                 console.log(recebe_tarefaGantt)
@@ -193,6 +206,8 @@ function carregaGantt(jsonProjetosGantt, jsonTarefasGantt){
                 console.log(mode);
             },
             custom_popup_html: function(task) {
+
+                
                 // the task object will contain the updated
                 // dates and progress value
                 
@@ -237,12 +252,7 @@ function carregaGantt(jsonProjetosGantt, jsonTarefasGantt){
         });
 
        
-        document.getElementsByTagName('style').innerHTML = '';
-       for(i=0;i<vetor_preparaProjetos.length;i++){
-           
-          linha = '.tcolor-'+vetor_preparaProjetos[i][0]+' .bar {fill: '+vetor_preparaProjetos[i][6]+'}';
-           document.querySelector('style').innerHTML += linha;         
-        }
+        cores_tarefas();
        
     }
 
@@ -252,28 +262,45 @@ function carregaGantt(jsonProjetosGantt, jsonTarefasGantt){
 }
 /*MUDANÇA DE PREÍODOS GANTT*/
 
+
+
 // Quarter Day, Half Day, Day, Week, Month 
 
 
 function periodo_dia(){
-    gantt = new Gantt('#gantt', tasks);
+
+   // gantt = '';
+    //gantt = new Gantt('#gantt', tasks);
     gantt.change_view_mode('Day'); // MUDANÇA DE PERÍODO PARA DIA
+    linha_popup = '.popup-wrapper {display: none;';
+    document.querySelector('style').innerHTML += linha_popup; 
     
 }
 
 function periodo_semana(){
-    gantt = new Gantt('#gantt', tasks);
+    //gantt = '';
+    //gantt = new Gantt('#gantt', tasks);
     gantt.change_view_mode('Week');// MUDANÇA DE PERÍODO PARA SEMANA
+    linha_popup = '.popup-wrapper {display: none;';
+    document.querySelector('style').innerHTML += linha_popup; 
 }
 
 function periodo_mes(){
-    gantt = new Gantt('#gantt', tasks);
+    //gantt = '';
+    //gantt = new Gantt('#gantt', tasks);
     gantt.change_view_mode('Month');// MUDANÇA DE PERÍODO PARA MÊS
+    linha_popup = '.popup-wrapper {display: none;';
+    document.querySelector('style').innerHTML += linha_popup; 
+    
 }
 
 function periodo_ano(){
-    gantt = new Gantt('#gantt', tasks);
+    //gantt = '';
+    //gantt = new Gantt('#gantt', tasks);
     gantt.change_view_mode('Year');// MUDANÇA DE PERÍODO PARA ANO
+    linha_popup = '.popup-wrapper {display: none;';
+    document.querySelector('style').innerHTML += linha_popup; 
+   
 }
 
 
