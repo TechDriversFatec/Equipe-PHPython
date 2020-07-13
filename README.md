@@ -2,31 +2,38 @@
 
 # GANTT PLANNER
 
-**Vídeo de apresentação do Projeto (2ª Entrega)**
+## Entregas
 
-[Apresentação](https://youtu.be/eVWRJgfRgmc)
-<iframe width="560" height="315" src="https://www.youtube.com/embed/eVWRJgfRgmc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+**Para acessar o projeto em produção:** [Gantt Planner](https://pi-gantt-planner.herokuapp.com)
 
-**Vídeo de apresentação do Projeto (3ª Entrega)**
+----------------------------------------------------------------
 
-[Apresentação](https://www.youtube.com/watch?v=xsMU915KdhA&feature=youtu.be)
-<iframe width="560" height="315" src="https://www.youtube.com/embed/eVWRJgfRgmc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+### 6ª Entrega (Final)
+[![gantt-planner](/uploads/1f44a19197c230ea69c14027013392a1/miniatura.PNG)](http://www.youtube.com/watch?v=sePaF3FJYkg "GANTT PLANNER - PHPython")
 
-**Vídeo de apresentação do Projeto (4ª Entrega)**
+[vídeo da Apresentação da 6ª entrega](https://youtu.be/sePaF3FJYkg)
 
-[Apresentação](https://youtu.be/losLuFm8Eqk)
-<iframe width="560" height="315" src="https://www.youtube.com/embed/eVWRJgfRgmc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+**Descrição**
 
-Além dos itens que foram expostos na apresentação, vale ressaltar que foram feitos bem mais ações "por baixo dos panos", bem como: 
-- transformar o back-end em uma API;
-- Integração dos botões do front end e 
-- remodelação do banco de dados.
+- Melhorias de estética no Front-End;
+- Reorganização dos menus de cadastro;
+- Limpeza do código;
+- Modularização do código do front-end;
+- Optimização do Banco de Dados;
+- Correção dos links para o "como utilizar" e "reportar erros";
+- Agora são exibidas dicas quando você para com o mouse em cima de um botão;
+- Removemos o Bootstrap;
+- Corrigimos problemas de compatibilidade entre navegadores;
+- Atualizamos o diagrama de banco de dados;
+- Melhoramos o "como utilizar";
 
+----------------------------------------------------------------
 
-**Vídeo de apresentação do Projeto (5ª Entrega)**
+### 5ª Entrega
 
-[Apresentação](https://youtu.be/QbBc3mReSTo)
-<iframe width="560" height="315" src="https://www.youtube.com/embed/eVWRJgfRgmc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[vídeo da Apresentação da 5ª entrega](https://youtu.be/QbBc3mReSTo)
+
+**Descrição**
 
 Após a reunião com o Cadu, reavaliamos o que seria real prioridade e deixamos por não atender ao requisito 32. 
 - (REQ-32) Usuário pode escolher quais projetos e tarefas serão exibidos no gráfico de gantt
@@ -35,9 +42,34 @@ Atendemos ao seguinte requisito além do que estava na sprint:
 - (REQ-25) Gerente pode gerar relatórios de pessoas com os seguintes dados: Horas livres, salário, carga horária, projetos e tarefas que participa/participou
 em um intervalo de tempo.
 
-**Para acessar o projeto em produção:** [Gantt Planner](https://pi-gantt-planner.herokuapp.com)
 
 
+----------------------------------------------------------------
+
+### 4ª Entrega
+
+[vídeo da Apresentação da 4ª entrega](https://youtu.be/losLuFm8Eqk)
+
+**Descrição**
+
+Além dos itens que foram expostos na apresentação, vale ressaltar que foram feitos bem mais ações "por baixo dos panos", bem como: 
+- transformar o back-end em uma API;
+- Integração dos botões do front end e 
+- remodelação do banco de dados.
+
+----------------------------------------------------------------
+
+### 3ª Entrega
+
+[vídeo da Apresentação da 3ª entrega](https://www.youtube.com/watch?v=xsMU915KdhA&feature=youtu.be)
+
+----------------------------------------------------------------
+
+### 2ª Entrega
+
+[vídeo da Apresentação da 2ª entrega](https://youtu.be/eVWRJgfRgmc)
+
+----------------------------------------------------------------
 
 **WIKI:** 
 
@@ -151,10 +183,8 @@ as seguintes informações: horas disponíveis, salário, férias, carga horári
 
 **6ª ENTREGA (FINAL)**
 
-- (REQ-16) O Gerente pode criar novos gráficos através de um menu e alternar entre a visualização deles;
-- (REQ-17) O Gerente pode excluir gráficos através de uma lista de gráficos;
-
-
+- (REQ-16) O Gerente e o Usuário podem ver as tarefas por cor no gráfico;
+- (REQ-17) O Gerente pode fazer modificações no gráfico e salva-las automaticamente;
 
 
 #### Diagrama de Casos de Uso
@@ -220,12 +250,11 @@ onde essas informações são idealmente dispostas de forma a não sobrecarregar
 - Whats App
 - Excel
 
-### Contato
+### LinkedIn
 
-* https://github.com/NathanNaressi    
-* https://github.com/igorpereira28    
-* https://gitlab.com/felipemessibraga
-* https://gitlab.com/giovanniguidace
-* https://gitlab.com/jeidc
+* [Giovanni Guidace](https://www.linkedin.com/in/giovanni-guidace-61982812a/  )
+* [Nathan Naressi](https://www.linkedin.com/in/nathan-naressi-b529081b2)
+* [Felipe Braga](https://www.linkedin.com/in/felipegbraga/)
+* [Jessica Isri](https://www.linkedin.com/in/jessica-dias1/)
 
 Fatec - Prof Jessen Vidal - São José dos Campos - SP
