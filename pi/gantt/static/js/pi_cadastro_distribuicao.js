@@ -75,7 +75,7 @@ function dt_tarefas_distribuicao(){
                     }
                 }
                 select_tb_tarefas(json_dt_getTarefas);
-                console.log(json_dt_getTarefas);
+                
             }
         }
     }
@@ -199,10 +199,10 @@ function postDistribuicao(){
    nome_tarefa = document.getElementById('listaTarefa').value;
    nome_pessoa = document.getElementById('listaPessoa').value;
   
-   console.log(nome_tarefa);
-   console.log(nome_pessoa);
-
-
+   if(nome_tarefa == '' || nome_pessoa == ''){
+    alert("Todos os campos devem ser preenchidos!!");
+    }else{
+   
    for(i=0;i<recebe_tb_tarefas.length;i++){
         if(nome_tarefa == recebe_tb_tarefas[i]['trf_name']){
             cod_tarefa = recebe_tb_tarefas[i]['trf_id'];
@@ -215,6 +215,7 @@ function postDistribuicao(){
         }
     }
    
+
    
   
     xhrPostDistribuicao = new XMLHttpRequest();
@@ -228,11 +229,16 @@ function postDistribuicao(){
             if(xhrPostDistribuicao.status == 201){
                 
                 getDistribuicao();
+                
+                if((json.length+1) > 1){
+                    habilitaRecuoCodDistribuicao();
+                }
+                
                 desabilitaCamposDistribuicao();
                 habilitaBtnNovaDistribuicao();
                 desabilitaBtnGravaDistribuicao();
                 desabilitaBtnCancelarDistribuicao();
-                habilitaRecuoCodDistribuicao();
+                
                 habilitaBtnExcluirDistribuicao();
                 habilitaBtnAtualizarDistribuicao();   
                
@@ -242,7 +248,7 @@ function postDistribuicao(){
                 habilitaBtnGravarDistribuicao();
                 habilitaBtnCancelarDistribuicao();
                 desabilitaBtnExcluirDistribuicao();
-                desabilitaRecuoCodDistribuicao();
+                
                 alert("Pessoa já inclusa nesta tarefa!");
                 
             }
@@ -256,11 +262,9 @@ function postDistribuicao(){
          'fk_trf_id': cod_tarefa       
         }));
 
-        console.log("codigo send distribuicao: "+codPesTrf);
-        console.log("codigo send tarefa: "+cod_tarefa);
-        console.log("codigo send pessoa: "+cod_pessoa);
+        
        
-         
+    }       
        
 }
 
@@ -276,7 +280,10 @@ function putDistribuicao(){
         codPesTrf = document.getElementById('codDistribuicao').value;
         nome_tarefa = document.getElementById('listaTarefa').value;
         nome_pessoa = document.getElementById('listaPessoa').value;
-
+        if(nome_tarefa == '' || nome_pessoa == ''){
+            alert("Todos os campos devem ser preenchidos!!");
+            }else{
+        
         for(i=0;i<recebe_tb_tarefas.length;i++){
             if(nome_tarefa == recebe_tb_tarefas[i]['trf_name']){
                 cod_tarefa = recebe_tb_tarefas[i]['trf_id'];
@@ -313,14 +320,14 @@ function putDistribuicao(){
         mudaBotao.style.backgroundColor = "#698FEB";
         
         desabilitaCamposDistribuicao();
-    
+            }
     }
 
     
 }
 
 function deleteDistribuicao(){
-    recuarCodDistribuicao();
+    
     codPesTrf = document.getElementById('codDistribuicao').value;
 
     xhrDeleteDistribuicao = new XMLHttpRequest();
@@ -328,8 +335,15 @@ function deleteDistribuicao(){
     xhrDeleteDistribuicao.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhrDeleteDistribuicao.setRequestHeader("X-CSRFToken", csrftoken);
     xhrDeleteDistribuicao.setRequestHeader("withCredentials", 'True');
+    xhrDeleteDistribuicao.onreadystatechange = function(){
+        if(xhrDeleteDistribuicao.readyState == 4){
+            if(xhrDeleteDistribuicao.status == 204){
+                carregaTabelaDistribuicao();
+            }
+        }
+    }
     xhrDeleteDistribuicao.send(); 
-    
+    recuarCodDistribuicao(codPesTrf);
 }
 ///////////////////////FINISH: GET - POST - PUT - DELETE //////////////////////////////////////////////////////////
 
@@ -375,10 +389,14 @@ function clicaDistribuicao(){
                     desabilitaCamposDistribuicao();
                     desabilitaRecuoCodDistribuicao();
                 }else{
-                    document.getElementById("codDistribuicao").value = maiorvalor;
+                    if(json.length == 1){
+                        desabilitaAvancoCodDistribuicao();
+                        desabilitaRecuoCodDistribuicao();
+                    }else{
+                        habilitaRecuoCodDistribuicao();
+                    }
+                    document.getElementById('codDistribuicao').value = maiorvalor;
                     getDistribuicao();
-                    habilitaRecuoCodDistribuicao();
-                    
                     
                 }
 
@@ -391,8 +409,7 @@ function clicaDistribuicao(){
     xhrAbreDistribuicao.send();
     
     
-    habilitaAvancoCodDistribuicao();
-    habilitaRecuoCodDistribuicao();
+   
     desabilitaBtnCancelarDistribuicao();
     habilitaBtnNovaDistribuicao();
     desabilitaBtnGravaDistribuicao();
@@ -407,6 +424,15 @@ function novaDistribuicao(){
     if(codDistribuicao == 0){
         codDistribuicao = 1;
         document.getElementById("codDistribuicao").value = codDistribuicao;
+        habilitaCamposDistribuicao();
+    habilitaBtnCancelarDistribuicao();
+    desabilitaBtnNovaDistribuicao();
+    habilitaBtnGravarDistribuicao();
+    desabilitaAvancoCodDistribuicao();
+    desabilitaRecuoCodDistribuicao();
+    limparCamposCadasDistribuicao();
+    desabilitaBtnExcluirDistribuicao();
+    desabilitaBtnAtualizarDistribuicao();
     }else{
     vetor_distribuicao = [];
     xhrNovaDistribuicao = new XMLHttpRequest();
@@ -416,8 +442,7 @@ function novaDistribuicao(){
         if(xhrNovaDistribuicao.readyState == 4){
             
             if(xhrNovaDistribuicao.status == 200){
-                json = (JSON.parse(xhrNovaDistribuicao.responseText));
-                
+                json = (JSON.parse(xhrNovaDistribuicao.responseText));  
                 for(i = 0;i<json.length;i++){
                     vetor_distribuicao.push(json[i]['pes_trf_id']);
                     
@@ -466,7 +491,7 @@ function cancelarCadasDistribuicao(){
    
 }
 
-function recuarCodDistribuicao(){
+function recuarCodDistribuicao(codAnterior){
     codDistribuicao = parseInt(document.getElementById("codDistribuicao").value);
     
     vetor_distribuicao = [];
@@ -481,31 +506,79 @@ function recuarCodDistribuicao(){
                     
                 }
                  
-                 menorvalor = vetor_distribuicao.length;
+                 menorvalor = vetor_distribuicao[0];
                  for(i=0;i<vetor_distribuicao.length;i++){
 
                     if(codDistribuicao == vetor_distribuicao[i]){
                         codDistribuicao = vetor_distribuicao[i-1];
                  }
-                 if(vetor_distribuicao[i] < menorvalor){
-                    menorvalor = vetor_distribuicao[i]; 
-                }    
-
                 }
                 document.getElementById("codDistribuicao").value = codDistribuicao;   
+               
                 if(codDistribuicao == menorvalor){
                     desabilitaRecuoCodDistribuicao();
+                    
                 }
-                habilitaAvancoCodDistribuicao();
-                getDistribuicao();
-                }else if(xhrRecuarCodDistribuicao.status == 404){}
+
+                
+               
+
+                if(vetor_distribuicao.length > 1){
+                    
+                    habilitaAvancoCodDistribuicao();
+                }
+               
+               //AÇÃO ABAIXO EM CONJUNTO COM O DELETE
+                ///codAnterior vindo da function DELETE
+                vetor_distribuicao.reverse();
+                if(codAnterior != undefined){
+                    if(codAnterior == vetor_distribuicao[0] && vetor_distribuicao.length == 1){
+
+                        document.getElementById('codDistribuicao').value = 0;
+                    }else{
+                        
+                        if(codAnterior == menorvalor){
+                        
+                            document.getElementById('codDistribuicao').value = vetor_distribuicao[0];
+                            desabilitaAvancoCodDistribuicao();
+                            
+                            if(vetor_distribuicao.length > 2){
+                                habilitaRecuoCodDistribuicao();
+                            }
+                            
+                        }else{
+                         for(i=0;i<vetor_distribuicao.length;i++){
+                            if(codAnterior == vetor_distribuicao[0]){
+                                vetor_distribuicao.splice(i,1);
+                                
+                                if(codDistribuicao == vetor_distribuicao[0]){
+                                    desabilitaAvancoCodDistribuicao();
+                                }                               
+                            }   
+                        }
+                    }
+                    }
+                    
+                }
+            
+                if(document.getElementById('codDistribuicao').value == 0){
+                    limparCamposCadasDistribuicao();
+                    desabilitaCamposDistribuicao();
+                }else{
+                    getDistribuicao();
+                }
+                
+                
+            }else if(xhrRecuarCodDistribuicao.status == 404){ }
+        
             }
-        }
+            
+            
+        }  
     
 
         xhrRecuarCodDistribuicao.send();
-
-        
+       
         
 
 }
@@ -537,10 +610,12 @@ function avancarCodDistribuicao(){
 
                 }
                    
-                      document.getElementById("codDistribuicao").value = codDistribuicao;   
+                document.getElementById("codDistribuicao").value = codDistribuicao;   
+                
                 if(codDistribuicao == maiorvalor){
                     desabilitaAvancoCodDistribuicao();
                 }
+
                 habilitaRecuoCodDistribuicao();
                 getDistribuicao();
                 }else if(xhrAvancarDistribuicao.status == 404){}
@@ -555,28 +630,25 @@ function avancarCodDistribuicao(){
 
 function desabilitaRecuoCodDistribuicao(){
         document.getElementById("codAnteriorDistribuicao").disabled = true;
-     if(document.getElementById("codAnteriorDistribuicao").disabled = true){
-       mudaBotao =  document.getElementById("codAnteriorDistribuicao");
-        mudaBotao.style.backgroundColor = "gray";
-}
-    
+      mudaBotao =  document.getElementById("codAnteriorDistribuicao");
+        mudaBotao.style.backgroundColor = "gray";    
 }
 
 function desabilitaAvancoCodDistribuicao(){
   document.getElementById("codPosteriorDistribuicao").disabled = true;
-     if(document.getElementById("codPosteriorDistribuicao").disabled = true){
+
        mudaBotao =  document.getElementById("codPosteriorDistribuicao");
         mudaBotao.style.backgroundColor = "gray";
-}
+
 }
 
 function habilitaRecuoCodDistribuicao(){
-   
-   if(document.getElementById("codDistribuicao").value > 1){ document.getElementById("codAnteriorDistribuicao").disabled = false;
+    
+    document.getElementById("codAnteriorDistribuicao").disabled = false;
     mudaBotao =  document.getElementById("codAnteriorDistribuicao");
     mudaBotao.style.backgroundColor = "#698FEB";
      
-}
+
 }
 
 function habilitaAvancoCodDistribuicao(){

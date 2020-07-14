@@ -82,7 +82,7 @@ function dragEnd(acao) {
 
 
 function gerarDashboard(){
-    console.log("Projetos selecionados Id: "+projetos_selecionados_id+"");
+   
     projetos_dashboard = [];
     for(i=0;i<projetos_selecionados_id.length;i++){
         proj_dashboard = document.getElementById('projetos_dashboard').querySelector('#'+projetos_selecionados_id[i]+'').innerText;

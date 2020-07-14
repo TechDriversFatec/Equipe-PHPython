@@ -66,13 +66,14 @@ function getProjeto(){
     
     
     xhrGetProjeto = new XMLHttpRequest();
-   
+    
     xhrGetProjeto.open('GET', URLGETPROJETOS+codProjeto, true);
     xhrGetProjeto.onreadystatechange = function(){
         if(xhrGetProjeto.readyState == 4){
             if(xhrGetProjeto.status == 200){
                 preencheCamposCadasProjeto(JSON.parse(xhrGetProjeto.responseText));     
                 getAllProjects();
+                
             }else if(xhrGetProjeto.status == 404){
 
             }
@@ -107,13 +108,17 @@ function postProjeto(){
     xhrPostProjeto.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhrPostProjeto.setRequestHeader("X-CSRFToken", csrftoken);
     xhrPostProjeto.setRequestHeader("withCredentials", 'True');
-    xhrPostProjeto.onload = function(){
+    xhrPostProjeto.onreadystatechange = function(){
         if(xhrPostProjeto.readyState == 4){
             if(xhrPostProjeto.status == 201){
                 
                 getProjeto();
                 carregaTabelaProjeto();
                 
+                
+                if((json.length+1) > 1){
+                    habilitaRecuoCodProjeto();
+                }
                 
             }
         }
@@ -137,7 +142,7 @@ function postProjeto(){
         habilitaBtnNovoProjeto();
         desabilitaBtnGravaProjeto();
         desabilitaBtnCancelarProjeto();
-        habilitaRecuoCodProjeto();
+        
         habilitaBtnExcluirProjeto();
         habilitaBtnAtualizarProjeto();
     }
@@ -208,7 +213,6 @@ function putProjeto(){
 }
 
 function deleteProjeto(){
-    recuarCodProjeto();
     codProjeto = document.getElementById("codProjeto").value;
     
 
@@ -217,10 +221,13 @@ function deleteProjeto(){
     xhrDeleteProjeto.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhrDeleteProjeto.setRequestHeader("X-CSRFToken", csrftoken)
     xhrDeleteProjeto.setRequestHeader("withCredentials", 'True');
-    xhrDeleteProjeto.onload = function () {
+    xhrDeleteProjeto.onreadystatechange = function () {
         if(xhrDeleteProjeto.readyState == 4){
             if(xhrDeleteProjeto.status == 204){
+               
+               
                 carregaTabelaProjeto();
+                
                          
             }
         }
@@ -228,6 +235,7 @@ function deleteProjeto(){
     }
 
     xhrDeleteProjeto.send();
+    recuarCodProjeto(codProjeto);
     
      
       
@@ -243,17 +251,16 @@ function clicaProjeto(){
     
     xhrAbreProjeto = new XMLHttpRequest();
     xhrAbreProjeto.open('GET', URLGETPROJETOS, true);
-    
     xhrAbreProjeto.onreadystatechange = function(){
         
         maiorvalor = 0;
         if(xhrAbreProjeto.readyState == 4){
             if(xhrAbreProjeto.status == 200){
-                json = (JSON.parse(xhrAbreProjeto.responseText));
+                json_projetos = (JSON.parse(xhrAbreProjeto.responseText));
 
-                for(i = 0; i<json.length;i++){
-                   if(json[i]['prj_id'] > maiorvalor ){
-                        maiorvalor = json[i]['prj_id'];
+                for(i = 0; i<json_projetos.length;i++){
+                   if(json_projetos[i]['prj_id'] > maiorvalor ){
+                        maiorvalor = json_projetos[i]['prj_id'];
                     }              
                 }
                 
@@ -269,39 +276,42 @@ function clicaProjeto(){
                     desabilitaCamposProjeto();
                     desabilitaRecuoCodProjeto();
                 }else{
-                    document.getElementById("codProjeto").value = maiorvalor;
-                    habilitaRecuoCodProjeto();
+                    if(json_projetos.length == 1){
+                        desabilitaAvancoCodProjeto();
+                        desabilitaRecuoCodProjeto();
+                    }else{
+                        habilitaRecuoCodProjeto();
+                    }
+                    document.getElementById('codProjeto').value = maiorvalor;
                     getProjeto();
                 }
 
-            }
-
-            
-        }
-        
+            }else if(xhrAbreProjeto.status == 404){}            
+        }    
     }
     xhrAbreProjeto.send();
-    
-    
-   
-   
-
-    habilitaAvancoCodProjeto();
-    habilitaRecuoCodProjeto();
+ 
     desabilitaBtnCancelarProjeto();
     habilitaBtnNovoProjeto();
     desabilitaBtnGravaProjeto();
     desabilitaAvancoCodProjeto();
-    
-    
     carregaTabelaProjeto();
-    }
+}
 
 function novoProjeto(){
     codProjeto = parseInt(document.getElementById("codProjeto").value);
     if(codProjeto == 0){
         codProjeto = 1;
         document.getElementById("codProjeto").value = codProjeto;
+        habilitaCamposProjeto();
+        habilitaBtnCancelarProjeto();
+        desabilitaBtnNovoProjeto();
+        habilitaBtnGravarProjeto();
+        desabilitaAvancoCodProjeto();
+        desabilitaRecuoCodProjeto();
+        limparCamposCadasProjeto();
+        desabilitaBtnExcluirProjeto();
+        desabilitaBtnAtualizarProjeto();
     }else{
     
      
@@ -357,10 +367,9 @@ function cancelarCadasProjeto(){
     habilitaBtnAtualizarProjeto();
 }
 
-function recuarCodProjeto(){
+function recuarCodProjeto(codAnterior){
     
     codProjeto = parseInt(document.getElementById("codProjeto").value);
-    
     vetor_projeto = [];
     xhrRecuarCod = new XMLHttpRequest();
     xhrRecuarCod.open('GET', URLGETPROJETOS, true);
@@ -373,33 +382,80 @@ function recuarCodProjeto(){
                     
                 }
                  
-                 menorvalor = vetor_projeto.length;
-                 for(i=0;i<vetor_projeto.length;i++){
+                    menorvalor = vetor_projeto[0];
+                    for(i=0;i<vetor_projeto.length;i++){
 
-                    if(codProjeto == vetor_projeto[i]){
-                    codProjeto = vetor_projeto[i-1];
-                 }
-                 if(vetor_projeto[i] < menorvalor){
-                    menorvalor = vetor_projeto[i]; 
-                }    
-
+                        if(codProjeto == vetor_projeto[i]){
+                        codProjeto = vetor_projeto[i-1];
+                    }
                 }
                   
-                      document.getElementById("codProjeto").value = codProjeto;   
+                document.getElementById("codProjeto").value = codProjeto;   
+                
                 if(codProjeto == menorvalor){
                     desabilitaRecuoCodProjeto();
+                    
                 }
-                habilitaAvancoCodProjeto();
-                getProjeto();
-                }else if(xhrRecuarCod.status == 404){ }
-        
+
+                if(vetor_projeto.length > 1){
+                    habilitaAvancoCodProjeto();
+                }
+
+              
+               
+               //AÇÃO ABAIXO EM CONJUNTO COM O DELETE
+                ///codAnterior vindo da function DELETE
+                vetor_projeto.reverse();
+                if(codAnterior != undefined){
+                    if(codAnterior == vetor_projeto[0] && vetor_projeto.length == 1){
+
+                        document.getElementById('codProjeto').value = 0;
+                    }else{
+                        
+                        if(codAnterior == menorvalor){
+                        
+                            document.getElementById('codProjeto').value = vetor_projeto[0];
+                            desabilitaAvancoCodProjeto();
+                            
+                            if(vetor_projeto.length > 2){
+                                habilitaRecuoCodProjeto();
+                            }
+                            
+                        }else{
+                        
+                         for(i=0;i<vetor_projeto.length;i++){
+                            if(codAnterior == vetor_projeto[0]){
+                                vetor_projeto.splice(i,1);
+                                
+                                if(codProjeto == vetor_projeto[0]){
+                                    desabilitaAvancoCodProjeto();
+                                }                               
+                            }   
+                        }
+                    }
+                    }
+                    
+                }
             
+                if(document.getElementById('codProjeto').value == 0){
+                    limparCamposCadasProjeto();
+                    desabilitaCamposProjeto();
+                    getAllProjects();
+                }else{
+                    getProjeto();
+                }
+                
+                
+            }else if(xhrRecuarCod.status == 404){ }
+        
             }
-        }
+            
+            
+        }  
     
 
         xhrRecuarCod.send();
-
+       
 }
 
 function avancarCodProjeto(){
@@ -429,10 +485,12 @@ function avancarCodProjeto(){
 
                 }
                    
-                      document.getElementById("codProjeto").value = codProjeto;   
+                document.getElementById("codProjeto").value = codProjeto;   
+                
                 if(codProjeto == maiorvalor){
                     desabilitaAvancoCodProjeto();
                 }
+                
                 habilitaRecuoCodProjeto();
                 getProjeto();
                 }else if(xhrAvancarProjeto.status == 404){ }
@@ -463,28 +521,26 @@ function habilitaBtnAtualizarProjeto(){
 
 function desabilitaRecuoCodProjeto(){
         document.getElementById("codAnteriorCadasProjeto").disabled = true;
-     if(document.getElementById("codAnteriorCadasProjeto").disabled = true){
+     
        mudaBotao =  document.getElementById("codAnteriorCadasProjeto");
         mudaBotao.style.backgroundColor = "gray";
-}
-    
-}
+ }
 
 function desabilitaAvancoCodProjeto(){
   document.getElementById("codPosteriorCadasProjeto").disabled = true;
-     if(document.getElementById("codPosteriorCadasProjeto").disabled = true){
+     
        mudaBotao =  document.getElementById("codPosteriorCadasProjeto");
         mudaBotao.style.backgroundColor = "gray";
-}
+
 }
 
 function habilitaRecuoCodProjeto(){
    
-   if(document.getElementById("codProjeto").value > 1){ document.getElementById("codAnteriorCadasProjeto").disabled = false;
+    document.getElementById("codAnteriorCadasProjeto").disabled = false;
     mudaBotao =  document.getElementById("codAnteriorCadasProjeto");
     mudaBotao.style.backgroundColor = "#698FEB";
      
-}
+
 }
 
 function habilitaAvancoCodProjeto(){

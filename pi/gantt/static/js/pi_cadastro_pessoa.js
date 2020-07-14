@@ -93,7 +93,7 @@ function gravarHabilidade(){
 
 
 function deleteHabilidade(btn_id_hab){
-    console.log(btn_id_hab);
+    
     novo_id = btn_id_hab.substr(10);
 
     
@@ -335,7 +335,6 @@ function fecharPessoasHabilidades(){
 /*GET AND POST - API*////////////////////////////////////////////////////////////////////
 
 
-
 function preencheCamposCadasPessoa(json){
     document.getElementById("nomePessoa").value = json.pes_nome; 
     document.getElementById("contato").value = json.pes_contato;
@@ -371,15 +370,20 @@ function getPessoa(){
         if(xhrGetPessoa.readyState == 4){
             if(xhrGetPessoa.status == 200){
                 preencheCamposCadasPessoa(JSON.parse(xhrGetPessoa.responseText));     
-                getPessoas_paramenupessoas();
                 
+                
+                
+
+
             
             }else if(xhrGetPessoa.status == 404){
 
             }
-        }      
+        }
+        
     }
     xhrGetPessoa.send();
+    
    }
 }
 
@@ -400,11 +404,15 @@ function postPessoa(){
     xhrPostPessoa.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhrPostPessoa.setRequestHeader("X-CSRFToken", csrftoken);
     xhrPostPessoa.setRequestHeader("withCredentials", 'True');    
-    xhrPostPessoa.onload = function(){
+    xhrPostPessoa.onreadystatechange = function(){
         if(xhrPostPessoa.readyState == 4){
             if(xhrPostPessoa.status == 201){
                 getPessoa();
-                carregaTabelaPessoa();
+                
+                
+                if((json.length+1) > 1){
+                    habilitaRecuoCodPessoa();
+                }
             }
         }
     }
@@ -423,7 +431,8 @@ function postPessoa(){
     habilitaBtnNovaPessoa();
     desabilitaBtnGravaPessoa();
     desabilitaBtnCancelarPessoa();
-    habilitaRecuoCodPessoa();
+    
+    carregaTabelaPessoa();
     habilitaBtnExcluirPessoa();
     habilitaBtnAtualizarPessoa();
 }
@@ -491,8 +500,7 @@ function deletePessoa(){
     xhrDeletePessoa.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhrDeletePessoa.setRequestHeader("X-CSRFToken", csrftoken);
     xhrDeletePessoa.setRequestHeader("withCredentials", 'True');
-    vetor_pessoa = [];
-    xhrDeletePessoa.onload = function () {
+    xhrDeletePessoa.onreadystatechange = function () {
         if(xhrDeletePessoa.readyState == 4){
             if(xhrDeletePessoa.status == 204){
                 carregaTabelaPessoa();          
@@ -500,7 +508,7 @@ function deletePessoa(){
         }  
     }
     xhrDeletePessoa.send();
-    recuarCodPessoa();   
+    recuarCodPessoa(codPessoa);   
 
 }
 
@@ -516,13 +524,13 @@ function clicaPessoas(){
     dialogCadastro.showModal();
  
    
-
+    
     xhrAbrePessoa = new XMLHttpRequest();
     xhrAbrePessoa.open('GET', URLGETPESSOAS, true);
     xhrAbrePessoa.setRequestHeader("X-CSRFToken", csrftoken);
     xhrAbrePessoa.setRequestHeader("withCredentials", 'True');
     xhrAbrePessoa.onreadystatechange = function(){
-        jsonCadasPessoa = [];
+        
         maiorvalor = 0;
         if(xhrAbrePessoa.readyState == 4){
             if(xhrAbrePessoa.status == 200){
@@ -531,7 +539,8 @@ function clicaPessoas(){
                 for(i = 0; i<json.length;i++){
                    if(json[i]['pes_id'] > maiorvalor ){
                         maiorvalor = json[i]['pes_id'];
-                    }              
+                    }     
+                    
                 }
                 
                 if(maiorvalor == 0){
@@ -546,31 +555,23 @@ function clicaPessoas(){
                     desabilitaCamposPessoa();
                     desabilitaRecuoCodPessoa();
                 }else{
-                    document.getElementById("codPessoa").value = maiorvalor;
-                    habilitaRecuoCodPessoa();
+                    if(json.length == 1){
+                        desabilitaAvancoCodPessoa();
+                        desabilitaRecuoCodPessoa();
+                    }else{
+                        habilitaRecuoCodPessoa();
+                    }
+                    document.getElementById('codPessoa').value = maiorvalor;
                     getPessoa();
-                }
-
-               
-            }else if(xhrAbrePessoa.status == 404){}
-
-            
-        }
-        
-    }
-    
-    
+                }              
+            }else if(xhrAbrePessoa.status == 404){}    
+        }    
+    }  
     xhrAbrePessoa.send();
-   
-   
-
-    habilitaAvancoCodPessoa();
-    habilitaRecuoCodPessoa();
     desabilitaBtnCancelarPessoa();
     habilitaBtnNovaPessoa();
     desabilitaBtnGravaPessoa();
     desabilitaAvancoCodPessoa();
-    
     carregaTabelaPessoa();
   
 }
@@ -609,8 +610,9 @@ function novaPessoa(){
         }
         document.getElementById("codPessoa").value = codPessoa;
     }
-    }
     xhrNovaPessoa.send();
+    }
+    
     
     habilitaCamposPessoa();
     habilitaBtnCancelarPessoa();
@@ -639,7 +641,7 @@ function cancelarCadasPessoa(){
     habilitaBtnAtualizarPessoa();
 }
 
-function recuarCodPessoa(){ 
+function recuarCodPessoa(codAnterior){ 
  
     
     codPessoa = parseInt(document.getElementById("codPessoa").value);
@@ -655,36 +657,71 @@ function recuarCodPessoa(){
                     vetor_pessoa.push(json[i]['pes_id']);
                     
                 }
-                
-                
-                 
-                 menorvalor = vetor_pessoa.length;
+                 menorvalor = vetor_pessoa[0];
                  for(i=0;i<vetor_pessoa.length;i++){
 
                     if(codPessoa == vetor_pessoa[i]){
                     codPessoa = vetor_pessoa[i-1];
-                 }
-                 if(vetor_pessoa[i] < menorvalor){
-                    menorvalor = vetor_pessoa[i]; 
-                }    
-
-                
+                    }              
                 }
                    
                    
-                      document.getElementById("codPessoa").value = codPessoa; 
+                document.getElementById("codPessoa").value = codPessoa; 
                       
+                
                 
                 if(codPessoa == menorvalor){
                     desabilitaRecuoCodPessoa();
+                    
                 }
 
+                
                
-                
-                
-                habilitaAvancoCodPessoa();
 
-                getPessoa();
+                if(vetor_pessoa.length > 1){
+                    
+                    habilitaAvancoCodPessoa();
+                }
+               
+               //AÇÃO ABAIXO EM CONJUNTO COM O DELETE
+                ///codAnterior vindo da function DELETE
+                vetor_pessoa.reverse();
+                if(codAnterior != undefined){
+                    if(codAnterior == vetor_pessoa[0] && vetor_pessoa.length == 1){
+
+                        document.getElementById('codPessoa').value = 0;
+                    }else{
+                        
+                        if(codAnterior == menorvalor){
+                        
+                            document.getElementById('codPessoa').value = vetor_pessoa[0];
+                            desabilitaAvancoCodPessoa();
+                            
+                            if(vetor_pessoa.length > 2){
+                                habilitaRecuoCodPessoa();
+                            }
+                            
+                        }else{
+                         for(i=0;i<vetor_pessoa.length;i++){
+                            if(codAnterior == vetor_pessoa[0]){
+                                vetor_pessoa.splice(i,1);
+                                if(codPessoa == vetor_pessoa[0]){
+                                    desabilitaAvancoCodPessoa();
+                                }                               
+                            }   
+                        }
+                    }
+                    }
+                    
+                }
+            
+                if(document.getElementById('codPessoa').value == 0){
+                    limparCamposCadasPessoa();
+                    desabilitaCamposPessoa();
+                }else{
+                    getPessoa();
+                }
+                
                 
             }else if(xhrRecuarCod.status == 404){ }
         
@@ -727,10 +764,13 @@ function avancarCodPessoa(){
 
                 }
                    
-                      document.getElementById("codPessoa").value = codPessoa;   
+                document.getElementById("codPessoa").value = codPessoa;
+                
+                
                 if(codPessoa == maiorvalor){
                     desabilitaAvancoCodPessoa();
                 }
+
                 habilitaRecuoCodPessoa();
                 getPessoa();
                 }else if(xhrAvancarPessoa.status == 404){ }
@@ -764,11 +804,8 @@ function habilitaBtnAtualizarPessoa(){
 
 function desabilitaRecuoCodPessoa(){
         document.getElementById("codAnteriorCadasPessoa").disabled = true;
-     
        mudaBotao =  document.getElementById("codAnteriorCadasPessoa");
         mudaBotao.style.backgroundColor = "gray";
-
-    
 }
 
 function desabilitaAvancoCodPessoa(){
@@ -780,13 +817,11 @@ function desabilitaAvancoCodPessoa(){
 }
 
 function habilitaRecuoCodPessoa(){
-   
-   if(document.getElementById("codPessoa").value > 1){ 
-       document.getElementById("codAnteriorCadasPessoa").disabled = false;
+     
+    document.getElementById("codAnteriorCadasPessoa").disabled = false;
     mudaBotao =  document.getElementById("codAnteriorCadasPessoa");
     mudaBotao.style.backgroundColor = "#698FEB";
      
-}
 }
 
 function habilitaAvancoCodPessoa(){

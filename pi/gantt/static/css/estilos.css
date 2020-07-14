@@ -521,7 +521,7 @@ label{
 }
 
 #right_center #datas #datas_list label{
-    margin-left: 5px;
+    margin-left: -5px;
 }
 
 #right_center #datas #datas_list #dt_prazo{
